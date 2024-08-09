@@ -1,5 +1,7 @@
+import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
+import 'package:aplikasi_kpri_desktop/views/main_view.dart';
+import 'package:aplikasi_kpri_desktop/widgets/text_form_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -35,7 +37,7 @@ class _LoginViewState extends State<LoginView> {
                   decoration: BoxDecoration(
                     border: Border.all(
                       width: 2,
-                      color: Theme.of(context).colorScheme.primaryContainer,
+                      color: GlobalColors.background,
                     ),
                   ),
                   child: Column(
@@ -50,56 +52,31 @@ class _LoginViewState extends State<LoginView> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      TextFormField(
+                      TextFormWidget(
                         controller: _usernameController,
-                        keyboardType: TextInputType.text,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          filled: false,
-                          hintText: "Username",
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 15,
-                            vertical: 12,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                              width: 0,
-                              style: BorderStyle.none,
-                            ),
-                          ),
-                        ),
+                        text: "Username",
                       ),
                       const SizedBox(height: 20),
-                      TextFormField(
+                      TextFormWidget(
                         controller: _passwordController,
-                        keyboardType: TextInputType.text,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          filled: false,
-                          hintText: "Password",
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 15,
-                            vertical: 12,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            borderSide: const BorderSide(
-                              width: 0,
-                              style: BorderStyle.none,
-                            ),
-                          ),
-                        ),
+                        text: "Password",
                       ),
                       const SizedBox(height: 20),
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: Material(
-                          color: Theme.of(context).colorScheme.primary,
+                          color: GlobalColors.primary,
                           borderRadius: BorderRadius.circular(8.0),
                           elevation: 4.0,
                           child: InkWell(
-                            onTap: () => {},
+                            onTap: () => {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: ((context) => const MainView()),
+                                ),
+                              ),
+                            },
                             borderRadius: BorderRadius.circular(8.0),
                             child: const SizedBox(
                               width: 150,

@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
             seedColor: const Color.fromRGBO(54, 174, 122, 0),
           ),
           useMaterial3: true,
-          fontFamily: 'Poppins',
+          fontFamily: 'Lato',
         ),
         home: const LoginView());
   }
