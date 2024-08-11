@@ -3,9 +3,12 @@ import 'dart:convert';
 import 'package:aplikasi_kpri_desktop/models/auth_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:aplikasi_kpri_desktop/api/api_connections.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import "package:http/http.dart" as http;
 
 part 'auth_provider.g.dart';
+
+const storage = FlutterSecureStorage();
 
 @riverpod
 class AuthNotifier extends _$AuthNotifier {
@@ -22,6 +25,7 @@ class AuthNotifier extends _$AuthNotifier {
     );
     if (response.statusCode == 200) {
       final authResponse = Authentication.fromJson(jsonDecode(response.body));
+      await storage.write(key: 'authToken', value: authResponse.accessToken);
       state = AsyncData(authResponse);
     } else {
       throw Exception('Username atau password salah');

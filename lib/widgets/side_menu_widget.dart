@@ -3,7 +3,9 @@ import 'package:aplikasi_kpri_desktop/data/side_menu_data.dart';
 import 'package:flutter/material.dart';
 
 class SideMenuWidget extends StatefulWidget {
-  const SideMenuWidget({super.key});
+  const SideMenuWidget({super.key, required this.onMenuItemSelected});
+
+  final void Function(int index) onMenuItemSelected;
 
   @override
   State<SideMenuWidget> createState() => _SideMenuWidgetState();
@@ -64,9 +66,12 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
         color: isSelected ? GlobalColors.secondary : Colors.transparent,
       ),
       child: InkWell(
-        onTap: () => setState(() {
-          selectedIndex = index;
-        }),
+        onTap: () {
+          setState(() {
+            selectedIndex = index;
+          });
+          widget.onMenuItemSelected(index);
+        },
         child: Row(
           children: [
             Padding(
