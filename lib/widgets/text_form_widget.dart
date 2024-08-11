@@ -13,7 +13,7 @@ class TextFormWidget extends StatelessWidget {
     return TextFormField(
       controller: controller,
       keyboardType: TextInputType.text,
-      obscureText: true,
+      obscureText: text == "Password" ? true : false,
       decoration: InputDecoration(
         filled: false,
         hintText: text,
@@ -24,7 +24,7 @@ class TextFormWidget extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: const BorderSide(
-            color: GlobalColors.background,
+            color: GlobalColors.header,
             width: 1.0,
           ),
         ),

@@ -20,9 +20,11 @@ class MainView extends StatelessWidget {
             ),
             Expanded(
               flex: 10,
-              child: Container(
-                color: GlobalColors.background,
-                child: const DashBoardWidget(),
+              child: SizedBox.expand(
+                child: Container(
+                  color: GlobalColors.background,
+                  child: const DashBoardWidget(),
+                ),
               ),
             ),
           ],

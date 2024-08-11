@@ -1,3 +1,4 @@
+import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/data/bar_chart_data.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -11,7 +12,7 @@ class BarChartCard extends StatelessWidget {
     final data = BarData();
 
     return CustomCardWidget(
-      color: Colors.white,
+      color: GlobalColors.white,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
@@ -32,7 +33,7 @@ class BarChartCard extends StatelessWidget {
                         return BarTooltipItem(
                           rod.toY.toString(),
                           const TextStyle(
-                            color: Colors.white,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         );

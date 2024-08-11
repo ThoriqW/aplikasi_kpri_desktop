@@ -16,7 +16,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
   Widget build(BuildContext context) {
     final data = SideMenuData();
     return Container(
-      color: Colors.white,
+      color: GlobalColors.white,
       child: Column(
         children: [
           Container(
@@ -30,12 +30,14 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                   "assets/images/koperasi_indonesia.png",
                   width: 50,
                 ),
-                Text(
-                  "APLIKASI KOPERASI",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                Expanded(
+                  child: Text(
+                    "APLIKASI KOPERASI",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
                 )
               ],
@@ -79,14 +81,16 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                     : GlobalColors.onBackground,
               ),
             ),
-            Text(
-              data.menu[index].title,
-              style: TextStyle(
-                color: isSelected
-                    ? GlobalColors.primary
-                    : GlobalColors.onBackground,
-                fontSize: 16,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            Expanded(
+              child: Text(
+                data.menu[index].title,
+                style: TextStyle(
+                  color: isSelected
+                      ? GlobalColors.primary
+                      : GlobalColors.onBackground,
+                  fontSize: 16,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                ),
               ),
             )
           ],

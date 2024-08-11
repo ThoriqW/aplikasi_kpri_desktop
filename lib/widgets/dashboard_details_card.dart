@@ -19,7 +19,7 @@ class DashboardDetailsCard extends StatelessWidget {
         height: 80,
         padding: EdgeInsets.zero,
         child: Container(
-          color: Colors.white,
+          color: GlobalColors.white,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

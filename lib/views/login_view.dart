@@ -1,24 +1,51 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
+import 'package:aplikasi_kpri_desktop/providers/auth_provider.dart';
 import 'package:aplikasi_kpri_desktop/views/main_view.dart';
 import 'package:aplikasi_kpri_desktop/widgets/text_form_widget.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
-class LoginView extends StatefulWidget {
+class LoginView extends ConsumerStatefulWidget {
   const LoginView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  ConsumerState<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _LoginViewState extends ConsumerState<LoginView> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  bool _errorLogin = false;
+
+  Future<void> _login() async {
+    try {
+      final authNotifier = ref.watch(authNotifierProvider.notifier);
+      await authNotifier.login(
+        _usernameController.text,
+        _passwordController.text,
+      );
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => const MainView(),
+          ),
+        );
+      }
+    } catch (e) {
+      setState(() {
+        _errorLogin = true;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: const EdgeInsets.all(60),
+        color: GlobalColors.white,
+        padding: const EdgeInsets.all(60),
         child: Center(
           child: Row(
             children: [
@@ -36,8 +63,7 @@ class _LoginViewState extends State<LoginView> {
                   padding: const EdgeInsets.all(50),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      width: 2,
-                      color: GlobalColors.background,
+                      color: GlobalColors.header,
                     ),
                   ),
                   child: Column(
@@ -69,13 +95,8 @@ class _LoginViewState extends State<LoginView> {
                           borderRadius: BorderRadius.circular(8.0),
                           elevation: 4.0,
                           child: InkWell(
-                            onTap: () => {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: ((context) => const MainView()),
-                                ),
-                              ),
+                            onTap: () {
+                              _login();
                             },
                             borderRadius: BorderRadius.circular(8.0),
                             child: const SizedBox(
@@ -86,7 +107,7 @@ class _LoginViewState extends State<LoginView> {
                                   "Masuk",
                                   style: TextStyle(
                                     fontSize: 16,
-                                    color: Colors.white,
+                                    color: GlobalColors.white,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -95,6 +116,14 @@ class _LoginViewState extends State<LoginView> {
                           ),
                         ),
                       ),
+                      if (_errorLogin)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Text(
+                            "Username atau password salah",
+                            style: TextStyle(color: Colors.red[400]),
+                          ),
+                        )
                     ],
                   ),
                 ),
