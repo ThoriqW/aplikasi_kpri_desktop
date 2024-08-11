@@ -10,6 +10,7 @@ class SideMenuData {
     MenuModel(icon: Icons.description, title: "Laporan"),
     MenuModel(icon: Icons.notifications, title: "Pengumuman"),
     MenuModel(icon: Icons.help, title: "Pengaduan"),
+    MenuModel(icon: Icons.admin_panel_settings, title: "Admin"),
     MenuModel(icon: Icons.settings, title: "Pengaturan"),
   ];
 }

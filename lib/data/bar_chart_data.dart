@@ -125,17 +125,6 @@ class BarData {
         )
       ],
     ),
-    BarChartGroupData(
-      x: 120,
-      barRods: [
-        BarChartRodData(
-          toY: 33.00,
-          color: GlobalColors.primary,
-          width: 50,
-          borderRadius: BorderRadius.zero,
-        )
-      ],
-    ),
   ];
 
   final leftTitle = {

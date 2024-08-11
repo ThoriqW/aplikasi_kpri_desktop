@@ -10,11 +10,11 @@ final currencyFormatter = NumberFormat.currency(
 
 class DashboardCardData {
   final dashboardData = <DashboardCardModel>[
-    DashboardCardModel(
+    const DashboardCardModel(
       value: "547",
       title: "ANGGOTA AKTIF",
     ),
-    DashboardCardModel(
+    const DashboardCardModel(
       value: "34",
       title: "ANGGOTA TIDAK AKTIF",
     ),

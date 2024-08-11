@@ -1,6 +1,8 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
+import 'package:aplikasi_kpri_desktop/widgets/admin_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/dashboard_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/member_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/setting_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/side_menu_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +24,12 @@ class _MainViewState extends State<MainView> {
           break;
         case 1:
           _currentView = const MemberWidget();
+          break;
+        case 7:
+          _currentView = const AdminWidget();
+          break;
+        case 8:
+          _currentView = const SettingWidget();
           break;
         default:
           _currentView = const DashBoardWidget();

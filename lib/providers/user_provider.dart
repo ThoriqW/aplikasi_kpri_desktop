@@ -37,3 +37,31 @@ Future<User> getCurrentUser(GetCurrentUserRef ref) async {
     throw Exception(e);
   }
 }
+
+@riverpod
+Future registerUser(
+    RegisterUserRef ref, String username, String password) async {
+  final String? token = await storage.read(key: 'authToken');
+
+  if (token == null) {
+    throw Exception('No authentication token found');
+  }
+
+  try {
+    final response = await http.post(
+      Uri.parse('$baseUrl/api/v1/users/register'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({'username': username, 'password': password}),
+    );
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      return response.body;
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
+}
