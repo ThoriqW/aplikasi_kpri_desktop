@@ -2,17 +2,22 @@ import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
-  const ButtonWidget({super.key, required this.text, required this.onTap});
+  const ButtonWidget(
+      {super.key,
+      required this.text,
+      required this.onTap,
+      this.backgroundColor});
 
   final String text;
   final Function onTap;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.bottomLeft,
       child: Material(
-        color: GlobalColors.primary,
+        color: backgroundColor ?? GlobalColors.primary,
         borderRadius: BorderRadius.circular(8.0),
         elevation: 4.0,
         child: InkWell(

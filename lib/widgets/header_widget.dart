@@ -1,5 +1,8 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
+import 'package:aplikasi_kpri_desktop/providers/auth_provider.dart';
 import 'package:aplikasi_kpri_desktop/providers/user_provider.dart';
+import 'package:aplikasi_kpri_desktop/views/login_view.dart';
+import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -42,34 +45,24 @@ class HeaderWidget extends ConsumerWidget {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  width: 300,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: GlobalColors.header,
-                          width: 1.0,
-                        ),
+                ButtonWidget(
+                  text: "Keluar",
+                  onTap: () async {
+                    final authNotifier =
+                        ref.watch(authNotifierProvider.notifier);
+                    await authNotifier.logout();
+
+                    if (!context.mounted) return;
+
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const LoginView(),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: GlobalColors.primary,
-                          width: 2.0,
-                        ),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(
-                        vertical: 5,
-                      ),
-                      hintText: "Cari",
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: GlobalColors.onBackground,
-                        size: 21,
-                      ),
-                    ),
-                  ),
-                ),
+                    );
+                  },
+                  backgroundColor: Colors.redAccent,
+                )
               ],
             );
           },

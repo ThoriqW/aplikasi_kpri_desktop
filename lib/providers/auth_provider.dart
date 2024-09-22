@@ -31,4 +31,12 @@ class AuthNotifier extends _$AuthNotifier {
       throw Exception('Username atau password salah');
     }
   }
+
+  Future<void> logout() async {
+    try {
+      storage.delete(key: "auth");
+    } catch (e) {
+      throw Exception('Error logout');
+    }
+  }
 }

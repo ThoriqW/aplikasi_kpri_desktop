@@ -1,6 +1,7 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/auth_provider.dart';
 import 'package:aplikasi_kpri_desktop/views/main_view.dart';
+import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:aplikasi_kpri_desktop/widgets/text_form_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +16,6 @@ class LoginView extends ConsumerStatefulWidget {
 class _LoginViewState extends ConsumerState<LoginView> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  bool _errorLogin = false;
 
   Future<void> _login() async {
     try {
@@ -34,9 +33,16 @@ class _LoginViewState extends ConsumerState<LoginView> {
         );
       }
     } catch (e) {
-      setState(() {
-        _errorLogin = true;
-      });
+      if (!mounted) return;
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const CustomAlertDialog(
+            alertTitle: "Error Login",
+            alertDesc: "Password atau username salah",
+          ); // Show the error dialog on login failure
+        },
+      );
     }
   }
 
@@ -116,14 +122,6 @@ class _LoginViewState extends ConsumerState<LoginView> {
                           ),
                         ),
                       ),
-                      if (_errorLogin)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Text(
-                            "Username atau password salah",
-                            style: TextStyle(color: Colors.red[400]),
-                          ),
-                        )
                     ],
                   ),
                 ),
