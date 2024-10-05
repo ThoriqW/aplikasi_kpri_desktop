@@ -120,7 +120,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                         child: Container(
                           padding: const EdgeInsets.all(9),
                           child: Text(
-                            (startIndex + i + 1).toString(),
+                            paginatedMembers[i]['id'].toString(),
                             style: const TextStyle(
                               color: GlobalColors.onBackground,
                               fontWeight: FontWeight.w500,
@@ -148,7 +148,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                                   setState(() {
                                     goToUpdateMember = true;
                                     contentUpdateMember = UpdateMemberWidget(
-                                      id: (startIndex + i + 1).toString(),
+                                      id: paginatedMembers[i]['id'].toString(),
                                       onComplete: () {
                                         setState(() {
                                           goToUpdateMember = false;

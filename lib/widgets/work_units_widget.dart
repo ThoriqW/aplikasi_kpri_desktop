@@ -18,7 +18,6 @@ class _WorkUnitsDropdownState extends ConsumerState<WorkUnitsDropdown> {
 
     return workUnitsAsync.when(
       data: (workUnits) {
-        workUnits.data.map((e) => print(e.id));
         return const SizedBox.shrink();
       },
       loading: () => const CircularProgressIndicator(),

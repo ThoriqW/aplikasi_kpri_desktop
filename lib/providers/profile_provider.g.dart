@@ -6,7 +6,7 @@ part of 'profile_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$updateProfileHash() => r'ee1275e280ac3d74daa74fd81469d9f9a8959924';
+String _$updateProfileHash() => r'80a399e6645fe22a26f192e0c959c7705fc1ef59';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -40,11 +40,11 @@ class UpdateProfileFamily extends Family<AsyncValue> {
 
   /// See also [updateProfile].
   UpdateProfileProvider call(
-    String fullName,
-    String nik,
-    String noHp,
-    String address,
-    DateTime dateOfBirth,
+    String? fullName,
+    String? nik,
+    String? noHp,
+    String? address,
+    DateTime? dateOfBirth,
   ) {
     return UpdateProfileProvider(
       fullName,
@@ -87,11 +87,11 @@ class UpdateProfileFamily extends Family<AsyncValue> {
 class UpdateProfileProvider extends AutoDisposeFutureProvider<Object?> {
   /// See also [updateProfile].
   UpdateProfileProvider(
-    String fullName,
-    String nik,
-    String noHp,
-    String address,
-    DateTime dateOfBirth,
+    String? fullName,
+    String? nik,
+    String? noHp,
+    String? address,
+    DateTime? dateOfBirth,
   ) : this._internal(
           (ref) => updateProfile(
             ref as UpdateProfileRef,
@@ -131,11 +131,11 @@ class UpdateProfileProvider extends AutoDisposeFutureProvider<Object?> {
     required this.dateOfBirth,
   }) : super.internal();
 
-  final String fullName;
-  final String nik;
-  final String noHp;
-  final String address;
-  final DateTime dateOfBirth;
+  final String? fullName;
+  final String? nik;
+  final String? noHp;
+  final String? address;
+  final DateTime? dateOfBirth;
 
   @override
   Override overrideWith(
@@ -189,19 +189,19 @@ class UpdateProfileProvider extends AutoDisposeFutureProvider<Object?> {
 
 mixin UpdateProfileRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `fullName` of this provider.
-  String get fullName;
+  String? get fullName;
 
   /// The parameter `nik` of this provider.
-  String get nik;
+  String? get nik;
 
   /// The parameter `noHp` of this provider.
-  String get noHp;
+  String? get noHp;
 
   /// The parameter `address` of this provider.
-  String get address;
+  String? get address;
 
   /// The parameter `dateOfBirth` of this provider.
-  DateTime get dateOfBirth;
+  DateTime? get dateOfBirth;
 }
 
 class _UpdateProfileProviderElement
@@ -209,15 +209,15 @@ class _UpdateProfileProviderElement
   _UpdateProfileProviderElement(super.provider);
 
   @override
-  String get fullName => (origin as UpdateProfileProvider).fullName;
+  String? get fullName => (origin as UpdateProfileProvider).fullName;
   @override
-  String get nik => (origin as UpdateProfileProvider).nik;
+  String? get nik => (origin as UpdateProfileProvider).nik;
   @override
-  String get noHp => (origin as UpdateProfileProvider).noHp;
+  String? get noHp => (origin as UpdateProfileProvider).noHp;
   @override
-  String get address => (origin as UpdateProfileProvider).address;
+  String? get address => (origin as UpdateProfileProvider).address;
   @override
-  DateTime get dateOfBirth => (origin as UpdateProfileProvider).dateOfBirth;
+  DateTime? get dateOfBirth => (origin as UpdateProfileProvider).dateOfBirth;
 }
 
 String _$getProfileHash() => r'dbbbca4abe92481eb9b261ba17e1d7e82c90e64b';

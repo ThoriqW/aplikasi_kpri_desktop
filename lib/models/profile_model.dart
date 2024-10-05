@@ -1,6 +1,6 @@
 class Profile {
-  final String fullName;
-  final String nik;
+  final String? fullName;
+  final String? nik;
   final String? phoneNumber;
   final String? address;
   final DateTime? dateOfBirth;

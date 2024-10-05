@@ -30,12 +30,14 @@ class _ProfileWidgetState extends ConsumerState<ProfileWidget> {
         color: GlobalColors.white,
         child: getProfile.when(
           data: (profile) {
-            nameController.text = profile.fullName;
-            nikController.text = profile.nik;
-            nomorHpController.text = profile.phoneNumber!;
-            alamatController.text = profile.address!;
-            tanggalLahirController.text =
-                profile.dateOfBirth.toString().split(" ")[0];
+            nameController.text = profile.fullName ?? '';
+            nikController.text = profile.nik ?? '';
+            nomorHpController.text = profile.phoneNumber ?? '';
+            alamatController.text = profile.address ?? '';
+            profile.dateOfBirth != null
+                ? tanggalLahirController.text =
+                    profile.dateOfBirth.toString().split(" ")[0]
+                : tanggalLahirController.text = '';
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -106,13 +108,15 @@ class _ProfileWidgetState extends ConsumerState<ProfileWidget> {
                       onTap: () async {
                         try {
                           final addUser = ref.watch(updateProfileProvider(
-                                  nameController.text,
-                                  nikController.text,
-                                  nomorHpController.text,
-                                  alamatController.text,
-                                  DateFormat('yyyy-MM-dd')
-                                      .parse(tanggalLahirController.text))
-                              .future);
+                            nameController.text,
+                            nikController.text,
+                            nomorHpController.text,
+                            alamatController.text,
+                            tanggalLahirController.text != ''
+                                ? DateFormat('yyyy-MM-dd')
+                                    .parse(tanggalLahirController.text)
+                                : null,
+                          ).future);
                           await addUser;
                           if (mounted) {
                             showDialog(
