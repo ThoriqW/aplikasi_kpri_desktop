@@ -1,3 +1,4 @@
+import 'package:aplikasi_kpri_desktop/widgets/data_member_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/header_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,8 @@ class MemberWidget extends StatelessWidget {
           children: [
             SizedBox(height: 20),
             HeaderWidget(),
+            SizedBox(height: 20),
+            DataMemberWidget(),
           ],
         ),
       ),

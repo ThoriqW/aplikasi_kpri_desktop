@@ -66,8 +66,7 @@ class HeaderWidget extends ConsumerWidget {
               ],
             );
           },
-          error: (error, stackTrace) =>
-              const Text('Oops, something unexpected happened'),
+          error: (error, stackTrace) => const Text('Gagal terhubung ke api'),
           loading: () => const LinearProgressIndicator(),
         ));
   }

@@ -1,21 +1,22 @@
-class Profile {
+class Member {
   final String fullName;
   final String nik;
   final String? phoneNumber;
   final String? address;
   final DateTime? dateOfBirth;
+  final int workUnitId;
 
-  Profile({
-    required this.fullName,
-    required this.nik,
-    required this.phoneNumber,
-    required this.address,
-    required this.dateOfBirth,
-  });
+  Member(
+      {required this.fullName,
+      required this.nik,
+      required this.phoneNumber,
+      required this.address,
+      required this.dateOfBirth,
+      required this.workUnitId});
 
-  factory Profile.fromJson(Map<String, dynamic> json) {
+  factory Member.fromJson(Map<String, dynamic> json) {
     final data = json['data'] ?? {};
-    return Profile(
+    return Member(
       fullName: data['fullName'] ?? '',
       nik: data['nik'] ?? '',
       phoneNumber: data['phoneNumber'] ?? '',
@@ -23,6 +24,7 @@ class Profile {
       dateOfBirth: data['dateOfBirth'] != null
           ? DateTime.parse(data['dateOfBirth'])
           : null,
+      workUnitId: data['workUnitId'] ?? 0,
     );
   }
 }

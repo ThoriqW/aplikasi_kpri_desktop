@@ -6,7 +6,7 @@ part of 'profile_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$updateProfileHash() => r'a743b6d3b16d8e9b66100d9f9cc09a1757bb4990';
+String _$updateProfileHash() => r'ee1275e280ac3d74daa74fd81469d9f9a8959924';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -34,7 +34,7 @@ class _SystemHash {
 const updateProfileProvider = UpdateProfileFamily();
 
 /// See also [updateProfile].
-class UpdateProfileFamily extends Family<AsyncValue<Profile?>> {
+class UpdateProfileFamily extends Family<AsyncValue> {
   /// See also [updateProfile].
   const UpdateProfileFamily();
 
@@ -84,7 +84,7 @@ class UpdateProfileFamily extends Family<AsyncValue<Profile?>> {
 }
 
 /// See also [updateProfile].
-class UpdateProfileProvider extends AutoDisposeFutureProvider<Profile?> {
+class UpdateProfileProvider extends AutoDisposeFutureProvider<Object?> {
   /// See also [updateProfile].
   UpdateProfileProvider(
     String fullName,
@@ -139,7 +139,7 @@ class UpdateProfileProvider extends AutoDisposeFutureProvider<Profile?> {
 
   @override
   Override overrideWith(
-    FutureOr<Profile?> Function(UpdateProfileRef provider) create,
+    FutureOr<Object?> Function(UpdateProfileRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -160,7 +160,7 @@ class UpdateProfileProvider extends AutoDisposeFutureProvider<Profile?> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<Profile?> createElement() {
+  AutoDisposeFutureProviderElement<Object?> createElement() {
     return _UpdateProfileProviderElement(this);
   }
 
@@ -187,7 +187,7 @@ class UpdateProfileProvider extends AutoDisposeFutureProvider<Profile?> {
   }
 }
 
-mixin UpdateProfileRef on AutoDisposeFutureProviderRef<Profile?> {
+mixin UpdateProfileRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `fullName` of this provider.
   String get fullName;
 
@@ -205,7 +205,7 @@ mixin UpdateProfileRef on AutoDisposeFutureProviderRef<Profile?> {
 }
 
 class _UpdateProfileProviderElement
-    extends AutoDisposeFutureProviderElement<Profile?> with UpdateProfileRef {
+    extends AutoDisposeFutureProviderElement<Object?> with UpdateProfileRef {
   _UpdateProfileProviderElement(super.provider);
 
   @override

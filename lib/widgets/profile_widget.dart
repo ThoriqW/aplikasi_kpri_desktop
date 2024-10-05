@@ -32,8 +32,8 @@ class _ProfileWidgetState extends ConsumerState<ProfileWidget> {
           data: (profile) {
             nameController.text = profile.fullName;
             nikController.text = profile.nik;
-            nomorHpController.text = profile.phoneNumber;
-            alamatController.text = profile.address;
+            nomorHpController.text = profile.phoneNumber!;
+            alamatController.text = profile.address!;
             tanggalLahirController.text =
                 profile.dateOfBirth.toString().split(" ")[0];
             return Column(

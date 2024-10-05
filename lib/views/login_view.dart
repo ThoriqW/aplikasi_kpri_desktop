@@ -40,7 +40,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
           return const CustomAlertDialog(
             alertTitle: "Error Login",
             alertDesc: "Password atau username salah",
-          ); // Show the error dialog on login failure
+          );
         },
       );
     }
