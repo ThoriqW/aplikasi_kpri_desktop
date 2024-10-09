@@ -1,6 +1,7 @@
 class Member {
   final String fullName;
   final String nik;
+  final String? nomorAnggota;
   final String? phoneNumber;
   final String? address;
   final DateTime? dateOfBirth;
@@ -9,6 +10,7 @@ class Member {
   Member(
       {required this.fullName,
       required this.nik,
+      required this.nomorAnggota,
       required this.phoneNumber,
       required this.address,
       required this.dateOfBirth,
@@ -19,6 +21,7 @@ class Member {
     return Member(
       fullName: data['fullName'] ?? '',
       nik: data['nik'] ?? '',
+      nomorAnggota: data['memberNumber'] ?? '',
       phoneNumber: data['phoneNumber'] ?? '',
       address: data['address'] ?? '',
       dateOfBirth: data['dateOfBirth'] != null

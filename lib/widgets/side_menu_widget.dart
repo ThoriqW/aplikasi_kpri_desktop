@@ -18,7 +18,12 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
   Widget build(BuildContext context) {
     final data = SideMenuData();
     return Container(
-      color: GlobalColors.white,
+      decoration: const BoxDecoration(
+        color: GlobalColors.white,
+        border: Border(
+          right: BorderSide(color: GlobalColors.secondary, width: 3),
+        ),
+      ),
       child: Column(
         children: [
           Container(

@@ -57,7 +57,7 @@ class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
                           alertTitle: "Sukses",
                         );
                       },
-                    );
+                    ).then((value) => ref.refresh(getAllUserProvider));
                   }
                 } else {
                   if (mounted) {

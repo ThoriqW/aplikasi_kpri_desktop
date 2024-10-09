@@ -14,6 +14,7 @@ class HeaderWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final getCurrentUser = ref.watch(getCurrentUserProvider);
     return CustomCardWidget(
+        border: 7,
         color: GlobalColors.white,
         child: getCurrentUser.when(
           data: (user) {

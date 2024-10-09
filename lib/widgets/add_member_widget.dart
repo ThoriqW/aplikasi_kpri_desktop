@@ -22,6 +22,7 @@ class AddMemberWidget extends ConsumerStatefulWidget {
 class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController nikController = TextEditingController();
+  final TextEditingController nomorAnggotaController = TextEditingController();
   final TextEditingController nomorHpController = TextEditingController();
   final TextEditingController alamatController = TextEditingController();
   final TextEditingController tanggalLahirController = TextEditingController();
@@ -60,6 +61,19 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
           ),
           const SizedBox(height: 8),
           TextFormWidget(controller: nikController, text: "NIK"),
+          const SizedBox(height: 8),
+          const Text(
+            "Nomor Anggota",
+            style: TextStyle(
+              color: GlobalColors.onBackground,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          TextFormWidget(
+            controller: nomorAnggotaController,
+            text: "Nomor Anggota",
+          ),
           const SizedBox(height: 8),
           const Text(
             "Nomor HP",
@@ -117,6 +131,7 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                     final addUser = ref.watch(addMemberProvider(
                       nameController.text,
                       nikController.text,
+                      nomorAnggotaController.text,
                       nomorHpController.text,
                       alamatController.text,
                       tanggalLahirController.text != ''

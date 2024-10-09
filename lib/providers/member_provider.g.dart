@@ -6,7 +6,7 @@ part of 'member_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$addMemberHash() => r'5eb9134946853b4a02854223fe34fc45b607ab2a';
+String _$addMemberHash() => r'd071cee9f6916b9a6b455fb9ba18291941fbaa8a';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -42,6 +42,7 @@ class AddMemberFamily extends Family<AsyncValue> {
   AddMemberProvider call(
     String fullName,
     String nik,
+    String nomorAnggota,
     String noHp,
     String address,
     DateTime? dateOfBirth,
@@ -50,6 +51,7 @@ class AddMemberFamily extends Family<AsyncValue> {
     return AddMemberProvider(
       fullName,
       nik,
+      nomorAnggota,
       noHp,
       address,
       dateOfBirth,
@@ -64,6 +66,7 @@ class AddMemberFamily extends Family<AsyncValue> {
     return call(
       provider.fullName,
       provider.nik,
+      provider.nomorAnggota,
       provider.noHp,
       provider.address,
       provider.dateOfBirth,
@@ -92,6 +95,7 @@ class AddMemberProvider extends AutoDisposeFutureProvider<Object?> {
   AddMemberProvider(
     String fullName,
     String nik,
+    String nomorAnggota,
     String noHp,
     String address,
     DateTime? dateOfBirth,
@@ -101,6 +105,7 @@ class AddMemberProvider extends AutoDisposeFutureProvider<Object?> {
             ref as AddMemberRef,
             fullName,
             nik,
+            nomorAnggota,
             noHp,
             address,
             dateOfBirth,
@@ -116,6 +121,7 @@ class AddMemberProvider extends AutoDisposeFutureProvider<Object?> {
           allTransitiveDependencies: AddMemberFamily._allTransitiveDependencies,
           fullName: fullName,
           nik: nik,
+          nomorAnggota: nomorAnggota,
           noHp: noHp,
           address: address,
           dateOfBirth: dateOfBirth,
@@ -131,6 +137,7 @@ class AddMemberProvider extends AutoDisposeFutureProvider<Object?> {
     required super.from,
     required this.fullName,
     required this.nik,
+    required this.nomorAnggota,
     required this.noHp,
     required this.address,
     required this.dateOfBirth,
@@ -139,6 +146,7 @@ class AddMemberProvider extends AutoDisposeFutureProvider<Object?> {
 
   final String fullName;
   final String nik;
+  final String nomorAnggota;
   final String noHp;
   final String address;
   final DateTime? dateOfBirth;
@@ -159,6 +167,7 @@ class AddMemberProvider extends AutoDisposeFutureProvider<Object?> {
         debugGetCreateSourceHash: null,
         fullName: fullName,
         nik: nik,
+        nomorAnggota: nomorAnggota,
         noHp: noHp,
         address: address,
         dateOfBirth: dateOfBirth,
@@ -177,6 +186,7 @@ class AddMemberProvider extends AutoDisposeFutureProvider<Object?> {
     return other is AddMemberProvider &&
         other.fullName == fullName &&
         other.nik == nik &&
+        other.nomorAnggota == nomorAnggota &&
         other.noHp == noHp &&
         other.address == address &&
         other.dateOfBirth == dateOfBirth &&
@@ -188,6 +198,7 @@ class AddMemberProvider extends AutoDisposeFutureProvider<Object?> {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, fullName.hashCode);
     hash = _SystemHash.combine(hash, nik.hashCode);
+    hash = _SystemHash.combine(hash, nomorAnggota.hashCode);
     hash = _SystemHash.combine(hash, noHp.hashCode);
     hash = _SystemHash.combine(hash, address.hashCode);
     hash = _SystemHash.combine(hash, dateOfBirth.hashCode);
@@ -203,6 +214,9 @@ mixin AddMemberRef on AutoDisposeFutureProviderRef<Object?> {
 
   /// The parameter `nik` of this provider.
   String get nik;
+
+  /// The parameter `nomorAnggota` of this provider.
+  String get nomorAnggota;
 
   /// The parameter `noHp` of this provider.
   String get noHp;
@@ -225,6 +239,8 @@ class _AddMemberProviderElement
   String get fullName => (origin as AddMemberProvider).fullName;
   @override
   String get nik => (origin as AddMemberProvider).nik;
+  @override
+  String get nomorAnggota => (origin as AddMemberProvider).nomorAnggota;
   @override
   String get noHp => (origin as AddMemberProvider).noHp;
   @override
@@ -376,7 +392,7 @@ class _GetMemberProviderElement
   String get id => (origin as GetMemberProvider).id;
 }
 
-String _$updateMemberHash() => r'df608aeb9ec7184e58eee6652081f5b5c7802f9c';
+String _$updateMemberHash() => r'33fdfd94643d02d08db84f9cb4820a3bdae3424f';
 
 /// See also [updateMember].
 @ProviderFor(updateMember)
@@ -392,14 +408,20 @@ class UpdateMemberFamily extends Family<AsyncValue> {
     String id,
     String fullName,
     String nik,
-    String username,
+    String nomorAnggota,
+    String noHp,
+    String address,
+    DateTime? dateOfBirth,
     int workUnitId,
   ) {
     return UpdateMemberProvider(
       id,
       fullName,
       nik,
-      username,
+      nomorAnggota,
+      noHp,
+      address,
+      dateOfBirth,
       workUnitId,
     );
   }
@@ -412,7 +434,10 @@ class UpdateMemberFamily extends Family<AsyncValue> {
       provider.id,
       provider.fullName,
       provider.nik,
-      provider.username,
+      provider.nomorAnggota,
+      provider.noHp,
+      provider.address,
+      provider.dateOfBirth,
       provider.workUnitId,
     );
   }
@@ -439,7 +464,10 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
     String id,
     String fullName,
     String nik,
-    String username,
+    String nomorAnggota,
+    String noHp,
+    String address,
+    DateTime? dateOfBirth,
     int workUnitId,
   ) : this._internal(
           (ref) => updateMember(
@@ -447,7 +475,10 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
             id,
             fullName,
             nik,
-            username,
+            nomorAnggota,
+            noHp,
+            address,
+            dateOfBirth,
             workUnitId,
           ),
           from: updateMemberProvider,
@@ -462,7 +493,10 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
           id: id,
           fullName: fullName,
           nik: nik,
-          username: username,
+          nomorAnggota: nomorAnggota,
+          noHp: noHp,
+          address: address,
+          dateOfBirth: dateOfBirth,
           workUnitId: workUnitId,
         );
 
@@ -476,14 +510,20 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
     required this.id,
     required this.fullName,
     required this.nik,
-    required this.username,
+    required this.nomorAnggota,
+    required this.noHp,
+    required this.address,
+    required this.dateOfBirth,
     required this.workUnitId,
   }) : super.internal();
 
   final String id;
   final String fullName;
   final String nik;
-  final String username;
+  final String nomorAnggota;
+  final String noHp;
+  final String address;
+  final DateTime? dateOfBirth;
   final int workUnitId;
 
   @override
@@ -502,7 +542,10 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
         id: id,
         fullName: fullName,
         nik: nik,
-        username: username,
+        nomorAnggota: nomorAnggota,
+        noHp: noHp,
+        address: address,
+        dateOfBirth: dateOfBirth,
         workUnitId: workUnitId,
       ),
     );
@@ -519,7 +562,10 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
         other.id == id &&
         other.fullName == fullName &&
         other.nik == nik &&
-        other.username == username &&
+        other.nomorAnggota == nomorAnggota &&
+        other.noHp == noHp &&
+        other.address == address &&
+        other.dateOfBirth == dateOfBirth &&
         other.workUnitId == workUnitId;
   }
 
@@ -529,7 +575,10 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
     hash = _SystemHash.combine(hash, id.hashCode);
     hash = _SystemHash.combine(hash, fullName.hashCode);
     hash = _SystemHash.combine(hash, nik.hashCode);
-    hash = _SystemHash.combine(hash, username.hashCode);
+    hash = _SystemHash.combine(hash, nomorAnggota.hashCode);
+    hash = _SystemHash.combine(hash, noHp.hashCode);
+    hash = _SystemHash.combine(hash, address.hashCode);
+    hash = _SystemHash.combine(hash, dateOfBirth.hashCode);
     hash = _SystemHash.combine(hash, workUnitId.hashCode);
 
     return _SystemHash.finish(hash);
@@ -546,8 +595,17 @@ mixin UpdateMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `nik` of this provider.
   String get nik;
 
-  /// The parameter `username` of this provider.
-  String get username;
+  /// The parameter `nomorAnggota` of this provider.
+  String get nomorAnggota;
+
+  /// The parameter `noHp` of this provider.
+  String get noHp;
+
+  /// The parameter `address` of this provider.
+  String get address;
+
+  /// The parameter `dateOfBirth` of this provider.
+  DateTime? get dateOfBirth;
 
   /// The parameter `workUnitId` of this provider.
   int get workUnitId;
@@ -564,7 +622,13 @@ class _UpdateMemberProviderElement
   @override
   String get nik => (origin as UpdateMemberProvider).nik;
   @override
-  String get username => (origin as UpdateMemberProvider).username;
+  String get nomorAnggota => (origin as UpdateMemberProvider).nomorAnggota;
+  @override
+  String get noHp => (origin as UpdateMemberProvider).noHp;
+  @override
+  String get address => (origin as UpdateMemberProvider).address;
+  @override
+  DateTime? get dateOfBirth => (origin as UpdateMemberProvider).dateOfBirth;
   @override
   int get workUnitId => (origin as UpdateMemberProvider).workUnitId;
 }

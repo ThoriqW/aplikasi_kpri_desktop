@@ -1,4 +1,5 @@
 import 'package:aplikasi_kpri_desktop/widgets/add_user_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/data_user_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/header_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -7,18 +8,26 @@ class AdminWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: const Column(
-          children: [
-            SizedBox(height: 20),
-            HeaderWidget(),
-            SizedBox(height: 15),
-            AddUserWidget(),
-          ],
+    return const Stack(
+      children: [
+        SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 15),
+          child: Column(
+            children: [
+              SizedBox(height: 78),
+              AddUserWidget(),
+              SizedBox(height: 15),
+              DataUserWidget(),
+            ],
+          ),
         ),
-      ),
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child: HeaderWidget(),
+        ),
+      ],
     );
   }
 }

@@ -59,7 +59,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                 },
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.search, color: Colors.grey),
-                  hintText: 'Cari Member',
+                  hintText: 'Cari Anggota',
                   border: InputBorder.none,
                   filled: true,
                   fillColor: GlobalColors.background,
@@ -91,7 +91,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
-                        "Nama Member",
+                        "Nama Anggota",
                         style: TextStyle(
                           color: Colors.black87,
                           fontWeight: FontWeight.w500,
@@ -102,7 +102,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                       child: Container(
                         padding: const EdgeInsets.all(9),
                         child: const Text(
-                          "Action",
+                          "Aksi",
                           style: TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.w500,

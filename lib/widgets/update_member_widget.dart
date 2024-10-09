@@ -3,10 +3,12 @@ import 'package:aplikasi_kpri_desktop/providers/member_provider.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/datepicker_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/text_form_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/work_units_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 class UpdateMemberWidget extends ConsumerStatefulWidget {
   const UpdateMemberWidget(
@@ -22,7 +24,10 @@ class UpdateMemberWidget extends ConsumerStatefulWidget {
 class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController nikController = TextEditingController();
-  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController nomorAnggotaController = TextEditingController();
+  final TextEditingController nomorHpController = TextEditingController();
+  final TextEditingController alamatController = TextEditingController();
+  final TextEditingController tanggalLahirController = TextEditingController();
   bool isInitialized = false;
   String selectedUnit = '';
   @override
@@ -36,7 +41,13 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
           if (!isInitialized) {
             nameController.text = memberData['fullName'];
             nikController.text = memberData['nik'];
-            usernameController.text = memberData['username'];
+            nomorAnggotaController.text = memberData['memberNumber'];
+            nomorHpController.text = memberData['phoneNumber'];
+            alamatController.text = memberData['address'];
+            memberData['dateOfBirth'] != null
+                ? tanggalLahirController.text =
+                    memberData['dateOfBirth'].toString().split(" ")[0]
+                : tanggalLahirController.text = '';
             isInitialized = true;
           }
           return Column(
@@ -59,6 +70,17 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
               ),
               const SizedBox(height: 8),
               TextFormWidget(controller: nameController, text: "Nama Lengkap"),
+              const SizedBox(height: 20),
+              const Text(
+                "Nomor Anggota",
+                style: TextStyle(
+                  color: GlobalColors.onBackground,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
+              TextFormWidget(
+                  controller: nomorAnggotaController, text: "Nomor Anggota"),
               const SizedBox(height: 8),
               const Text(
                 "NIK",
@@ -71,14 +93,34 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
               TextFormWidget(controller: nikController, text: "NIK"),
               const SizedBox(height: 8),
               const Text(
-                "Username",
+                "Nomor HP",
                 style: TextStyle(
                   color: GlobalColors.onBackground,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 8),
-              TextFormWidget(controller: usernameController, text: "Alamat"),
+              TextFormWidget(controller: nomorHpController, text: "Nomor HP"),
+              const SizedBox(height: 8),
+              const Text(
+                "Alamat",
+                style: TextStyle(
+                  color: GlobalColors.onBackground,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
+              TextFormWidget(controller: alamatController, text: "Alamat"),
+              const SizedBox(height: 8),
+              const Text(
+                "Tanggal Lahir",
+                style: TextStyle(
+                  color: GlobalColors.onBackground,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
+              DatePickerWidget(date: tanggalLahirController),
               const SizedBox(height: 8),
               const Text(
                 "Pekerjaan",
@@ -108,7 +150,13 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                             widget.id,
                             nameController.text,
                             nikController.text,
-                            usernameController.text,
+                            nomorAnggotaController.text,
+                            nomorHpController.text,
+                            alamatController.text,
+                            tanggalLahirController.text != ''
+                                ? DateFormat('yyyy-MM-dd')
+                                    .parse(tanggalLahirController.text)
+                                : null,
                             selectedUnit != '' ? int.parse(selectedUnit) : 0,
                           ).future,
                         );

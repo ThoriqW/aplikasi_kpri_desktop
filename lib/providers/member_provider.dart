@@ -14,8 +14,15 @@ const baseUrl = API.baseUrl;
 const storage = FlutterSecureStorage();
 
 @riverpod
-Future addMember(AddMemberRef ref, String fullName, String nik, String noHp,
-    String address, DateTime? dateOfBirth, int workUnitId) async {
+Future addMember(
+    AddMemberRef ref,
+    String fullName,
+    String nik,
+    String nomorAnggota,
+    String noHp,
+    String address,
+    DateTime? dateOfBirth,
+    int workUnitId) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
@@ -33,6 +40,7 @@ Future addMember(AddMemberRef ref, String fullName, String nik, String noHp,
         'fullName': fullName,
         'dateOfBirth': dateOfBirth != null ? formatDateOnly(dateOfBirth) : null,
         'nik': nik,
+        'memberNumber': nomorAnggota,
         'phoneNumber': noHp,
         'address': address,
         'workUnitId': workUnitId,
@@ -104,8 +112,17 @@ Future getMember(GetMemberRef ref, String id) async {
 }
 
 @riverpod
-Future updateMember(UpdateMemberRef ref, String id, String fullName, String nik,
-    String username, int workUnitId) async {
+Future updateMember(
+  UpdateMemberRef ref,
+  String id,
+  String fullName,
+  String nik,
+  String nomorAnggota,
+  String noHp,
+  String address,
+  DateTime? dateOfBirth,
+  int workUnitId,
+) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
@@ -121,8 +138,11 @@ Future updateMember(UpdateMemberRef ref, String id, String fullName, String nik,
       },
       body: jsonEncode({
         'fullName': fullName,
+        'dateOfBirth': dateOfBirth != null ? formatDateOnly(dateOfBirth) : null,
         'nik': nik,
-        'username': username,
+        'memberNumber': nomorAnggota,
+        'phoneNumber': noHp,
+        'address': address,
         'workUnitId': workUnitId,
       }),
     );
