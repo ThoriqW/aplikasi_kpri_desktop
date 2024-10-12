@@ -1,5 +1,7 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/member_provider.dart';
+import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
+import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/add_member_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
@@ -70,8 +72,9 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
               border: TableBorder.all(color: GlobalColors.header),
               columnWidths: const <int, TableColumnWidth>{
                 0: IntrinsicColumnWidth(),
-                1: FlexColumnWidth(),
-                2: IntrinsicColumnWidth(),
+                1: IntrinsicColumnWidth(),
+                2: FlexColumnWidth(),
+                3: IntrinsicColumnWidth(),
               },
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
               children: <TableRow>[
@@ -82,6 +85,16 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                       padding: const EdgeInsets.all(9),
                       child: const Text(
                         "No",
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(9),
+                      child: const Text(
+                        "ID",
                         style: TextStyle(
                           color: Colors.black87,
                           fontWeight: FontWeight.w500,
@@ -116,6 +129,18 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                   TableRow(
                     decoration: const BoxDecoration(),
                     children: <Widget>[
+                      Center(
+                        child: Container(
+                          padding: const EdgeInsets.all(9),
+                          child: Text(
+                            (startIndex + i + 1).toString(),
+                            style: const TextStyle(
+                              color: GlobalColors.onBackground,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
                       Center(
                         child: Container(
                           padding: const EdgeInsets.all(9),
@@ -187,34 +212,10 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                                           ),
                                           TextButton(
                                             onPressed: () async {
-                                              try {
-                                                await ref.watch(
-                                                  deleteMemberProvider(
-                                                    (startIndex + i + 1)
-                                                        .toString(),
-                                                  ).future,
-                                                );
-                                                if (!mounted) return;
-                                                // ignore: use_build_context_synchronously
-                                                Navigator.pop(context, 'OK');
-                                                ref.invalidate(
-                                                    getAllMemberProvider);
-                                              } catch (e) {
-                                                if (!mounted) return;
-                                                showDialog(
-                                                  // ignore: use_build_context_synchronously
-                                                  context: context,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return CustomAlertDialog(
-                                                      alertDesc: e
-                                                          .toString()
-                                                          .substring(11),
-                                                      alertTitle: "Error",
-                                                    );
-                                                  },
-                                                );
-                                              }
+                                              _deleteMember(
+                                                paginatedMembers[i]['id']
+                                                    .toString(),
+                                              );
                                             },
                                             child: const Text('OK'),
                                           ),
@@ -269,7 +270,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
           ],
         );
       },
-      error: (error, stackTrace) => const Text('Gagal terhubung ke api'),
+      error: (error, stackTrace) => Text(error.toString()),
       loading: () => const LinearProgressIndicator(),
     );
 
@@ -314,5 +315,49 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
         ],
       ),
     );
+  }
+
+  Future<void> _deleteMember(String id) async {
+    try {
+      final deleteMember = await ref.watch(
+        deleteMemberProvider(id).future,
+      );
+      if (!mounted) return;
+      Navigator.pop(context, 'OK');
+      if (deleteMember is SuccessResponse) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomAlertDialog(
+              alertDesc: deleteMember.message,
+              alertTitle: "Sukses",
+            );
+          },
+        );
+        ref.invalidate(getAllMemberProvider);
+      } else if (deleteMember is ErrorResponse) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomAlertDialog(
+              alertDesc: deleteMember.errors,
+              alertTitle: "Gagal",
+            );
+          },
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      Navigator.pop(context, 'OK');
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomAlertDialog(
+            alertDesc: e.toString().substring(11),
+            alertTitle: "Gagal",
+          );
+        },
+      );
+    }
   }
 }

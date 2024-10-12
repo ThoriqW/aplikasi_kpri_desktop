@@ -1,7 +1,7 @@
 import 'dart:convert';
-
 import 'package:aplikasi_kpri_desktop/api/api_connections.dart';
-import 'package:aplikasi_kpri_desktop/models/member_model.dart';
+import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
+import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -47,9 +47,9 @@ Future addMember(
       }),
     );
     if (response.statusCode == 201) {
-      return Member.fromJson(jsonDecode(response.body));
+      return SuccessResponse.fromJson(jsonDecode(response.body));
     } else {
-      throw response.body;
+      return ErrorResponse.fromJson(jsonDecode(response.body));
     }
   } catch (e) {
     throw Exception(e);
@@ -77,7 +77,7 @@ Future getAllMember(GetAllMemberRef ref) async {
       final List<dynamic> members = jsonResponse['data'];
       return List<Map<String, dynamic>>.from(members);
     } else {
-      throw response.body;
+      throw ErrorResponse.fromJson(jsonDecode(response.body)).errors;
     }
   } catch (e) {
     throw Exception(e);
@@ -104,7 +104,7 @@ Future getMember(GetMemberRef ref, String id) async {
       final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
       return jsonResponse['data'];
     } else {
-      throw response.body;
+      throw ErrorResponse.fromJson(jsonDecode(response.body)).errors;
     }
   } catch (e) {
     throw Exception(e);
@@ -147,10 +147,9 @@ Future updateMember(
       }),
     );
     if (response.statusCode == 200) {
-      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      return jsonResponse;
+      return SuccessResponse.fromJson(jsonDecode(response.body));
     } else {
-      throw response.body;
+      return ErrorResponse.fromJson(jsonDecode(response.body));
     }
   } catch (e) {
     throw Exception(e);
@@ -174,10 +173,9 @@ Future deleteMember(DeleteMemberRef ref, String id) async {
       },
     );
     if (response.statusCode == 200) {
-      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      return jsonResponse;
+      return SuccessResponse.fromJson(jsonDecode(response.body));
     } else {
-      throw response.body;
+      return ErrorResponse.fromJson(jsonDecode(response.body));
     }
   } catch (e) {
     throw Exception(e);

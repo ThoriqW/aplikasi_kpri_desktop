@@ -1,5 +1,5 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
-import 'package:aplikasi_kpri_desktop/providers/user_provider.dart';
+import 'package:aplikasi_kpri_desktop/providers/work_units_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
@@ -9,16 +9,15 @@ import 'package:aplikasi_kpri_desktop/widgets/text_form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AddUserWidget extends ConsumerStatefulWidget {
-  const AddUserWidget({super.key});
+class AddWorkUnitWidget extends ConsumerStatefulWidget {
+  const AddWorkUnitWidget({super.key});
 
   @override
-  ConsumerState<AddUserWidget> createState() => _AddUserWidgetState();
+  ConsumerState<AddWorkUnitWidget> createState() => _AddWorkUnitWidgetState();
 }
 
-class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class _AddWorkUnitWidgetState extends ConsumerState<AddWorkUnitWidget> {
+  final TextEditingController namaWorkUnitController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return CustomCardWidget(
@@ -27,21 +26,20 @@ class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "Tambah User",
+            "Tambah Work Unit",
             style: TextStyle(
               color: GlobalColors.primary,
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 20),
-          TextFormWidget(controller: usernameController, text: "Username"),
-          const SizedBox(height: 15),
-          TextFormWidget(controller: passwordController, text: "Password"),
+          TextFormWidget(
+              controller: namaWorkUnitController, text: "Nama Work Unit"),
           const SizedBox(height: 15),
           ButtonWidget(
             text: "Simpan",
             onTap: () async {
-              await registerUser();
+              await _saveWorkUnit();
             },
           ),
         ],
@@ -49,29 +47,28 @@ class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
     );
   }
 
-  Future<void> registerUser() async {
+  Future<void> _saveWorkUnit() async {
     try {
-      final registerUser = await ref.watch(registerUserProvider(
-        usernameController.text,
-        passwordController.text,
-      ).future);
+      final addWorkUnit = await ref.read(
+        addWorkUnitProvider(namaWorkUnitController.text).future,
+      );
       if (!mounted) return;
-      if (registerUser is SuccessResponse) {
+      if (addWorkUnit is SuccessResponse) {
         showDialog(
           context: context,
           builder: (BuildContext context) {
             return CustomAlertDialog(
-              alertDesc: registerUser.message,
+              alertDesc: addWorkUnit.message,
               alertTitle: "Sukses",
             );
           },
-        ).then((value) => ref.invalidate(getAllUserProvider));
-      } else if (registerUser is ErrorResponse) {
+        ).then((value) => ref.refresh(getAllWorkUnitsProvider));
+      } else if (addWorkUnit is ErrorResponse) {
         showDialog(
           context: context,
           builder: (BuildContext context) {
             return CustomAlertDialog(
-              alertDesc: registerUser.errors,
+              alertDesc: addWorkUnit.errors,
               alertTitle: "Gagal",
             );
           },
@@ -89,8 +86,9 @@ class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
         },
       );
     } finally {
-      usernameController.clear();
-      passwordController.clear();
+      if (mounted) {
+        namaWorkUnitController.clear();
+      }
     }
   }
 }

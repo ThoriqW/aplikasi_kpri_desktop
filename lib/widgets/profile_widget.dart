@@ -1,5 +1,7 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/profile_provider.dart';
+import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
+import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
@@ -105,44 +107,7 @@ class _ProfileWidgetState extends ConsumerState<ProfileWidget> {
                   ButtonWidget(
                     text: "Simpan",
                     onTap: () async {
-                      try {
-                        final addUser = ref.watch(updateProfileProvider(
-                          nameController.text,
-                          nikController.text,
-                          nomorHpController.text,
-                          alamatController.text,
-                          tanggalLahirController.text != ''
-                              ? DateFormat('yyyy-MM-dd')
-                                  .parse(tanggalLahirController.text)
-                              : null,
-                        ).future);
-                        await addUser;
-                        if (mounted) {
-                          showDialog(
-                            // ignore: use_build_context_synchronously
-                            context: context,
-                            builder: (BuildContext context) {
-                              return const CustomAlertDialog(
-                                alertDesc: "Data berhasil diperbarui",
-                                alertTitle: "Sukses",
-                              );
-                            },
-                          );
-                        }
-                      } catch (e) {
-                        if (mounted) {
-                          showDialog(
-                            // ignore: use_build_context_synchronously
-                            context: context,
-                            builder: (BuildContext context) {
-                              return CustomAlertDialog(
-                                alertDesc: e.toString(),
-                                alertTitle: "Error",
-                              );
-                            },
-                          );
-                        }
-                      }
+                      await _updateProfile();
                     },
                   ),
                 ],
@@ -150,10 +115,56 @@ class _ProfileWidgetState extends ConsumerState<ProfileWidget> {
             ],
           );
         },
-        error: (error, stackTrace) =>
-            const Text('Oops, something unexpected happened'),
+        error: (error, stackTrace) => Text(error.toString()),
         loading: () => const LinearProgressIndicator(),
       ),
     );
+  }
+
+  Future<void> _updateProfile() async {
+    try {
+      final updateProfile = await ref.watch(updateProfileProvider(
+        nameController.text,
+        nikController.text,
+        nomorHpController.text,
+        alamatController.text,
+        tanggalLahirController.text != ''
+            ? DateFormat('yyyy-MM-dd').parse(tanggalLahirController.text)
+            : null,
+      ).future);
+      if (!mounted) return;
+      if (updateProfile is SuccessResponse) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomAlertDialog(
+              alertDesc: updateProfile.message,
+              alertTitle: "Sukses",
+            );
+          },
+        ).then((_) => ref.watch(getProfileProvider));
+      } else if (updateProfile is ErrorResponse) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomAlertDialog(
+              alertDesc: updateProfile.errors,
+              alertTitle: "Gagal",
+            );
+          },
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomAlertDialog(
+            alertDesc: e.toString(),
+            alertTitle: "Error",
+          );
+        },
+      );
+    }
   }
 }

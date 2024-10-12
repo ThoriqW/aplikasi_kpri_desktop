@@ -1,5 +1,7 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/member_provider.dart';
+import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
+import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
@@ -127,46 +129,7 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
               ButtonWidget(
                 text: "Simpan",
                 onTap: () async {
-                  try {
-                    final addUser = ref.watch(addMemberProvider(
-                      nameController.text,
-                      nikController.text,
-                      nomorAnggotaController.text,
-                      nomorHpController.text,
-                      alamatController.text,
-                      tanggalLahirController.text != ''
-                          ? DateFormat('yyyy-MM-dd')
-                              .parse(tanggalLahirController.text)
-                          : null,
-                      selectedUnit != '' ? int.parse(selectedUnit) : 0,
-                    ).future);
-                    await addUser;
-                    if (!mounted) return;
-                    showDialog(
-                      // ignore: use_build_context_synchronously
-                      context: context,
-                      builder: (BuildContext context) {
-                        return const CustomAlertDialog(
-                          alertDesc: "Data berhasil ditambahkan",
-                          alertTitle: "Sukses",
-                        );
-                      },
-                    ).then((_) {
-                      widget.onComplete();
-                    });
-                  } catch (e) {
-                    if (!mounted) return;
-                    showDialog(
-                      // ignore: use_build_context_synchronously
-                      context: context,
-                      builder: (BuildContext context) {
-                        return CustomAlertDialog(
-                          alertDesc: e.toString().substring(11),
-                          alertTitle: "Error",
-                        );
-                      },
-                    );
-                  }
+                  await _saveMember();
                 },
               ),
             ],
@@ -174,5 +137,56 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
         ],
       ),
     );
+  }
+
+  Future<void> _saveMember() async {
+    try {
+      final addMember = await ref.watch(addMemberProvider(
+        nameController.text,
+        nikController.text,
+        nomorAnggotaController.text,
+        nomorHpController.text,
+        alamatController.text,
+        tanggalLahirController.text != ''
+            ? DateFormat('yyyy-MM-dd').parse(tanggalLahirController.text)
+            : null,
+        selectedUnit != '' ? int.parse(selectedUnit) : 0,
+      ).future);
+      if (!mounted) return;
+      if (addMember is SuccessResponse) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomAlertDialog(
+              alertDesc: addMember.message,
+              alertTitle: "Sukses",
+            );
+          },
+        ).then((_) {
+          widget.onComplete();
+        });
+      } else if (addMember is ErrorResponse) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomAlertDialog(
+              alertDesc: addMember.errors,
+              alertTitle: "Gagal",
+            );
+          },
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomAlertDialog(
+            alertDesc: e.toString().substring(11),
+            alertTitle: "Gagal",
+          );
+        },
+      );
+    }
   }
 }

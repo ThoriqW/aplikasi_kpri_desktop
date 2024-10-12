@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:aplikasi_kpri_desktop/models/auth_model.dart';
+import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:aplikasi_kpri_desktop/api/api_connections.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -28,7 +29,7 @@ class AuthNotifier extends _$AuthNotifier {
       await storage.write(key: 'authToken', value: authResponse.accessToken);
       state = AsyncData(authResponse);
     } else {
-      throw Exception('Username atau password salah');
+      throw ErrorResponse.fromJson(jsonDecode(response.body)).errors;
     }
   }
 
@@ -36,7 +37,7 @@ class AuthNotifier extends _$AuthNotifier {
     try {
       storage.delete(key: "auth");
     } catch (e) {
-      throw Exception('Error logout');
+      throw Exception('Terjadi Kesalahan');
     }
   }
 }

@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:aplikasi_kpri_desktop/api/api_connections.dart';
 import 'package:aplikasi_kpri_desktop/models/user_model.dart';
+import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
+import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -31,7 +33,7 @@ Future<User> getCurrentUser(GetCurrentUserRef ref) async {
     if (response.statusCode == 200) {
       return User.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception('Failed to load user');
+      throw ErrorResponse.fromJson(jsonDecode(response.body)).errors;
     }
   } catch (e) {
     throw Exception(e);
@@ -59,7 +61,7 @@ Future getAllUser(GetAllUserRef ref) async {
       final List<dynamic> users = jsonResponse['data'];
       return List<Map<String, dynamic>>.from(users);
     } else {
-      return response.body;
+      return ErrorResponse.fromJson(jsonDecode(response.body)).errors;
     }
   } catch (e) {
     throw Exception(e);
@@ -84,10 +86,10 @@ Future registerUser(
       },
       body: jsonEncode({'username': username, 'password': password}),
     );
-    if (response.statusCode == 200) {
-      return response.body;
+    if (response.statusCode == 201) {
+      return SuccessResponse.fromJson(jsonDecode(response.body));
     } else {
-      return response.body;
+      return ErrorResponse.fromJson(jsonDecode(response.body));
     }
   } catch (e) {
     throw Exception(e);
@@ -112,9 +114,9 @@ Future updateUser(UpdateUserRef ref, String username, String password) async {
       body: jsonEncode({'username': username, 'password': password}),
     );
     if (response.statusCode == 200) {
-      return response.body;
+      return SuccessResponse.fromJson(jsonDecode(response.body));
     } else {
-      return response.body;
+      return ErrorResponse.fromJson(jsonDecode(response.body));
     }
   } catch (e) {
     throw Exception(e);
@@ -138,10 +140,9 @@ Future deleteUser(DeleteUserRef ref, String id) async {
       },
     );
     if (response.statusCode == 200) {
-      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      return jsonResponse;
+      return SuccessResponse.fromJson(jsonDecode(response.body));
     } else {
-      throw response.body;
+      return ErrorResponse.fromJson(jsonDecode(response.body));
     }
   } catch (e) {
     throw Exception(e);

@@ -6,7 +6,7 @@ part of 'profile_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$updateProfileHash() => r'80a399e6645fe22a26f192e0c959c7705fc1ef59';
+String _$updateProfileHash() => r'bbef16ad5a694b660cae5bf6cff25280c22e8e4d';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -220,7 +220,7 @@ class _UpdateProfileProviderElement
   DateTime? get dateOfBirth => (origin as UpdateProfileProvider).dateOfBirth;
 }
 
-String _$getProfileHash() => r'dbbbca4abe92481eb9b261ba17e1d7e82c90e64b';
+String _$getProfileHash() => r'45c1cdf315ff58f00e1cf854a571b4c92a09876a';
 
 /// See also [getProfile].
 @ProviderFor(getProfile)

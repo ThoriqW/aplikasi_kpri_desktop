@@ -1,5 +1,7 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/member_provider.dart';
+import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
+import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
@@ -144,49 +146,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                   ButtonWidget(
                     text: "Update",
                     onTap: () async {
-                      try {
-                        final updateUser = ref.watch(
-                          updateMemberProvider(
-                            widget.id,
-                            nameController.text,
-                            nikController.text,
-                            nomorAnggotaController.text,
-                            nomorHpController.text,
-                            alamatController.text,
-                            tanggalLahirController.text != ''
-                                ? DateFormat('yyyy-MM-dd')
-                                    .parse(tanggalLahirController.text)
-                                : null,
-                            selectedUnit != '' ? int.parse(selectedUnit) : 0,
-                          ).future,
-                        );
-                        await updateUser;
-                        if (!mounted) return;
-                        showDialog(
-                          // ignore: use_build_context_synchronously
-                          context: context,
-                          builder: (BuildContext context) {
-                            return const CustomAlertDialog(
-                              alertDesc: "Data berhasil diperbarui",
-                              alertTitle: "Sukses",
-                            );
-                          },
-                        ).then((_) {
-                          widget.onComplete();
-                        });
-                      } catch (e) {
-                        if (!mounted) return;
-                        showDialog(
-                          // ignore: use_build_context_synchronously
-                          context: context,
-                          builder: (BuildContext context) {
-                            return CustomAlertDialog(
-                              alertDesc: e.toString().substring(11),
-                              alertTitle: "Error",
-                            );
-                          },
-                        );
-                      }
+                      await _updateMember();
                     },
                   ),
                 ],
@@ -194,9 +154,63 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
             ],
           );
         },
-        error: (error, stackTrace) => const Text('Gagal terhubung ke api'),
+        error: (error, stackTrace) => Text(error.toString()),
         loading: () => const LinearProgressIndicator(),
       ),
     );
+  }
+
+  Future<void> _updateMember() async {
+    try {
+      final updateMember = await ref.watch(
+        updateMemberProvider(
+          widget.id,
+          nameController.text,
+          nikController.text,
+          nomorAnggotaController.text,
+          nomorHpController.text,
+          alamatController.text,
+          tanggalLahirController.text != ''
+              ? DateFormat('yyyy-MM-dd').parse(tanggalLahirController.text)
+              : null,
+          selectedUnit != '' ? int.parse(selectedUnit) : 0,
+        ).future,
+      );
+      if (!mounted) return;
+      if (updateMember is SuccessResponse) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomAlertDialog(
+              alertDesc: updateMember.message,
+              alertTitle: "Sukses",
+            );
+          },
+        ).then((_) {
+          widget.onComplete();
+        });
+      } else if (updateMember is ErrorResponse) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomAlertDialog(
+              alertDesc: updateMember.errors,
+              alertTitle: "Gagal",
+            );
+          },
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomAlertDialog(
+            alertDesc: e.toString().substring(11),
+            alertTitle: "Gagal",
+          );
+        },
+      );
+    }
   }
 }

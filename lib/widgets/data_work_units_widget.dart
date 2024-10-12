@@ -1,5 +1,6 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
-import 'package:aplikasi_kpri_desktop/providers/user_provider.dart';
+import 'package:aplikasi_kpri_desktop/models/work_units_model.dart';
+import 'package:aplikasi_kpri_desktop/providers/work_units_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
@@ -7,45 +8,46 @@ import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DataUserWidget extends ConsumerStatefulWidget {
-  const DataUserWidget({super.key});
+class DataWorkUnitsWidget extends ConsumerStatefulWidget {
+  const DataWorkUnitsWidget({super.key});
 
   @override
-  ConsumerState<DataUserWidget> createState() => _DataUserWidgetState();
+  ConsumerState<DataWorkUnitsWidget> createState() => _WorkUnitsWidgetState();
 }
 
-class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
+class _WorkUnitsWidgetState extends ConsumerState<DataWorkUnitsWidget> {
   int currentPage = 0;
   final int rowsPerPage = 5;
   TextEditingController searchController = TextEditingController();
   String searchQuery = '';
   @override
   Widget build(BuildContext context) {
-    final dataUsers = ref.watch(getAllUserProvider);
+    final dataWorkUnits = ref.watch(getAllWorkUnitsProvider);
     return CustomCardWidget(
       color: GlobalColors.white,
-      child: dataUsers.when(
-        data: (user) {
-          List<dynamic> users = user as List<dynamic>;
+      child: dataWorkUnits.when(
+        data: (workUnit) {
+          List<WorkUnit> workUnits = workUnit.data;
 
           if (searchQuery.isNotEmpty) {
-            users = users.where((m) {
-              final fullName = m['username'].toString().toLowerCase();
+            workUnits = workUnits.where((m) {
+              final fullName = m.name.toString().toLowerCase();
               return fullName.contains(searchQuery.toLowerCase());
             }).toList();
           }
 
           int startIndex = currentPage * rowsPerPage;
-          int endIndex = (startIndex + rowsPerPage < users.length)
+          int endIndex = (startIndex + rowsPerPage < workUnits.length)
               ? startIndex + rowsPerPage
-              : users.length;
-          List<dynamic> paginatedUsers = users.sublist(startIndex, endIndex);
+              : workUnits.length;
+          List<dynamic> paginatedWorkUnits =
+              workUnits.sublist(startIndex, endIndex);
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Data User",
+                "Data Work Units",
                 style: TextStyle(
                   color: GlobalColors.primary,
                   fontWeight: FontWeight.bold,
@@ -64,7 +66,7 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
                   },
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.search, color: Colors.grey),
-                    hintText: 'Cari User',
+                    hintText: 'Cari Work Units',
                     border: InputBorder.none,
                     filled: true,
                     fillColor: GlobalColors.background,
@@ -78,7 +80,6 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
                   1: IntrinsicColumnWidth(),
                   2: FlexColumnWidth(),
                   3: IntrinsicColumnWidth(),
-                  4: IntrinsicColumnWidth(),
                 },
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 children: <TableRow>[
@@ -108,17 +109,7 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: const Text(
-                          "Username",
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "Role",
+                          "Nama Work Unit",
                           style: TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.w500,
@@ -139,104 +130,110 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
                       ),
                     ],
                   ),
-                  for (int i = 0; i < paginatedUsers.length; i++)
-                    TableRow(
-                      decoration: const BoxDecoration(),
-                      children: <Widget>[
-                        Center(
-                          child: Container(
-                            padding: const EdgeInsets.all(9),
-                            child: Text(
-                              (startIndex + i + 1).toString(),
-                              style: const TextStyle(
-                                color: GlobalColors.onBackground,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: Container(
-                            padding: const EdgeInsets.all(9),
-                            child: Text(
-                              paginatedUsers[i]['id'].toString(),
-                              style: const TextStyle(
-                                color: GlobalColors.onBackground,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            paginatedUsers[i]['username'].toString(),
-                            style: const TextStyle(
-                              color: GlobalColors.onBackground,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            paginatedUsers[i]['role'].toString(),
-                            style: const TextStyle(
-                              color: GlobalColors.onBackground,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(2),
-                                child: IconButton(
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: const Text("Info"),
-                                          content: const Text(
-                                            "Yakin hapus user?",
-                                          ),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(
-                                                context,
-                                                'Cancel',
-                                              ),
-                                              child: const Text('Cancel'),
-                                            ),
-                                            TextButton(
-                                              onPressed: () async {
-                                                _deleteUser(
-                                                  paginatedUsers[i]['id']
-                                                      .toString(),
-                                                );
-                                              },
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                  icon: const Icon(
-                                    Icons.delete,
-                                    size: 18,
-                                    color: Colors.redAccent,
-                                  ),
+                  ...paginatedWorkUnits.asMap().entries.map(
+                    (entry) {
+                      int i = entry.key;
+                      WorkUnit workUnit = entry.value;
+
+                      return TableRow(
+                        decoration: const BoxDecoration(),
+                        children: <Widget>[
+                          Center(
+                            child: Container(
+                              padding: const EdgeInsets.all(9),
+                              child: Text(
+                                "${i + 1}",
+                                style: const TextStyle(
+                                  color: GlobalColors.onBackground,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                          Center(
+                            child: Container(
+                              padding: const EdgeInsets.all(9),
+                              child: Text(
+                                workUnit.id.toString(),
+                                style: const TextStyle(
+                                  color: GlobalColors.onBackground,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(9),
+                            child: Text(
+                              workUnit.name,
+                              style: const TextStyle(
+                                color: GlobalColors.onBackground,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          Center(
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(2),
+                                  child: IconButton(
+                                    onPressed: () {
+                                      setState(() {});
+                                    },
+                                    icon: const Icon(
+                                      Icons.edit,
+                                      size: 18,
+                                      color: GlobalColors.primary,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.all(2),
+                                  child: IconButton(
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: const Text("Info"),
+                                            content: const Text(
+                                              "Yakin hapus work unit?",
+                                            ),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                  context,
+                                                  'Cancel',
+                                                ),
+                                                child: const Text('Cancel'),
+                                              ),
+                                              TextButton(
+                                                onPressed: () async {
+                                                  _deleteWorkUnit(
+                                                      workUnit.id.toString());
+                                                },
+                                                child: const Text('OK'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      size: 18,
+                                      color: Colors.redAccent,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ],
               ),
               const SizedBox(height: 10),
@@ -254,16 +251,17 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
                     child: const Text('Previous'),
                   ),
                   Text(
-                    'Page ${currentPage + 1} of ${(users.length / rowsPerPage).ceil()}',
+                    'Page ${currentPage + 1} of ${(workUnits.length / rowsPerPage).ceil()}',
                   ),
                   ElevatedButton(
-                    onPressed: (currentPage + 1) * rowsPerPage < users.length
-                        ? () {
-                            setState(() {
-                              currentPage++;
-                            });
-                          }
-                        : null,
+                    onPressed:
+                        (currentPage + 1) * rowsPerPage < workUnits.length
+                            ? () {
+                                setState(() {
+                                  currentPage++;
+                                });
+                              }
+                            : null,
                     child: const Text('Next'),
                   ),
                 ],
@@ -278,10 +276,10 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
     );
   }
 
-  Future<void> _deleteUser(String id) async {
+  Future<void> _deleteWorkUnit(String id) async {
     try {
       final deleteMember = await ref.watch(
-        deleteUserProvider(id).future,
+        deleteWorkUnitProvider(id).future,
       );
       if (!mounted) return;
       Navigator.pop(context, 'OK');
@@ -295,7 +293,7 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
             );
           },
         );
-        ref.invalidate(getAllUserProvider);
+        ref.invalidate(getAllWorkUnitsProvider);
       } else if (deleteMember is ErrorResponse) {
         showDialog(
           context: context,

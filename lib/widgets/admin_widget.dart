@@ -1,6 +1,8 @@
 import 'package:aplikasi_kpri_desktop/widgets/add_user_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/add_work_unit_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/data_user_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/header_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/data_work_units_widget.dart';
 import 'package:flutter/material.dart';
 
 class AdminWidget extends StatelessWidget {
@@ -18,6 +20,10 @@ class AdminWidget extends StatelessWidget {
               AddUserWidget(),
               SizedBox(height: 15),
               DataUserWidget(),
+              SizedBox(height: 15),
+              AddWorkUnitWidget(),
+              SizedBox(height: 15),
+              DataWorkUnitsWidget(),
             ],
           ),
         ),

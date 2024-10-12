@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:aplikasi_kpri_desktop/api/api_connections.dart';
 import 'package:aplikasi_kpri_desktop/models/profile_model.dart';
+import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
+import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -38,9 +40,9 @@ Future updateProfile(UpdateProfileRef ref, String? fullName, String? nik,
       }),
     );
     if (response.statusCode == 200) {
-      return Profile.fromJson(jsonDecode(response.body));
+      return SuccessResponse.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception(response.body);
+      return ErrorResponse.fromJson(jsonDecode(response.body));
     }
   } catch (e) {
     throw Exception(e);
@@ -66,7 +68,7 @@ Future<Profile> getProfile(GetProfileRef ref) async {
     if (response.statusCode == 200) {
       return Profile.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception('Failed to load profile');
+      throw ErrorResponse.fromJson(jsonDecode(response.body)).errors;
     }
   } catch (e) {
     throw Exception(e);

@@ -6,7 +6,7 @@ part of 'member_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$addMemberHash() => r'd071cee9f6916b9a6b455fb9ba18291941fbaa8a';
+String _$addMemberHash() => r'477629a2f5f858afbda0bc645c70d8cad1c82062';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -251,7 +251,7 @@ class _AddMemberProviderElement
   int get workUnitId => (origin as AddMemberProvider).workUnitId;
 }
 
-String _$getAllMemberHash() => r'd4266cd996181ed2581401fcc862adc489c29ead';
+String _$getAllMemberHash() => r'0981e36d272baf71cfc7583dbd3a75b7d4965dcf';
 
 /// See also [getAllMember].
 @ProviderFor(getAllMember)
@@ -265,7 +265,7 @@ final getAllMemberProvider = AutoDisposeFutureProvider<Object?>.internal(
 );
 
 typedef GetAllMemberRef = AutoDisposeFutureProviderRef<Object?>;
-String _$getMemberHash() => r'dae0c7c0ca642f5695538f332602791a5a67695c';
+String _$getMemberHash() => r'4b3980105a6816515aeb9f501bda6e3ec4663c6b';
 
 /// See also [getMember].
 @ProviderFor(getMember)
@@ -392,7 +392,7 @@ class _GetMemberProviderElement
   String get id => (origin as GetMemberProvider).id;
 }
 
-String _$updateMemberHash() => r'33fdfd94643d02d08db84f9cb4820a3bdae3424f';
+String _$updateMemberHash() => r'f1b368e022e372cf3b71da21594215f503bd0708';
 
 /// See also [updateMember].
 @ProviderFor(updateMember)
@@ -633,7 +633,7 @@ class _UpdateMemberProviderElement
   int get workUnitId => (origin as UpdateMemberProvider).workUnitId;
 }
 
-String _$deleteMemberHash() => r'74007c2ed05797de7e25fbfbe700e456001fb145';
+String _$deleteMemberHash() => r'8862cb2d120315a0a0b51a4cd48e77df9e8cfe35';
 
 /// See also [deleteMember].
 @ProviderFor(deleteMember)

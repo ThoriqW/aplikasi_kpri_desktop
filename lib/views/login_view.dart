@@ -37,9 +37,9 @@ class _LoginViewState extends ConsumerState<LoginView> {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return const CustomAlertDialog(
-            alertTitle: "Error Login",
-            alertDesc: "Password atau username salah",
+          return CustomAlertDialog(
+            alertTitle: "Gagal",
+            alertDesc: e.toString(),
           );
         },
       );

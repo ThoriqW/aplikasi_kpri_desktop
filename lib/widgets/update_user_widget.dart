@@ -1,5 +1,7 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/user_provider.dart';
+import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
+import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
@@ -29,7 +31,7 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Akun",
+                "Edit User",
                 style: TextStyle(
                   color: GlobalColors.primary,
                   fontWeight: FontWeight.bold,
@@ -43,62 +45,57 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
               ButtonWidget(
                 text: "Simpan",
                 onTap: () async {
-                  try {
-                    if (usernameController.text != "" &&
-                        passwordController.text != "") {
-                      final updateUser = ref.watch(updateUserProvider(
-                        usernameController.text,
-                        passwordController.text,
-                      ).future);
-                      await updateUser;
-                      if (mounted) {
-                        showDialog(
-                          // ignore: use_build_context_synchronously
-                          context: context,
-                          builder: (BuildContext context) {
-                            return const CustomAlertDialog(
-                              alertDesc: "Berhasil update user",
-                              alertTitle: "Sukses",
-                            );
-                          },
-                        );
-                      }
-                    } else {
-                      if (mounted) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return const CustomAlertDialog(
-                              alertDesc: "Periksa kembali data yang diisi",
-                              alertTitle: "Gagal",
-                            );
-                          },
-                        );
-                      }
-                    }
-                  } catch (e) {
-                    if (mounted) {
-                      showDialog(
-                        // ignore: use_build_context_synchronously
-                        context: context,
-                        builder: (BuildContext context) {
-                          return CustomAlertDialog(
-                            alertDesc: e.toString(),
-                            alertTitle: "Error",
-                          );
-                        },
-                      );
-                    }
-                  }
+                  await _updateUser();
                 },
               ),
             ],
           );
         },
-        error: (error, stackTrace) =>
-            const Text('Oops, something unexpected happened'),
+        error: (error, stackTrace) => Text(error.toString()),
         loading: () => const LinearProgressIndicator(),
       ),
     );
+  }
+
+  Future<void> _updateUser() async {
+    try {
+      final updateUser = await ref.watch(updateUserProvider(
+        usernameController.text,
+        passwordController.text,
+      ).future);
+      if (!mounted) return;
+      if (updateUser is SuccessResponse) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomAlertDialog(
+              alertDesc: updateUser.message,
+              alertTitle: "Sukses",
+            );
+          },
+        ).then((_) => ref.invalidate(getCurrentUserProvider));
+      } else if (updateUser is ErrorResponse) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomAlertDialog(
+              alertDesc: updateUser.errors,
+              alertTitle: "Gagal",
+            );
+          },
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomAlertDialog(
+            alertDesc: e.toString(),
+            alertTitle: "Error",
+          );
+        },
+      );
+    }
   }
 }
