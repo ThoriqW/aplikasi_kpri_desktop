@@ -19,8 +19,9 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
   final TextEditingController tahunController = TextEditingController();
   TextEditingController searchController = TextEditingController();
   String selectedUnit = '';
+  String searchQuery = '';
   int currentPage = 0;
-  final int rowsPerPage = 10;
+  final int rowsPerPage = 12;
   int selectedYear = DateTime.now().year;
 
   @override
@@ -50,6 +51,11 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
             children: [
               Row(
                 children: [
+                  const Text(
+                    "Pilih Tahun Simpanan",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(width: 8),
                   SizedBox(
                     width: 300,
                     child: Row(
@@ -86,11 +92,10 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                   ),
                   const SizedBox(width: 24),
                   WorkUnitsDropdown(
-                    onSelected: (String value) => setState(
-                      () {
-                        selectedUnit = value;
-                      },
-                    ),
+                    onSelected: (String value) {},
+                    onSelectedNameUnit: (String value) => setState(() {
+                      selectedUnit = value;
+                    }),
                   ),
                 ],
               ),
@@ -100,19 +105,41 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
           getAllSavingMembers.when(
             data: (saving) {
               List<dynamic> savings = saving as List<dynamic>;
+
+              if (selectedUnit.isNotEmpty) {
+                print(selectedUnit);
+                savings = savings.where((m) {
+                  final unitKerja = m['workUnit'].toString().toLowerCase();
+                  return unitKerja.contains(selectedUnit.toLowerCase());
+                }).toList();
+              }
+
+              if (searchQuery.isNotEmpty) {
+                savings = savings.where((m) {
+                  final fullName = m['memberName'].toString().toLowerCase();
+                  return fullName.contains(searchQuery.toLowerCase());
+                }).toList();
+              }
+
               int startIndex = currentPage * rowsPerPage;
               int endIndex = (startIndex + rowsPerPage < savings.length)
                   ? startIndex + rowsPerPage
                   : savings.length;
               List<dynamic> paginatedSavings =
                   savings.sublist(startIndex, endIndex);
+
               return Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: TextField(
                       controller: searchController,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        setState(() {
+                          searchQuery = value;
+                          currentPage = 0;
+                        });
+                      },
                       decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.search, color: Colors.grey),
                         hintText: 'Cari Anggota',
