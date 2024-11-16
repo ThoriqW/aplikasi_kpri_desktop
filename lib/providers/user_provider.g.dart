@@ -20,6 +20,8 @@ final getCurrentUserProvider = AutoDisposeFutureProvider<User>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef GetCurrentUserRef = AutoDisposeFutureProviderRef<User>;
 String _$getAllUserHash() => r'80cc3667517e4969a45fd88229cc965005169d50';
 
@@ -34,6 +36,8 @@ final getAllUserProvider = AutoDisposeFutureProvider<Object?>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef GetAllUserRef = AutoDisposeFutureProviderRef<Object?>;
 String _$registerUserHash() => r'89ff2a22fb0467a5f5025cffb5cc5b7339c75ae3';
 
@@ -183,6 +187,8 @@ class RegisterUserProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin RegisterUserRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `username` of this provider.
   String get username;
@@ -328,6 +334,8 @@ class UpdateUserProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin UpdateUserRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `username` of this provider.
   String get username;
@@ -461,6 +469,8 @@ class DeleteUserProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin DeleteUserRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -474,4 +484,4 @@ class _DeleteUserProviderElement
   String get id => (origin as DeleteUserProvider).id;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

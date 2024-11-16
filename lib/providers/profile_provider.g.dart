@@ -6,7 +6,7 @@ part of 'profile_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$updateProfileHash() => r'bbef16ad5a694b660cae5bf6cff25280c22e8e4d';
+String _$updateProfileHash() => r'6580df754d7d87d5cffdd96aad3f04f1017371f3';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -187,6 +187,8 @@ class UpdateProfileProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin UpdateProfileRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `fullName` of this provider.
   String? get fullName;
@@ -220,7 +222,7 @@ class _UpdateProfileProviderElement
   DateTime? get dateOfBirth => (origin as UpdateProfileProvider).dateOfBirth;
 }
 
-String _$getProfileHash() => r'45c1cdf315ff58f00e1cf854a571b4c92a09876a';
+String _$getProfileHash() => r'91947686916a03db1b48c2d895a6c1fba0ccd87f';
 
 /// See also [getProfile].
 @ProviderFor(getProfile)
@@ -233,6 +235,8 @@ final getProfileProvider = AutoDisposeFutureProvider<Profile>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef GetProfileRef = AutoDisposeFutureProviderRef<Profile>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

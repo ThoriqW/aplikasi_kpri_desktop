@@ -6,7 +6,7 @@ part of 'member_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$addMemberHash() => r'477629a2f5f858afbda0bc645c70d8cad1c82062';
+String _$addMemberHash() => r'434c8bbbcb97e5d47d6a71fefa673ad7e2f37675';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -208,6 +208,8 @@ class AddMemberProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin AddMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `fullName` of this provider.
   String get fullName;
@@ -251,7 +253,7 @@ class _AddMemberProviderElement
   int get workUnitId => (origin as AddMemberProvider).workUnitId;
 }
 
-String _$getAllMemberHash() => r'0981e36d272baf71cfc7583dbd3a75b7d4965dcf';
+String _$getAllMemberHash() => r'e73c4188b25ecdb052215446e5b6f08e0d7102c4';
 
 /// See also [getAllMember].
 @ProviderFor(getAllMember)
@@ -264,6 +266,8 @@ final getAllMemberProvider = AutoDisposeFutureProvider<Object?>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef GetAllMemberRef = AutoDisposeFutureProviderRef<Object?>;
 String _$getMemberHash() => r'4b3980105a6816515aeb9f501bda6e3ec4663c6b';
 
@@ -379,6 +383,8 @@ class GetMemberProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin GetMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -585,6 +591,8 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin UpdateMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -748,6 +756,8 @@ class DeleteMemberProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin DeleteMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -761,4 +771,4 @@ class _DeleteMemberProviderElement
   String get id => (origin as DeleteMemberProvider).id;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

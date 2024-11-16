@@ -20,6 +20,8 @@ final getAllWorkUnitsProvider = AutoDisposeFutureProvider<WorkUnits>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef GetAllWorkUnitsRef = AutoDisposeFutureProviderRef<WorkUnits>;
 String _$addWorkUnitHash() => r'98468fcd2b0d55a2459a57e15272859ffe407043';
 
@@ -157,6 +159,8 @@ class AddWorkUnitProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin AddWorkUnitRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `namaWorkUnit` of this provider.
   String get namaWorkUnit;
@@ -285,6 +289,8 @@ class DeleteWorkUnitProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin DeleteWorkUnitRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -298,4 +304,4 @@ class _DeleteWorkUnitProviderElement
   String get id => (origin as DeleteWorkUnitProvider).id;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

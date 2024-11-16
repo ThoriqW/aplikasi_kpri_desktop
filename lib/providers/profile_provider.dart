@@ -16,8 +16,8 @@ const baseUrl = API.baseUrl;
 const storage = FlutterSecureStorage();
 
 @riverpod
-Future updateProfile(UpdateProfileRef ref, String? fullName, String? nik,
-    String? noHp, String? address, DateTime? dateOfBirth) async {
+Future updateProfile(ref, String? fullName, String? nik, String? noHp,
+    String? address, DateTime? dateOfBirth) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
@@ -50,7 +50,7 @@ Future updateProfile(UpdateProfileRef ref, String? fullName, String? nik,
 }
 
 @riverpod
-Future<Profile> getProfile(GetProfileRef ref) async {
+Future<Profile> getProfile(ref) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
