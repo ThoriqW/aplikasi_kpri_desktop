@@ -107,7 +107,6 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
               List<dynamic> savings = saving as List<dynamic>;
 
               if (selectedUnit.isNotEmpty) {
-                print(selectedUnit);
                 savings = savings.where((m) {
                   final unitKerja = m['workUnit'].toString().toLowerCase();
                   return unitKerja.contains(selectedUnit.toLowerCase());
@@ -130,24 +129,33 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
 
               return Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: TextField(
-                      controller: searchController,
-                      onChanged: (value) {
-                        setState(() {
-                          searchQuery = value;
-                          currentPage = 0;
-                        });
-                      },
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.search, color: Colors.grey),
-                        hintText: 'Cari Anggota',
-                        border: InputBorder.none,
-                        filled: true,
-                        fillColor: GlobalColors.background,
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: TextField(
+                            controller: searchController,
+                            onChanged: (value) {
+                              setState(() {
+                                searchQuery = value;
+                                currentPage = 0;
+                              });
+                            },
+                            decoration: const InputDecoration(
+                              prefixIcon:
+                                  Icon(Icons.search, color: Colors.grey),
+                              hintText: 'Cari Anggota',
+                              border: InputBorder.none,
+                              filled: true,
+                              fillColor: GlobalColors.background,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      const SizedBox(width: 18),
+                      ButtonWidget(text: "Update", onTap: () {})
+                    ],
                   ),
                   Table(
                     border: TableBorder.all(color: GlobalColors.header),
@@ -347,8 +355,14 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                             Center(
                               child: Container(
                                 padding: const EdgeInsets.all(9),
-                                child: Text(
-                                  paginatedSavings[i]['principal'].toString(),
+                                child: EditableText(
+                                  controller: TextEditingController(
+                                    text: paginatedSavings[i]['principal']
+                                        .toString(),
+                                  ),
+                                  focusNode: FocusNode(),
+                                  cursorColor: GlobalColors.primary,
+                                  backgroundCursorColor: GlobalColors.secondary,
                                   style: const TextStyle(
                                     color: GlobalColors.onBackground,
                                     fontWeight: FontWeight.w500,
@@ -359,8 +373,14 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                             Center(
                               child: Container(
                                 padding: const EdgeInsets.all(9),
-                                child: Text(
-                                  paginatedSavings[i]['mandatory'].toString(),
+                                child: EditableText(
+                                  controller: TextEditingController(
+                                    text: paginatedSavings[i]['mandatory']
+                                        .toString(),
+                                  ),
+                                  focusNode: FocusNode(),
+                                  cursorColor: GlobalColors.primary,
+                                  backgroundCursorColor: GlobalColors.secondary,
                                   style: const TextStyle(
                                     color: GlobalColors.onBackground,
                                     fontWeight: FontWeight.w500,
@@ -371,8 +391,14 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                             Center(
                               child: Container(
                                 padding: const EdgeInsets.all(9),
-                                child: Text(
-                                  paginatedSavings[i]['voluntary'].toString(),
+                                child: EditableText(
+                                  controller: TextEditingController(
+                                    text: paginatedSavings[i]['voluntary']
+                                        .toString(),
+                                  ),
+                                  focusNode: FocusNode(),
+                                  cursorColor: GlobalColors.primary,
+                                  backgroundCursorColor: GlobalColors.secondary,
                                   style: const TextStyle(
                                     color: GlobalColors.onBackground,
                                     fontWeight: FontWeight.w500,
