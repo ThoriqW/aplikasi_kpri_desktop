@@ -1,6 +1,7 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/create_simpanan_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/text_form_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/work_units_dropdown.dart';
@@ -46,6 +47,12 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const Text(
+            "Simpanan Member",
+            style: TextStyle(
+                color: GlobalColors.primary, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -443,7 +450,13 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                 ],
               );
             },
-            error: (error, stackTrace) => Text(error.toString()),
+            error: (error, stackTrace) => CreateSimpananWidget(
+              tahun: tahunController.text,
+              onComplete: () {
+                ref.invalidate(
+                    getAllSavingMembersProvider(tahunController.text));
+              },
+            ),
             loading: () => const LinearProgressIndicator(),
           )
         ],

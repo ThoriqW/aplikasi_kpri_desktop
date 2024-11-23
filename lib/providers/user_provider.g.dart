@@ -6,7 +6,7 @@ part of 'user_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getCurrentUserHash() => r'6fbbd93f9ad81220195f7fb1aa01f9e3047fa89b';
+String _$getCurrentUserHash() => r'529abe251aeb978886c987ed920472c9feec8696';
 
 /// See also [getCurrentUser].
 @ProviderFor(getCurrentUser)
@@ -23,7 +23,7 @@ final getCurrentUserProvider = AutoDisposeFutureProvider<User>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef GetCurrentUserRef = AutoDisposeFutureProviderRef<User>;
-String _$getAllUserHash() => r'80cc3667517e4969a45fd88229cc965005169d50';
+String _$getAllUserHash() => r'd3b09d766323ae2df40fa3d40e2a15e589ffdf64';
 
 /// See also [getAllUser].
 @ProviderFor(getAllUser)
@@ -39,7 +39,7 @@ final getAllUserProvider = AutoDisposeFutureProvider<Object?>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef GetAllUserRef = AutoDisposeFutureProviderRef<Object?>;
-String _$registerUserHash() => r'89ff2a22fb0467a5f5025cffb5cc5b7339c75ae3';
+String _$registerUserHash() => r'd12abf0288d1f7d9e53488a9355f76b4ec224065';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -207,7 +207,7 @@ class _RegisterUserProviderElement
   String get password => (origin as RegisterUserProvider).password;
 }
 
-String _$updateUserHash() => r'0fc3743c432233c80296709dbdbf01c31761f83d';
+String _$updateUserHash() => r'80b8615be3756c4b10213b13cfde41f11c74d6ad';
 
 /// See also [updateUser].
 @ProviderFor(updateUser)
@@ -354,7 +354,7 @@ class _UpdateUserProviderElement
   String get password => (origin as UpdateUserProvider).password;
 }
 
-String _$deleteUserHash() => r'd120d49acb22cfc947b93797bf6f77f23d3af28d';
+String _$deleteUserHash() => r'20d3c1520c0ab9a557df6b2ce1573a8ceaed8632';
 
 /// See also [deleteUser].
 @ProviderFor(deleteUser)

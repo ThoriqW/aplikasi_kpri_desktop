@@ -1,17 +1,21 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/data/side_menu_data.dart';
+import 'package:aplikasi_kpri_desktop/providers/auth_provider.dart';
+import 'package:aplikasi_kpri_desktop/views/login_view.dart';
+import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SideMenuWidget extends StatefulWidget {
+class SideMenuWidget extends ConsumerStatefulWidget {
   const SideMenuWidget({super.key, required this.onMenuItemSelected});
 
   final void Function(int index) onMenuItemSelected;
 
   @override
-  State<SideMenuWidget> createState() => _SideMenuWidgetState();
+  ConsumerState<SideMenuWidget> createState() => _SideMenuWidgetState();
 }
 
-class _SideMenuWidgetState extends State<SideMenuWidget> {
+class _SideMenuWidgetState extends ConsumerState<SideMenuWidget> {
   int selectedIndex = 0;
 
   @override
@@ -46,7 +50,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                       fontSize: 16,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -57,6 +61,30 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                   buildMenuEntry(context, data, index),
             ),
           ),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 13,
+              vertical: 30,
+            ),
+            child: ButtonWidget(
+              text: "Keluar",
+              onTap: () async {
+                final authNotifier = ref.watch(authNotifierProvider.notifier);
+                await authNotifier.logout();
+
+                if (!context.mounted) return;
+
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => const LoginView(),
+                  ),
+                );
+              },
+              backgroundColor: Colors.redAccent,
+            ),
+          )
         ],
       ),
     );

@@ -47,7 +47,7 @@ class _WorkUnitsWidgetState extends ConsumerState<DataWorkUnitsWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Data Work Units",
+                "Unit Kerja",
                 style: TextStyle(
                   color: GlobalColors.primary,
                   fontWeight: FontWeight.bold,
@@ -66,7 +66,7 @@ class _WorkUnitsWidgetState extends ConsumerState<DataWorkUnitsWidget> {
                   },
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.search, color: Colors.grey),
-                    hintText: 'Cari Work Units',
+                    hintText: 'Cari Unit Kerja',
                     border: InputBorder.none,
                     filled: true,
                     fillColor: GlobalColors.background,
@@ -109,7 +109,7 @@ class _WorkUnitsWidgetState extends ConsumerState<DataWorkUnitsWidget> {
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: const Text(
-                          "Nama Work Unit",
+                          "Nama Unit Kerja",
                           style: TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.w500,
@@ -120,7 +120,7 @@ class _WorkUnitsWidgetState extends ConsumerState<DataWorkUnitsWidget> {
                         child: Container(
                           padding: const EdgeInsets.all(9),
                           child: const Text(
-                            "Action",
+                            "Aksi",
                             style: TextStyle(
                               color: Colors.black87,
                               fontWeight: FontWeight.w500,

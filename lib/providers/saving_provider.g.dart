@@ -158,5 +158,137 @@ class _GetAllSavingMembersProviderElement
   @override
   String get year => (origin as GetAllSavingMembersProvider).year;
 }
+
+String _$createMemberSavingsHash() =>
+    r'fe16061cac995de8a9b643e29a53df81d248852e';
+
+/// See also [createMemberSavings].
+@ProviderFor(createMemberSavings)
+const createMemberSavingsProvider = CreateMemberSavingsFamily();
+
+/// See also [createMemberSavings].
+class CreateMemberSavingsFamily extends Family<AsyncValue> {
+  /// See also [createMemberSavings].
+  const CreateMemberSavingsFamily();
+
+  /// See also [createMemberSavings].
+  CreateMemberSavingsProvider call(
+    String year,
+  ) {
+    return CreateMemberSavingsProvider(
+      year,
+    );
+  }
+
+  @override
+  CreateMemberSavingsProvider getProviderOverride(
+    covariant CreateMemberSavingsProvider provider,
+  ) {
+    return call(
+      provider.year,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'createMemberSavingsProvider';
+}
+
+/// See also [createMemberSavings].
+class CreateMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
+  /// See also [createMemberSavings].
+  CreateMemberSavingsProvider(
+    String year,
+  ) : this._internal(
+          (ref) => createMemberSavings(
+            ref as CreateMemberSavingsRef,
+            year,
+          ),
+          from: createMemberSavingsProvider,
+          name: r'createMemberSavingsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$createMemberSavingsHash,
+          dependencies: CreateMemberSavingsFamily._dependencies,
+          allTransitiveDependencies:
+              CreateMemberSavingsFamily._allTransitiveDependencies,
+          year: year,
+        );
+
+  CreateMemberSavingsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.year,
+  }) : super.internal();
+
+  final String year;
+
+  @override
+  Override overrideWith(
+    FutureOr<Object?> Function(CreateMemberSavingsRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: CreateMemberSavingsProvider._internal(
+        (ref) => create(ref as CreateMemberSavingsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        year: year,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Object?> createElement() {
+    return _CreateMemberSavingsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is CreateMemberSavingsProvider && other.year == year;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, year.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin CreateMemberSavingsRef on AutoDisposeFutureProviderRef<Object?> {
+  /// The parameter `year` of this provider.
+  String get year;
+}
+
+class _CreateMemberSavingsProviderElement
+    extends AutoDisposeFutureProviderElement<Object?>
+    with CreateMemberSavingsRef {
+  _CreateMemberSavingsProviderElement(super.provider);
+
+  @override
+  String get year => (origin as CreateMemberSavingsProvider).year;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

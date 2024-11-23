@@ -45,7 +45,7 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Data User",
+                "User",
                 style: TextStyle(
                   color: GlobalColors.primary,
                   fontWeight: FontWeight.bold,
@@ -129,7 +129,7 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
                         child: Container(
                           padding: const EdgeInsets.all(9),
                           child: const Text(
-                            "Action",
+                            "Aksi",
                             style: TextStyle(
                               color: Colors.black87,
                               fontWeight: FontWeight.w500,

@@ -31,15 +31,31 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Edit User",
+                "Edit Akun",
                 style: TextStyle(
                   color: GlobalColors.primary,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 20),
+              const Text(
+                "Username",
+                style: TextStyle(
+                  color: GlobalColors.onBackground,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
               TextFormWidget(controller: usernameController, text: "Username"),
               const SizedBox(height: 15),
+              const Text(
+                "Password",
+                style: TextStyle(
+                  color: GlobalColors.onBackground,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 8),
               TextFormWidget(controller: passwordController, text: "Password"),
               const SizedBox(height: 15),
               ButtonWidget(

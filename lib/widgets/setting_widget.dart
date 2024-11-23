@@ -1,4 +1,6 @@
-import 'package:aplikasi_kpri_desktop/widgets/profile_widget.dart';
+import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
+import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/update_profile_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/update_user_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:aplikasi_kpri_desktop/widgets/header_widget.dart';
@@ -12,13 +14,15 @@ class SettingWidget extends StatelessWidget {
       children: [
         SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            children: [
-              SizedBox(height: 75),
-              UpdateUserWidget(),
-              SizedBox(height: 15),
-              ProfileWidget(),
-            ],
+          child: Padding(
+            padding: EdgeInsets.only(top: 75.0, bottom: 30.0),
+            child: Column(
+              children: [
+                UpdateProfileWidget(),
+                SizedBox(height: 15),
+                UpdateUserWidget(),
+              ],
+            ),
           ),
         ),
         Positioned(
@@ -26,6 +30,25 @@ class SettingWidget extends StatelessWidget {
           left: 0,
           right: 0,
           child: HeaderWidget(),
+        ),
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: CustomCardWidget(
+            padding: EdgeInsets.all(6),
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                "Aplikasi Koperasi By Bacreative",
+                style: TextStyle(
+                  color: GlobalColors.primary,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
         ),
       ],
     );

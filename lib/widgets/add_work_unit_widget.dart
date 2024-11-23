@@ -26,7 +26,7 @@ class _AddWorkUnitWidgetState extends ConsumerState<AddWorkUnitWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "Tambah Work Unit",
+            "Tambah Unit Kerja",
             style: TextStyle(
               color: GlobalColors.primary,
               fontWeight: FontWeight.bold,
@@ -34,7 +34,7 @@ class _AddWorkUnitWidgetState extends ConsumerState<AddWorkUnitWidget> {
           ),
           const SizedBox(height: 20),
           TextFormWidget(
-              controller: namaWorkUnitController, text: "Nama Work Unit"),
+              controller: namaWorkUnitController, text: "Nama Unit Kerja"),
           const SizedBox(height: 15),
           ButtonWidget(
             text: "Simpan",

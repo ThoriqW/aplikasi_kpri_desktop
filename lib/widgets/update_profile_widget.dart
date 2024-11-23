@@ -11,14 +11,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class ProfileWidget extends ConsumerStatefulWidget {
-  const ProfileWidget({super.key});
+class UpdateProfileWidget extends ConsumerStatefulWidget {
+  const UpdateProfileWidget({super.key});
 
   @override
-  ConsumerState<ProfileWidget> createState() => _ProfileWidgetState();
+  ConsumerState<UpdateProfileWidget> createState() =>
+      _UpdateProfileWidgetState();
 }
 
-class _ProfileWidgetState extends ConsumerState<ProfileWidget> {
+class _UpdateProfileWidgetState extends ConsumerState<UpdateProfileWidget> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController nikController = TextEditingController();
   final TextEditingController nomorHpController = TextEditingController();

@@ -15,7 +15,7 @@ const baseUrl = API.baseUrl;
 const storage = FlutterSecureStorage();
 
 @riverpod
-Future<User> getCurrentUser(GetCurrentUserRef ref) async {
+Future<User> getCurrentUser(ref) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
@@ -41,7 +41,7 @@ Future<User> getCurrentUser(GetCurrentUserRef ref) async {
 }
 
 @riverpod
-Future getAllUser(GetAllUserRef ref) async {
+Future getAllUser(ref) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
@@ -69,8 +69,7 @@ Future getAllUser(GetAllUserRef ref) async {
 }
 
 @riverpod
-Future registerUser(
-    RegisterUserRef ref, String username, String password) async {
+Future registerUser(ref, String username, String password) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
@@ -97,7 +96,7 @@ Future registerUser(
 }
 
 @riverpod
-Future updateUser(UpdateUserRef ref, String username, String password) async {
+Future updateUser(ref, String username, String password) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
@@ -124,7 +123,7 @@ Future updateUser(UpdateUserRef ref, String username, String password) async {
 }
 
 @riverpod
-Future deleteUser(DeleteUserRef ref, String id) async {
+Future deleteUser(ref, String id) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {

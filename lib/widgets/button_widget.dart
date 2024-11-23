@@ -2,15 +2,20 @@ import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
-  const ButtonWidget(
-      {super.key,
-      required this.text,
-      required this.onTap,
-      this.backgroundColor});
+  const ButtonWidget({
+    super.key,
+    required this.text,
+    required this.onTap,
+    this.backgroundColor,
+    this.width,
+    this.height,
+  });
 
   final String text;
   final Function onTap;
   final Color? backgroundColor;
+  final double? width;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +29,8 @@ class ButtonWidget extends StatelessWidget {
           onTap: () => {onTap()},
           borderRadius: BorderRadius.circular(8.0),
           child: SizedBox(
-            width: 140,
-            height: 40,
+            width: width ?? 140,
+            height: height ?? 40,
             child: Center(
               child: Text(
                 text,

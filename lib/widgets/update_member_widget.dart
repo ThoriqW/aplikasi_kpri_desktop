@@ -50,6 +50,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                 ? tanggalLahirController.text =
                     memberData['dateOfBirth'].toString().split(" ")[0]
                 : tanggalLahirController.text = '';
+            print(memberData['workUnitId']);
             isInitialized = true;
           }
           return Column(

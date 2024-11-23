@@ -5,9 +5,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class WorkUnitsDropdown extends ConsumerStatefulWidget {
   const WorkUnitsDropdown(
-      {super.key, required this.onSelected, this.onSelectedNameUnit});
+      {super.key,
+      required this.onSelected,
+      this.onSelectedNameUnit,
+      this.currentDropDownName});
   final Function(String) onSelected;
   final Function(String)? onSelectedNameUnit;
+  final String? currentDropDownName;
 
   @override
   ConsumerState<WorkUnitsDropdown> createState() => _WorkUnitsDropdownState();
@@ -18,8 +22,15 @@ class _WorkUnitsDropdownState extends ConsumerState<WorkUnitsDropdown> {
   String? selectedUnitName;
 
   @override
+  void initState() {
+    super.initState();
+    dropdownValue = widget.currentDropDownName;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final getAllWorkUnits = ref.watch(getAllWorkUnitsProvider);
+
     return getAllWorkUnits.when(
       data: (workUnits) {
         return DropdownButton<String>(
