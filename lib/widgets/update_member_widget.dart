@@ -50,6 +50,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                 ? tanggalLahirController.text =
                     memberData['dateOfBirth'].toString().split(" ")[0]
                 : tanggalLahirController.text = '';
+            selectedUnit = '1';
             print(memberData['workUnitId']);
             isInitialized = true;
           }
@@ -134,6 +135,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
               ),
               const SizedBox(height: 8),
               WorkUnitsDropdown(
+                currentDropDownName: selectedUnit,
                 onSelected: (String value) => setState(
                   () {
                     selectedUnit = value;

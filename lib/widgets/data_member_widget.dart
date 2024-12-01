@@ -277,7 +277,14 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
     return CustomCardWidget(
       color: GlobalColors.white,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const Text(
+            "Daftar Anggota",
+            style: TextStyle(
+                color: GlobalColors.primary, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
           Row(
             children: [
               ButtonWidget(
@@ -318,6 +325,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
   }
 
   Future<void> _deleteMember(String id) async {
+    print(id);
     try {
       final deleteMember = await ref.watch(
         deleteMemberProvider(id).future,

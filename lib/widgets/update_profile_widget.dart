@@ -33,13 +33,14 @@ class _UpdateProfileWidgetState extends ConsumerState<UpdateProfileWidget> {
       color: GlobalColors.white,
       child: getProfile.when(
         data: (profile) {
-          nameController.text = profile.fullName ?? '';
-          nikController.text = profile.nik ?? '';
-          nomorHpController.text = profile.phoneNumber ?? '';
-          alamatController.text = profile.address ?? '';
-          profile.dateOfBirth != null
+          final profileData = profile as Map<String, dynamic>;
+          nameController.text = profileData['fullName'] ?? '';
+          nikController.text = profileData['nik'] ?? '';
+          nomorHpController.text = profileData['phoneNumber'] ?? '';
+          alamatController.text = profileData['address'] ?? '';
+          profileData['dateOfBirth'] != null
               ? tanggalLahirController.text =
-                  profile.dateOfBirth.toString().split(" ")[0]
+                  profileData['dateOfBirth'].toString().split(" ")[0]
               : tanggalLahirController.text = '';
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,

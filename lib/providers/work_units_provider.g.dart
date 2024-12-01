@@ -6,7 +6,7 @@ part of 'work_units_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getAllWorkUnitsHash() => r'cf45de8d90ccd5c3ec015af20ebc2525c3db3f9d';
+String _$getAllWorkUnitsHash() => r'801fac440dae4a014cf4dfd31167e9aec92b6fc8';
 
 /// See also [getAllWorkUnits].
 @ProviderFor(getAllWorkUnits)

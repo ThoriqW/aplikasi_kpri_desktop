@@ -222,11 +222,11 @@ class _UpdateProfileProviderElement
   DateTime? get dateOfBirth => (origin as UpdateProfileProvider).dateOfBirth;
 }
 
-String _$getProfileHash() => r'91947686916a03db1b48c2d895a6c1fba0ccd87f';
+String _$getProfileHash() => r'5347fb3a9ded3873faea45f834b36fb48710dbf6';
 
 /// See also [getProfile].
 @ProviderFor(getProfile)
-final getProfileProvider = AutoDisposeFutureProvider<Profile>.internal(
+final getProfileProvider = AutoDisposeFutureProvider<Object?>.internal(
   getProfile,
   name: r'getProfileProvider',
   debugGetCreateSourceHash:
@@ -237,6 +237,6 @@ final getProfileProvider = AutoDisposeFutureProvider<Profile>.internal(
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef GetProfileRef = AutoDisposeFutureProviderRef<Profile>;
+typedef GetProfileRef = AutoDisposeFutureProviderRef<Object?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

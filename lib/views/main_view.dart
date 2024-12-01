@@ -1,4 +1,5 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
+import 'package:aplikasi_kpri_desktop/providers/auth_provider.dart';
 import 'package:aplikasi_kpri_desktop/widgets/admin_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/dashboard_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/member_widget.dart';
@@ -17,7 +18,7 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> {
   Widget _currentView = const DashBoardWidget();
 
-  void _onMenuItemSelected(int index) {
+  void _onMenuItemSelectedAdmin(int index) {
     setState(() {
       switch (index) {
         case 0:
@@ -42,32 +43,62 @@ class _MainViewState extends State<MainView> {
     });
   }
 
+  void _onMenuItemSelectedStaff(int index) {
+    setState(() {
+      switch (index) {
+        case 0:
+          _currentView = const DashBoardWidget();
+          break;
+        case 1:
+          _currentView = const MemberWidget();
+          break;
+        case 2:
+          _currentView = const SimpananWidget();
+          break;
+        case 5:
+          _currentView = const SettingWidget();
+          break;
+        default:
+          _currentView = const DashBoardWidget();
+          break;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Row(
-          children: [
-            Expanded(
-              flex: 2,
-              child: SizedBox(
-                child: SideMenuWidget(
-                  onMenuItemSelected: _onMenuItemSelected,
+    return FutureBuilder<String?>(
+      future: storage.read(key: 'roleId'),
+      builder: (context, snapshot) {
+        final roleId = snapshot.data;
+        return Scaffold(
+          body: SafeArea(
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: SizedBox(
+                    child: SideMenuWidget(
+                      onMenuItemSelected: roleId == 'admin'
+                          ? _onMenuItemSelectedAdmin
+                          : _onMenuItemSelectedStaff,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            Expanded(
-              flex: 10,
-              child: SizedBox.expand(
-                child: Container(
-                  color: GlobalColors.background,
-                  child: _currentView,
+                Expanded(
+                  flex: 10,
+                  child: SizedBox.expand(
+                    child: Container(
+                      color: GlobalColors.background,
+                      child: _currentView,
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

@@ -48,7 +48,7 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "Simpanan Member",
+            "Simpanan Anggota",
             style: TextStyle(
                 color: GlobalColors.primary, fontWeight: FontWeight.bold),
           ),

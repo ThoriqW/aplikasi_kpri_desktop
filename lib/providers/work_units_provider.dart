@@ -15,7 +15,7 @@ const baseUrl = API.baseUrl;
 const storage = FlutterSecureStorage();
 
 @riverpod
-Future<WorkUnits> getAllWorkUnits(GetAllWorkUnitsRef ref) async {
+Future<WorkUnits> getAllWorkUnits(ref) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {

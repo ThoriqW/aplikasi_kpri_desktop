@@ -17,80 +17,148 @@ class SideMenuWidget extends ConsumerStatefulWidget {
 
 class _SideMenuWidgetState extends ConsumerState<SideMenuWidget> {
   int selectedIndex = 0;
+  late String roleId;
 
   @override
   Widget build(BuildContext context) {
-    final data = SideMenuData();
-    return Container(
-      decoration: const BoxDecoration(
-        color: GlobalColors.white,
-        border: Border(
-          right: BorderSide(color: GlobalColors.secondary, width: 3),
-        ),
-      ),
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 13,
-              vertical: 30,
+    final dataAdmin = SideMenuDataAdmin();
+    final dataStaff = SideMenuDataStaff();
+
+    return FutureBuilder<String?>(
+      future: storage.read(key: 'roleId'),
+      builder: (context, snapshot) {
+        final roleId = snapshot.data;
+        return Container(
+          decoration: const BoxDecoration(
+            color: GlobalColors.white,
+            border: Border(
+              right: BorderSide(color: GlobalColors.secondary, width: 3),
             ),
-            child: Row(
-              children: [
-                Image.asset(
-                  "assets/images/koperasi_indonesia.png",
-                  width: 50,
+          ),
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 13,
+                  vertical: 30,
                 ),
-                Expanded(
-                  child: Text(
-                    "APLIKASI KOPERASI",
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                child: Row(
+                  children: [
+                    Image.asset(
+                      "assets/images/koperasi_indonesia.png",
+                      width: 50,
                     ),
+                    Expanded(
+                      child: Text(
+                        "APLIKASI KOPERASI",
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              if (roleId == 'admin')
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: dataAdmin.menu.length,
+                    itemBuilder: (context, index) =>
+                        buildMenuAdminEntry(context, dataAdmin, index),
+                  ),
+                )
+              else if (roleId == 'staff')
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: dataStaff.menu.length,
+                    itemBuilder: (context, index) =>
+                        buildMenuStaffEntry(context, dataStaff, index),
                   ),
                 ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: data.menu.length,
-              itemBuilder: (context, index) =>
-                  buildMenuEntry(context, data, index),
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 13,
-              vertical: 30,
-            ),
-            child: ButtonWidget(
-              text: "Keluar",
-              onTap: () async {
-                final authNotifier = ref.watch(authNotifierProvider.notifier);
-                await authNotifier.logout();
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 13,
+                  vertical: 30,
+                ),
+                child: ButtonWidget(
+                  text: "Keluar",
+                  onTap: () async {
+                    final authNotifier =
+                        ref.watch(authNotifierProvider.notifier);
+                    await authNotifier.logout();
 
-                if (!context.mounted) return;
+                    if (!context.mounted) return;
 
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => const LoginView(),
-                  ),
-                );
-              },
-              backgroundColor: Colors.redAccent,
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const LoginView(),
+                      ),
+                    );
+                  },
+                  backgroundColor: Colors.redAccent,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget buildMenuAdminEntry(
+      BuildContext context, SideMenuDataAdmin data, int index) {
+    final isSelected = selectedIndex == index;
+
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      decoration: BoxDecoration(
+        color: isSelected ? GlobalColors.secondary : Colors.transparent,
+      ),
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            selectedIndex = index;
+          });
+          widget.onMenuItemSelected(index);
+        },
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 13,
+                vertical: 10,
+              ),
+              child: Icon(
+                data.menu[index].icon,
+                color: isSelected
+                    ? GlobalColors.primary
+                    : GlobalColors.onBackground,
+              ),
             ),
-          )
-        ],
+            Expanded(
+              child: Text(
+                data.menu[index].title,
+                style: TextStyle(
+                  color: isSelected
+                      ? GlobalColors.primary
+                      : GlobalColors.onBackground,
+                  fontSize: 16,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
 
-  Widget buildMenuEntry(BuildContext context, SideMenuData data, int index) {
+  Widget buildMenuStaffEntry(
+      BuildContext context, SideMenuDataStaff data, int index) {
     final isSelected = selectedIndex == index;
 
     return Container(

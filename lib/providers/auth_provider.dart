@@ -27,6 +27,7 @@ class AuthNotifier extends _$AuthNotifier {
     if (response.statusCode == 200) {
       final authResponse = Authentication.fromJson(jsonDecode(response.body));
       await storage.write(key: 'authToken', value: authResponse.accessToken);
+      await storage.write(key: 'roleId', value: authResponse.role);
       state = AsyncData(authResponse);
     } else {
       throw ErrorResponse.fromJson(jsonDecode(response.body)).errors;
@@ -35,7 +36,8 @@ class AuthNotifier extends _$AuthNotifier {
 
   Future<void> logout() async {
     try {
-      storage.delete(key: "auth");
+      await storage.delete(key: "auth");
+      await storage.delete(key: "roleId");
     } catch (e) {
       throw Exception('Terjadi Kesalahan');
     }

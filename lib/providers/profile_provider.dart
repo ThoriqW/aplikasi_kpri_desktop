@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:aplikasi_kpri_desktop/api/api_connections.dart';
-import 'package:aplikasi_kpri_desktop/models/profile_model.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:intl/intl.dart';
@@ -50,7 +49,7 @@ Future updateProfile(ref, String? fullName, String? nik, String? noHp,
 }
 
 @riverpod
-Future<Profile> getProfile(ref) async {
+Future getProfile(ref) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
@@ -66,7 +65,8 @@ Future<Profile> getProfile(ref) async {
       },
     );
     if (response.statusCode == 200) {
-      return Profile.fromJson(jsonDecode(response.body));
+      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      return jsonResponse['data'];
     } else {
       throw ErrorResponse.fromJson(jsonDecode(response.body)).errors;
     }

@@ -78,7 +78,7 @@ Future getAllMember(ref) async {
 }
 
 @riverpod
-Future getMember(GetMemberRef ref, String id) async {
+Future getMember(ref, String id) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
@@ -106,7 +106,7 @@ Future getMember(GetMemberRef ref, String id) async {
 
 @riverpod
 Future updateMember(
-  UpdateMemberRef ref,
+  ref,
   String id,
   String fullName,
   String nik,
@@ -150,7 +150,7 @@ Future updateMember(
 }
 
 @riverpod
-Future deleteMember(DeleteMemberRef ref, String id) async {
+Future deleteMember(ref, String id) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
