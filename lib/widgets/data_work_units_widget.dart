@@ -1,5 +1,4 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
-import 'package:aplikasi_kpri_desktop/models/work_units_model.dart';
 import 'package:aplikasi_kpri_desktop/providers/work_units_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
@@ -27,11 +26,10 @@ class _WorkUnitsWidgetState extends ConsumerState<DataWorkUnitsWidget> {
       color: GlobalColors.white,
       child: dataWorkUnits.when(
         data: (workUnit) {
-          List<WorkUnit> workUnits = workUnit.data;
-
+          List<dynamic> workUnits = workUnit as List<dynamic>;
           if (searchQuery.isNotEmpty) {
             workUnits = workUnits.where((m) {
-              final fullName = m.name.toString().toLowerCase();
+              final fullName = m['name'].toString().toLowerCase();
               return fullName.contains(searchQuery.toLowerCase());
             }).toList();
           }
@@ -130,110 +128,105 @@ class _WorkUnitsWidgetState extends ConsumerState<DataWorkUnitsWidget> {
                       ),
                     ],
                   ),
-                  ...paginatedWorkUnits.asMap().entries.map(
-                    (entry) {
-                      int i = entry.key;
-                      WorkUnit workUnit = entry.value;
-
-                      return TableRow(
-                        decoration: const BoxDecoration(),
-                        children: <Widget>[
-                          Center(
-                            child: Container(
-                              padding: const EdgeInsets.all(9),
-                              child: Text(
-                                "${i + 1}",
-                                style: const TextStyle(
-                                  color: GlobalColors.onBackground,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Center(
-                            child: Container(
-                              padding: const EdgeInsets.all(9),
-                              child: Text(
-                                workUnit.id.toString(),
-                                style: const TextStyle(
-                                  color: GlobalColors.onBackground,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
+                  for (int i = 0; i < paginatedWorkUnits.length; i++)
+                    TableRow(
+                      decoration: const BoxDecoration(),
+                      children: <Widget>[
+                        Center(
+                          child: Container(
                             padding: const EdgeInsets.all(9),
                             child: Text(
-                              workUnit.name,
+                              "${i + 1}",
                               style: const TextStyle(
                                 color: GlobalColors.onBackground,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
                           ),
-                          Center(
-                            child: Row(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(2),
-                                  child: IconButton(
-                                    onPressed: () {
-                                      setState(() {});
-                                    },
-                                    icon: const Icon(
-                                      Icons.edit,
-                                      size: 18,
-                                      color: GlobalColors.primary,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(2),
-                                  child: IconButton(
-                                    onPressed: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: const Text("Info"),
-                                            content: const Text(
-                                              "Yakin hapus work unit?",
-                                            ),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                  context,
-                                                  'Cancel',
-                                                ),
-                                                child: const Text('Cancel'),
-                                              ),
-                                              TextButton(
-                                                onPressed: () async {
-                                                  _deleteWorkUnit(
-                                                      workUnit.id.toString());
-                                                },
-                                                child: const Text('OK'),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    },
-                                    icon: const Icon(
-                                      Icons.delete,
-                                      size: 18,
-                                      color: Colors.redAccent,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                        ),
+                        Center(
+                          child: Container(
+                            padding: const EdgeInsets.all(9),
+                            child: Text(
+                              workUnit[i]['id'].toString(),
+                              style: const TextStyle(
+                                color: GlobalColors.onBackground,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
-                        ],
-                      );
-                    },
-                  ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(9),
+                          child: Text(
+                            workUnit[i]['name'].toString(),
+                            style: const TextStyle(
+                              color: GlobalColors.onBackground,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        Center(
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(2),
+                                child: IconButton(
+                                  onPressed: () {
+                                    setState(() {});
+                                  },
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    size: 18,
+                                    color: GlobalColors.primary,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(2),
+                                child: IconButton(
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: const Text("Info"),
+                                          content: const Text(
+                                            "Yakin hapus work unit?",
+                                          ),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                context,
+                                                'Cancel',
+                                              ),
+                                              child: const Text('Cancel'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () async {
+                                                _deleteWorkUnit(workUnit[i]
+                                                        ['id']
+                                                    .toString());
+                                              },
+                                              child: const Text('OK'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                  icon: const Icon(
+                                    Icons.delete,
+                                    size: 18,
+                                    color: Colors.redAccent,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                 ],
               ),
               const SizedBox(height: 10),
@@ -270,7 +263,7 @@ class _WorkUnitsWidgetState extends ConsumerState<DataWorkUnitsWidget> {
           );
         },
         error: (error, stackTrace) =>
-            const Text('Oops, something unexpected happened'),
+            const Text('Data unit kerja tidak ditemukan'),
         loading: () => const LinearProgressIndicator(),
       ),
     );

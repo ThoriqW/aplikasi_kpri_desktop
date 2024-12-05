@@ -6,11 +6,11 @@ part of 'work_units_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getAllWorkUnitsHash() => r'801fac440dae4a014cf4dfd31167e9aec92b6fc8';
+String _$getAllWorkUnitsHash() => r'903c714b1dc4177c45648aa25a518d02d192667d';
 
 /// See also [getAllWorkUnits].
 @ProviderFor(getAllWorkUnits)
-final getAllWorkUnitsProvider = AutoDisposeFutureProvider<WorkUnits>.internal(
+final getAllWorkUnitsProvider = AutoDisposeFutureProvider<Object?>.internal(
   getAllWorkUnits,
   name: r'getAllWorkUnitsProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,8 +22,8 @@ final getAllWorkUnitsProvider = AutoDisposeFutureProvider<WorkUnits>.internal(
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef GetAllWorkUnitsRef = AutoDisposeFutureProviderRef<WorkUnits>;
-String _$addWorkUnitHash() => r'98468fcd2b0d55a2459a57e15272859ffe407043';
+typedef GetAllWorkUnitsRef = AutoDisposeFutureProviderRef<Object?>;
+String _$addWorkUnitHash() => r'ac0cf35433c5c87daece2cebfd564d02b9957ca1';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -174,7 +174,7 @@ class _AddWorkUnitProviderElement
   String get namaWorkUnit => (origin as AddWorkUnitProvider).namaWorkUnit;
 }
 
-String _$deleteWorkUnitHash() => r'a82288099eec70a36a362c2ebeda0ed5f1452dd9';
+String _$deleteWorkUnitHash() => r'b5c9f6946bb08f85c6ce41fafd6acca42e775632';
 
 /// See also [deleteWorkUnit].
 @ProviderFor(deleteWorkUnit)

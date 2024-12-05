@@ -1,3 +1,3 @@
 class API {
-  static const baseUrl = 'http://localhost:3000';
+  static const baseUrl = 'http://localhost:8000';
 }

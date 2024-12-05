@@ -23,7 +23,7 @@ final getCurrentUserProvider = AutoDisposeFutureProvider<User>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef GetCurrentUserRef = AutoDisposeFutureProviderRef<User>;
-String _$getAllUserHash() => r'd3b09d766323ae2df40fa3d40e2a15e589ffdf64';
+String _$getAllUserHash() => r'b5b5a414a57ba1fcd8ef058457a8cec34f74d6d9';
 
 /// See also [getAllUser].
 @ProviderFor(getAllUser)

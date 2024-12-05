@@ -36,8 +36,8 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
 
         if (searchQuery.isNotEmpty) {
           members = members.where((m) {
-            final fullName = m['fullName'].toString().toLowerCase();
-            return fullName.contains(searchQuery.toLowerCase());
+            final fullname = m['fullname'].toString().toLowerCase();
+            return fullname.contains(searchQuery.toLowerCase());
           }).toList();
         }
 
@@ -156,7 +156,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
-                          paginatedMembers[i]['fullName'].toString(),
+                          paginatedMembers[i]['fullname'].toString(),
                           style: const TextStyle(
                             color: GlobalColors.onBackground,
                             fontWeight: FontWeight.w500,
@@ -325,7 +325,6 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
   }
 
   Future<void> _deleteMember(String id) async {
-    print(id);
     try {
       final deleteMember = await ref.watch(
         deleteMemberProvider(id).future,

@@ -5,12 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class WorkUnitsDropdown extends ConsumerStatefulWidget {
   const WorkUnitsDropdown(
-      {super.key,
-      required this.onSelected,
-      this.onSelectedNameUnit,
-      this.currentDropDownName});
+      {super.key, required this.onSelected, this.currentDropDownName});
   final Function(String) onSelected;
-  final Function(String)? onSelectedNameUnit;
   final String? currentDropDownName;
 
   @override
@@ -19,7 +15,6 @@ class WorkUnitsDropdown extends ConsumerStatefulWidget {
 
 class _WorkUnitsDropdownState extends ConsumerState<WorkUnitsDropdown> {
   String? dropdownValue;
-  String? selectedUnitName;
 
   @override
   void initState() {
@@ -32,7 +27,8 @@ class _WorkUnitsDropdownState extends ConsumerState<WorkUnitsDropdown> {
     final getAllWorkUnits = ref.watch(getAllWorkUnitsProvider);
 
     return getAllWorkUnits.when(
-      data: (workUnits) {
+      data: (workUnit) {
+        List<dynamic> workUnits = workUnit as List<dynamic>;
         return DropdownButton<String>(
           value: dropdownValue,
           icon: const Icon(Icons.arrow_downward),
@@ -48,19 +44,15 @@ class _WorkUnitsDropdownState extends ConsumerState<WorkUnitsDropdown> {
           onChanged: (String? value) {
             setState(() {
               dropdownValue = value;
-              selectedUnitName = workUnits.data
-                  .firstWhere((workUnit) => workUnit.id.toString() == value)
-                  .name;
             });
-            widget.onSelectedNameUnit?.call(selectedUnitName!);
             widget.onSelected(dropdownValue!);
           },
-          items: workUnits.data.map<DropdownMenuItem<String>>((workUnit) {
+          items: workUnits.map<DropdownMenuItem<String>>((workUnit) {
             return DropdownMenuItem<String>(
-              value: workUnit.id.toString(),
+              value: workUnit['id'].toString(),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(workUnit.name),
+                child: Text(workUnit['name']),
               ),
             );
           }).toList(),

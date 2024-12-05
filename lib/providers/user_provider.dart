@@ -47,7 +47,7 @@ Future getAllUser(ref) async {
   if (token == null) {
     throw Exception('No authentication token found');
   }
-
+  print('asdasdadasdasdasda');
   try {
     final response = await http.get(
       Uri.parse('$baseUrl/api/v1/users'),

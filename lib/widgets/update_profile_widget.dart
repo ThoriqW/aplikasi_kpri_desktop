@@ -34,7 +34,7 @@ class _UpdateProfileWidgetState extends ConsumerState<UpdateProfileWidget> {
       child: getProfile.when(
         data: (profile) {
           final profileData = profile as Map<String, dynamic>;
-          nameController.text = profileData['fullName'] ?? '';
+          nameController.text = profileData['fullname'] ?? '';
           nikController.text = profileData['nik'] ?? '';
           nomorHpController.text = profileData['phoneNumber'] ?? '';
           alamatController.text = profileData['address'] ?? '';

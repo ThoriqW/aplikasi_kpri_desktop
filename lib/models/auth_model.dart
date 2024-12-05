@@ -10,7 +10,7 @@ class Authentication {
   factory Authentication.fromJson(Map<String, dynamic> json) {
     final data = json['data'];
     return Authentication(
-      accessToken: data['accessToken'],
+      accessToken: data['token'],
       role: data['role'],
     );
   }

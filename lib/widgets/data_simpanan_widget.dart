@@ -99,8 +99,7 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                   ),
                   const SizedBox(width: 24),
                   WorkUnitsDropdown(
-                    onSelected: (String value) {},
-                    onSelectedNameUnit: (String value) => setState(() {
+                    onSelected: (String value) => setState(() {
                       selectedUnit = value;
                     }),
                   ),

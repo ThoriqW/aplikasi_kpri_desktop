@@ -41,11 +41,11 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
         data: (member) {
           final memberData = member as Map<String, dynamic>;
           if (!isInitialized) {
-            nameController.text = memberData['fullName'];
+            nameController.text = memberData['fullname'];
             nikController.text = memberData['nik'];
-            nomorAnggotaController.text = memberData['memberNumber'];
-            nomorHpController.text = memberData['phoneNumber'];
-            alamatController.text = memberData['address'];
+            nomorAnggotaController.text = memberData['memberNumber'] ?? '';
+            nomorHpController.text = memberData['phoneNumber'] ?? '';
+            alamatController.text = memberData['address'] ?? '';
             memberData['dateOfBirth'] != null
                 ? tanggalLahirController.text =
                     memberData['dateOfBirth'].toString().split(" ")[0]

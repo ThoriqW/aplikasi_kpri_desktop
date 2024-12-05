@@ -58,7 +58,7 @@ Future getProfile(ref) async {
 
   try {
     final response = await http.get(
-      Uri.parse('$baseUrl/api/v1/profile/current'),
+      Uri.parse('$baseUrl/api/v1/profiles/current'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',

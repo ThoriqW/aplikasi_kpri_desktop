@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:aplikasi_kpri_desktop/api/api_connections.dart';
-import 'package:aplikasi_kpri_desktop/models/work_units_model.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -15,7 +14,7 @@ const baseUrl = API.baseUrl;
 const storage = FlutterSecureStorage();
 
 @riverpod
-Future<WorkUnits> getAllWorkUnits(ref) async {
+Future getAllWorkUnits(ref) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
@@ -24,14 +23,16 @@ Future<WorkUnits> getAllWorkUnits(ref) async {
 
   try {
     final response = await http.get(
-      Uri.parse('$baseUrl/api/v1/work-unit'),
+      Uri.parse('$baseUrl/api/v1/work-units'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
       },
     );
     if (response.statusCode == 200) {
-      return WorkUnits.fromJson(jsonDecode(response.body));
+      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      final List<dynamic> workunits = jsonResponse['data'];
+      return List<Map<String, dynamic>>.from(workunits);
     } else {
       throw ErrorResponse.fromJson(jsonDecode(response.body)).errors;
     }
@@ -41,7 +42,7 @@ Future<WorkUnits> getAllWorkUnits(ref) async {
 }
 
 @riverpod
-Future addWorkUnit(AddWorkUnitRef ref, String namaWorkUnit) async {
+Future addWorkUnit(ref, String namaWorkUnit) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
@@ -68,7 +69,7 @@ Future addWorkUnit(AddWorkUnitRef ref, String namaWorkUnit) async {
 }
 
 @riverpod
-Future deleteWorkUnit(DeleteWorkUnitRef ref, String id) async {
+Future deleteWorkUnit(ref, String id) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {

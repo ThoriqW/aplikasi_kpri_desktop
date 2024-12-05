@@ -222,7 +222,7 @@ class _UpdateProfileProviderElement
   DateTime? get dateOfBirth => (origin as UpdateProfileProvider).dateOfBirth;
 }
 
-String _$getProfileHash() => r'5347fb3a9ded3873faea45f834b36fb48710dbf6';
+String _$getProfileHash() => r'b93ffce560ea6c47b526a35967d1e2e829586191';
 
 /// See also [getProfile].
 @ProviderFor(getProfile)
