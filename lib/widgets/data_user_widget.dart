@@ -1,4 +1,5 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
+import 'package:aplikasi_kpri_desktop/providers/admin_route_provider.dart';
 import 'package:aplikasi_kpri_desktop/providers/user_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
@@ -8,7 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DataUserWidget extends ConsumerStatefulWidget {
-  const DataUserWidget({super.key});
+  const DataUserWidget({super.key, required this.onEdit});
+
+  final Function onEdit;
 
   @override
   ConsumerState<DataUserWidget> createState() => _DataUserWidgetState();
@@ -49,6 +52,7 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
                 style: TextStyle(
                   color: GlobalColors.primary,
                   fontWeight: FontWeight.bold,
+                  fontSize: 16,
                 ),
               ),
               const SizedBox(height: 20),
@@ -76,9 +80,10 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
                 columnWidths: const <int, TableColumnWidth>{
                   0: IntrinsicColumnWidth(),
                   1: IntrinsicColumnWidth(),
-                  2: FlexColumnWidth(),
-                  3: IntrinsicColumnWidth(),
+                  2: IntrinsicColumnWidth(),
+                  3: FlexColumnWidth(),
                   4: IntrinsicColumnWidth(),
+                  5: IntrinsicColumnWidth(),
                 },
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 children: <TableRow>[
@@ -109,6 +114,16 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
                         padding: const EdgeInsets.all(9),
                         child: const Text(
                           "Username",
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(9),
+                        child: const Text(
+                          "Nama Lengkap",
                           style: TextStyle(
                             color: Colors.black87,
                             fontWeight: FontWeight.w500,
@@ -180,6 +195,16 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
                         Container(
                           padding: const EdgeInsets.all(9),
                           child: Text(
+                            paginatedUsers[i]['fullname'].toString(),
+                            style: const TextStyle(
+                              color: GlobalColors.onBackground,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(9),
+                          child: Text(
                             paginatedUsers[i]['role'].toString(),
                             style: const TextStyle(
                               color: GlobalColors.onBackground,
@@ -191,6 +216,22 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              Container(
+                                padding: const EdgeInsets.all(2),
+                                child: IconButton(
+                                  onPressed: () async {
+                                    ref
+                                        .watch(idUserNotifierProvider.notifier)
+                                        .setId(paginatedUsers[i]['id']);
+                                    widget.onEdit();
+                                  },
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    size: 18,
+                                    color: GlobalColors.primary,
+                                  ),
+                                ),
+                              ),
                               Container(
                                 padding: const EdgeInsets.all(2),
                                 child: IconButton(
@@ -251,10 +292,10 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
                             });
                           }
                         : null,
-                    child: const Text('Previous'),
+                    child: const Text('Sebelumnya'),
                   ),
                   Text(
-                    'Page ${currentPage + 1} of ${(users.length / rowsPerPage).ceil()}',
+                    'Halaman ${currentPage + 1} dari ${(users.length / rowsPerPage).ceil()}',
                   ),
                   ElevatedButton(
                     onPressed: (currentPage + 1) * rowsPerPage < users.length
@@ -264,7 +305,7 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
                             });
                           }
                         : null,
-                    child: const Text('Next'),
+                    child: const Text('Selanjutnya'),
                   ),
                 ],
               ),
@@ -286,7 +327,7 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
       if (!mounted) return;
       Navigator.pop(context, 'OK');
       if (deleteMember is SuccessResponse) {
-        showDialog(
+        await showDialog(
           context: context,
           builder: (BuildContext context) {
             return CustomAlertDialog(
@@ -297,7 +338,7 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
         );
         ref.invalidate(getAllUserProvider);
       } else if (deleteMember is ErrorResponse) {
-        showDialog(
+        await showDialog(
           context: context,
           builder: (BuildContext context) {
             return CustomAlertDialog(
@@ -310,7 +351,7 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
     } catch (e) {
       if (!mounted) return;
       Navigator.pop(context, 'OK');
-      showDialog(
+      await showDialog(
         context: context,
         builder: (BuildContext context) {
           return CustomAlertDialog(

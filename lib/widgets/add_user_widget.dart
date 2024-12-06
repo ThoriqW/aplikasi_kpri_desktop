@@ -31,6 +31,7 @@ class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
             style: TextStyle(
               color: GlobalColors.primary,
               fontWeight: FontWeight.bold,
+              fontSize: 16,
             ),
           ),
           const SizedBox(height: 20),

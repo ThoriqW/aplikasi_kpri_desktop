@@ -18,6 +18,7 @@ class AddWorkUnitWidget extends ConsumerStatefulWidget {
 
 class _AddWorkUnitWidgetState extends ConsumerState<AddWorkUnitWidget> {
   final TextEditingController namaWorkUnitController = TextEditingController();
+  final TextEditingController kodeWorkUnitController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return CustomCardWidget(
@@ -30,11 +31,15 @@ class _AddWorkUnitWidgetState extends ConsumerState<AddWorkUnitWidget> {
             style: TextStyle(
               color: GlobalColors.primary,
               fontWeight: FontWeight.bold,
+              fontSize: 16,
             ),
           ),
           const SizedBox(height: 20),
           TextFormWidget(
               controller: namaWorkUnitController, text: "Nama Unit Kerja"),
+          const SizedBox(height: 15),
+          TextFormWidget(
+              controller: kodeWorkUnitController, text: "Kode Unit Kerja"),
           const SizedBox(height: 15),
           ButtonWidget(
             text: "Simpan",
@@ -50,11 +55,13 @@ class _AddWorkUnitWidgetState extends ConsumerState<AddWorkUnitWidget> {
   Future<void> _saveWorkUnit() async {
     try {
       final addWorkUnit = await ref.read(
-        addWorkUnitProvider(namaWorkUnitController.text).future,
+        addWorkUnitProvider(
+                namaWorkUnitController.text, kodeWorkUnitController.text)
+            .future,
       );
       if (!mounted) return;
       if (addWorkUnit is SuccessResponse) {
-        showDialog(
+        await showDialog(
           context: context,
           builder: (BuildContext context) {
             return CustomAlertDialog(
@@ -62,9 +69,9 @@ class _AddWorkUnitWidgetState extends ConsumerState<AddWorkUnitWidget> {
               alertTitle: "Sukses",
             );
           },
-        ).then((value) => ref.refresh(getAllWorkUnitsProvider));
+        ).then((value) => ref.invalidate(getAllWorkUnitsProvider));
       } else if (addWorkUnit is ErrorResponse) {
-        showDialog(
+        await showDialog(
           context: context,
           builder: (BuildContext context) {
             return CustomAlertDialog(
@@ -76,7 +83,7 @@ class _AddWorkUnitWidgetState extends ConsumerState<AddWorkUnitWidget> {
       }
     } catch (e) {
       if (!mounted) return;
-      showDialog(
+      await showDialog(
         context: context,
         builder: (BuildContext context) {
           return CustomAlertDialog(
@@ -88,6 +95,7 @@ class _AddWorkUnitWidgetState extends ConsumerState<AddWorkUnitWidget> {
     } finally {
       if (mounted) {
         namaWorkUnitController.clear();
+        kodeWorkUnitController.clear();
       }
     }
   }

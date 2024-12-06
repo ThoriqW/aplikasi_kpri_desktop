@@ -42,7 +42,34 @@ Future getAllWorkUnits(ref) async {
 }
 
 @riverpod
-Future addWorkUnit(ref, String namaWorkUnit) async {
+Future getWorkUnit(ref, String id) async {
+  final String? token = await storage.read(key: 'authToken');
+
+  if (token == null) {
+    throw Exception('No authentication token found');
+  }
+
+  try {
+    final response = await http.get(
+      Uri.parse('$baseUrl/api/v1/work-units/$id'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      return jsonResponse['data'];
+    } else {
+      throw ErrorResponse.fromJson(jsonDecode(response.body)).errors;
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
+}
+
+@riverpod
+Future addWorkUnit(ref, String namaWorkUnit, String kodeWorkUnit) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
@@ -51,14 +78,42 @@ Future addWorkUnit(ref, String namaWorkUnit) async {
 
   try {
     final response = await http.post(
-      Uri.parse('$baseUrl/api/v1/work-unit'),
+      Uri.parse('$baseUrl/api/v1/work-units'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
       },
-      body: jsonEncode({'name': namaWorkUnit}),
+      body: jsonEncode({'name': namaWorkUnit, 'code': kodeWorkUnit}),
     );
     if (response.statusCode == 201) {
+      return SuccessResponse.fromJson(jsonDecode(response.body));
+    } else {
+      return ErrorResponse.fromJson(jsonDecode(response.body));
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
+}
+
+@riverpod
+Future updateWorkUnit(
+    ref, String id, String namaWorkUnit, String kodeWorkUnit) async {
+  final String? token = await storage.read(key: 'authToken');
+
+  if (token == null) {
+    throw Exception('No authentication token found');
+  }
+
+  try {
+    final response = await http.patch(
+      Uri.parse('$baseUrl/api/v1/work-units/$id'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({'name': namaWorkUnit, 'code': kodeWorkUnit}),
+    );
+    if (response.statusCode == 200) {
       return SuccessResponse.fromJson(jsonDecode(response.body));
     } else {
       return ErrorResponse.fromJson(jsonDecode(response.body));
@@ -78,7 +133,7 @@ Future deleteWorkUnit(ref, String id) async {
 
   try {
     final response = await http.delete(
-      Uri.parse('$baseUrl/api/v1/work-unit/$id'),
+      Uri.parse('$baseUrl/api/v1/work-units/$id'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',

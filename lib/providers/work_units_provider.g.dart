@@ -23,7 +23,7 @@ final getAllWorkUnitsProvider = AutoDisposeFutureProvider<Object?>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef GetAllWorkUnitsRef = AutoDisposeFutureProviderRef<Object?>;
-String _$addWorkUnitHash() => r'ac0cf35433c5c87daece2cebfd564d02b9957ca1';
+String _$getWorkUnitHash() => r'0d23c1ec2c65e8277d600b65115d456ea1c37e78';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -46,6 +46,136 @@ class _SystemHash {
   }
 }
 
+/// See also [getWorkUnit].
+@ProviderFor(getWorkUnit)
+const getWorkUnitProvider = GetWorkUnitFamily();
+
+/// See also [getWorkUnit].
+class GetWorkUnitFamily extends Family<AsyncValue> {
+  /// See also [getWorkUnit].
+  const GetWorkUnitFamily();
+
+  /// See also [getWorkUnit].
+  GetWorkUnitProvider call(
+    String id,
+  ) {
+    return GetWorkUnitProvider(
+      id,
+    );
+  }
+
+  @override
+  GetWorkUnitProvider getProviderOverride(
+    covariant GetWorkUnitProvider provider,
+  ) {
+    return call(
+      provider.id,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getWorkUnitProvider';
+}
+
+/// See also [getWorkUnit].
+class GetWorkUnitProvider extends AutoDisposeFutureProvider<Object?> {
+  /// See also [getWorkUnit].
+  GetWorkUnitProvider(
+    String id,
+  ) : this._internal(
+          (ref) => getWorkUnit(
+            ref as GetWorkUnitRef,
+            id,
+          ),
+          from: getWorkUnitProvider,
+          name: r'getWorkUnitProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getWorkUnitHash,
+          dependencies: GetWorkUnitFamily._dependencies,
+          allTransitiveDependencies:
+              GetWorkUnitFamily._allTransitiveDependencies,
+          id: id,
+        );
+
+  GetWorkUnitProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+  }) : super.internal();
+
+  final String id;
+
+  @override
+  Override overrideWith(
+    FutureOr<Object?> Function(GetWorkUnitRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetWorkUnitProvider._internal(
+        (ref) => create(ref as GetWorkUnitRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Object?> createElement() {
+    return _GetWorkUnitProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetWorkUnitProvider && other.id == id;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin GetWorkUnitRef on AutoDisposeFutureProviderRef<Object?> {
+  /// The parameter `id` of this provider.
+  String get id;
+}
+
+class _GetWorkUnitProviderElement
+    extends AutoDisposeFutureProviderElement<Object?> with GetWorkUnitRef {
+  _GetWorkUnitProviderElement(super.provider);
+
+  @override
+  String get id => (origin as GetWorkUnitProvider).id;
+}
+
+String _$addWorkUnitHash() => r'ebd5badd94ad9d63549a5a14ae00bff21846aefa';
+
 /// See also [addWorkUnit].
 @ProviderFor(addWorkUnit)
 const addWorkUnitProvider = AddWorkUnitFamily();
@@ -58,9 +188,11 @@ class AddWorkUnitFamily extends Family<AsyncValue> {
   /// See also [addWorkUnit].
   AddWorkUnitProvider call(
     String namaWorkUnit,
+    String kodeWorkUnit,
   ) {
     return AddWorkUnitProvider(
       namaWorkUnit,
+      kodeWorkUnit,
     );
   }
 
@@ -70,6 +202,7 @@ class AddWorkUnitFamily extends Family<AsyncValue> {
   ) {
     return call(
       provider.namaWorkUnit,
+      provider.kodeWorkUnit,
     );
   }
 
@@ -93,10 +226,12 @@ class AddWorkUnitProvider extends AutoDisposeFutureProvider<Object?> {
   /// See also [addWorkUnit].
   AddWorkUnitProvider(
     String namaWorkUnit,
+    String kodeWorkUnit,
   ) : this._internal(
           (ref) => addWorkUnit(
             ref as AddWorkUnitRef,
             namaWorkUnit,
+            kodeWorkUnit,
           ),
           from: addWorkUnitProvider,
           name: r'addWorkUnitProvider',
@@ -108,6 +243,7 @@ class AddWorkUnitProvider extends AutoDisposeFutureProvider<Object?> {
           allTransitiveDependencies:
               AddWorkUnitFamily._allTransitiveDependencies,
           namaWorkUnit: namaWorkUnit,
+          kodeWorkUnit: kodeWorkUnit,
         );
 
   AddWorkUnitProvider._internal(
@@ -118,9 +254,11 @@ class AddWorkUnitProvider extends AutoDisposeFutureProvider<Object?> {
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.namaWorkUnit,
+    required this.kodeWorkUnit,
   }) : super.internal();
 
   final String namaWorkUnit;
+  final String kodeWorkUnit;
 
   @override
   Override overrideWith(
@@ -136,6 +274,7 @@ class AddWorkUnitProvider extends AutoDisposeFutureProvider<Object?> {
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         namaWorkUnit: namaWorkUnit,
+        kodeWorkUnit: kodeWorkUnit,
       ),
     );
   }
@@ -147,13 +286,16 @@ class AddWorkUnitProvider extends AutoDisposeFutureProvider<Object?> {
 
   @override
   bool operator ==(Object other) {
-    return other is AddWorkUnitProvider && other.namaWorkUnit == namaWorkUnit;
+    return other is AddWorkUnitProvider &&
+        other.namaWorkUnit == namaWorkUnit &&
+        other.kodeWorkUnit == kodeWorkUnit;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, namaWorkUnit.hashCode);
+    hash = _SystemHash.combine(hash, kodeWorkUnit.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -164,6 +306,9 @@ class AddWorkUnitProvider extends AutoDisposeFutureProvider<Object?> {
 mixin AddWorkUnitRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `namaWorkUnit` of this provider.
   String get namaWorkUnit;
+
+  /// The parameter `kodeWorkUnit` of this provider.
+  String get kodeWorkUnit;
 }
 
 class _AddWorkUnitProviderElement
@@ -172,9 +317,174 @@ class _AddWorkUnitProviderElement
 
   @override
   String get namaWorkUnit => (origin as AddWorkUnitProvider).namaWorkUnit;
+  @override
+  String get kodeWorkUnit => (origin as AddWorkUnitProvider).kodeWorkUnit;
 }
 
-String _$deleteWorkUnitHash() => r'b5c9f6946bb08f85c6ce41fafd6acca42e775632';
+String _$updateWorkUnitHash() => r'da30f2b938714f818fd95e5576a2ffabd28592a1';
+
+/// See also [updateWorkUnit].
+@ProviderFor(updateWorkUnit)
+const updateWorkUnitProvider = UpdateWorkUnitFamily();
+
+/// See also [updateWorkUnit].
+class UpdateWorkUnitFamily extends Family<AsyncValue> {
+  /// See also [updateWorkUnit].
+  const UpdateWorkUnitFamily();
+
+  /// See also [updateWorkUnit].
+  UpdateWorkUnitProvider call(
+    String id,
+    String namaWorkUnit,
+    String kodeWorkUnit,
+  ) {
+    return UpdateWorkUnitProvider(
+      id,
+      namaWorkUnit,
+      kodeWorkUnit,
+    );
+  }
+
+  @override
+  UpdateWorkUnitProvider getProviderOverride(
+    covariant UpdateWorkUnitProvider provider,
+  ) {
+    return call(
+      provider.id,
+      provider.namaWorkUnit,
+      provider.kodeWorkUnit,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'updateWorkUnitProvider';
+}
+
+/// See also [updateWorkUnit].
+class UpdateWorkUnitProvider extends AutoDisposeFutureProvider<Object?> {
+  /// See also [updateWorkUnit].
+  UpdateWorkUnitProvider(
+    String id,
+    String namaWorkUnit,
+    String kodeWorkUnit,
+  ) : this._internal(
+          (ref) => updateWorkUnit(
+            ref as UpdateWorkUnitRef,
+            id,
+            namaWorkUnit,
+            kodeWorkUnit,
+          ),
+          from: updateWorkUnitProvider,
+          name: r'updateWorkUnitProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$updateWorkUnitHash,
+          dependencies: UpdateWorkUnitFamily._dependencies,
+          allTransitiveDependencies:
+              UpdateWorkUnitFamily._allTransitiveDependencies,
+          id: id,
+          namaWorkUnit: namaWorkUnit,
+          kodeWorkUnit: kodeWorkUnit,
+        );
+
+  UpdateWorkUnitProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+    required this.namaWorkUnit,
+    required this.kodeWorkUnit,
+  }) : super.internal();
+
+  final String id;
+  final String namaWorkUnit;
+  final String kodeWorkUnit;
+
+  @override
+  Override overrideWith(
+    FutureOr<Object?> Function(UpdateWorkUnitRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: UpdateWorkUnitProvider._internal(
+        (ref) => create(ref as UpdateWorkUnitRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+        namaWorkUnit: namaWorkUnit,
+        kodeWorkUnit: kodeWorkUnit,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Object?> createElement() {
+    return _UpdateWorkUnitProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is UpdateWorkUnitProvider &&
+        other.id == id &&
+        other.namaWorkUnit == namaWorkUnit &&
+        other.kodeWorkUnit == kodeWorkUnit;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+    hash = _SystemHash.combine(hash, namaWorkUnit.hashCode);
+    hash = _SystemHash.combine(hash, kodeWorkUnit.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin UpdateWorkUnitRef on AutoDisposeFutureProviderRef<Object?> {
+  /// The parameter `id` of this provider.
+  String get id;
+
+  /// The parameter `namaWorkUnit` of this provider.
+  String get namaWorkUnit;
+
+  /// The parameter `kodeWorkUnit` of this provider.
+  String get kodeWorkUnit;
+}
+
+class _UpdateWorkUnitProviderElement
+    extends AutoDisposeFutureProviderElement<Object?> with UpdateWorkUnitRef {
+  _UpdateWorkUnitProviderElement(super.provider);
+
+  @override
+  String get id => (origin as UpdateWorkUnitProvider).id;
+  @override
+  String get namaWorkUnit => (origin as UpdateWorkUnitProvider).namaWorkUnit;
+  @override
+  String get kodeWorkUnit => (origin as UpdateWorkUnitProvider).kodeWorkUnit;
+}
+
+String _$deleteWorkUnitHash() => r'd9e8ce2adbba4cb3620015c81526910eefb2227c';
 
 /// See also [deleteWorkUnit].
 @ProviderFor(deleteWorkUnit)

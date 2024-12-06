@@ -14,8 +14,24 @@ const baseUrl = API.baseUrl;
 const storage = FlutterSecureStorage();
 
 @riverpod
-Future addMember(ref, String fullName, String nik, String nomorAnggota,
-    String noHp, String address, DateTime? dateOfBirth, int workUnitId) async {
+Future addMember(
+  ref,
+  String fullname,
+  String nik,
+  String nomorAnggota,
+  String noHp,
+  String address,
+  DateTime? dateOfBirth,
+  String email,
+  String gender,
+  String religion,
+  String jabatan,
+  String pangkat,
+  String nip,
+  DateTime? startDate,
+  DateTime? endDate,
+  int workUnitId,
+) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
@@ -30,13 +46,21 @@ Future addMember(ref, String fullName, String nik, String nomorAnggota,
         'Authorization': 'Bearer $token',
       },
       body: jsonEncode({
-        'fullName': fullName,
-        'dateOfBirth': dateOfBirth != null ? formatDateOnly(dateOfBirth) : null,
+        'fullname': fullname,
         'nik': nik,
-        'memberNumber': nomorAnggota,
-        'phoneNumber': noHp,
+        'member_number': nomorAnggota,
+        'phone': noHp,
         'address': address,
-        'workUnitId': workUnitId,
+        'birthdate': dateOfBirth != null ? formatDateOnly(dateOfBirth) : null,
+        'email': email,
+        'gender': gender,
+        'religion': religion,
+        'jabatan': jabatan,
+        'pangkat': pangkat,
+        'nip': nip,
+        'start_date': startDate != null ? formatDateOnly(startDate) : null,
+        'end_date': endDate != null ? formatDateOnly(endDate) : null,
+        'work_unit_id': workUnitId,
       }),
     );
     if (response.statusCode == 201) {
@@ -108,12 +132,21 @@ Future getMember(ref, String id) async {
 Future updateMember(
   ref,
   String id,
-  String fullName,
+  String fullname,
   String nik,
   String nomorAnggota,
   String noHp,
   String address,
   DateTime? dateOfBirth,
+  String email,
+  String gender,
+  String religion,
+  String jabatan,
+  String pangkat,
+  String nip,
+  int isActive,
+  DateTime? startDate,
+  DateTime? endDate,
   int workUnitId,
 ) async {
   final String? token = await storage.read(key: 'authToken');
@@ -121,22 +154,30 @@ Future updateMember(
   if (token == null) {
     throw Exception('No authentication token found');
   }
-
   try {
-    final response = await http.patch(
+    final response = await http.put(
       Uri.parse('$baseUrl/api/v1/members/$id'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
       },
       body: jsonEncode({
-        'fullName': fullName,
-        'dateOfBirth': dateOfBirth != null ? formatDateOnly(dateOfBirth) : null,
+        'fullname': fullname,
         'nik': nik,
-        'memberNumber': nomorAnggota,
-        'phoneNumber': noHp,
+        'member_number': nomorAnggota,
+        'phone': noHp,
         'address': address,
-        'workUnitId': workUnitId,
+        'birthdate': dateOfBirth != null ? formatDateOnly(dateOfBirth) : null,
+        'email': email,
+        'gender': gender,
+        'religion': religion,
+        'jabatan': jabatan,
+        'pangkat': pangkat,
+        'nip': nip,
+        'is_active': isActive,
+        'start_date': startDate != null ? formatDateOnly(startDate) : null,
+        'end_date': endDate != null ? formatDateOnly(endDate) : null,
+        'work_unit_id': workUnitId,
       }),
     );
     if (response.statusCode == 200) {

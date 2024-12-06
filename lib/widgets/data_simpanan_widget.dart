@@ -428,10 +428,10 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                                 });
                               }
                             : null,
-                        child: const Text('Previous'),
+                        child: const Text('Sebelumnya'),
                       ),
                       Text(
-                        'Page ${currentPage + 1} of ${(savings.length / rowsPerPage).ceil()}',
+                        'Halaman ${currentPage + 1} dari ${(savings.length / rowsPerPage).ceil()}',
                       ),
                       ElevatedButton(
                         onPressed:
@@ -442,7 +442,7 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                                     });
                                   }
                                 : null,
-                        child: const Text('Next'),
+                        child: const Text('Selanjutnya'),
                       ),
                     ],
                   ),

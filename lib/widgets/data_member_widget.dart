@@ -48,7 +48,17 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
         List<dynamic> paginatedMembers = members.sublist(startIndex, endIndex);
 
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const Text(
+              "Daftar Anggota",
+              style: TextStyle(
+                color: GlobalColors.primary,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: TextField(
@@ -61,7 +71,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                 },
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.search, color: Colors.grey),
-                  hintText: 'Cari Anggota',
+                  hintText: 'Cari Nama Anggota',
                   border: InputBorder.none,
                   filled: true,
                   fillColor: GlobalColors.background,
@@ -75,6 +85,12 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                 1: IntrinsicColumnWidth(),
                 2: FlexColumnWidth(),
                 3: IntrinsicColumnWidth(),
+                4: IntrinsicColumnWidth(),
+                5: IntrinsicColumnWidth(),
+                6: IntrinsicColumnWidth(),
+                7: IntrinsicColumnWidth(),
+                8: IntrinsicColumnWidth(),
+                9: IntrinsicColumnWidth(),
               },
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
               children: <TableRow>[
@@ -105,6 +121,66 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                       padding: const EdgeInsets.all(9),
                       child: const Text(
                         "Nama Anggota",
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(9),
+                      child: const Text(
+                        "Nomor Anggota",
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(9),
+                      child: const Text(
+                        "NIK",
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(9),
+                      child: const Text(
+                        "Nomor HP",
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(9),
+                      child: const Text(
+                        "Alamat",
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(9),
+                      child: const Text(
+                        "Tanggal Lahir",
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(9),
+                      child: const Text(
+                        "Unit Kerja",
                         style: TextStyle(
                           color: Colors.black87,
                           fontWeight: FontWeight.w500,
@@ -163,6 +239,66 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                           ),
                         ),
                       ),
+                      Container(
+                        padding: const EdgeInsets.all(9),
+                        child: Text(
+                          paginatedMembers[i]['member_number'].toString(),
+                          style: const TextStyle(
+                            color: GlobalColors.onBackground,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(9),
+                        child: Text(
+                          paginatedMembers[i]['nik'].toString(),
+                          style: const TextStyle(
+                            color: GlobalColors.onBackground,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(9),
+                        child: Text(
+                          paginatedMembers[i]['phone'].toString(),
+                          style: const TextStyle(
+                            color: GlobalColors.onBackground,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(9),
+                        child: Text(
+                          paginatedMembers[i]['address'].toString(),
+                          style: const TextStyle(
+                            color: GlobalColors.onBackground,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(9),
+                        child: Text(
+                          paginatedMembers[i]['birthdate'].toString(),
+                          style: const TextStyle(
+                            color: GlobalColors.onBackground,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(9),
+                        child: Text(
+                          paginatedMembers[i]['work_unit'].toString(),
+                          style: const TextStyle(
+                            color: GlobalColors.onBackground,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
                       Center(
                         child: Row(
                           children: [
@@ -193,8 +329,8 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                             Container(
                               padding: const EdgeInsets.all(2),
                               child: IconButton(
-                                onPressed: () {
-                                  showDialog(
+                                onPressed: () async {
+                                  await showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
@@ -250,10 +386,10 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                           });
                         }
                       : null,
-                  child: const Text('Previous'),
+                  child: const Text('Sebelumnya'),
                 ),
                 Text(
-                  'Page ${currentPage + 1} of ${(members.length / rowsPerPage).ceil()}',
+                  'Halaman ${currentPage + 1} dari ${(members.length / rowsPerPage).ceil()}',
                 ),
                 ElevatedButton(
                   onPressed: (currentPage + 1) * rowsPerPage < members.length
@@ -263,7 +399,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                           });
                         }
                       : null,
-                  child: const Text('Next'),
+                  child: const Text('Selanjutnya'),
                 ),
               ],
             ),
@@ -279,12 +415,6 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Daftar Anggota",
-            style: TextStyle(
-                color: GlobalColors.primary, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 16),
           Row(
             children: [
               ButtonWidget(
@@ -332,7 +462,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
       if (!mounted) return;
       Navigator.pop(context, 'OK');
       if (deleteMember is SuccessResponse) {
-        showDialog(
+        await showDialog(
           context: context,
           builder: (BuildContext context) {
             return CustomAlertDialog(
@@ -343,7 +473,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
         );
         ref.invalidate(getAllMemberProvider);
       } else if (deleteMember is ErrorResponse) {
-        showDialog(
+        await showDialog(
           context: context,
           builder: (BuildContext context) {
             return CustomAlertDialog(
@@ -356,7 +486,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
     } catch (e) {
       if (!mounted) return;
       Navigator.pop(context, 'OK');
-      showDialog(
+      await showDialog(
         context: context,
         builder: (BuildContext context) {
           return CustomAlertDialog(

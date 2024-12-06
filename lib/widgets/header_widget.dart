@@ -15,6 +15,8 @@ class HeaderWidget extends ConsumerWidget {
         color: GlobalColors.white,
         child: getCurrentUser.when(
           data: (user) {
+            final Map<String, dynamic> currentUser =
+                user as Map<String, dynamic>;
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -35,10 +37,11 @@ class HeaderWidget extends ConsumerWidget {
                     ),
                     const SizedBox(width: 12),
                     Text(
-                      'Hello, ${user.username}',
+                      'Hello, ${currentUser['fullname']}',
                       style: const TextStyle(
                         color: GlobalColors.primary,
                         fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
                     ),
                   ],
