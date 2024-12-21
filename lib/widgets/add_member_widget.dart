@@ -22,7 +22,7 @@ class AddMemberWidget extends ConsumerStatefulWidget {
 }
 
 class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
-  final TextEditingController fullnameController = TextEditingController();
+  final TextEditingController namaLengkapController = TextEditingController();
   final TextEditingController nikController = TextEditingController();
   final TextEditingController nomorAnggotaController = TextEditingController();
   final TextEditingController nomorHpController = TextEditingController();
@@ -36,8 +36,8 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
   final TextEditingController pangkatController = TextEditingController();
   final TextEditingController nipController = TextEditingController();
   final TextEditingController isActiveController = TextEditingController();
-  final TextEditingController startDateController = TextEditingController();
-  final TextEditingController endDateController = TextEditingController();
+  final TextEditingController tanggalMasukController = TextEditingController();
+  final TextEditingController tanggalKeluarController = TextEditingController();
   String selectedUnit = '';
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,8 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                     ),
                     const SizedBox(height: 8),
                     TextFormWidget(
-                        controller: fullnameController, text: "Nama Lengkap"),
+                        controller: namaLengkapController,
+                        text: "Nama Lengkap"),
                   ],
                 ),
               ),
@@ -306,7 +307,7 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    DatePickerWidget(date: startDateController),
+                    DatePickerWidget(date: tanggalMasukController),
                   ],
                 ),
               ),
@@ -323,7 +324,7 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    DatePickerWidget(date: endDateController),
+                    DatePickerWidget(date: tanggalKeluarController),
                   ],
                 ),
               ),
@@ -370,7 +371,7 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
   Future<void> _saveMember() async {
     try {
       final addMember = await ref.watch(addMemberProvider(
-        fullnameController.text,
+        namaLengkapController.text,
         nikController.text,
         nomorAnggotaController.text,
         nomorHpController.text,
@@ -384,11 +385,11 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
         jabatanController.text,
         pangkatController.text,
         nipController.text,
-        startDateController.text != ''
-            ? DateFormat('yyyy-MM-dd').parse(startDateController.text)
+        tanggalMasukController.text != ''
+            ? DateFormat('yyyy-MM-dd').parse(tanggalMasukController.text)
             : null,
-        endDateController.text != ''
-            ? DateFormat('yyyy-MM-dd').parse(endDateController.text)
+        tanggalKeluarController.text != ''
+            ? DateFormat('yyyy-MM-dd').parse(tanggalKeluarController.text)
             : null,
         selectedUnit != '' ? int.parse(selectedUnit) : 0,
       ).future);

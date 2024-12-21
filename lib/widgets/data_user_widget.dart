@@ -33,8 +33,8 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
 
           if (searchQuery.isNotEmpty) {
             users = users.where((m) {
-              final fullName = m['username'].toString().toLowerCase();
-              return fullName.contains(searchQuery.toLowerCase());
+              final username = m['username'].toString().toLowerCase();
+              return username.contains(searchQuery.toLowerCase());
             }).toList();
           }
 
@@ -195,7 +195,7 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
                         Container(
                           padding: const EdgeInsets.all(9),
                           child: Text(
-                            paginatedUsers[i]['fullname'].toString(),
+                            paginatedUsers[i]['nama_lengkap'].toString(),
                             style: const TextStyle(
                               color: GlobalColors.onBackground,
                               fontWeight: FontWeight.w500,

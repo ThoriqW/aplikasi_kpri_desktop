@@ -7,7 +7,7 @@ part of 'saving_provider.dart';
 // **************************************************************************
 
 String _$getAllSavingMembersHash() =>
-    r'4094cefe124fa6aef56bda1e2a43578d32beca23';
+    r'ceab5331eb1273eb6ef52564a266c5793241a862';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -41,10 +41,10 @@ class GetAllSavingMembersFamily extends Family<AsyncValue> {
 
   /// See also [getAllSavingMembers].
   GetAllSavingMembersProvider call(
-    String year,
+    String tahun,
   ) {
     return GetAllSavingMembersProvider(
-      year,
+      tahun,
     );
   }
 
@@ -53,7 +53,7 @@ class GetAllSavingMembersFamily extends Family<AsyncValue> {
     covariant GetAllSavingMembersProvider provider,
   ) {
     return call(
-      provider.year,
+      provider.tahun,
     );
   }
 
@@ -76,11 +76,11 @@ class GetAllSavingMembersFamily extends Family<AsyncValue> {
 class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
   /// See also [getAllSavingMembers].
   GetAllSavingMembersProvider(
-    String year,
+    String tahun,
   ) : this._internal(
           (ref) => getAllSavingMembers(
             ref as GetAllSavingMembersRef,
-            year,
+            tahun,
           ),
           from: getAllSavingMembersProvider,
           name: r'getAllSavingMembersProvider',
@@ -91,7 +91,7 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
           dependencies: GetAllSavingMembersFamily._dependencies,
           allTransitiveDependencies:
               GetAllSavingMembersFamily._allTransitiveDependencies,
-          year: year,
+          tahun: tahun,
         );
 
   GetAllSavingMembersProvider._internal(
@@ -101,10 +101,10 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.year,
+    required this.tahun,
   }) : super.internal();
 
-  final String year;
+  final String tahun;
 
   @override
   Override overrideWith(
@@ -119,7 +119,7 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        year: year,
+        tahun: tahun,
       ),
     );
   }
@@ -131,13 +131,13 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
 
   @override
   bool operator ==(Object other) {
-    return other is GetAllSavingMembersProvider && other.year == year;
+    return other is GetAllSavingMembersProvider && other.tahun == tahun;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, year.hashCode);
+    hash = _SystemHash.combine(hash, tahun.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -146,8 +146,8 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 mixin GetAllSavingMembersRef on AutoDisposeFutureProviderRef<Object?> {
-  /// The parameter `year` of this provider.
-  String get year;
+  /// The parameter `tahun` of this provider.
+  String get tahun;
 }
 
 class _GetAllSavingMembersProviderElement
@@ -156,11 +156,11 @@ class _GetAllSavingMembersProviderElement
   _GetAllSavingMembersProviderElement(super.provider);
 
   @override
-  String get year => (origin as GetAllSavingMembersProvider).year;
+  String get tahun => (origin as GetAllSavingMembersProvider).tahun;
 }
 
 String _$createMemberSavingsHash() =>
-    r'fe16061cac995de8a9b643e29a53df81d248852e';
+    r'c8ad19599e0ada000e46a36e3ae6ab1fd1df83e2';
 
 /// See also [createMemberSavings].
 @ProviderFor(createMemberSavings)
@@ -173,10 +173,10 @@ class CreateMemberSavingsFamily extends Family<AsyncValue> {
 
   /// See also [createMemberSavings].
   CreateMemberSavingsProvider call(
-    String year,
+    String tahun,
   ) {
     return CreateMemberSavingsProvider(
-      year,
+      tahun,
     );
   }
 
@@ -185,7 +185,7 @@ class CreateMemberSavingsFamily extends Family<AsyncValue> {
     covariant CreateMemberSavingsProvider provider,
   ) {
     return call(
-      provider.year,
+      provider.tahun,
     );
   }
 
@@ -208,11 +208,11 @@ class CreateMemberSavingsFamily extends Family<AsyncValue> {
 class CreateMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
   /// See also [createMemberSavings].
   CreateMemberSavingsProvider(
-    String year,
+    String tahun,
   ) : this._internal(
           (ref) => createMemberSavings(
             ref as CreateMemberSavingsRef,
-            year,
+            tahun,
           ),
           from: createMemberSavingsProvider,
           name: r'createMemberSavingsProvider',
@@ -223,7 +223,7 @@ class CreateMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
           dependencies: CreateMemberSavingsFamily._dependencies,
           allTransitiveDependencies:
               CreateMemberSavingsFamily._allTransitiveDependencies,
-          year: year,
+          tahun: tahun,
         );
 
   CreateMemberSavingsProvider._internal(
@@ -233,10 +233,10 @@ class CreateMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.year,
+    required this.tahun,
   }) : super.internal();
 
-  final String year;
+  final String tahun;
 
   @override
   Override overrideWith(
@@ -251,7 +251,7 @@ class CreateMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        year: year,
+        tahun: tahun,
       ),
     );
   }
@@ -263,13 +263,13 @@ class CreateMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
 
   @override
   bool operator ==(Object other) {
-    return other is CreateMemberSavingsProvider && other.year == year;
+    return other is CreateMemberSavingsProvider && other.tahun == tahun;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, year.hashCode);
+    hash = _SystemHash.combine(hash, tahun.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -278,8 +278,8 @@ class CreateMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 mixin CreateMemberSavingsRef on AutoDisposeFutureProviderRef<Object?> {
-  /// The parameter `year` of this provider.
-  String get year;
+  /// The parameter `tahun` of this provider.
+  String get tahun;
 }
 
 class _CreateMemberSavingsProviderElement
@@ -288,7 +288,173 @@ class _CreateMemberSavingsProviderElement
   _CreateMemberSavingsProviderElement(super.provider);
 
   @override
-  String get year => (origin as CreateMemberSavingsProvider).year;
+  String get tahun => (origin as CreateMemberSavingsProvider).tahun;
+}
+
+String _$updateMemberSavingsHash() =>
+    r'4071ba8f554cace969f526e8b0026d7fc6584974';
+
+/// See also [updateMemberSavings].
+@ProviderFor(updateMemberSavings)
+const updateMemberSavingsProvider = UpdateMemberSavingsFamily();
+
+/// See also [updateMemberSavings].
+class UpdateMemberSavingsFamily extends Family<AsyncValue> {
+  /// See also [updateMemberSavings].
+  const UpdateMemberSavingsFamily();
+
+  /// See also [updateMemberSavings].
+  UpdateMemberSavingsProvider call(
+    int tahun,
+    int workUnitId,
+    Map<String, Map<String, dynamic>> updateSavingsObject,
+  ) {
+    return UpdateMemberSavingsProvider(
+      tahun,
+      workUnitId,
+      updateSavingsObject,
+    );
+  }
+
+  @override
+  UpdateMemberSavingsProvider getProviderOverride(
+    covariant UpdateMemberSavingsProvider provider,
+  ) {
+    return call(
+      provider.tahun,
+      provider.workUnitId,
+      provider.updateSavingsObject,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'updateMemberSavingsProvider';
+}
+
+/// See also [updateMemberSavings].
+class UpdateMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
+  /// See also [updateMemberSavings].
+  UpdateMemberSavingsProvider(
+    int tahun,
+    int workUnitId,
+    Map<String, Map<String, dynamic>> updateSavingsObject,
+  ) : this._internal(
+          (ref) => updateMemberSavings(
+            ref as UpdateMemberSavingsRef,
+            tahun,
+            workUnitId,
+            updateSavingsObject,
+          ),
+          from: updateMemberSavingsProvider,
+          name: r'updateMemberSavingsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$updateMemberSavingsHash,
+          dependencies: UpdateMemberSavingsFamily._dependencies,
+          allTransitiveDependencies:
+              UpdateMemberSavingsFamily._allTransitiveDependencies,
+          tahun: tahun,
+          workUnitId: workUnitId,
+          updateSavingsObject: updateSavingsObject,
+        );
+
+  UpdateMemberSavingsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.tahun,
+    required this.workUnitId,
+    required this.updateSavingsObject,
+  }) : super.internal();
+
+  final int tahun;
+  final int workUnitId;
+  final Map<String, Map<String, dynamic>> updateSavingsObject;
+
+  @override
+  Override overrideWith(
+    FutureOr<Object?> Function(UpdateMemberSavingsRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: UpdateMemberSavingsProvider._internal(
+        (ref) => create(ref as UpdateMemberSavingsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        tahun: tahun,
+        workUnitId: workUnitId,
+        updateSavingsObject: updateSavingsObject,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Object?> createElement() {
+    return _UpdateMemberSavingsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is UpdateMemberSavingsProvider &&
+        other.tahun == tahun &&
+        other.workUnitId == workUnitId &&
+        other.updateSavingsObject == updateSavingsObject;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, tahun.hashCode);
+    hash = _SystemHash.combine(hash, workUnitId.hashCode);
+    hash = _SystemHash.combine(hash, updateSavingsObject.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin UpdateMemberSavingsRef on AutoDisposeFutureProviderRef<Object?> {
+  /// The parameter `tahun` of this provider.
+  int get tahun;
+
+  /// The parameter `workUnitId` of this provider.
+  int get workUnitId;
+
+  /// The parameter `updateSavingsObject` of this provider.
+  Map<String, Map<String, dynamic>> get updateSavingsObject;
+}
+
+class _UpdateMemberSavingsProviderElement
+    extends AutoDisposeFutureProviderElement<Object?>
+    with UpdateMemberSavingsRef {
+  _UpdateMemberSavingsProviderElement(super.provider);
+
+  @override
+  int get tahun => (origin as UpdateMemberSavingsProvider).tahun;
+  @override
+  int get workUnitId => (origin as UpdateMemberSavingsProvider).workUnitId;
+  @override
+  Map<String, Map<String, dynamic>> get updateSavingsObject =>
+      (origin as UpdateMemberSavingsProvider).updateSavingsObject;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

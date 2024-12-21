@@ -23,7 +23,7 @@ final getCurrentUserProvider = AutoDisposeFutureProvider<Object?>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef GetCurrentUserRef = AutoDisposeFutureProviderRef<Object?>;
-String _$updateCurrentUserHash() => r'c85c88c3aa8925db80620f83341fdcb1ff6d7aae';
+String _$updateCurrentUserHash() => r'1ab21e132258c2abdb17e941dd7bb0f19b9b418b';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -59,26 +59,26 @@ class UpdateCurrentUserFamily extends Family<AsyncValue> {
   UpdateCurrentUserProvider call(
     String username,
     String? password,
-    String fullname,
+    String namaLengkap,
     String nik,
     String email,
     String noHp,
-    String address,
+    String alamat,
     DateTime? dateOfBirth,
-    String gender,
-    String religion,
+    String jenisKelamin,
+    String agama,
   ) {
     return UpdateCurrentUserProvider(
       username,
       password,
-      fullname,
+      namaLengkap,
       nik,
       email,
       noHp,
-      address,
+      alamat,
       dateOfBirth,
-      gender,
-      religion,
+      jenisKelamin,
+      agama,
     );
   }
 
@@ -89,14 +89,14 @@ class UpdateCurrentUserFamily extends Family<AsyncValue> {
     return call(
       provider.username,
       provider.password,
-      provider.fullname,
+      provider.namaLengkap,
       provider.nik,
       provider.email,
       provider.noHp,
-      provider.address,
+      provider.alamat,
       provider.dateOfBirth,
-      provider.gender,
-      provider.religion,
+      provider.jenisKelamin,
+      provider.agama,
     );
   }
 
@@ -121,27 +121,27 @@ class UpdateCurrentUserProvider extends AutoDisposeFutureProvider<Object?> {
   UpdateCurrentUserProvider(
     String username,
     String? password,
-    String fullname,
+    String namaLengkap,
     String nik,
     String email,
     String noHp,
-    String address,
+    String alamat,
     DateTime? dateOfBirth,
-    String gender,
-    String religion,
+    String jenisKelamin,
+    String agama,
   ) : this._internal(
           (ref) => updateCurrentUser(
             ref as UpdateCurrentUserRef,
             username,
             password,
-            fullname,
+            namaLengkap,
             nik,
             email,
             noHp,
-            address,
+            alamat,
             dateOfBirth,
-            gender,
-            religion,
+            jenisKelamin,
+            agama,
           ),
           from: updateCurrentUserProvider,
           name: r'updateCurrentUserProvider',
@@ -154,14 +154,14 @@ class UpdateCurrentUserProvider extends AutoDisposeFutureProvider<Object?> {
               UpdateCurrentUserFamily._allTransitiveDependencies,
           username: username,
           password: password,
-          fullname: fullname,
+          namaLengkap: namaLengkap,
           nik: nik,
           email: email,
           noHp: noHp,
-          address: address,
+          alamat: alamat,
           dateOfBirth: dateOfBirth,
-          gender: gender,
-          religion: religion,
+          jenisKelamin: jenisKelamin,
+          agama: agama,
         );
 
   UpdateCurrentUserProvider._internal(
@@ -173,26 +173,26 @@ class UpdateCurrentUserProvider extends AutoDisposeFutureProvider<Object?> {
     required super.from,
     required this.username,
     required this.password,
-    required this.fullname,
+    required this.namaLengkap,
     required this.nik,
     required this.email,
     required this.noHp,
-    required this.address,
+    required this.alamat,
     required this.dateOfBirth,
-    required this.gender,
-    required this.religion,
+    required this.jenisKelamin,
+    required this.agama,
   }) : super.internal();
 
   final String username;
   final String? password;
-  final String fullname;
+  final String namaLengkap;
   final String nik;
   final String email;
   final String noHp;
-  final String address;
+  final String alamat;
   final DateTime? dateOfBirth;
-  final String gender;
-  final String religion;
+  final String jenisKelamin;
+  final String agama;
 
   @override
   Override overrideWith(
@@ -209,14 +209,14 @@ class UpdateCurrentUserProvider extends AutoDisposeFutureProvider<Object?> {
         debugGetCreateSourceHash: null,
         username: username,
         password: password,
-        fullname: fullname,
+        namaLengkap: namaLengkap,
         nik: nik,
         email: email,
         noHp: noHp,
-        address: address,
+        alamat: alamat,
         dateOfBirth: dateOfBirth,
-        gender: gender,
-        religion: religion,
+        jenisKelamin: jenisKelamin,
+        agama: agama,
       ),
     );
   }
@@ -231,14 +231,14 @@ class UpdateCurrentUserProvider extends AutoDisposeFutureProvider<Object?> {
     return other is UpdateCurrentUserProvider &&
         other.username == username &&
         other.password == password &&
-        other.fullname == fullname &&
+        other.namaLengkap == namaLengkap &&
         other.nik == nik &&
         other.email == email &&
         other.noHp == noHp &&
-        other.address == address &&
+        other.alamat == alamat &&
         other.dateOfBirth == dateOfBirth &&
-        other.gender == gender &&
-        other.religion == religion;
+        other.jenisKelamin == jenisKelamin &&
+        other.agama == agama;
   }
 
   @override
@@ -246,14 +246,14 @@ class UpdateCurrentUserProvider extends AutoDisposeFutureProvider<Object?> {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, username.hashCode);
     hash = _SystemHash.combine(hash, password.hashCode);
-    hash = _SystemHash.combine(hash, fullname.hashCode);
+    hash = _SystemHash.combine(hash, namaLengkap.hashCode);
     hash = _SystemHash.combine(hash, nik.hashCode);
     hash = _SystemHash.combine(hash, email.hashCode);
     hash = _SystemHash.combine(hash, noHp.hashCode);
-    hash = _SystemHash.combine(hash, address.hashCode);
+    hash = _SystemHash.combine(hash, alamat.hashCode);
     hash = _SystemHash.combine(hash, dateOfBirth.hashCode);
-    hash = _SystemHash.combine(hash, gender.hashCode);
-    hash = _SystemHash.combine(hash, religion.hashCode);
+    hash = _SystemHash.combine(hash, jenisKelamin.hashCode);
+    hash = _SystemHash.combine(hash, agama.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -268,8 +268,8 @@ mixin UpdateCurrentUserRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `password` of this provider.
   String? get password;
 
-  /// The parameter `fullname` of this provider.
-  String get fullname;
+  /// The parameter `namaLengkap` of this provider.
+  String get namaLengkap;
 
   /// The parameter `nik` of this provider.
   String get nik;
@@ -280,17 +280,17 @@ mixin UpdateCurrentUserRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `noHp` of this provider.
   String get noHp;
 
-  /// The parameter `address` of this provider.
-  String get address;
+  /// The parameter `alamat` of this provider.
+  String get alamat;
 
   /// The parameter `dateOfBirth` of this provider.
   DateTime? get dateOfBirth;
 
-  /// The parameter `gender` of this provider.
-  String get gender;
+  /// The parameter `jenisKelamin` of this provider.
+  String get jenisKelamin;
 
-  /// The parameter `religion` of this provider.
-  String get religion;
+  /// The parameter `agama` of this provider.
+  String get agama;
 }
 
 class _UpdateCurrentUserProviderElement
@@ -303,7 +303,7 @@ class _UpdateCurrentUserProviderElement
   @override
   String? get password => (origin as UpdateCurrentUserProvider).password;
   @override
-  String get fullname => (origin as UpdateCurrentUserProvider).fullname;
+  String get namaLengkap => (origin as UpdateCurrentUserProvider).namaLengkap;
   @override
   String get nik => (origin as UpdateCurrentUserProvider).nik;
   @override
@@ -311,14 +311,14 @@ class _UpdateCurrentUserProviderElement
   @override
   String get noHp => (origin as UpdateCurrentUserProvider).noHp;
   @override
-  String get address => (origin as UpdateCurrentUserProvider).address;
+  String get alamat => (origin as UpdateCurrentUserProvider).alamat;
   @override
   DateTime? get dateOfBirth =>
       (origin as UpdateCurrentUserProvider).dateOfBirth;
   @override
-  String get gender => (origin as UpdateCurrentUserProvider).gender;
+  String get jenisKelamin => (origin as UpdateCurrentUserProvider).jenisKelamin;
   @override
-  String get religion => (origin as UpdateCurrentUserProvider).religion;
+  String get agama => (origin as UpdateCurrentUserProvider).agama;
 }
 
 String _$getAllUserHash() => r'd3b09d766323ae2df40fa3d40e2a15e589ffdf64';
@@ -613,7 +613,7 @@ class _RegisterUserProviderElement
   String get password => (origin as RegisterUserProvider).password;
 }
 
-String _$updateUserHash() => r'e9b498622c4bcb2f45814b60d502ffbe68345cb6';
+String _$updateUserHash() => r'd23c8649a04ab3256ce25a20ba7d743b35d42627';
 
 /// See also [updateUser].
 @ProviderFor(updateUser)
@@ -629,27 +629,27 @@ class UpdateUserFamily extends Family<AsyncValue> {
     String id,
     String username,
     String? password,
-    String fullname,
+    String namaLengkap,
     String nik,
     String email,
     String noHp,
-    String address,
+    String alamat,
     DateTime? dateOfBirth,
-    String gender,
-    String religion,
+    String jenisKelamin,
+    String agama,
   ) {
     return UpdateUserProvider(
       id,
       username,
       password,
-      fullname,
+      namaLengkap,
       nik,
       email,
       noHp,
-      address,
+      alamat,
       dateOfBirth,
-      gender,
-      religion,
+      jenisKelamin,
+      agama,
     );
   }
 
@@ -661,14 +661,14 @@ class UpdateUserFamily extends Family<AsyncValue> {
       provider.id,
       provider.username,
       provider.password,
-      provider.fullname,
+      provider.namaLengkap,
       provider.nik,
       provider.email,
       provider.noHp,
-      provider.address,
+      provider.alamat,
       provider.dateOfBirth,
-      provider.gender,
-      provider.religion,
+      provider.jenisKelamin,
+      provider.agama,
     );
   }
 
@@ -694,28 +694,28 @@ class UpdateUserProvider extends AutoDisposeFutureProvider<Object?> {
     String id,
     String username,
     String? password,
-    String fullname,
+    String namaLengkap,
     String nik,
     String email,
     String noHp,
-    String address,
+    String alamat,
     DateTime? dateOfBirth,
-    String gender,
-    String religion,
+    String jenisKelamin,
+    String agama,
   ) : this._internal(
           (ref) => updateUser(
             ref as UpdateUserRef,
             id,
             username,
             password,
-            fullname,
+            namaLengkap,
             nik,
             email,
             noHp,
-            address,
+            alamat,
             dateOfBirth,
-            gender,
-            religion,
+            jenisKelamin,
+            agama,
           ),
           from: updateUserProvider,
           name: r'updateUserProvider',
@@ -729,14 +729,14 @@ class UpdateUserProvider extends AutoDisposeFutureProvider<Object?> {
           id: id,
           username: username,
           password: password,
-          fullname: fullname,
+          namaLengkap: namaLengkap,
           nik: nik,
           email: email,
           noHp: noHp,
-          address: address,
+          alamat: alamat,
           dateOfBirth: dateOfBirth,
-          gender: gender,
-          religion: religion,
+          jenisKelamin: jenisKelamin,
+          agama: agama,
         );
 
   UpdateUserProvider._internal(
@@ -749,27 +749,27 @@ class UpdateUserProvider extends AutoDisposeFutureProvider<Object?> {
     required this.id,
     required this.username,
     required this.password,
-    required this.fullname,
+    required this.namaLengkap,
     required this.nik,
     required this.email,
     required this.noHp,
-    required this.address,
+    required this.alamat,
     required this.dateOfBirth,
-    required this.gender,
-    required this.religion,
+    required this.jenisKelamin,
+    required this.agama,
   }) : super.internal();
 
   final String id;
   final String username;
   final String? password;
-  final String fullname;
+  final String namaLengkap;
   final String nik;
   final String email;
   final String noHp;
-  final String address;
+  final String alamat;
   final DateTime? dateOfBirth;
-  final String gender;
-  final String religion;
+  final String jenisKelamin;
+  final String agama;
 
   @override
   Override overrideWith(
@@ -787,14 +787,14 @@ class UpdateUserProvider extends AutoDisposeFutureProvider<Object?> {
         id: id,
         username: username,
         password: password,
-        fullname: fullname,
+        namaLengkap: namaLengkap,
         nik: nik,
         email: email,
         noHp: noHp,
-        address: address,
+        alamat: alamat,
         dateOfBirth: dateOfBirth,
-        gender: gender,
-        religion: religion,
+        jenisKelamin: jenisKelamin,
+        agama: agama,
       ),
     );
   }
@@ -810,14 +810,14 @@ class UpdateUserProvider extends AutoDisposeFutureProvider<Object?> {
         other.id == id &&
         other.username == username &&
         other.password == password &&
-        other.fullname == fullname &&
+        other.namaLengkap == namaLengkap &&
         other.nik == nik &&
         other.email == email &&
         other.noHp == noHp &&
-        other.address == address &&
+        other.alamat == alamat &&
         other.dateOfBirth == dateOfBirth &&
-        other.gender == gender &&
-        other.religion == religion;
+        other.jenisKelamin == jenisKelamin &&
+        other.agama == agama;
   }
 
   @override
@@ -826,14 +826,14 @@ class UpdateUserProvider extends AutoDisposeFutureProvider<Object?> {
     hash = _SystemHash.combine(hash, id.hashCode);
     hash = _SystemHash.combine(hash, username.hashCode);
     hash = _SystemHash.combine(hash, password.hashCode);
-    hash = _SystemHash.combine(hash, fullname.hashCode);
+    hash = _SystemHash.combine(hash, namaLengkap.hashCode);
     hash = _SystemHash.combine(hash, nik.hashCode);
     hash = _SystemHash.combine(hash, email.hashCode);
     hash = _SystemHash.combine(hash, noHp.hashCode);
-    hash = _SystemHash.combine(hash, address.hashCode);
+    hash = _SystemHash.combine(hash, alamat.hashCode);
     hash = _SystemHash.combine(hash, dateOfBirth.hashCode);
-    hash = _SystemHash.combine(hash, gender.hashCode);
-    hash = _SystemHash.combine(hash, religion.hashCode);
+    hash = _SystemHash.combine(hash, jenisKelamin.hashCode);
+    hash = _SystemHash.combine(hash, agama.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -851,8 +851,8 @@ mixin UpdateUserRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `password` of this provider.
   String? get password;
 
-  /// The parameter `fullname` of this provider.
-  String get fullname;
+  /// The parameter `namaLengkap` of this provider.
+  String get namaLengkap;
 
   /// The parameter `nik` of this provider.
   String get nik;
@@ -863,17 +863,17 @@ mixin UpdateUserRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `noHp` of this provider.
   String get noHp;
 
-  /// The parameter `address` of this provider.
-  String get address;
+  /// The parameter `alamat` of this provider.
+  String get alamat;
 
   /// The parameter `dateOfBirth` of this provider.
   DateTime? get dateOfBirth;
 
-  /// The parameter `gender` of this provider.
-  String get gender;
+  /// The parameter `jenisKelamin` of this provider.
+  String get jenisKelamin;
 
-  /// The parameter `religion` of this provider.
-  String get religion;
+  /// The parameter `agama` of this provider.
+  String get agama;
 }
 
 class _UpdateUserProviderElement
@@ -887,7 +887,7 @@ class _UpdateUserProviderElement
   @override
   String? get password => (origin as UpdateUserProvider).password;
   @override
-  String get fullname => (origin as UpdateUserProvider).fullname;
+  String get namaLengkap => (origin as UpdateUserProvider).namaLengkap;
   @override
   String get nik => (origin as UpdateUserProvider).nik;
   @override
@@ -895,13 +895,13 @@ class _UpdateUserProviderElement
   @override
   String get noHp => (origin as UpdateUserProvider).noHp;
   @override
-  String get address => (origin as UpdateUserProvider).address;
+  String get alamat => (origin as UpdateUserProvider).alamat;
   @override
   DateTime? get dateOfBirth => (origin as UpdateUserProvider).dateOfBirth;
   @override
-  String get gender => (origin as UpdateUserProvider).gender;
+  String get jenisKelamin => (origin as UpdateUserProvider).jenisKelamin;
   @override
-  String get religion => (origin as UpdateUserProvider).religion;
+  String get agama => (origin as UpdateUserProvider).agama;
 }
 
 String _$deleteUserHash() => r'20d3c1520c0ab9a557df6b2ce1573a8ceaed8632';

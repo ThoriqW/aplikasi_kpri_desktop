@@ -24,7 +24,7 @@ class UpdateUserWidget extends ConsumerStatefulWidget {
 class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
-  final TextEditingController fullnameController = TextEditingController();
+  final TextEditingController namaLengkapController = TextEditingController();
   final TextEditingController nikController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nomorHpController = TextEditingController();
@@ -45,17 +45,17 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
           final profileData = profile as Map<String, dynamic>;
 
           usernameController.text = profileData['username'];
-          fullnameController.text = profileData['fullname'] ?? '';
+          namaLengkapController.text = profileData['nama_lengkap'] ?? '';
           nikController.text = profileData['nik'] ?? '';
           emailController.text = profileData['email'] ?? '';
           nomorHpController.text = profileData['phone'] ?? '';
-          alamatController.text = profileData['address'] ?? '';
-          profileData['birthdate'] != null
+          alamatController.text = profileData['alamat'] ?? '';
+          profileData['tanggal_lahir'] != null
               ? tanggalLahirController.text =
-                  profileData['birthdate'].toString().split(" ")[0]
+                  profileData['tanggal_lahir'].toString().split(" ")[0]
               : tanggalLahirController.text = '';
-          jenisKelaminController.text = profileData['gender'] ?? '';
-          agamaController.text = profileData['religion'] ?? '';
+          jenisKelaminController.text = profileData['jenis_kelamin'] ?? '';
+          agamaController.text = profileData['agama'] ?? '';
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,7 +132,7 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
-                            controller: fullnameController,
+                            controller: namaLengkapController,
                             text: "Nama Lengkap"),
                       ],
                     ),
@@ -303,7 +303,7 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
         id,
         usernameController.text,
         newPasswordController.text,
-        fullnameController.text,
+        namaLengkapController.text,
         nikController.text,
         emailController.text,
         nomorHpController.text,

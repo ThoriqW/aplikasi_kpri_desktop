@@ -36,8 +36,8 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
 
         if (searchQuery.isNotEmpty) {
           members = members.where((m) {
-            final fullname = m['fullname'].toString().toLowerCase();
-            return fullname.contains(searchQuery.toLowerCase());
+            final namaLengkap = m['nama_lengkap'].toString().toLowerCase();
+            return namaLengkap.contains(searchQuery.toLowerCase());
           }).toList();
         }
 
@@ -232,7 +232,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
-                          paginatedMembers[i]['fullname'].toString(),
+                          paginatedMembers[i]['nama_lengkap'].toString(),
                           style: const TextStyle(
                             color: GlobalColors.onBackground,
                             fontWeight: FontWeight.w500,
@@ -242,7 +242,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
-                          paginatedMembers[i]['member_number'].toString(),
+                          paginatedMembers[i]['nomor_anggota'].toString(),
                           style: const TextStyle(
                             color: GlobalColors.onBackground,
                             fontWeight: FontWeight.w500,
@@ -272,7 +272,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
-                          paginatedMembers[i]['address'].toString(),
+                          paginatedMembers[i]['alamat'].toString(),
                           style: const TextStyle(
                             color: GlobalColors.onBackground,
                             fontWeight: FontWeight.w500,
@@ -282,7 +282,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
-                          paginatedMembers[i]['birthdate'].toString(),
+                          paginatedMembers[i]['tanggal_lahir'].toString(),
                           style: const TextStyle(
                             color: GlobalColors.onBackground,
                             fontWeight: FontWeight.w500,

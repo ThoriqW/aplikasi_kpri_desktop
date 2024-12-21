@@ -1,12 +1,16 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
+import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
+import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/create_simpanan_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/text_form_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/work_units_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 class DataSimpananWidget extends ConsumerStatefulWidget {
   const DataSimpananWidget({super.key});
@@ -25,6 +29,8 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
   final int rowsPerPage = 12;
   int selectedYear = DateTime.now().year;
 
+  Map<String, Map<String, dynamic>> updateSavingsObject = {};
+
   @override
   void initState() {
     super.initState();
@@ -40,8 +46,10 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final getAllSavingMembers =
-        ref.watch(getAllSavingMembersProvider(tahunController.text));
+    final getAllSavingMembers = ref.watch(
+      getAllSavingMembersProvider(tahunController.text),
+    );
+
     return CustomCardWidget(
       color: GlobalColors.white,
       child: Column(
@@ -114,15 +122,16 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
 
               if (selectedUnit.isNotEmpty) {
                 savings = savings.where((m) {
-                  final unitKerja = m['workUnit'].toString().toLowerCase();
+                  final unitKerja = m['work_unit_id'].toString().toLowerCase();
                   return unitKerja.contains(selectedUnit.toLowerCase());
                 }).toList();
               }
 
               if (searchQuery.isNotEmpty) {
                 savings = savings.where((m) {
-                  final fullName = m['memberName'].toString().toLowerCase();
-                  return fullName.contains(searchQuery.toLowerCase());
+                  final namaLengkap =
+                      m['nama_lengkap'].toString().toLowerCase();
+                  return namaLengkap.contains(searchQuery.toLowerCase());
                 }).toList();
               }
 
@@ -160,7 +169,12 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                         ),
                       ),
                       const SizedBox(width: 18),
-                      ButtonWidget(text: "Update", onTap: () {})
+                      ButtonWidget(
+                          text: "Update",
+                          onTap: () {
+                            updateDataSavings(
+                                int.parse(tahunController.text), 1);
+                          })
                     ],
                   ),
                   Table(
@@ -304,7 +318,8 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                               child: Container(
                                 padding: const EdgeInsets.all(9),
                                 child: Text(
-                                  paginatedSavings[i]['memberId'].toString(),
+                                  paginatedSavings[i]['nomor_anggota']
+                                      .toString(),
                                   style: const TextStyle(
                                     color: GlobalColors.onBackground,
                                     fontWeight: FontWeight.w500,
@@ -315,7 +330,7 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                             Container(
                               padding: const EdgeInsets.all(9),
                               child: Text(
-                                paginatedSavings[i]['memberName'].toString(),
+                                paginatedSavings[i]['nama_lengkap'].toString(),
                                 style: const TextStyle(
                                   color: GlobalColors.onBackground,
                                   fontWeight: FontWeight.w500,
@@ -326,7 +341,7 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                               child: Container(
                                 padding: const EdgeInsets.all(9),
                                 child: Text(
-                                  paginatedSavings[i]['workUnit'].toString(),
+                                  paginatedSavings[i]['work_unit'].toString(),
                                   style: const TextStyle(
                                     color: GlobalColors.onBackground,
                                     fontWeight: FontWeight.w500,
@@ -338,7 +353,7 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                               child: Container(
                                 padding: const EdgeInsets.all(9),
                                 child: Text(
-                                  paginatedSavings[i]['year'].toString(),
+                                  paginatedSavings[i]['tahun'].toString(),
                                   style: const TextStyle(
                                     color: GlobalColors.onBackground,
                                     fontWeight: FontWeight.w500,
@@ -350,7 +365,7 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                               child: Container(
                                 padding: const EdgeInsets.all(9),
                                 child: Text(
-                                  paginatedSavings[i]['month'].toString(),
+                                  paginatedSavings[i]['bulan'].toString(),
                                   style: const TextStyle(
                                     color: GlobalColors.onBackground,
                                     fontWeight: FontWeight.w500,
@@ -363,8 +378,15 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                                 padding: const EdgeInsets.all(9),
                                 child: EditableText(
                                   controller: TextEditingController(
-                                    text: paginatedSavings[i]['principal']
-                                        .toString(),
+                                    text: NumberFormat.currency(
+                                      locale: 'id',
+                                      symbol: 'Rp',
+                                      decimalDigits: 0,
+                                    ).format(
+                                      double.parse(
+                                        paginatedSavings[i]['pokok'].toString(),
+                                      ),
+                                    ),
                                   ),
                                   focusNode: FocusNode(),
                                   cursorColor: GlobalColors.primary,
@@ -373,6 +395,16 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                                     color: GlobalColors.onBackground,
                                     fontWeight: FontWeight.w500,
                                   ),
+                                  onSubmitted: (newPokok) {
+                                    updateValueSaving(
+                                      updateSavingsObject,
+                                      paginatedSavings[i]['member_profile_id']
+                                          .toString(),
+                                      paginatedSavings[i]['bulan'].toString(),
+                                      'pokok',
+                                      newPokok,
+                                    );
+                                  },
                                 ),
                               ),
                             ),
@@ -381,8 +413,15 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                                 padding: const EdgeInsets.all(9),
                                 child: EditableText(
                                   controller: TextEditingController(
-                                    text: paginatedSavings[i]['mandatory']
-                                        .toString(),
+                                    text: NumberFormat.currency(
+                                      locale: 'id',
+                                      symbol: 'Rp',
+                                      decimalDigits: 0,
+                                    ).format(
+                                      double.parse(
+                                        paginatedSavings[i]['wajib'].toString(),
+                                      ),
+                                    ),
                                   ),
                                   focusNode: FocusNode(),
                                   cursorColor: GlobalColors.primary,
@@ -391,6 +430,16 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                                     color: GlobalColors.onBackground,
                                     fontWeight: FontWeight.w500,
                                   ),
+                                  onSubmitted: (newWajib) {
+                                    updateValueSaving(
+                                      updateSavingsObject,
+                                      paginatedSavings[i]['member_profile_id']
+                                          .toString(),
+                                      paginatedSavings[i]['bulan'].toString(),
+                                      'wajib',
+                                      newWajib,
+                                    );
+                                  },
                                 ),
                               ),
                             ),
@@ -399,8 +448,15 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                                 padding: const EdgeInsets.all(9),
                                 child: EditableText(
                                   controller: TextEditingController(
-                                    text: paginatedSavings[i]['voluntary']
-                                        .toString(),
+                                    text: NumberFormat.currency(
+                                      locale: 'id',
+                                      symbol: 'Rp',
+                                      decimalDigits: 0,
+                                    ).format(
+                                      double.parse(
+                                        paginatedSavings[i]['pokok'].toString(),
+                                      ),
+                                    ),
                                   ),
                                   focusNode: FocusNode(),
                                   cursorColor: GlobalColors.primary,
@@ -409,6 +465,16 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                                     color: GlobalColors.onBackground,
                                     fontWeight: FontWeight.w500,
                                   ),
+                                  onSubmitted: (newSukarela) {
+                                    updateValueSaving(
+                                      updateSavingsObject,
+                                      paginatedSavings[i]['member_profile_id']
+                                          .toString(),
+                                      paginatedSavings[i]['bulan'].toString(),
+                                      'sukarela',
+                                      newSukarela,
+                                    );
+                                  },
                                 ),
                               ),
                             ),
@@ -461,5 +527,76 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
         ],
       ),
     );
+  }
+
+  Future<void> updateValueSaving(
+    Map<String, Map<String, dynamic>> updateSavingsObject,
+    String nomorAnggota,
+    String bulan,
+    String jenis,
+    String newValue,
+  ) async {
+    String key = nomorAnggota;
+
+    if (!updateSavingsObject.containsKey(key)) {
+      updateSavingsObject[key] = {};
+    }
+
+    if (!updateSavingsObject[key]!.containsKey(bulan)) {
+      updateSavingsObject[key]![bulan] = {
+        "pokok": 0,
+        "wajib": 0,
+        "sukarela": 0,
+      };
+    }
+
+    updateSavingsObject[key]![bulan]![jenis] = int.tryParse(
+            newValue.replaceAll("Rp", "").replaceAll(".", "").trim()) ??
+        0;
+  }
+
+  Future<void> updateDataSavings(
+    int tahun,
+    int workUnitId,
+  ) async {
+    try {
+      final updateMemberSavings = await ref.watch(
+          updateMemberSavingsProvider(tahun, workUnitId, updateSavingsObject)
+              .future);
+      if (!mounted) return;
+      if (updateMemberSavings is SuccessResponse) {
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomAlertDialog(
+              alertDesc: updateMemberSavings.message,
+              alertTitle: "Sukses",
+            );
+          },
+        ).then((_) =>
+            ref.invalidate(getAllSavingMembersProvider(tahunController.text)));
+      } else if (updateMemberSavings is ErrorResponse) {
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomAlertDialog(
+              alertDesc: updateMemberSavings.errors,
+              alertTitle: "Gagal",
+            );
+          },
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomAlertDialog(
+            alertDesc: e.toString(),
+            alertTitle: "Error",
+          );
+        },
+      );
+    }
   }
 }

@@ -46,14 +46,14 @@ Future updateCurrentUser(
   ref,
   String username,
   String? password,
-  String fullname,
+  String namaLengkap,
   String nik,
   String email,
   String noHp,
-  String address,
+  String alamat,
   DateTime? dateOfBirth,
-  String gender,
-  String religion,
+  String jenisKelamin,
+  String agama,
 ) async {
   final String? token = await storage.read(key: 'authToken');
 
@@ -70,14 +70,15 @@ Future updateCurrentUser(
       body: jsonEncode({
         'username': username,
         'password': password,
-        'fullname': fullname,
+        'nama_lengkap': namaLengkap,
         'nik': nik,
         'phone': noHp,
-        'address': address,
-        'birthdate': dateOfBirth != null ? formatDateOnly(dateOfBirth) : null,
+        'alamat': alamat,
+        'tanggal_lahir':
+            dateOfBirth != null ? formatDateOnly(dateOfBirth) : null,
         'email': email,
-        'gender': gender,
-        'religion': religion,
+        'jenis_kelamin': jenisKelamin,
+        'agama': agama,
       }),
     );
     if (response.statusCode == 200) {
@@ -177,14 +178,14 @@ Future updateUser(
   String id,
   String username,
   String? password,
-  String fullname,
+  String namaLengkap,
   String nik,
   String email,
   String noHp,
-  String address,
+  String alamat,
   DateTime? dateOfBirth,
-  String gender,
-  String religion,
+  String jenisKelamin,
+  String agama,
 ) async {
   final String? token = await storage.read(key: 'authToken');
 
@@ -202,14 +203,15 @@ Future updateUser(
       body: jsonEncode({
         'username': username,
         'password': password,
-        'fullname': fullname,
+        'nama_lengkap': namaLengkap,
         'nik': nik,
         'phone': noHp,
-        'address': address,
-        'birthdate': dateOfBirth != null ? formatDateOnly(dateOfBirth) : null,
+        'alamat': alamat,
+        'tanggal_lahir':
+            dateOfBirth != null ? formatDateOnly(dateOfBirth) : null,
         'email': email,
-        'gender': gender,
-        'religion': religion,
+        'jenis_kelamin': jenisKelamin,
+        'agama': agama,
       }),
     );
     if (response.statusCode == 200) {

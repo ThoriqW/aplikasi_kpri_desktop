@@ -83,7 +83,7 @@ Future addWorkUnit(ref, String namaWorkUnit, String kodeWorkUnit) async {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
       },
-      body: jsonEncode({'name': namaWorkUnit, 'code': kodeWorkUnit}),
+      body: jsonEncode({'nama': namaWorkUnit, 'kode': kodeWorkUnit}),
     );
     if (response.statusCode == 201) {
       return SuccessResponse.fromJson(jsonDecode(response.body));
@@ -111,7 +111,7 @@ Future updateWorkUnit(
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
       },
-      body: jsonEncode({'name': namaWorkUnit, 'code': kodeWorkUnit}),
+      body: jsonEncode({'nama': namaWorkUnit, 'kode': kodeWorkUnit}),
     );
     if (response.statusCode == 200) {
       return SuccessResponse.fromJson(jsonDecode(response.body));

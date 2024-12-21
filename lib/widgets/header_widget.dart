@@ -37,7 +37,7 @@ class HeaderWidget extends ConsumerWidget {
                     ),
                     const SizedBox(width: 12),
                     Text(
-                      'Hello, ${currentUser['fullname']}',
+                      'Hello, ${currentUser['nama_lengkap']}',
                       style: const TextStyle(
                         color: GlobalColors.primary,
                         fontWeight: FontWeight.bold,

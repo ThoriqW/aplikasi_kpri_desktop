@@ -51,13 +51,13 @@ class _CreateSimpananWidgetState extends ConsumerState<CreateSimpananWidget> {
     );
   }
 
-  Future<void> createSimpanan(String year) async {
+  Future<void> createSimpanan(String tahun) async {
     setState(() {
       _isLoading = true;
     });
     try {
       final createSimpanan =
-          await ref.watch(createMemberSavingsProvider(year).future);
+          await ref.watch(createMemberSavingsProvider(tahun).future);
       if (!mounted) return;
       setState(() {
         _isLoading = false;

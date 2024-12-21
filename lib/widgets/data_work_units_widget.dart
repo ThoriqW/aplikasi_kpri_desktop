@@ -32,8 +32,8 @@ class _WorkUnitsWidgetState extends ConsumerState<DataWorkUnitsWidget> {
           List<dynamic> workUnits = workUnit as List<dynamic>;
           if (searchQuery.isNotEmpty) {
             workUnits = workUnits.where((m) {
-              final fullName = m['name'].toString().toLowerCase();
-              return fullName.contains(searchQuery.toLowerCase());
+              final nama = m['nama'].toString().toLowerCase();
+              return nama.contains(searchQuery.toLowerCase());
             }).toList();
           }
 
@@ -174,7 +174,7 @@ class _WorkUnitsWidgetState extends ConsumerState<DataWorkUnitsWidget> {
                         Container(
                           padding: const EdgeInsets.all(9),
                           child: Text(
-                            paginatedWorkUnits[i]['name'].toString(),
+                            paginatedWorkUnits[i]['nama'].toString(),
                             style: const TextStyle(
                               color: GlobalColors.onBackground,
                               fontWeight: FontWeight.w500,
@@ -184,7 +184,7 @@ class _WorkUnitsWidgetState extends ConsumerState<DataWorkUnitsWidget> {
                         Container(
                           padding: const EdgeInsets.all(9),
                           child: Text(
-                            paginatedWorkUnits[i]['code'].toString(),
+                            paginatedWorkUnits[i]['kode'].toString(),
                             style: const TextStyle(
                               color: GlobalColors.onBackground,
                               fontWeight: FontWeight.w500,

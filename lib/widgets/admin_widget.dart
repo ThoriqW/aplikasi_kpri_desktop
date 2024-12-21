@@ -83,8 +83,6 @@ class AdminWidget extends ConsumerWidget {
           },
         );
         break;
-      default:
-        bodyContent = homeAdmin;
     }
     return Stack(
       children: [

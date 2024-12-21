@@ -34,8 +34,8 @@ class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
         data: (workUnit) {
           final workUnitData = workUnit as Map<String, dynamic>;
 
-          namaWorkUnitController.text = workUnitData['name'];
-          kodeWorkUnitController.text = workUnitData['code'] ?? '';
+          namaWorkUnitController.text = workUnitData['nama'];
+          kodeWorkUnitController.text = workUnitData['kode'] ?? '';
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,

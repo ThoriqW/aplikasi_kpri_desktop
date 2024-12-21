@@ -174,7 +174,7 @@ class _GetWorkUnitProviderElement
   String get id => (origin as GetWorkUnitProvider).id;
 }
 
-String _$addWorkUnitHash() => r'ebd5badd94ad9d63549a5a14ae00bff21846aefa';
+String _$addWorkUnitHash() => r'd0aaf18f9562d2c748479c60cfdbba15c8c9ec18';
 
 /// See also [addWorkUnit].
 @ProviderFor(addWorkUnit)
@@ -321,7 +321,7 @@ class _AddWorkUnitProviderElement
   String get kodeWorkUnit => (origin as AddWorkUnitProvider).kodeWorkUnit;
 }
 
-String _$updateWorkUnitHash() => r'da30f2b938714f818fd95e5576a2ffabd28592a1';
+String _$updateWorkUnitHash() => r'15223ae245985540b84a82661a194869d1763ae2';
 
 /// See also [updateWorkUnit].
 @ProviderFor(updateWorkUnit)

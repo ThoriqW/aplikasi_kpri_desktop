@@ -52,7 +52,7 @@ class _WorkUnitsDropdownState extends ConsumerState<WorkUnitsDropdown> {
               value: workUnit['id'].toString(),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(workUnit['name']),
+                child: Text(workUnit['nama']),
               ),
             );
           }).toList(),

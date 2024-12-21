@@ -24,7 +24,7 @@ class UpdateMemberWidget extends ConsumerStatefulWidget {
 }
 
 class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
-  final TextEditingController fullnameController = TextEditingController();
+  final TextEditingController namaLengkapController = TextEditingController();
   final TextEditingController nikController = TextEditingController();
   final TextEditingController nomorAnggotaController = TextEditingController();
   final TextEditingController nomorHpController = TextEditingController();
@@ -38,8 +38,8 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
   final TextEditingController pangkatController = TextEditingController();
   final TextEditingController nipController = TextEditingController();
   final TextEditingController isActiveController = TextEditingController();
-  final TextEditingController startDateController = TextEditingController();
-  final TextEditingController endDateController = TextEditingController();
+  final TextEditingController tanggalMasukController = TextEditingController();
+  final TextEditingController tanggalKeluarController = TextEditingController();
   String selectedUnit = '';
   bool isInitialized = false;
   @override
@@ -52,30 +52,30 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
           final memberData = member as Map<String, dynamic>;
 
           if (!isInitialized) {
-            fullnameController.text = memberData['fullname'];
+            namaLengkapController.text = memberData['nama_lengkap'];
             nikController.text = memberData['nik'];
-            nomorAnggotaController.text = memberData['member_number'];
+            nomorAnggotaController.text = memberData['nomor_anggota'];
             nomorHpController.text = memberData['phone'];
-            alamatController.text = memberData['address'];
-            memberData['birthdate'] != null
+            alamatController.text = memberData['alamat'];
+            memberData['tanggal_lahir'] != null
                 ? tanggalLahirController.text =
-                    memberData['birthdate'].toString().split(" ")[0]
+                    memberData['tanggal_lahir'].toString().split(" ")[0]
                 : tanggalLahirController.text = '';
             emailController.text = memberData['email'];
-            jenisKelaminController.text = memberData['gender'];
-            agamaController.text = memberData['religion'];
+            jenisKelaminController.text = memberData['jenis_kelamin'];
+            agamaController.text = memberData['agama'];
             jabatanController.text = memberData['jabatan'];
             pangkatController.text = memberData['pangkat'];
             nipController.text = memberData['nip'];
             isActiveController.text = memberData['is_active'].toString();
-            memberData['start_date'] != null
-                ? startDateController.text =
-                    memberData['start_date'].toString().split(" ")[0]
-                : startDateController.text = '';
-            memberData['end_date'] != null
-                ? endDateController.text =
-                    memberData['end_date'].toString().split(" ")[0]
-                : endDateController.text = '';
+            memberData['tanggal_masuk'] != null
+                ? tanggalMasukController.text =
+                    memberData['tanggal_masuk'].toString().split(" ")[0]
+                : tanggalMasukController.text = '';
+            memberData['tanggal_keluar'] != null
+                ? tanggalKeluarController.text =
+                    memberData['tanggal_keluar'].toString().split(" ")[0]
+                : tanggalKeluarController.text = '';
             selectedUnit = memberData['work_unit_id'].toString();
             isInitialized = true;
           }
@@ -106,7 +106,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
-                            controller: fullnameController,
+                            controller: namaLengkapController,
                             text: "Nama Lengkap"),
                       ],
                     ),
@@ -345,7 +345,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                           ),
                         ),
                         const SizedBox(height: 8),
-                        DatePickerWidget(date: startDateController),
+                        DatePickerWidget(date: tanggalMasukController),
                       ],
                     ),
                   ),
@@ -362,7 +362,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                           ),
                         ),
                         const SizedBox(height: 8),
-                        DatePickerWidget(date: endDateController),
+                        DatePickerWidget(date: tanggalKeluarController),
                       ],
                     ),
                   ),
@@ -442,7 +442,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
       final updateMember = await ref.watch(
         updateMemberProvider(
           widget.id,
-          fullnameController.text,
+          namaLengkapController.text,
           nikController.text,
           nomorAnggotaController.text,
           nomorHpController.text,
@@ -457,11 +457,11 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
           pangkatController.text,
           nipController.text,
           int.parse(isActiveController.text),
-          startDateController.text != ''
-              ? DateFormat('yyyy-MM-dd').parse(startDateController.text)
+          tanggalMasukController.text != ''
+              ? DateFormat('yyyy-MM-dd').parse(tanggalMasukController.text)
               : null,
-          endDateController.text != ''
-              ? DateFormat('yyyy-MM-dd').parse(endDateController.text)
+          tanggalKeluarController.text != ''
+              ? DateFormat('yyyy-MM-dd').parse(tanggalKeluarController.text)
               : null,
           selectedUnit != '' ? int.parse(selectedUnit) : 0,
         ).future,
