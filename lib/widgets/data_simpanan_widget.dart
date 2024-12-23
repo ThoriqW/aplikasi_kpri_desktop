@@ -77,15 +77,28 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                   ),
                   ButtonWidget(
                     text: "Cari",
-                    onTap: () {
-                      setState(
-                        () {
-                          ref.invalidate(
-                            getAllSavingMembersProvider(
-                                tahunController.text, int.parse(selectedUnit)),
-                          );
-                        },
-                      );
+                    onTap: () async {
+                      if (selectedUnit != '') {
+                        setState(
+                          () {
+                            ref.invalidate(
+                              getAllSavingMembersProvider(tahunController.text,
+                                  int.parse(selectedUnit)),
+                            );
+                          },
+                        );
+                      } else {
+                        await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const CustomAlertDialog(
+                              alertDesc:
+                                  "Silahkan pilih unit kerja terlebih dahulu",
+                              alertTitle: "Info",
+                            );
+                          },
+                        );
+                      }
                     },
                   )
                 ],

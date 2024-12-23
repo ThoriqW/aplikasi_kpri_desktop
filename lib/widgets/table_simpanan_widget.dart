@@ -30,6 +30,9 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
 
   Map<String, Map<String, dynamic>> updateSavingsObject = {};
 
+  int currentPage = 0;
+  int rowsPerPage = 12;
+
   @override
   Widget build(BuildContext context) {
     final getAllSavingMembers = ref.watch(
@@ -39,6 +42,11 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
         child: getAllSavingMembers.when(
       data: (saving) {
         List<dynamic> savings = saving as List<dynamic>;
+        int totalPages = (savings[0]['members'].length / rowsPerPage).ceil();
+        List<dynamic> pageData = savings[0]['members']
+            .skip(currentPage * rowsPerPage)
+            .take(rowsPerPage)
+            .toList();
         return Column(
           children: [
             Row(
@@ -197,14 +205,14 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                           ),
                         ],
                       ),
-                      for (int j = 0; j < savings[i]['members'].length; j++)
+                      for (int j = 0; j < pageData.length; j++)
                         TableRow(
                           decoration: const BoxDecoration(),
                           children: <Widget>[
                             Container(
                               padding: const EdgeInsets.all(9),
                               child: Text(
-                                (i + 1).toString(),
+                                (j + 1).toString(),
                                 style: const TextStyle(
                                   color: GlobalColors.onBackground,
                                   fontWeight: FontWeight.w500,
@@ -215,8 +223,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                               child: Container(
                                 padding: const EdgeInsets.all(9),
                                 child: Text(
-                                  savings[i]['members'][j]['nomor_anggota']
-                                      .toString(),
+                                  pageData[j]['nomor_anggota'].toString(),
                                   style: const TextStyle(
                                     color: GlobalColors.onBackground,
                                     fontWeight: FontWeight.w500,
@@ -227,8 +234,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                             Container(
                               padding: const EdgeInsets.all(9),
                               child: Text(
-                                savings[i]['members'][j]['nama_lengkap']
-                                    .toString(),
+                                pageData[j]['nama_lengkap'].toString(),
                                 style: const TextStyle(
                                   color: GlobalColors.onBackground,
                                   fontWeight: FontWeight.w500,
@@ -239,7 +245,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                               child: Container(
                                 padding: const EdgeInsets.all(9),
                                 child: Text(
-                                  savings[i]['members'][j]['tahun'].toString(),
+                                  pageData[j]['tahun'].toString(),
                                   style: const TextStyle(
                                     color: GlobalColors.onBackground,
                                     fontWeight: FontWeight.w500,
@@ -251,7 +257,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                               child: Container(
                                 padding: const EdgeInsets.all(9),
                                 child: Text(
-                                  savings[i]['members'][j]['bulan'].toString(),
+                                  pageData[j]['bulan'].toString(),
                                   style: const TextStyle(
                                     color: GlobalColors.onBackground,
                                     fontWeight: FontWeight.w500,
@@ -270,8 +276,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                       decimalDigits: 0,
                                     ).format(
                                       double.parse(
-                                        savings[i]['members'][j]['pokok']
-                                            .toString(),
+                                        pageData[j]['pokok'].toString(),
                                       ),
                                     ),
                                   ),
@@ -297,8 +302,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                       decimalDigits: 0,
                                     ).format(
                                       double.parse(
-                                        savings[i]['members'][j]['wajib']
-                                            .toString(),
+                                        pageData[j]['wajib'].toString(),
                                       ),
                                     ),
                                   ),
@@ -324,8 +328,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                       decimalDigits: 0,
                                     ).format(
                                       double.parse(
-                                        savings[i]['members'][j]['sukarela']
-                                            .toString(),
+                                        pageData[j]['sukarela'].toString(),
                                       ),
                                     ),
                                   ),
@@ -347,34 +350,34 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                 ],
               ),
             const SizedBox(height: 10),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     ElevatedButton(
-            //       onPressed: currentPage > 0
-            //           ? () {
-            //               setState(() {
-            //                 currentPage--;
-            //               });
-            //             }
-            //           : null,
-            //       child: const Text('Sebelumnya'),
-            //     ),
-            //     Text(
-            //       'Halaman ${currentPage + 1} dari ${(savings.length / rowsPerPage).ceil()}',
-            //     ),
-            //     ElevatedButton(
-            //       onPressed: (currentPage + 1) * rowsPerPage < savings.length
-            //           ? () {
-            //               setState(() {
-            //                 currentPage++;
-            //               });
-            //             }
-            //           : null,
-            //       child: const Text('Selanjutnya'),
-            //     ),
-            //   ],
-            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  onPressed: currentPage > 0
+                      ? () {
+                          setState(() {
+                            currentPage--;
+                          });
+                        }
+                      : null,
+                  child: const Text('Sebelumnya'),
+                ),
+                Text(
+                  'Halaman ${currentPage + 1} dari $totalPages',
+                ),
+                ElevatedButton(
+                  onPressed: (currentPage + 1) < totalPages
+                      ? () {
+                          setState(() {
+                            currentPage++;
+                          });
+                        }
+                      : null,
+                  child: const Text('Selanjutnya'),
+                ),
+              ],
+            ),
           ],
         );
       },
