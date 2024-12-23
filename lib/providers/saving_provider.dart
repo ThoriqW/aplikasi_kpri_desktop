@@ -14,7 +14,7 @@ const baseUrl = API.baseUrl;
 const storage = FlutterSecureStorage();
 
 @riverpod
-Future getAllSavingMembers(ref, String tahun) async {
+Future getAllSavingMembers(ref, String tahun, int workUnitId) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
@@ -23,7 +23,8 @@ Future getAllSavingMembers(ref, String tahun) async {
 
   try {
     final response = await http.get(
-      Uri.parse('$baseUrl/api/v1/savings?tahun=$tahun'),
+      Uri.parse(
+          '$baseUrl/api/v1/savings?tahun=$tahun&work_unit_id=$workUnitId'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',

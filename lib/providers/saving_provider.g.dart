@@ -7,7 +7,7 @@ part of 'saving_provider.dart';
 // **************************************************************************
 
 String _$getAllSavingMembersHash() =>
-    r'ceab5331eb1273eb6ef52564a266c5793241a862';
+    r'3665379185a807b6f83e584119e9e144ec8e4539';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -42,9 +42,11 @@ class GetAllSavingMembersFamily extends Family<AsyncValue> {
   /// See also [getAllSavingMembers].
   GetAllSavingMembersProvider call(
     String tahun,
+    int workUnitId,
   ) {
     return GetAllSavingMembersProvider(
       tahun,
+      workUnitId,
     );
   }
 
@@ -54,6 +56,7 @@ class GetAllSavingMembersFamily extends Family<AsyncValue> {
   ) {
     return call(
       provider.tahun,
+      provider.workUnitId,
     );
   }
 
@@ -77,10 +80,12 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
   /// See also [getAllSavingMembers].
   GetAllSavingMembersProvider(
     String tahun,
+    int workUnitId,
   ) : this._internal(
           (ref) => getAllSavingMembers(
             ref as GetAllSavingMembersRef,
             tahun,
+            workUnitId,
           ),
           from: getAllSavingMembersProvider,
           name: r'getAllSavingMembersProvider',
@@ -92,6 +97,7 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
           allTransitiveDependencies:
               GetAllSavingMembersFamily._allTransitiveDependencies,
           tahun: tahun,
+          workUnitId: workUnitId,
         );
 
   GetAllSavingMembersProvider._internal(
@@ -102,9 +108,11 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.tahun,
+    required this.workUnitId,
   }) : super.internal();
 
   final String tahun;
+  final int workUnitId;
 
   @override
   Override overrideWith(
@@ -120,6 +128,7 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         tahun: tahun,
+        workUnitId: workUnitId,
       ),
     );
   }
@@ -131,23 +140,27 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
 
   @override
   bool operator ==(Object other) {
-    return other is GetAllSavingMembersProvider && other.tahun == tahun;
+    return other is GetAllSavingMembersProvider &&
+        other.tahun == tahun &&
+        other.workUnitId == workUnitId;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, tahun.hashCode);
+    hash = _SystemHash.combine(hash, workUnitId.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
 mixin GetAllSavingMembersRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `tahun` of this provider.
   String get tahun;
+
+  /// The parameter `workUnitId` of this provider.
+  int get workUnitId;
 }
 
 class _GetAllSavingMembersProviderElement
@@ -157,6 +170,8 @@ class _GetAllSavingMembersProviderElement
 
   @override
   String get tahun => (origin as GetAllSavingMembersProvider).tahun;
+  @override
+  int get workUnitId => (origin as GetAllSavingMembersProvider).workUnitId;
 }
 
 String _$createMemberSavingsHash() =>
@@ -275,8 +290,6 @@ class CreateMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
 mixin CreateMemberSavingsRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `tahun` of this provider.
   String get tahun;
@@ -430,8 +443,6 @@ class UpdateMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
 mixin UpdateMemberSavingsRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `tahun` of this provider.
   int get tahun;
@@ -457,4 +468,4 @@ class _UpdateMemberSavingsProviderElement
       (origin as UpdateMemberSavingsProvider).updateSavingsObject;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
