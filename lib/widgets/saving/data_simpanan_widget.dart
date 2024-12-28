@@ -1,6 +1,5 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
-import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/table_simpanan_widget.dart';
@@ -75,9 +74,9 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                       ],
                     ),
                   ),
-                  ButtonWidget(
-                    text: "Cari",
-                    onTap: () async {
+                  IconButton(
+                    icon: const Icon(Icons.search),
+                    onPressed: () async {
                       if (selectedUnit != '') {
                         setState(
                           () {
@@ -100,7 +99,7 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                         );
                       }
                     },
-                  )
+                  ),
                 ],
               ),
               Row(

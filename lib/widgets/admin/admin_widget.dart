@@ -1,13 +1,13 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/admin_route_provider.dart';
-import 'package:aplikasi_kpri_desktop/widgets/add_user_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/add_work_unit_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/user/add_user_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/work_unit/add_work_unit_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/data_user_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/user/data_user_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/header_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/data_work_units_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/update_user_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/update_work_units_widget%20.dart';
+import 'package:aplikasi_kpri_desktop/widgets/work_unit/data_work_units_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/user/update_user_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/work_unit/update_work_units_widget%20.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

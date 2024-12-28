@@ -40,9 +40,9 @@ class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ButtonWidget(
-                text: "Kembali",
-                onTap: () async {
+              IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () async {
                   widget.homeAdmin();
                 },
               ),

@@ -3,7 +3,6 @@ import 'package:aplikasi_kpri_desktop/providers/member_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/add_member_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/update_member_widget.dart';
@@ -417,11 +416,11 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
         children: [
           Row(
             children: [
-              ButtonWidget(
-                text: goToAddMember || goToUpdateMember
-                    ? "Kembali"
-                    : "Tambah Anggota",
-                onTap: () {
+              IconButton(
+                icon: goToAddMember || goToUpdateMember
+                    ? const Icon(Icons.arrow_back)
+                    : const Icon(Icons.add),
+                onPressed: () {
                   setState(
                     () {
                       if (goToAddMember || goToUpdateMember) {

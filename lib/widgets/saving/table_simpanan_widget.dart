@@ -66,14 +66,14 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                         hintText: 'Cari Anggota',
                         border: InputBorder.none,
                         filled: true,
-                        fillColor: GlobalColors.background,
+                        fillColor: GlobalColors.white,
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(width: 18),
                 ButtonWidget(
-                    text: "Update",
+                    text: "Simpan",
                     onTap: () {
                       updateDataSavings(int.parse(widget.tahun), 1);
                     })

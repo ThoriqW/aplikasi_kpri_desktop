@@ -1,26 +1,27 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
+import 'package:aplikasi_kpri_desktop/providers/admin_route_provider.dart';
 import 'package:aplikasi_kpri_desktop/providers/user_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/datepicker_widget.dart';
+import 'package:aplikasi_kpri_desktop/utils/datepicker_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/text_form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class UpdateCurrentUserWidget extends ConsumerStatefulWidget {
-  const UpdateCurrentUserWidget({super.key});
+class UpdateUserWidget extends ConsumerStatefulWidget {
+  const UpdateUserWidget({super.key, required this.homeAdmin});
+
+  final Function homeAdmin;
 
   @override
-  ConsumerState<UpdateCurrentUserWidget> createState() =>
-      _UpdateCurrentUserWidgetState();
+  ConsumerState<UpdateUserWidget> createState() => _UpdateUserWidgetState();
 }
 
-class _UpdateCurrentUserWidgetState
-    extends ConsumerState<UpdateCurrentUserWidget> {
+class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
   final TextEditingController namaLengkapController = TextEditingController();
@@ -35,7 +36,8 @@ class _UpdateCurrentUserWidgetState
 
   @override
   Widget build(BuildContext context) {
-    final getProfile = ref.watch(getCurrentUserProvider);
+    final getProfile = ref.watch(getUserProvider(
+        ref.watch(idUserNotifierProvider.notifier).getId().toString()));
     return CustomCardWidget(
       color: GlobalColors.white,
       child: getProfile.when(
@@ -58,8 +60,15 @@ class _UpdateCurrentUserWidgetState
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () async {
+                  widget.homeAdmin();
+                },
+              ),
+              const SizedBox(height: 20),
               const Text(
-                "Profile",
+                "Update User",
                 style: TextStyle(
                   color: GlobalColors.primary,
                   fontWeight: FontWeight.bold,
@@ -274,7 +283,7 @@ class _UpdateCurrentUserWidgetState
                   ButtonWidget(
                     text: "Simpan",
                     onTap: () async {
-                      await _updateCurrentUser();
+                      await _updateUser(profileData['id'].toString());
                     },
                   ),
                 ],
@@ -288,9 +297,10 @@ class _UpdateCurrentUserWidgetState
     );
   }
 
-  Future<void> _updateCurrentUser() async {
+  Future<void> _updateUser(String id) async {
     try {
-      final updateProfile = await ref.watch(updateCurrentUserProvider(
+      final updateUser = await ref.watch(updateUserProvider(
+        id,
         usernameController.text,
         newPasswordController.text,
         namaLengkapController.text,
@@ -305,22 +315,23 @@ class _UpdateCurrentUserWidgetState
         agamaController.text,
       ).future);
       if (!mounted) return;
-      if (updateProfile is SuccessResponse) {
+      if (updateUser is SuccessResponse) {
         await showDialog(
           context: context,
           builder: (BuildContext context) {
             return CustomAlertDialog(
-              alertDesc: updateProfile.message,
+              alertDesc: updateUser.message,
               alertTitle: "Sukses",
             );
           },
-        ).then((_) => ref.invalidate(getCurrentUserProvider));
-      } else if (updateProfile is ErrorResponse) {
+        ).then((_) => ref.invalidate(getUserProvider(
+            ref.watch(idUserNotifierProvider.notifier).getId().toString())));
+      } else if (updateUser is ErrorResponse) {
         await showDialog(
           context: context,
           builder: (BuildContext context) {
             return CustomAlertDialog(
-              alertDesc: updateProfile.errors,
+              alertDesc: updateUser.errors,
               alertTitle: "Gagal",
             );
           },
