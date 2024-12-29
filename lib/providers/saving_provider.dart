@@ -87,7 +87,6 @@ Future updateMemberSavings(
 
   print(jsonEncode({
     'tahun': tahun,
-    'work_unit_id': workUnitId,
     'savings': transformedUpdateSavings,
   }));
 
@@ -100,11 +99,10 @@ Future updateMemberSavings(
       },
       body: jsonEncode({
         'tahun': tahun,
-        'work_unit_id': workUnitId,
         'savings': transformedUpdateSavings,
       }),
     );
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       return SuccessResponse.fromJson(jsonDecode(response.body));
     } else {
       return ErrorResponse.fromJson(jsonDecode(response.body));

@@ -71,7 +71,9 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                   child: ButtonWidget(
                     text: "Simpan",
                     onTap: () {
-                      updateDataSavings(int.parse(widget.tahun), 1);
+                      updateDataSavings(
+                          int.parse(widget.tahun), widget.workUnitId);
+                      updateSavingsObject = {};
                     },
                   ),
                 )
@@ -130,7 +132,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                           Container(
                             padding: const EdgeInsets.all(9),
                             child: const Text(
-                              "ID",
+                              "No. Anggota",
                               style: TextStyle(
                                 color: Colors.black87,
                                 fontWeight: FontWeight.w500,
@@ -229,7 +231,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                               child: Container(
                                 padding: const EdgeInsets.all(9),
                                 child: Text(
-                                  pageData[j]['nomor_anggota'].toString(),
+                                  pageData[j]['member_profile_id'].toString(),
                                   style: const TextStyle(
                                     color: GlobalColors.onBackground,
                                     fontWeight: FontWeight.w500,
@@ -293,7 +295,16 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                     color: GlobalColors.onBackground,
                                     fontWeight: FontWeight.w500,
                                   ),
-                                  onSubmitted: (newPokok) {},
+                                  onSubmitted: (newPokok) {
+                                    updateValueSaving(
+                                      updateSavingsObject,
+                                      pageData[j]['member_profile_id']
+                                          .toString(),
+                                      pageData[j]['bulan'].toString(),
+                                      'pokok',
+                                      newPokok,
+                                    );
+                                  },
                                 ),
                               ),
                             ),
@@ -319,7 +330,16 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                     color: GlobalColors.onBackground,
                                     fontWeight: FontWeight.w500,
                                   ),
-                                  onSubmitted: (newWajib) {},
+                                  onSubmitted: (newWajib) {
+                                    updateValueSaving(
+                                      updateSavingsObject,
+                                      pageData[j]['member_profile_id']
+                                          .toString(),
+                                      pageData[j]['bulan'].toString(),
+                                      'wajib',
+                                      newWajib,
+                                    );
+                                  },
                                 ),
                               ),
                             ),
@@ -345,7 +365,16 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                     color: GlobalColors.onBackground,
                                     fontWeight: FontWeight.w500,
                                   ),
-                                  onSubmitted: (newSukarela) {},
+                                  onSubmitted: (newSukarela) {
+                                    updateValueSaving(
+                                      updateSavingsObject,
+                                      pageData[j]['member_profile_id']
+                                          .toString(),
+                                      pageData[j]['bulan'].toString(),
+                                      'sukarela',
+                                      newSukarela,
+                                    );
+                                  },
                                 ),
                               ),
                             ),
@@ -422,16 +451,14 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
     }
 
     if (!updateSavingsObject[key]!.containsKey(bulan)) {
-      updateSavingsObject[key]![bulan] = {
-        "pokok": 0,
-        "wajib": 0,
-        "sukarela": 0,
-      };
+      updateSavingsObject[key]![bulan] = {};
     }
 
     updateSavingsObject[key]![bulan]![jenis] = int.tryParse(
             newValue.replaceAll("Rp", "").replaceAll(".", "").trim()) ??
         0;
+
+    print(updateSavingsObject);
   }
 
   Future<void> updateDataSavings(

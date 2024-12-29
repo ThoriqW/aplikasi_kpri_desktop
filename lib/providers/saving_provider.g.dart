@@ -309,7 +309,7 @@ class _CreateMemberSavingsProviderElement
 }
 
 String _$updateMemberSavingsHash() =>
-    r'4071ba8f554cace969f526e8b0026d7fc6584974';
+    r'edc2c0284d67d63fcc0b6a85a7061fd0252fbfad';
 
 /// See also [updateMemberSavings].
 @ProviderFor(updateMemberSavings)

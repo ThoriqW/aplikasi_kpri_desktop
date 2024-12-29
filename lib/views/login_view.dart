@@ -98,13 +98,11 @@ class _LoginViewState extends ConsumerState<LoginView> {
                         alignment: Alignment.bottomLeft,
                         child: Material(
                           color: GlobalColors.primary,
-                          borderRadius: BorderRadius.circular(8.0),
                           elevation: 4.0,
                           child: InkWell(
                             onTap: () {
                               _login();
                             },
-                            borderRadius: BorderRadius.circular(8.0),
                             child: const SizedBox(
                               width: 150,
                               height: 45,
