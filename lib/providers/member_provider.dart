@@ -76,16 +76,19 @@ Future addMember(
 }
 
 @riverpod
-Future getAllMember(ref) async {
+Future getAllMember(ref, String search, String workUnitId) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
     throw Exception('No authentication token found');
   }
 
+  print(search);
+
   try {
     final response = await http.get(
-      Uri.parse('$baseUrl/api/v1/members'),
+      Uri.parse(
+          '$baseUrl/api/v1/members?search=$search&work_unit_id=$workUnitId'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
@@ -146,7 +149,6 @@ Future updateMember(
   String jabatan,
   String pangkat,
   String nip,
-  int isActive,
   DateTime? tanggalMasuk,
   DateTime? tanggalKeluar,
   int workUnitId,
@@ -177,7 +179,6 @@ Future updateMember(
         'jabatan': jabatan,
         'pangkat': pangkat,
         'nip': nip,
-        'is_active': isActive,
         'tanggal_masuk':
             tanggalMasuk != null ? formatDateOnly(tanggalMasuk) : null,
         'tanggal_keluar':

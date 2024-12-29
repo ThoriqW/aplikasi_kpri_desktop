@@ -8,7 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TableMemberWidget extends ConsumerStatefulWidget {
-  const TableMemberWidget({super.key});
+  const TableMemberWidget(
+      {super.key, required this.selectedUnit, required this.searchQuery});
+
+  final String selectedUnit;
+  final String searchQuery;
 
   @override
   ConsumerState<TableMemberWidget> createState() => _TableMemberWidgetState();
@@ -17,50 +21,26 @@ class TableMemberWidget extends ConsumerStatefulWidget {
 class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
   int currentPage = 0;
   final int rowsPerPage = 10;
-  TextEditingController searchController = TextEditingController();
-  String searchQuery = '';
   @override
   Widget build(BuildContext context) {
-    final getAllMember = ref.watch(getAllMemberProvider);
+    final getAllMember = ref.watch(getAllMemberProvider(
+      widget.searchQuery,
+      widget.selectedUnit,
+    ));
     return getAllMember.when(
       data: (member) {
         List<dynamic> members = member as List<dynamic>;
-
-        if (searchQuery.isNotEmpty) {
-          members = members.where((m) {
-            final namaLengkap = m['nama_lengkap'].toString().toLowerCase();
-            return namaLengkap.contains(searchQuery.toLowerCase());
-          }).toList();
-        }
 
         int startIndex = currentPage * rowsPerPage;
         int endIndex = (startIndex + rowsPerPage < members.length)
             ? startIndex + rowsPerPage
             : members.length;
+
         List<dynamic> paginatedMembers = members.sublist(startIndex, endIndex);
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: TextField(
-                controller: searchController,
-                onChanged: (value) {
-                  setState(() {
-                    searchQuery = value;
-                    currentPage = 0;
-                  });
-                },
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.search, color: Colors.grey),
-                  hintText: 'Cari Nama Anggota',
-                  border: InputBorder.none,
-                  filled: true,
-                  fillColor: GlobalColors.background,
-                ),
-              ),
-            ),
             Table(
               border: TableBorder.all(color: GlobalColors.header),
               columnWidths: const <int, TableColumnWidth>{
@@ -74,6 +54,7 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                 7: IntrinsicColumnWidth(),
                 8: IntrinsicColumnWidth(),
                 9: IntrinsicColumnWidth(),
+                10: IntrinsicColumnWidth(),
               },
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
               children: <TableRow>[
@@ -164,6 +145,16 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                       padding: const EdgeInsets.all(9),
                       child: const Text(
                         "Unit Kerja",
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(9),
+                      child: const Text(
+                        "Status",
                         style: TextStyle(
                           color: Colors.black87,
                           fontWeight: FontWeight.w500,
@@ -280,6 +271,21 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                             color: GlobalColors.onBackground,
                             fontWeight: FontWeight.w500,
                           ),
+                        ),
+                      ),
+                      CircleAvatar(
+                        radius: 16,
+                        backgroundColor:
+                            paginatedMembers[i]['status'].toString() == '1'
+                                ? GlobalColors.secondary
+                                : const Color.fromARGB(255, 250, 201, 201),
+                        child: Icon(
+                          paginatedMembers[i]['status'].toString() == '1'
+                              ? Icons.check_circle
+                              : Icons.cancel,
+                          color: paginatedMembers[i]['status'].toString() == '1'
+                              ? GlobalColors.primary
+                              : Colors.redAccent,
                         ),
                       ),
                       Center(

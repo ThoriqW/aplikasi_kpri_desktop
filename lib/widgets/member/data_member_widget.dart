@@ -1,15 +1,28 @@
+import 'dart:async';
+
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/member_route_provider.dart';
+import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/member/table_member_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/work_unit/work_units_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DataMemberWidget extends ConsumerWidget {
+class DataMemberWidget extends ConsumerStatefulWidget {
   const DataMemberWidget({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<DataMemberWidget> createState() => _DataMemberWidgetState();
+}
+
+class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
+  String selectedUnit = '';
+  String searchQuery = '';
+  Timer? _debounce;
+  TextEditingController searchController = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
     return CustomCardWidget(
       color: GlobalColors.white,
       child: Column(
@@ -24,14 +37,87 @@ class DataMemberWidget extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 20),
-          IconButton(
-            onPressed: () {
-              ref.watch(memberModeNotifierProvider.notifier).switchToAddUser();
-            },
-            icon: const Icon(Icons.add),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                onPressed: () {
+                  ref
+                      .watch(memberModeNotifierProvider.notifier)
+                      .switchToAddUser();
+                },
+                icon: const Icon(Icons.add),
+              ),
+              const SizedBox(
+                width: 24,
+              ),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: searchController,
+                        onChanged: (value) {
+                          if (_debounce?.isActive ?? false) {
+                            _debounce?.cancel();
+                          }
+                          _debounce =
+                              Timer(const Duration(milliseconds: 500), () {
+                            setState(() {
+                              searchQuery = value;
+                            });
+                          });
+                        },
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.search, color: Colors.grey),
+                          hintText: 'Cari Anggota',
+                          border: InputBorder.none,
+                          filled: true,
+                          fillColor: GlobalColors.background,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                width: 24,
+              ),
+              Row(
+                children: [
+                  const Text(
+                    "Pilih Unit Kerja",
+                  ),
+                  const SizedBox(width: 24),
+                  WorkUnitsDropdown(
+                    onSelected: (String value) => setState(() {
+                      selectedUnit = value;
+                    }),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                width: 24,
+              ),
+              ButtonWidget(
+                text: "Reset",
+                onTap: () {
+                  setState(() {
+                    searchQuery = '';
+                    selectedUnit = '';
+                    searchController.clear();
+                  });
+                },
+              ),
+            ],
           ),
           const SizedBox(height: 20),
-          const TableMemberWidget()
+          TableMemberWidget(
+            selectedUnit: selectedUnit,
+            searchQuery: searchQuery,
+          )
         ],
       ),
     );

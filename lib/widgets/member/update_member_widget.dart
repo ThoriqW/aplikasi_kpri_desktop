@@ -32,11 +32,10 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController jenisKelaminController = TextEditingController();
   final TextEditingController agamaController = TextEditingController();
-  final TextEditingController fotoController = TextEditingController(); // belum
+  final TextEditingController fotoController = TextEditingController(); // BELUM
   final TextEditingController jabatanController = TextEditingController();
   final TextEditingController pangkatController = TextEditingController();
   final TextEditingController nipController = TextEditingController();
-  final TextEditingController isActiveController = TextEditingController();
   final TextEditingController tanggalMasukController = TextEditingController();
   final TextEditingController tanggalKeluarController = TextEditingController();
   String selectedUnit = '';
@@ -68,7 +67,6 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
             jabatanController.text = memberData['jabatan'];
             pangkatController.text = memberData['pangkat'];
             nipController.text = memberData['nip'];
-            isActiveController.text = memberData['is_active'].toString();
             memberData['tanggal_masuk'] != null
                 ? tanggalMasukController.text =
                     memberData['tanggal_masuk'].toString().split(" ")[0]
@@ -379,25 +377,6 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
               const SizedBox(height: 8),
               Row(
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "Status Anggota",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        TextFormWidget(
-                            isEnabled: false,
-                            controller: isActiveController,
-                            text: "Status Anggota"),
-                      ],
-                    ),
-                  ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Column(
@@ -469,7 +448,6 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
           jabatanController.text,
           pangkatController.text,
           nipController.text,
-          int.parse(isActiveController.text),
           tanggalMasukController.text != ''
               ? DateFormat('yyyy-MM-dd').parse(tanggalMasukController.text)
               : null,
@@ -489,7 +467,9 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
               alertTitle: "Sukses",
             );
           },
-        ).then((_) {});
+        ).then((_) {
+          ref.watch(memberModeNotifierProvider.notifier).switchToView();
+        });
       } else if (updateMember is ErrorResponse) {
         await showDialog(
           context: context,

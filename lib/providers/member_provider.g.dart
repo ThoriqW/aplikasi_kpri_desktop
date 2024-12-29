@@ -381,22 +381,153 @@ class _AddMemberProviderElement
   int get status => (origin as AddMemberProvider).status;
 }
 
-String _$getAllMemberHash() => r'e73c4188b25ecdb052215446e5b6f08e0d7102c4';
+String _$getAllMemberHash() => r'b33b241ed471b9b31002c4ec69eb575a429e9e31';
 
 /// See also [getAllMember].
 @ProviderFor(getAllMember)
-final getAllMemberProvider = AutoDisposeFutureProvider<Object?>.internal(
-  getAllMember,
-  name: r'getAllMemberProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$getAllMemberHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const getAllMemberProvider = GetAllMemberFamily();
+
+/// See also [getAllMember].
+class GetAllMemberFamily extends Family<AsyncValue> {
+  /// See also [getAllMember].
+  const GetAllMemberFamily();
+
+  /// See also [getAllMember].
+  GetAllMemberProvider call(
+    String search,
+    String workUnitId,
+  ) {
+    return GetAllMemberProvider(
+      search,
+      workUnitId,
+    );
+  }
+
+  @override
+  GetAllMemberProvider getProviderOverride(
+    covariant GetAllMemberProvider provider,
+  ) {
+    return call(
+      provider.search,
+      provider.workUnitId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getAllMemberProvider';
+}
+
+/// See also [getAllMember].
+class GetAllMemberProvider extends AutoDisposeFutureProvider<Object?> {
+  /// See also [getAllMember].
+  GetAllMemberProvider(
+    String search,
+    String workUnitId,
+  ) : this._internal(
+          (ref) => getAllMember(
+            ref as GetAllMemberRef,
+            search,
+            workUnitId,
+          ),
+          from: getAllMemberProvider,
+          name: r'getAllMemberProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getAllMemberHash,
+          dependencies: GetAllMemberFamily._dependencies,
+          allTransitiveDependencies:
+              GetAllMemberFamily._allTransitiveDependencies,
+          search: search,
+          workUnitId: workUnitId,
+        );
+
+  GetAllMemberProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.search,
+    required this.workUnitId,
+  }) : super.internal();
+
+  final String search;
+  final String workUnitId;
+
+  @override
+  Override overrideWith(
+    FutureOr<Object?> Function(GetAllMemberRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetAllMemberProvider._internal(
+        (ref) => create(ref as GetAllMemberRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        search: search,
+        workUnitId: workUnitId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Object?> createElement() {
+    return _GetAllMemberProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetAllMemberProvider &&
+        other.search == search &&
+        other.workUnitId == workUnitId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, search.hashCode);
+    hash = _SystemHash.combine(hash, workUnitId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef GetAllMemberRef = AutoDisposeFutureProviderRef<Object?>;
+mixin GetAllMemberRef on AutoDisposeFutureProviderRef<Object?> {
+  /// The parameter `search` of this provider.
+  String get search;
+
+  /// The parameter `workUnitId` of this provider.
+  String get workUnitId;
+}
+
+class _GetAllMemberProviderElement
+    extends AutoDisposeFutureProviderElement<Object?> with GetAllMemberRef {
+  _GetAllMemberProviderElement(super.provider);
+
+  @override
+  String get search => (origin as GetAllMemberProvider).search;
+  @override
+  String get workUnitId => (origin as GetAllMemberProvider).workUnitId;
+}
+
 String _$getMemberHash() => r'a16b567e00c5ccab446f43e7e6ef48b39d124eea';
 
 /// See also [getMember].
@@ -526,7 +657,7 @@ class _GetMemberProviderElement
   String get id => (origin as GetMemberProvider).id;
 }
 
-String _$updateMemberHash() => r'3f4e4b27cb381398d2e420ced32657bf54851271';
+String _$updateMemberHash() => r'111eb10d832fb499c97461fdadced0a163cb1d48';
 
 /// See also [updateMember].
 @ProviderFor(updateMember)
@@ -552,7 +683,6 @@ class UpdateMemberFamily extends Family<AsyncValue> {
     String jabatan,
     String pangkat,
     String nip,
-    int isActive,
     DateTime? tanggalMasuk,
     DateTime? tanggalKeluar,
     int workUnitId,
@@ -571,7 +701,6 @@ class UpdateMemberFamily extends Family<AsyncValue> {
       jabatan,
       pangkat,
       nip,
-      isActive,
       tanggalMasuk,
       tanggalKeluar,
       workUnitId,
@@ -596,7 +725,6 @@ class UpdateMemberFamily extends Family<AsyncValue> {
       provider.jabatan,
       provider.pangkat,
       provider.nip,
-      provider.isActive,
       provider.tanggalMasuk,
       provider.tanggalKeluar,
       provider.workUnitId,
@@ -635,7 +763,6 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
     String jabatan,
     String pangkat,
     String nip,
-    int isActive,
     DateTime? tanggalMasuk,
     DateTime? tanggalKeluar,
     int workUnitId,
@@ -655,7 +782,6 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
             jabatan,
             pangkat,
             nip,
-            isActive,
             tanggalMasuk,
             tanggalKeluar,
             workUnitId,
@@ -682,7 +808,6 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
           jabatan: jabatan,
           pangkat: pangkat,
           nip: nip,
-          isActive: isActive,
           tanggalMasuk: tanggalMasuk,
           tanggalKeluar: tanggalKeluar,
           workUnitId: workUnitId,
@@ -708,7 +833,6 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
     required this.jabatan,
     required this.pangkat,
     required this.nip,
-    required this.isActive,
     required this.tanggalMasuk,
     required this.tanggalKeluar,
     required this.workUnitId,
@@ -727,7 +851,6 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
   final String jabatan;
   final String pangkat;
   final String nip;
-  final int isActive;
   final DateTime? tanggalMasuk;
   final DateTime? tanggalKeluar;
   final int workUnitId;
@@ -758,7 +881,6 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
         jabatan: jabatan,
         pangkat: pangkat,
         nip: nip,
-        isActive: isActive,
         tanggalMasuk: tanggalMasuk,
         tanggalKeluar: tanggalKeluar,
         workUnitId: workUnitId,
@@ -787,7 +909,6 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
         other.jabatan == jabatan &&
         other.pangkat == pangkat &&
         other.nip == nip &&
-        other.isActive == isActive &&
         other.tanggalMasuk == tanggalMasuk &&
         other.tanggalKeluar == tanggalKeluar &&
         other.workUnitId == workUnitId;
@@ -809,7 +930,6 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
     hash = _SystemHash.combine(hash, jabatan.hashCode);
     hash = _SystemHash.combine(hash, pangkat.hashCode);
     hash = _SystemHash.combine(hash, nip.hashCode);
-    hash = _SystemHash.combine(hash, isActive.hashCode);
     hash = _SystemHash.combine(hash, tanggalMasuk.hashCode);
     hash = _SystemHash.combine(hash, tanggalKeluar.hashCode);
     hash = _SystemHash.combine(hash, workUnitId.hashCode);
@@ -860,9 +980,6 @@ mixin UpdateMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `nip` of this provider.
   String get nip;
 
-  /// The parameter `isActive` of this provider.
-  int get isActive;
-
   /// The parameter `tanggalMasuk` of this provider.
   DateTime? get tanggalMasuk;
 
@@ -903,8 +1020,6 @@ class _UpdateMemberProviderElement
   String get pangkat => (origin as UpdateMemberProvider).pangkat;
   @override
   String get nip => (origin as UpdateMemberProvider).nip;
-  @override
-  int get isActive => (origin as UpdateMemberProvider).isActive;
   @override
   DateTime? get tanggalMasuk => (origin as UpdateMemberProvider).tanggalMasuk;
   @override

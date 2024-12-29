@@ -231,7 +231,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                               child: Container(
                                 padding: const EdgeInsets.all(9),
                                 child: Text(
-                                  pageData[j]['member_profile_id'].toString(),
+                                  pageData[j]['nomor_anggota'].toString(),
                                   style: const TextStyle(
                                     color: GlobalColors.onBackground,
                                     fontWeight: FontWeight.w500,
