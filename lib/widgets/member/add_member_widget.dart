@@ -1,5 +1,6 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/member_provider.dart';
+import 'package:aplikasi_kpri_desktop/providers/member_route_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
@@ -7,15 +8,15 @@ import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:aplikasi_kpri_desktop/utils/datepicker_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/text_form_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/work_units_dropdown.dart';
+import 'package:aplikasi_kpri_desktop/widgets/work_unit/work_units_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 class AddMemberWidget extends ConsumerStatefulWidget {
-  const AddMemberWidget({super.key, required this.onComplete});
-
-  final VoidCallback onComplete;
+  const AddMemberWidget({
+    super.key,
+  });
 
   @override
   ConsumerState<AddMemberWidget> createState() => _AddMemberWidgetState();
@@ -31,14 +32,15 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController jenisKelaminController = TextEditingController();
   final TextEditingController agamaController = TextEditingController();
-  final TextEditingController fotoController = TextEditingController(); // belum
+  final TextEditingController fotoController = TextEditingController(); // BELUM
   final TextEditingController jabatanController = TextEditingController();
   final TextEditingController pangkatController = TextEditingController();
   final TextEditingController nipController = TextEditingController();
-  final TextEditingController isActiveController = TextEditingController();
   final TextEditingController tanggalMasukController = TextEditingController();
-  final TextEditingController tanggalKeluarController = TextEditingController();
+
   String selectedUnit = '';
+  int status = 0;
+
   @override
   Widget build(BuildContext context) {
     return CustomCardWidget(
@@ -46,6 +48,13 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          IconButton(
+            onPressed: () {
+              ref.watch(memberModeNotifierProvider.notifier).switchToView();
+            },
+            icon: const Icon(Icons.arrow_back),
+          ),
+          const SizedBox(height: 20),
           const Text(
             "Tambah Anggota",
             style: TextStyle(
@@ -317,40 +326,26 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Tanggal Keluar",
+                      "Pekerjaan",
                       style: TextStyle(
                         color: GlobalColors.onBackground,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 8),
-                    DatePickerWidget(date: tanggalKeluarController),
+                    WorkUnitsDropdown(
+                      onSelected: (String value) => setState(
+                        () {
+                          selectedUnit = value;
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),
             ],
           ),
           const SizedBox(height: 8),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Pekerjaan",
-                style: TextStyle(
-                  color: GlobalColors.onBackground,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 8),
-              WorkUnitsDropdown(
-                onSelected: (String value) => setState(
-                  () {
-                    selectedUnit = value;
-                  },
-                ),
-              ),
-            ],
-          ),
           const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -388,10 +383,8 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
         tanggalMasukController.text != ''
             ? DateFormat('yyyy-MM-dd').parse(tanggalMasukController.text)
             : null,
-        tanggalKeluarController.text != ''
-            ? DateFormat('yyyy-MM-dd').parse(tanggalKeluarController.text)
-            : null,
         selectedUnit != '' ? int.parse(selectedUnit) : 0,
+        status,
       ).future);
       if (!mounted) return;
       if (addMember is SuccessResponse) {
@@ -404,7 +397,7 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
             );
           },
         ).then((_) {
-          widget.onComplete();
+          ref.watch(memberModeNotifierProvider.notifier).switchToView();
         });
       } else if (addMember is ErrorResponse) {
         await showDialog(

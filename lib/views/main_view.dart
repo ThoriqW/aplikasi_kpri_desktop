@@ -1,11 +1,11 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/auth_provider.dart';
-import 'package:aplikasi_kpri_desktop/widgets/admin_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/dashboard_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/member_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/setting_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/admin/admin_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/dashboard/dashboard_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/member/member_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/setting/setting_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/side_menu_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/simpanan_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/saving/simpanan_widget.dart';
 import 'package:flutter/material.dart';
 
 class MainView extends StatefulWidget {

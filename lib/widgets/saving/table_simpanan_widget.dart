@@ -3,9 +3,8 @@ import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/create_simpanan_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/saving/create_simpanan_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
-import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -24,9 +23,7 @@ class TableSimpananWidget extends ConsumerStatefulWidget {
 
 class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
   TextEditingController searchController = TextEditingController();
-  String selectedUnit = '';
   String searchQuery = '';
-  int selectedYear = DateTime.now().year;
 
   Map<String, Map<String, dynamic>> updateSavingsObject = {};
 
@@ -38,8 +35,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
     final getAllSavingMembers = ref.watch(
       getAllSavingMembersProvider(widget.tahun, widget.workUnitId),
     );
-    return CustomCardWidget(
-        child: getAllSavingMembers.when(
+    return getAllSavingMembers.when(
       data: (saving) {
         List<dynamic> savings = saving as List<dynamic>;
         int totalPages = (savings[0]['members'].length / rowsPerPage).ceil();
@@ -50,34 +46,39 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
         return Column(
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: TextField(
-                      controller: searchController,
-                      onChanged: (value) {
-                        setState(() {
-                          searchQuery = value;
-                        });
-                      },
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.search, color: Colors.grey),
-                        hintText: 'Cari Anggota',
-                        border: InputBorder.none,
-                        filled: true,
-                        fillColor: GlobalColors.white,
-                      ),
+                  child: TextField(
+                    controller: searchController,
+                    onChanged: (value) {
+                      setState(() {
+                        searchQuery = value;
+                      });
+                    },
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.search, color: Colors.grey),
+                      hintText: 'Cari Anggota',
+                      border: InputBorder.none,
+                      filled: true,
+                      fillColor: GlobalColors.background,
                     ),
                   ),
                 ),
                 const SizedBox(width: 18),
-                ButtonWidget(
+                Expanded(
+                  child: ButtonWidget(
                     text: "Simpan",
                     onTap: () {
                       updateDataSavings(int.parse(widget.tahun), 1);
-                    })
+                    },
+                  ),
+                )
               ],
+            ),
+            const SizedBox(
+              height: 20,
             ),
             for (int i = 0; i < savings.length; i++)
               Column(
@@ -94,6 +95,9 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                         ),
                       ),
                     ),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                   Table(
                     border: TableBorder.all(color: GlobalColors.header),
@@ -209,13 +213,15 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                         TableRow(
                           decoration: const BoxDecoration(),
                           children: <Widget>[
-                            Container(
-                              padding: const EdgeInsets.all(9),
-                              child: Text(
-                                (j + 1).toString(),
-                                style: const TextStyle(
-                                  color: GlobalColors.onBackground,
-                                  fontWeight: FontWeight.w500,
+                            Center(
+                              child: Container(
+                                padding: const EdgeInsets.all(9),
+                                child: Text(
+                                  (j + 1).toString(),
+                                  style: const TextStyle(
+                                    color: GlobalColors.onBackground,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ),
@@ -361,6 +367,11 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                           });
                         }
                       : null,
+                  style: ElevatedButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                    ),
+                  ),
                   child: const Text('Sebelumnya'),
                 ),
                 Text(
@@ -374,6 +385,11 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                           });
                         }
                       : null,
+                  style: ElevatedButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                    ),
+                  ),
                   child: const Text('Selanjutnya'),
                 ),
               ],
@@ -389,7 +405,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
         },
       ),
       loading: () => const LinearProgressIndicator(),
-    ));
+    );
   }
 
   Future<void> updateValueSaving(
@@ -437,7 +453,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
             );
           },
         ).then((_) => ref.invalidate(getAllSavingMembersProvider(
-            widget.tahun, int.parse(selectedUnit))));
+            widget.tahun, int.parse(workUnitId.toString()))));
       } else if (updateMemberSavings is ErrorResponse) {
         await showDialog(
           context: context,

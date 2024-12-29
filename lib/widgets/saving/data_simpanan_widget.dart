@@ -2,9 +2,9 @@ import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/table_simpanan_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/saving/table_simpanan_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/text_form_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/work_units_dropdown.dart';
+import 'package:aplikasi_kpri_desktop/widgets/work_unit/work_units_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,15 +16,16 @@ class DataSimpananWidget extends ConsumerStatefulWidget {
 }
 
 class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
-  final TextEditingController bulanController = TextEditingController();
   final TextEditingController tahunController = TextEditingController();
   String selectedUnit = '';
-  String searchQuery = '';
-  int currentPage = 0;
-  final int rowsPerPage = 12;
   int selectedYear = DateTime.now().year;
 
-  late Widget pilihWorkUnit = const Text("Silahkan pilih unit kerja");
+  late Widget pilihWorkUnit = const Text(
+    "Silahkan pilih unit kerja",
+    style: TextStyle(
+      fontStyle: FontStyle.italic,
+    ),
+  );
 
   @override
   void initState() {
@@ -34,7 +35,6 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
 
   @override
   void dispose() {
-    bulanController.dispose();
     tahunController.dispose();
     super.dispose();
   }
@@ -49,7 +49,10 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
           const Text(
             "Simpanan Anggota",
             style: TextStyle(
-                color: GlobalColors.primary, fontWeight: FontWeight.bold),
+              color: GlobalColors.primary,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
           ),
           const SizedBox(height: 16),
           Row(
@@ -59,7 +62,6 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                 children: [
                   const Text(
                     "Pilih Tahun Simpanan",
-                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(width: 8),
                   SizedBox(
@@ -106,9 +108,6 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                 children: [
                   const Text(
                     "Pilih Unit Kerja",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
                   ),
                   const SizedBox(width: 24),
                   WorkUnitsDropdown(

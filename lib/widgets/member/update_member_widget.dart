@@ -1,5 +1,6 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/member_provider.dart';
+import 'package:aplikasi_kpri_desktop/providers/member_route_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
@@ -7,17 +8,15 @@ import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:aplikasi_kpri_desktop/utils/datepicker_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/text_form_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/work_units_dropdown.dart';
+import 'package:aplikasi_kpri_desktop/widgets/work_unit/work_units_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 class UpdateMemberWidget extends ConsumerStatefulWidget {
-  const UpdateMemberWidget(
-      {super.key, required this.id, required this.onComplete});
-
-  final VoidCallback onComplete;
-  final String id;
+  const UpdateMemberWidget({
+    super.key,
+  });
 
   @override
   ConsumerState<UpdateMemberWidget> createState() => _UpdateMemberWidgetState();
@@ -44,7 +43,9 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
   bool isInitialized = false;
   @override
   Widget build(BuildContext context) {
-    final getMember = ref.watch(getMemberProvider(widget.id));
+    final getMember = ref.watch(getMemberProvider(
+      ref.watch(idMemberNotifierProvider.notifier).getId().toString(),
+    ));
     return CustomCardWidget(
       color: GlobalColors.white,
       child: getMember.when(
@@ -82,6 +83,13 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              IconButton(
+                onPressed: () {
+                  ref.watch(memberModeNotifierProvider.notifier).switchToView();
+                },
+                icon: const Icon(Icons.arrow_back),
+              ),
+              const SizedBox(height: 20),
               const Text(
                 "Update Anggota",
                 style: TextStyle(
@@ -423,7 +431,12 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                   ButtonWidget(
                     text: "Update",
                     onTap: () async {
-                      await _updateMember();
+                      await _updateMember(
+                        ref
+                            .watch(idMemberNotifierProvider.notifier)
+                            .getId()
+                            .toString(),
+                      );
                     },
                   ),
                 ],
@@ -437,11 +450,11 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
     );
   }
 
-  Future<void> _updateMember() async {
+  Future<void> _updateMember(String id) async {
     try {
       final updateMember = await ref.watch(
         updateMemberProvider(
-          widget.id,
+          id,
           namaLengkapController.text,
           nikController.text,
           nomorAnggotaController.text,
@@ -476,9 +489,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
               alertTitle: "Sukses",
             );
           },
-        ).then((_) {
-          widget.onComplete();
-        });
+        ).then((_) {});
       } else if (updateMember is ErrorResponse) {
         await showDialog(
           context: context,

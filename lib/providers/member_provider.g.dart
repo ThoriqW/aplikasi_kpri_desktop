@@ -6,7 +6,7 @@ part of 'member_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$addMemberHash() => r'837be1c42b0a5f34e287b9563cc70937ed9adb08';
+String _$addMemberHash() => r'1627467d3129f8d46c71860fd215915a40586f5d';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -53,8 +53,8 @@ class AddMemberFamily extends Family<AsyncValue> {
     String pangkat,
     String nip,
     DateTime? tanggalMasuk,
-    DateTime? tanggalKeluar,
     int workUnitId,
+    int status,
   ) {
     return AddMemberProvider(
       namaLengkap,
@@ -70,8 +70,8 @@ class AddMemberFamily extends Family<AsyncValue> {
       pangkat,
       nip,
       tanggalMasuk,
-      tanggalKeluar,
       workUnitId,
+      status,
     );
   }
 
@@ -93,8 +93,8 @@ class AddMemberFamily extends Family<AsyncValue> {
       provider.pangkat,
       provider.nip,
       provider.tanggalMasuk,
-      provider.tanggalKeluar,
       provider.workUnitId,
+      provider.status,
     );
   }
 
@@ -130,8 +130,8 @@ class AddMemberProvider extends AutoDisposeFutureProvider<Object?> {
     String pangkat,
     String nip,
     DateTime? tanggalMasuk,
-    DateTime? tanggalKeluar,
     int workUnitId,
+    int status,
   ) : this._internal(
           (ref) => addMember(
             ref as AddMemberRef,
@@ -148,8 +148,8 @@ class AddMemberProvider extends AutoDisposeFutureProvider<Object?> {
             pangkat,
             nip,
             tanggalMasuk,
-            tanggalKeluar,
             workUnitId,
+            status,
           ),
           from: addMemberProvider,
           name: r'addMemberProvider',
@@ -172,8 +172,8 @@ class AddMemberProvider extends AutoDisposeFutureProvider<Object?> {
           pangkat: pangkat,
           nip: nip,
           tanggalMasuk: tanggalMasuk,
-          tanggalKeluar: tanggalKeluar,
           workUnitId: workUnitId,
+          status: status,
         );
 
   AddMemberProvider._internal(
@@ -196,8 +196,8 @@ class AddMemberProvider extends AutoDisposeFutureProvider<Object?> {
     required this.pangkat,
     required this.nip,
     required this.tanggalMasuk,
-    required this.tanggalKeluar,
     required this.workUnitId,
+    required this.status,
   }) : super.internal();
 
   final String namaLengkap;
@@ -213,8 +213,8 @@ class AddMemberProvider extends AutoDisposeFutureProvider<Object?> {
   final String pangkat;
   final String nip;
   final DateTime? tanggalMasuk;
-  final DateTime? tanggalKeluar;
   final int workUnitId;
+  final int status;
 
   @override
   Override overrideWith(
@@ -242,8 +242,8 @@ class AddMemberProvider extends AutoDisposeFutureProvider<Object?> {
         pangkat: pangkat,
         nip: nip,
         tanggalMasuk: tanggalMasuk,
-        tanggalKeluar: tanggalKeluar,
         workUnitId: workUnitId,
+        status: status,
       ),
     );
   }
@@ -269,8 +269,8 @@ class AddMemberProvider extends AutoDisposeFutureProvider<Object?> {
         other.pangkat == pangkat &&
         other.nip == nip &&
         other.tanggalMasuk == tanggalMasuk &&
-        other.tanggalKeluar == tanggalKeluar &&
-        other.workUnitId == workUnitId;
+        other.workUnitId == workUnitId &&
+        other.status == status;
   }
 
   @override
@@ -289,13 +289,15 @@ class AddMemberProvider extends AutoDisposeFutureProvider<Object?> {
     hash = _SystemHash.combine(hash, pangkat.hashCode);
     hash = _SystemHash.combine(hash, nip.hashCode);
     hash = _SystemHash.combine(hash, tanggalMasuk.hashCode);
-    hash = _SystemHash.combine(hash, tanggalKeluar.hashCode);
     hash = _SystemHash.combine(hash, workUnitId.hashCode);
+    hash = _SystemHash.combine(hash, status.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin AddMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `namaLengkap` of this provider.
   String get namaLengkap;
@@ -336,11 +338,11 @@ mixin AddMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `tanggalMasuk` of this provider.
   DateTime? get tanggalMasuk;
 
-  /// The parameter `tanggalKeluar` of this provider.
-  DateTime? get tanggalKeluar;
-
   /// The parameter `workUnitId` of this provider.
   int get workUnitId;
+
+  /// The parameter `status` of this provider.
+  int get status;
 }
 
 class _AddMemberProviderElement
@@ -374,9 +376,9 @@ class _AddMemberProviderElement
   @override
   DateTime? get tanggalMasuk => (origin as AddMemberProvider).tanggalMasuk;
   @override
-  DateTime? get tanggalKeluar => (origin as AddMemberProvider).tanggalKeluar;
-  @override
   int get workUnitId => (origin as AddMemberProvider).workUnitId;
+  @override
+  int get status => (origin as AddMemberProvider).status;
 }
 
 String _$getAllMemberHash() => r'e73c4188b25ecdb052215446e5b6f08e0d7102c4';
@@ -392,6 +394,8 @@ final getAllMemberProvider = AutoDisposeFutureProvider<Object?>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef GetAllMemberRef = AutoDisposeFutureProviderRef<Object?>;
 String _$getMemberHash() => r'a16b567e00c5ccab446f43e7e6ef48b39d124eea';
 
@@ -507,6 +511,8 @@ class GetMemberProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin GetMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -812,6 +818,8 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin UpdateMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -1020,6 +1028,8 @@ class DeleteMemberProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin DeleteMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -1033,4 +1043,4 @@ class _DeleteMemberProviderElement
   String get id => (origin as DeleteMemberProvider).id;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

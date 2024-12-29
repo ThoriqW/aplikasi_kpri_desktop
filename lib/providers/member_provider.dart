@@ -29,8 +29,8 @@ Future addMember(
   String pangkat,
   String nip,
   DateTime? tanggalMasuk,
-  DateTime? tanggalKeluar,
   int workUnitId,
+  int status,
 ) async {
   final String? token = await storage.read(key: 'authToken');
 
@@ -61,9 +61,8 @@ Future addMember(
         'nip': nip,
         'tanggal_masuk':
             tanggalMasuk != null ? formatDateOnly(tanggalMasuk) : null,
-        'tanggal_keluar':
-            tanggalKeluar != null ? formatDateOnly(tanggalKeluar) : null,
         'work_unit_id': workUnitId,
+        'status': status,
       }),
     );
     if (response.statusCode == 201) {

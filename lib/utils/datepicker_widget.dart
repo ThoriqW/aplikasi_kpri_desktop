@@ -30,23 +30,23 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
   Widget build(BuildContext context) {
     return TextField(
       controller: widget.date,
-      decoration: InputDecoration(
-        icon: const Icon(Icons.calendar_today),
+      decoration: const InputDecoration(
+        icon: Icon(Icons.calendar_today),
         labelText: 'Pilih Tanggal',
-        contentPadding: const EdgeInsets.symmetric(
+        contentPadding: EdgeInsets.symmetric(
           horizontal: 15,
           vertical: 12,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(
+          borderRadius: BorderRadius.all(Radius.circular(0)),
+          borderSide: BorderSide(
             color: GlobalColors.header,
             width: 1.0,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(
+          borderRadius: BorderRadius.all(Radius.circular(0)),
+          borderSide: BorderSide(
             color: GlobalColors.primary,
             width: 2.0,
           ),

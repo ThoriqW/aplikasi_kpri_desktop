@@ -2,7 +2,6 @@ import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/data/side_menu_data.dart';
 import 'package:aplikasi_kpri_desktop/providers/auth_provider.dart';
 import 'package:aplikasi_kpri_desktop/views/login_view.dart';
-import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -78,14 +77,14 @@ class _SideMenuWidgetState extends ConsumerState<SideMenuWidget> {
                   ),
                 ),
               Container(
-                width: double.infinity,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 13,
                   vertical: 30,
                 ),
-                child: ButtonWidget(
-                  text: "Keluar",
-                  onTap: () async {
+                child: IconButton(
+                  icon: const Icon(Icons.logout),
+                  color: Colors.redAccent,
+                  onPressed: () async {
                     final authNotifier =
                         ref.watch(authNotifierProvider.notifier);
                     await authNotifier.logout();
@@ -99,7 +98,6 @@ class _SideMenuWidgetState extends ConsumerState<SideMenuWidget> {
                       ),
                     );
                   },
-                  backgroundColor: Colors.redAccent,
                 ),
               ),
             ],

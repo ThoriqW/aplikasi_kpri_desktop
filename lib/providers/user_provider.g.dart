@@ -20,6 +20,8 @@ final getCurrentUserProvider = AutoDisposeFutureProvider<Object?>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef GetCurrentUserRef = AutoDisposeFutureProviderRef<Object?>;
 String _$updateCurrentUserHash() => r'1ab21e132258c2abdb17e941dd7bb0f19b9b418b';
 
@@ -257,6 +259,8 @@ class UpdateCurrentUserProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin UpdateCurrentUserRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `username` of this provider.
   String get username;
@@ -330,6 +334,8 @@ final getAllUserProvider = AutoDisposeFutureProvider<Object?>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef GetAllUserRef = AutoDisposeFutureProviderRef<Object?>;
 String _$getUserHash() => r'f9d9fef786dee951a16044a8866eeb4fa99e1847';
 
@@ -445,6 +451,8 @@ class GetUserProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin GetUserRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -585,6 +593,8 @@ class RegisterUserProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin RegisterUserRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `username` of this provider.
   String get username;
@@ -829,6 +839,8 @@ class UpdateUserProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin UpdateUserRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -1007,6 +1019,8 @@ class DeleteUserProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin DeleteUserRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -1020,4 +1034,4 @@ class _DeleteUserProviderElement
   String get id => (origin as DeleteUserProvider).id;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

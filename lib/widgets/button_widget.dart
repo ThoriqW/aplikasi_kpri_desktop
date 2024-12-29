@@ -23,7 +23,6 @@ class ButtonWidget extends StatelessWidget {
       alignment: Alignment.bottomLeft,
       child: Material(
         color: backgroundColor ?? GlobalColors.primary,
-        borderRadius: BorderRadius.circular(8.0),
         elevation: 4.0,
         child: InkWell(
           onTap: () => {onTap()},

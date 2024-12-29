@@ -1,14 +1,15 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/update_current_user_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/user/update_current_user_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:aplikasi_kpri_desktop/widgets/header_widget.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SettingWidget extends StatelessWidget {
+class SettingWidget extends ConsumerWidget {
   const SettingWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return const Stack(
       children: [
         SingleChildScrollView(

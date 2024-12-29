@@ -26,19 +26,19 @@ class TextFormWidget extends StatelessWidget {
           horizontal: 15,
           vertical: 12,
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
             color: GlobalColors.header,
             width: 1.0,
           ),
+          borderRadius: BorderRadius.all(Radius.circular(0)),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
             color: GlobalColors.primary,
             width: 2.0,
           ),
+          borderRadius: BorderRadius.all(Radius.circular(0)),
         ),
       ),
     );

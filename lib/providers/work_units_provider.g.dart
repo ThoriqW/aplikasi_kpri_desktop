@@ -20,6 +20,8 @@ final getAllWorkUnitsProvider = AutoDisposeFutureProvider<Object?>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef GetAllWorkUnitsRef = AutoDisposeFutureProviderRef<Object?>;
 String _$getWorkUnitHash() => r'0d23c1ec2c65e8277d600b65115d456ea1c37e78';
 
@@ -157,6 +159,8 @@ class GetWorkUnitProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin GetWorkUnitRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -297,6 +301,8 @@ class AddWorkUnitProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin AddWorkUnitRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `namaWorkUnit` of this provider.
   String get namaWorkUnit;
@@ -453,6 +459,8 @@ class UpdateWorkUnitProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin UpdateWorkUnitRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -591,6 +599,8 @@ class DeleteWorkUnitProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin DeleteWorkUnitRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -604,4 +614,4 @@ class _DeleteWorkUnitProviderElement
   String get id => (origin as DeleteWorkUnitProvider).id;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
