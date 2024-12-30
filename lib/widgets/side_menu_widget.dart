@@ -132,18 +132,14 @@ class _SideMenuWidgetState extends ConsumerState<SideMenuWidget> {
               ),
               child: Icon(
                 data.menu[index].icon,
-                color: isSelected
-                    ? GlobalColors.primary
-                    : GlobalColors.onBackground,
+                color: isSelected ? GlobalColors.primary : Colors.black38,
               ),
             ),
             Expanded(
               child: Text(
                 data.menu[index].title,
                 style: TextStyle(
-                  color: isSelected
-                      ? GlobalColors.primary
-                      : GlobalColors.onBackground,
+                  color: isSelected ? GlobalColors.primary : Colors.black,
                   fontSize: 16,
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 ),

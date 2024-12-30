@@ -35,11 +35,27 @@ class _AddWorkUnitWidgetState extends ConsumerState<AddWorkUnitWidget> {
             ),
           ),
           const SizedBox(height: 20),
-          TextFormWidget(
-              controller: namaWorkUnitController, text: "Nama Unit Kerja"),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Nama Work Unit",
+              ),
+              const SizedBox(height: 8),
+              TextFormWidget(controller: namaWorkUnitController, text: ""),
+            ],
+          ),
           const SizedBox(height: 15),
-          TextFormWidget(
-              controller: kodeWorkUnitController, text: "Kode Unit Kerja"),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Kode Work Unit",
+              ),
+              const SizedBox(height: 8),
+              TextFormWidget(controller: kodeWorkUnitController, text: ""),
+            ],
+          ),
           const SizedBox(height: 15),
           ButtonWidget(
             text: "Simpan",

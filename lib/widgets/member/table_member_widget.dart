@@ -8,11 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TableMemberWidget extends ConsumerStatefulWidget {
-  const TableMemberWidget(
-      {super.key, required this.selectedUnit, required this.searchQuery});
+  const TableMemberWidget({
+    super.key,
+    required this.selectedUnit,
+    required this.searchQuery,
+    required this.status,
+  });
 
   final String selectedUnit;
   final String searchQuery;
+  final String status;
 
   @override
   ConsumerState<TableMemberWidget> createState() => _TableMemberWidgetState();
@@ -26,6 +31,7 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
     final getAllMember = ref.watch(getAllMemberProvider(
       widget.searchQuery,
       widget.selectedUnit,
+      widget.status,
     ));
     return getAllMember.when(
       data: (member) {
@@ -42,7 +48,6 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Table(
-              border: TableBorder.all(color: GlobalColors.header),
               columnWidths: const <int, TableColumnWidth>{
                 0: IntrinsicColumnWidth(),
                 1: IntrinsicColumnWidth(),
@@ -59,135 +64,70 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
               children: <TableRow>[
                 TableRow(
-                  decoration: const BoxDecoration(),
+                  decoration:
+                      const BoxDecoration(color: GlobalColors.secondary),
                   children: <Widget>[
                     Container(
                       padding: const EdgeInsets.all(9),
-                      child: const Text(
-                        "No",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      child: const Text("No"),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
-                      child: const Text(
-                        "ID",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      child: const Text("ID"),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
-                      child: const Text(
-                        "Nama Anggota",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      child: const Text("Nama Anggota"),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
-                      child: const Text(
-                        "Nomor Anggota",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      child: const Text("Nomor Anggota"),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
-                      child: const Text(
-                        "NIK",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      child: const Text("NIK"),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
-                      child: const Text(
-                        "Nomor HP",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      child: const Text("Nomor HP"),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
-                      child: const Text(
-                        "Alamat",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      child: const Text("Alamat"),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
-                      child: const Text(
-                        "Tanggal Lahir",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      child: const Text("Tanggal Lahir"),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
-                      child: const Text(
-                        "Unit Kerja",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      child: const Text("Unit Kerja"),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
-                      child: const Text(
-                        "Status",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      child: const Text("Status"),
                     ),
                     Center(
                       child: Container(
                         padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "Aksi",
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        child: const Text("Aksi"),
                       ),
                     ),
                   ],
                 ),
                 for (int i = 0; i < paginatedMembers.length; i++)
                   TableRow(
-                    decoration: const BoxDecoration(),
+                    decoration: BoxDecoration(
+                      color: i.isEven
+                          ? Colors.grey.shade200 // Warna untuk baris genap
+                          : Colors.white, // Warna untuk baris ganjil
+                    ),
                     children: <Widget>[
                       Center(
                         child: Container(
                           padding: const EdgeInsets.all(9),
                           child: Text(
                             (startIndex + i + 1).toString(),
-                            style: const TextStyle(
-                              color: GlobalColors.onBackground,
-                              fontWeight: FontWeight.w500,
-                            ),
                           ),
                         ),
                       ),
@@ -196,10 +136,6 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                           padding: const EdgeInsets.all(9),
                           child: Text(
                             paginatedMembers[i]['id'].toString(),
-                            style: const TextStyle(
-                              color: GlobalColors.onBackground,
-                              fontWeight: FontWeight.w500,
-                            ),
                           ),
                         ),
                       ),
@@ -207,70 +143,42 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                         padding: const EdgeInsets.all(9),
                         child: Text(
                           paginatedMembers[i]['nama_lengkap'].toString(),
-                          style: const TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.w500,
-                          ),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
                           paginatedMembers[i]['nomor_anggota'].toString(),
-                          style: const TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.w500,
-                          ),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
                           paginatedMembers[i]['nik'].toString(),
-                          style: const TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.w500,
-                          ),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
                           paginatedMembers[i]['phone'].toString(),
-                          style: const TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.w500,
-                          ),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
                           paginatedMembers[i]['alamat'].toString(),
-                          style: const TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.w500,
-                          ),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
                           paginatedMembers[i]['tanggal_lahir'].toString(),
-                          style: const TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.w500,
-                          ),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
                           paginatedMembers[i]['work_unit'].toString(),
-                          style: const TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.w500,
-                          ),
                         ),
                       ),
                       CircleAvatar(
@@ -297,12 +205,11 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                                 onPressed: () {
                                   ref
                                       .watch(idMemberNotifierProvider.notifier)
-                                      .setId(
-                                        paginatedMembers[i]['id'],
-                                      );
+                                      .setId(paginatedMembers[i]['id']);
                                   ref
                                       .watch(
-                                          memberModeNotifierProvider.notifier)
+                                        memberModeNotifierProvider.notifier,
+                                      )
                                       .switchToUpdateUser();
                                 },
                                 icon: const Icon(
@@ -334,10 +241,9 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                                           ),
                                           TextButton(
                                             onPressed: () async {
-                                              _deleteMember(
-                                                paginatedMembers[i]['id']
-                                                    .toString(),
-                                              );
+                                              _deleteMember(paginatedMembers[i]
+                                                      ['id']
+                                                  .toString());
                                             },
                                             child: const Text('OK'),
                                           ),
@@ -402,7 +308,12 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
           ],
         );
       },
-      error: (error, stackTrace) => Text(error.toString()),
+      error: (error, stackTrace) => const Text(
+        "Anggota tidak ditemukan",
+        style: TextStyle(
+          fontStyle: FontStyle.italic,
+        ),
+      ),
       loading: () => const LinearProgressIndicator(),
     );
   }

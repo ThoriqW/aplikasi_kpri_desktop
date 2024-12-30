@@ -72,15 +72,9 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                   children: [
                     const Text(
                       "Nama Lengkap",
-                      style: TextStyle(
-                        color: GlobalColors.onBackground,
-                        fontWeight: FontWeight.bold,
-                      ),
                     ),
                     const SizedBox(height: 8),
-                    TextFormWidget(
-                        controller: namaLengkapController,
-                        text: "Nama Lengkap"),
+                    TextFormWidget(controller: namaLengkapController, text: ""),
                   ],
                 ),
               ),
@@ -91,13 +85,9 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                   children: [
                     const Text(
                       "NIK",
-                      style: TextStyle(
-                        color: GlobalColors.onBackground,
-                        fontWeight: FontWeight.bold,
-                      ),
                     ),
                     const SizedBox(height: 8),
-                    TextFormWidget(controller: nikController, text: "NIK"),
+                    TextFormWidget(controller: nikController, text: ""),
                   ],
                 ),
               ),
@@ -112,15 +102,10 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                   children: [
                     const Text(
                       "Nomor Anggota",
-                      style: TextStyle(
-                        color: GlobalColors.onBackground,
-                        fontWeight: FontWeight.bold,
-                      ),
                     ),
                     const SizedBox(height: 8),
                     TextFormWidget(
-                        controller: nomorAnggotaController,
-                        text: "Nomor Anggota"),
+                        controller: nomorAnggotaController, text: ""),
                   ],
                 ),
               ),
@@ -131,14 +116,9 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                   children: [
                     const Text(
                       "Nomor HP",
-                      style: TextStyle(
-                        color: GlobalColors.onBackground,
-                        fontWeight: FontWeight.bold,
-                      ),
                     ),
                     const SizedBox(height: 8),
-                    TextFormWidget(
-                        controller: nomorHpController, text: "Nomor HP"),
+                    TextFormWidget(controller: nomorHpController, text: ""),
                   ],
                 ),
               ),
@@ -153,14 +133,9 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                   children: [
                     const Text(
                       "Alamat",
-                      style: TextStyle(
-                        color: GlobalColors.onBackground,
-                        fontWeight: FontWeight.bold,
-                      ),
                     ),
                     const SizedBox(height: 8),
-                    TextFormWidget(
-                        controller: alamatController, text: "Alamat"),
+                    TextFormWidget(controller: alamatController, text: ""),
                   ],
                 ),
               ),
@@ -171,13 +146,9 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                   children: [
                     const Text(
                       "Email",
-                      style: TextStyle(
-                        color: GlobalColors.onBackground,
-                        fontWeight: FontWeight.bold,
-                      ),
                     ),
                     const SizedBox(height: 8),
-                    TextFormWidget(controller: emailController, text: "Email"),
+                    TextFormWidget(controller: emailController, text: ""),
                   ],
                 ),
               ),
@@ -192,15 +163,10 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                   children: [
                     const Text(
                       "Jenis Kelamin",
-                      style: TextStyle(
-                        color: GlobalColors.onBackground,
-                        fontWeight: FontWeight.bold,
-                      ),
                     ),
                     const SizedBox(height: 8),
                     TextFormWidget(
-                        controller: jenisKelaminController,
-                        text: "Jenis Kelamin"),
+                        controller: jenisKelaminController, text: ""),
                   ],
                 ),
               ),
@@ -211,13 +177,9 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                   children: [
                     const Text(
                       "Agama",
-                      style: TextStyle(
-                        color: GlobalColors.onBackground,
-                        fontWeight: FontWeight.bold,
-                      ),
                     ),
                     const SizedBox(height: 8),
-                    TextFormWidget(controller: agamaController, text: "Agama"),
+                    TextFormWidget(controller: agamaController, text: ""),
                   ],
                 ),
               ),
@@ -232,14 +194,9 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                   children: [
                     const Text(
                       "Jabatan",
-                      style: TextStyle(
-                        color: GlobalColors.onBackground,
-                        fontWeight: FontWeight.bold,
-                      ),
                     ),
                     const SizedBox(height: 8),
-                    TextFormWidget(
-                        controller: jabatanController, text: "Jabatan"),
+                    TextFormWidget(controller: jabatanController, text: ""),
                   ],
                 ),
               ),
@@ -250,14 +207,9 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                   children: [
                     const Text(
                       "Pangkat",
-                      style: TextStyle(
-                        color: GlobalColors.onBackground,
-                        fontWeight: FontWeight.bold,
-                      ),
                     ),
                     const SizedBox(height: 8),
-                    TextFormWidget(
-                        controller: pangkatController, text: "Pangkat"),
+                    TextFormWidget(controller: pangkatController, text: ""),
                   ],
                 ),
               ),
@@ -272,13 +224,9 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                   children: [
                     const Text(
                       "NIP",
-                      style: TextStyle(
-                        color: GlobalColors.onBackground,
-                        fontWeight: FontWeight.bold,
-                      ),
                     ),
                     const SizedBox(height: 8),
-                    TextFormWidget(controller: nipController, text: "NIP"),
+                    TextFormWidget(controller: nipController, text: ""),
                   ],
                 ),
               ),
@@ -289,10 +237,6 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                   children: [
                     const Text(
                       "Tanggal Lahir",
-                      style: TextStyle(
-                        color: GlobalColors.onBackground,
-                        fontWeight: FontWeight.bold,
-                      ),
                     ),
                     const SizedBox(height: 8),
                     DatePickerWidget(date: tanggalLahirController),
@@ -310,10 +254,6 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                   children: [
                     const Text(
                       "Tanggal Masuk",
-                      style: TextStyle(
-                        color: GlobalColors.onBackground,
-                        fontWeight: FontWeight.bold,
-                      ),
                     ),
                     const SizedBox(height: 8),
                     DatePickerWidget(date: tanggalMasukController),
@@ -327,10 +267,6 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                   children: [
                     const Text(
                       "Pekerjaan",
-                      style: TextStyle(
-                        color: GlobalColors.onBackground,
-                        fontWeight: FontWeight.bold,
-                      ),
                     ),
                     const SizedBox(height: 8),
                     WorkUnitsDropdown(

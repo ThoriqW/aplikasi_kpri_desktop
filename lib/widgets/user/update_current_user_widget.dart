@@ -75,14 +75,10 @@ class _UpdateCurrentUserWidgetState
                       children: [
                         const Text(
                           "Username",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
-                            controller: usernameController, text: "Username"),
+                            controller: usernameController, text: ""),
                       ],
                     ),
                   ),
@@ -93,15 +89,10 @@ class _UpdateCurrentUserWidgetState
                       children: [
                         const Text(
                           "New Password",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
-                            controller: newPasswordController,
-                            text: "New Password"),
+                            controller: newPasswordController, text: ""),
                       ],
                     ),
                   ),
@@ -116,15 +107,10 @@ class _UpdateCurrentUserWidgetState
                       children: [
                         const Text(
                           "Nama Lengkap",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
-                            controller: namaLengkapController,
-                            text: "Nama Lengkap"),
+                            controller: namaLengkapController, text: ""),
                       ],
                     ),
                   ),
@@ -135,13 +121,9 @@ class _UpdateCurrentUserWidgetState
                       children: [
                         const Text(
                           "NIK",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
-                        TextFormWidget(controller: nikController, text: "NIK"),
+                        TextFormWidget(controller: nikController, text: ""),
                       ],
                     ),
                   ),
@@ -156,14 +138,9 @@ class _UpdateCurrentUserWidgetState
                       children: [
                         const Text(
                           "Email",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
-                        TextFormWidget(
-                            controller: emailController, text: "Email"),
+                        TextFormWidget(controller: emailController, text: ""),
                       ],
                     ),
                   ),
@@ -174,14 +151,9 @@ class _UpdateCurrentUserWidgetState
                       children: [
                         const Text(
                           "Nomor HP",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
-                        TextFormWidget(
-                            controller: nomorHpController, text: "Nomor HP"),
+                        TextFormWidget(controller: nomorHpController, text: ""),
                       ],
                     ),
                   ),
@@ -196,14 +168,9 @@ class _UpdateCurrentUserWidgetState
                       children: [
                         const Text(
                           "Alamat",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
-                        TextFormWidget(
-                            controller: alamatController, text: "Alamat"),
+                        TextFormWidget(controller: alamatController, text: ""),
                       ],
                     ),
                   ),
@@ -214,10 +181,6 @@ class _UpdateCurrentUserWidgetState
                       children: [
                         const Text(
                           "Tanggal Lahir",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
                         DatePickerWidget(date: tanggalLahirController),
@@ -235,15 +198,10 @@ class _UpdateCurrentUserWidgetState
                       children: [
                         const Text(
                           "Jenis Kelamin",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
-                            controller: jenisKelaminController,
-                            text: "Jenis Kelamin"),
+                            controller: jenisKelaminController, text: ""),
                       ],
                     ),
                   ),
@@ -254,14 +212,9 @@ class _UpdateCurrentUserWidgetState
                       children: [
                         const Text(
                           "Agama",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
-                        TextFormWidget(
-                            controller: agamaController, text: "Agama"),
+                        TextFormWidget(controller: agamaController, text: ""),
                       ],
                     ),
                   ),

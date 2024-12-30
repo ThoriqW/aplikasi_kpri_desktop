@@ -30,8 +30,7 @@ class _CreateSimpananWidgetState extends ConsumerState<CreateSimpananWidget> {
           Text(
             "Belum ada simpanan tahun ${widget.tahun}",
             style: const TextStyle(
-              color: Colors.redAccent,
-              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic,
             ),
           ),
           const SizedBox(height: 16),
@@ -40,7 +39,7 @@ class _CreateSimpananWidgetState extends ConsumerState<CreateSimpananWidget> {
                   child: CircularProgressIndicator(),
                 )
               : ButtonWidget(
-                  text: "Buat Simpanan ${widget.tahun}",
+                  text: "Simpanan ${widget.tahun}",
                   onTap: () {
                     createSimpanan(widget.tahun);
                   },

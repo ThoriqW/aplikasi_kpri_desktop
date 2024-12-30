@@ -26,12 +26,12 @@ class TextFormWidget extends StatelessWidget {
           horizontal: 15,
           vertical: 12,
         ),
-        enabledBorder: const OutlineInputBorder(
+        enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: GlobalColors.header,
+            color: Colors.grey.shade300,
             width: 1.0,
           ),
-          borderRadius: BorderRadius.all(Radius.circular(0)),
+          borderRadius: const BorderRadius.all(Radius.circular(0)),
         ),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(

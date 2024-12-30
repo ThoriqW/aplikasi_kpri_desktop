@@ -4,6 +4,7 @@ import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/member_route_provider.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/dropdown_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/member/table_member_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/work_unit/work_units_dropdown.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +20,18 @@ class DataMemberWidget extends ConsumerStatefulWidget {
 class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
   String selectedUnit = '';
   String searchQuery = '';
+  String selectedStatus = '';
   Timer? _debounce;
   TextEditingController searchController = TextEditingController();
+  List<String> status = ["Tidak Aktif", "Aktif"];
+
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomCardWidget(
@@ -71,11 +82,10 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                           });
                         },
                         decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.search, color: Colors.grey),
+                          prefixIcon: Icon(Icons.search),
                           hintText: 'Cari Anggota',
                           border: InputBorder.none,
                           filled: true,
-                          fillColor: GlobalColors.background,
                         ),
                       ),
                     ),
@@ -88,9 +98,26 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
               Row(
                 children: [
                   const Text(
+                    "Pilih Status",
+                  ),
+                  const SizedBox(width: 16),
+                  DropdownWidget(
+                    items: status,
+                    onSelected: (String value) => setState(() {
+                      selectedStatus = value;
+                    }),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                width: 24,
+              ),
+              Row(
+                children: [
+                  const Text(
                     "Pilih Unit Kerja",
                   ),
-                  const SizedBox(width: 24),
+                  const SizedBox(width: 16),
                   WorkUnitsDropdown(
                     onSelected: (String value) => setState(() {
                       selectedUnit = value;
@@ -102,7 +129,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                 width: 24,
               ),
               ButtonWidget(
-                text: "Reset",
+                text: "Hapus",
                 onTap: () {
                   setState(() {
                     searchQuery = '';
@@ -117,6 +144,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
           TableMemberWidget(
             selectedUnit: selectedUnit,
             searchQuery: searchQuery,
+            status: selectedStatus,
           )
         ],
       ),

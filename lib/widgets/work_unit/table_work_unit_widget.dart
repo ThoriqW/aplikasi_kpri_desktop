@@ -55,16 +55,14 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
                   });
                 },
                 decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.search, color: Colors.grey),
+                  prefixIcon: Icon(Icons.search),
                   hintText: 'Cari Unit Kerja',
                   border: InputBorder.none,
                   filled: true,
-                  fillColor: GlobalColors.background,
                 ),
               ),
             ),
             Table(
-              border: TableBorder.all(color: GlobalColors.header),
               columnWidths: const <int, TableColumnWidth>{
                 0: IntrinsicColumnWidth(),
                 1: IntrinsicColumnWidth(),
@@ -75,46 +73,31 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
               children: <TableRow>[
                 TableRow(
-                  decoration: const BoxDecoration(),
+                  decoration:
+                      const BoxDecoration(color: GlobalColors.secondary),
                   children: <Widget>[
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
                         "No",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
                         "ID",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
                         "Nama Unit Kerja",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
                         "Kode",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
                       ),
                     ),
                     Center(
@@ -133,17 +116,15 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
                 ),
                 for (int i = 0; i < paginatedWorkUnits.length; i++)
                   TableRow(
-                    decoration: const BoxDecoration(),
+                    decoration: BoxDecoration(
+                      color: i.isEven ? Colors.grey.shade200 : Colors.white,
+                    ),
                     children: <Widget>[
                       Center(
                         child: Container(
                           padding: const EdgeInsets.all(9),
                           child: Text(
                             "${i + 1}",
-                            style: const TextStyle(
-                              color: GlobalColors.onBackground,
-                              fontWeight: FontWeight.w500,
-                            ),
                           ),
                         ),
                       ),
@@ -152,10 +133,6 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
                           padding: const EdgeInsets.all(9),
                           child: Text(
                             paginatedWorkUnits[i]['id'].toString(),
-                            style: const TextStyle(
-                              color: GlobalColors.onBackground,
-                              fontWeight: FontWeight.w500,
-                            ),
                           ),
                         ),
                       ),
@@ -163,20 +140,12 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
                         padding: const EdgeInsets.all(9),
                         child: Text(
                           paginatedWorkUnits[i]['nama'].toString(),
-                          style: const TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.w500,
-                          ),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
                           paginatedWorkUnits[i]['kode'].toString(),
-                          style: const TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.w500,
-                          ),
                         ),
                       ),
                       Center(

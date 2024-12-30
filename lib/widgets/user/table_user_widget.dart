@@ -54,17 +54,15 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
                   });
                 },
                 decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.search, color: Colors.grey),
+                  prefixIcon: Icon(Icons.search),
                   hintText: 'Cari User',
                   border: InputBorder.none,
                   filled: true,
-                  fillColor: GlobalColors.background,
                 ),
               ),
             ),
             const SizedBox(height: 10),
             Table(
-              border: TableBorder.all(color: GlobalColors.header),
               columnWidths: const <int, TableColumnWidth>{
                 0: IntrinsicColumnWidth(),
                 1: IntrinsicColumnWidth(),
@@ -76,56 +74,37 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
               children: <TableRow>[
                 TableRow(
-                  decoration: const BoxDecoration(),
+                  decoration:
+                      const BoxDecoration(color: GlobalColors.secondary),
                   children: <Widget>[
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
                         "No",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
                         "ID",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
                         "Username",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
                         "Nama Lengkap",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
                         "Role",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
                       ),
                     ),
                     Center(
@@ -133,10 +112,6 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
                         padding: const EdgeInsets.all(9),
                         child: const Text(
                           "Aksi",
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontWeight: FontWeight.w500,
-                          ),
                         ),
                       ),
                     ),
@@ -144,17 +119,15 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
                 ),
                 for (int i = 0; i < paginatedUsers.length; i++)
                   TableRow(
-                    decoration: const BoxDecoration(),
+                    decoration: BoxDecoration(
+                      color: i.isEven ? Colors.grey.shade200 : Colors.white,
+                    ),
                     children: <Widget>[
                       Center(
                         child: Container(
                           padding: const EdgeInsets.all(9),
                           child: Text(
                             (startIndex + i + 1).toString(),
-                            style: const TextStyle(
-                              color: GlobalColors.onBackground,
-                              fontWeight: FontWeight.w500,
-                            ),
                           ),
                         ),
                       ),
@@ -163,10 +136,6 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
                           padding: const EdgeInsets.all(9),
                           child: Text(
                             paginatedUsers[i]['id'].toString(),
-                            style: const TextStyle(
-                              color: GlobalColors.onBackground,
-                              fontWeight: FontWeight.w500,
-                            ),
                           ),
                         ),
                       ),
@@ -174,30 +143,18 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
                         padding: const EdgeInsets.all(9),
                         child: Text(
                           paginatedUsers[i]['username'].toString(),
-                          style: const TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.w500,
-                          ),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
                           paginatedUsers[i]['nama_lengkap'].toString(),
-                          style: const TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.w500,
-                          ),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
                           paginatedUsers[i]['role'].toString(),
-                          style: const TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.w500,
-                          ),
                         ),
                       ),
                       Center(

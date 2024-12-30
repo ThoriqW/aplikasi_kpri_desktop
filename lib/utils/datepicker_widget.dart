@@ -32,7 +32,6 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
       controller: widget.date,
       decoration: const InputDecoration(
         icon: Icon(Icons.calendar_today),
-        labelText: 'Pilih Tanggal',
         contentPadding: EdgeInsets.symmetric(
           horizontal: 15,
           vertical: 12,
@@ -40,7 +39,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(0)),
           borderSide: BorderSide(
-            color: GlobalColors.header,
+            color: Colors.black12,
             width: 1.0,
           ),
         ),

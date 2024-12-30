@@ -76,19 +76,24 @@ Future addMember(
 }
 
 @riverpod
-Future getAllMember(ref, String search, String workUnitId) async {
+Future getAllMember(
+    ref, String search, String workUnitId, String status) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
     throw Exception('No authentication token found');
   }
 
-  print(search);
+  if (status == 'Aktif') {
+    status = '1';
+  } else if (status == "Tidal Aktif") {
+    status = '0';
+  }
 
   try {
     final response = await http.get(
       Uri.parse(
-          '$baseUrl/api/v1/members?search=$search&work_unit_id=$workUnitId'),
+          '$baseUrl/api/v1/members?search=$search&work_unit_id=$workUnitId&status=$status'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',

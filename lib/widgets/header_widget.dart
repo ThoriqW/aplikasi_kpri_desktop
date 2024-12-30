@@ -39,9 +39,7 @@ class HeaderWidget extends ConsumerWidget {
                     Text(
                       'Hello, ${currentUser['nama_lengkap']}',
                       style: const TextStyle(
-                        color: GlobalColors.primary,
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
                       ),
                     ),
                   ],

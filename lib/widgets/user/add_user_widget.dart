@@ -35,9 +35,27 @@ class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
             ),
           ),
           const SizedBox(height: 20),
-          TextFormWidget(controller: usernameController, text: "Username"),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Username",
+              ),
+              const SizedBox(height: 8),
+              TextFormWidget(controller: usernameController, text: ""),
+            ],
+          ),
           const SizedBox(height: 15),
-          TextFormWidget(controller: passwordController, text: "Password"),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Password",
+              ),
+              const SizedBox(height: 8),
+              TextFormWidget(controller: passwordController, text: ""),
+            ],
+          ),
           const SizedBox(height: 15),
           ButtonWidget(
             text: "Simpan",

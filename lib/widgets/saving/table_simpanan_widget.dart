@@ -58,11 +58,12 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                       });
                     },
                     decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.search, color: Colors.grey),
+                      prefixIcon: Icon(
+                        Icons.search,
+                      ),
                       hintText: 'Cari Anggota',
                       border: InputBorder.none,
                       filled: true,
-                      fillColor: GlobalColors.background,
                     ),
                   ),
                 ),
@@ -102,7 +103,6 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                     height: 20,
                   ),
                   Table(
-                    border: TableBorder.all(color: GlobalColors.header),
                     columnWidths: const <int, TableColumnWidth>{
                       0: IntrinsicColumnWidth(),
                       1: IntrinsicColumnWidth(),
@@ -117,136 +117,78 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                     defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                     children: <TableRow>[
                       TableRow(
-                        decoration: const BoxDecoration(),
+                        decoration:
+                            const BoxDecoration(color: GlobalColors.secondary),
                         children: <Widget>[
                           Container(
                             padding: const EdgeInsets.all(9),
-                            child: const Text(
-                              "No",
-                              style: TextStyle(
-                                color: Colors.black87,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
+                            child: const Text("No"),
                           ),
                           Container(
                             padding: const EdgeInsets.all(9),
-                            child: const Text(
-                              "No. Anggota",
-                              style: TextStyle(
-                                color: Colors.black87,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
+                            child: const Text("No. Anggota"),
                           ),
                           Container(
                             padding: const EdgeInsets.all(9),
-                            child: const Text(
-                              "Nama Anggota",
-                              style: TextStyle(
-                                color: Colors.black87,
-                                fontWeight: FontWeight.w500,
-                              ),
+                            child: const Text("Nama Anggota"),
+                          ),
+                          Center(
+                            child: Container(
+                              padding: const EdgeInsets.all(9),
+                              child: const Text("Tahun"),
                             ),
                           ),
                           Center(
                             child: Container(
                               padding: const EdgeInsets.all(9),
-                              child: const Text(
-                                "Tahun",
-                                style: TextStyle(
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
+                              child: const Text("Bulan"),
                             ),
                           ),
                           Center(
                             child: Container(
                               padding: const EdgeInsets.all(9),
-                              child: const Text(
-                                "Bulan",
-                                style: TextStyle(
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
+                              child: const Text("Utama"),
                             ),
                           ),
                           Center(
                             child: Container(
                               padding: const EdgeInsets.all(9),
-                              child: const Text(
-                                "Utama",
-                                style: TextStyle(
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
+                              child: const Text("Wajib"),
                             ),
                           ),
                           Center(
                             child: Container(
                               padding: const EdgeInsets.all(9),
-                              child: const Text(
-                                "Wajib",
-                                style: TextStyle(
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Center(
-                            child: Container(
-                              padding: const EdgeInsets.all(9),
-                              child: const Text(
-                                "Suka Rela",
-                                style: TextStyle(
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
+                              child: const Text("Suka Rela"),
                             ),
                           ),
                         ],
                       ),
                       for (int j = 0; j < pageData.length; j++)
                         TableRow(
-                          decoration: const BoxDecoration(),
+                          decoration: BoxDecoration(
+                            color:
+                                j.isEven ? Colors.grey.shade200 : Colors.white,
+                          ),
                           children: <Widget>[
                             Center(
                               child: Container(
                                 padding: const EdgeInsets.all(9),
                                 child: Text(
                                   (j + 1).toString(),
-                                  style: const TextStyle(
-                                    color: GlobalColors.onBackground,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Center(
-                              child: Container(
-                                padding: const EdgeInsets.all(9),
-                                child: Text(
-                                  pageData[j]['nomor_anggota'].toString(),
-                                  style: const TextStyle(
-                                    color: GlobalColors.onBackground,
-                                    fontWeight: FontWeight.w500,
-                                  ),
                                 ),
                               ),
                             ),
                             Container(
                               padding: const EdgeInsets.all(9),
                               child: Text(
+                                pageData[j]['nomor_anggota'].toString(),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(9),
+                              child: Text(
                                 pageData[j]['nama_lengkap'].toString(),
-                                style: const TextStyle(
-                                  color: GlobalColors.onBackground,
-                                  fontWeight: FontWeight.w500,
-                                ),
                               ),
                             ),
                             Center(
@@ -254,10 +196,6 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                 padding: const EdgeInsets.all(9),
                                 child: Text(
                                   pageData[j]['tahun'].toString(),
-                                  style: const TextStyle(
-                                    color: GlobalColors.onBackground,
-                                    fontWeight: FontWeight.w500,
-                                  ),
                                 ),
                               ),
                             ),
@@ -266,10 +204,6 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                 padding: const EdgeInsets.all(9),
                                 child: Text(
                                   pageData[j]['bulan'].toString(),
-                                  style: const TextStyle(
-                                    color: GlobalColors.onBackground,
-                                    fontWeight: FontWeight.w500,
-                                  ),
                                 ),
                               ),
                             ),
@@ -292,8 +226,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                   cursorColor: GlobalColors.primary,
                                   backgroundCursorColor: GlobalColors.secondary,
                                   style: const TextStyle(
-                                    color: GlobalColors.onBackground,
-                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xDE000000),
                                   ),
                                   onSubmitted: (newPokok) {
                                     updateValueSaving(
@@ -327,8 +260,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                   cursorColor: GlobalColors.primary,
                                   backgroundCursorColor: GlobalColors.secondary,
                                   style: const TextStyle(
-                                    color: GlobalColors.onBackground,
-                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xDE000000),
                                   ),
                                   onSubmitted: (newWajib) {
                                     updateValueSaving(
@@ -362,8 +294,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                   cursorColor: GlobalColors.primary,
                                   backgroundCursorColor: GlobalColors.secondary,
                                   style: const TextStyle(
-                                    color: GlobalColors.onBackground,
-                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xDE000000),
                                   ),
                                   onSubmitted: (newSukarela) {
                                     updateValueSaving(

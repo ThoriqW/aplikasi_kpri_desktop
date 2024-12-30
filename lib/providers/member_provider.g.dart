@@ -296,8 +296,6 @@ class AddMemberProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
 mixin AddMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `namaLengkap` of this provider.
   String get namaLengkap;
@@ -381,7 +379,7 @@ class _AddMemberProviderElement
   int get status => (origin as AddMemberProvider).status;
 }
 
-String _$getAllMemberHash() => r'b33b241ed471b9b31002c4ec69eb575a429e9e31';
+String _$getAllMemberHash() => r'8669fd8eedef2d30b88eb2593cf86c433e0422e6';
 
 /// See also [getAllMember].
 @ProviderFor(getAllMember)
@@ -396,10 +394,12 @@ class GetAllMemberFamily extends Family<AsyncValue> {
   GetAllMemberProvider call(
     String search,
     String workUnitId,
+    String status,
   ) {
     return GetAllMemberProvider(
       search,
       workUnitId,
+      status,
     );
   }
 
@@ -410,6 +410,7 @@ class GetAllMemberFamily extends Family<AsyncValue> {
     return call(
       provider.search,
       provider.workUnitId,
+      provider.status,
     );
   }
 
@@ -434,11 +435,13 @@ class GetAllMemberProvider extends AutoDisposeFutureProvider<Object?> {
   GetAllMemberProvider(
     String search,
     String workUnitId,
+    String status,
   ) : this._internal(
           (ref) => getAllMember(
             ref as GetAllMemberRef,
             search,
             workUnitId,
+            status,
           ),
           from: getAllMemberProvider,
           name: r'getAllMemberProvider',
@@ -451,6 +454,7 @@ class GetAllMemberProvider extends AutoDisposeFutureProvider<Object?> {
               GetAllMemberFamily._allTransitiveDependencies,
           search: search,
           workUnitId: workUnitId,
+          status: status,
         );
 
   GetAllMemberProvider._internal(
@@ -462,10 +466,12 @@ class GetAllMemberProvider extends AutoDisposeFutureProvider<Object?> {
     required super.from,
     required this.search,
     required this.workUnitId,
+    required this.status,
   }) : super.internal();
 
   final String search;
   final String workUnitId;
+  final String status;
 
   @override
   Override overrideWith(
@@ -482,6 +488,7 @@ class GetAllMemberProvider extends AutoDisposeFutureProvider<Object?> {
         debugGetCreateSourceHash: null,
         search: search,
         workUnitId: workUnitId,
+        status: status,
       ),
     );
   }
@@ -495,7 +502,8 @@ class GetAllMemberProvider extends AutoDisposeFutureProvider<Object?> {
   bool operator ==(Object other) {
     return other is GetAllMemberProvider &&
         other.search == search &&
-        other.workUnitId == workUnitId;
+        other.workUnitId == workUnitId &&
+        other.status == status;
   }
 
   @override
@@ -503,19 +511,21 @@ class GetAllMemberProvider extends AutoDisposeFutureProvider<Object?> {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, search.hashCode);
     hash = _SystemHash.combine(hash, workUnitId.hashCode);
+    hash = _SystemHash.combine(hash, status.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
 mixin GetAllMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `search` of this provider.
   String get search;
 
   /// The parameter `workUnitId` of this provider.
   String get workUnitId;
+
+  /// The parameter `status` of this provider.
+  String get status;
 }
 
 class _GetAllMemberProviderElement
@@ -526,6 +536,8 @@ class _GetAllMemberProviderElement
   String get search => (origin as GetAllMemberProvider).search;
   @override
   String get workUnitId => (origin as GetAllMemberProvider).workUnitId;
+  @override
+  String get status => (origin as GetAllMemberProvider).status;
 }
 
 String _$getMemberHash() => r'a16b567e00c5ccab446f43e7e6ef48b39d124eea';
@@ -642,8 +654,6 @@ class GetMemberProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
 mixin GetMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -938,8 +948,6 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
 mixin UpdateMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -1143,8 +1151,6 @@ class DeleteMemberProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
 mixin DeleteMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -1158,4 +1164,4 @@ class _DeleteMemberProviderElement
   String get id => (origin as DeleteMemberProvider).id;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

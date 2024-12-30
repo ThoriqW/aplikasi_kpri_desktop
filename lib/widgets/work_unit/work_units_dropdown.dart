@@ -33,10 +33,6 @@ class _WorkUnitsDropdownState extends ConsumerState<WorkUnitsDropdown> {
           value: dropdownValue,
           icon: const Icon(Icons.arrow_downward),
           elevation: 16,
-          style: const TextStyle(
-            color: Colors.black54,
-            fontWeight: FontWeight.w600,
-          ),
           underline: Container(
             height: 2,
             color: GlobalColors.onBackground,
