@@ -7,6 +7,7 @@ import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:aplikasi_kpri_desktop/utils/datepicker_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/dropdown_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/text_form_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/work_unit/work_units_dropdown.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,9 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
   final TextEditingController tanggalMasukController = TextEditingController();
   final TextEditingController tanggalKeluarController = TextEditingController();
   String selectedUnit = '';
+  String selectedStatus = '';
   bool isInitialized = false;
+  List<String> status = ["Tidak Aktif", "Aktif"];
   @override
   Widget build(BuildContext context) {
     final getMember = ref.watch(getMemberProvider(
@@ -76,6 +79,13 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                     memberData['tanggal_keluar'].toString().split(" ")[0]
                 : tanggalKeluarController.text = '';
             selectedUnit = memberData['work_unit_id'].toString();
+
+            if (memberData['status'].toString() == '1') {
+              selectedStatus = "Aktif";
+            } else if (memberData['status'].toString() == '0') {
+              selectedStatus = "Tidak Aktif";
+            }
+
             isInitialized = true;
           }
           return Column(
@@ -332,6 +342,26 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                       ],
                     ),
                   ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Status",
+                        ),
+                        const SizedBox(height: 8),
+                        DropdownWidget(
+                          items: status,
+                          currentDropDownName: selectedStatus,
+                          onSelected: (String value) => setState(
+                            () {
+                              selectedStatus = value;
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                  )
                 ],
               ),
               const SizedBox(height: 16),
@@ -361,6 +391,12 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
   }
 
   Future<void> _updateMember(String id) async {
+    int idStatus;
+    if (selectedStatus == 'Aktif') {
+      idStatus = 1;
+    } else {
+      idStatus = 0;
+    }
     try {
       final updateMember = await ref.watch(
         updateMemberProvider(
@@ -386,6 +422,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
               ? DateFormat('yyyy-MM-dd').parse(tanggalKeluarController.text)
               : null,
           selectedUnit != '' ? int.parse(selectedUnit) : 0,
+          idStatus,
         ).future,
       );
       if (!mounted) return;

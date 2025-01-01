@@ -157,12 +157,14 @@ Future updateMember(
   DateTime? tanggalMasuk,
   DateTime? tanggalKeluar,
   int workUnitId,
+  int status,
 ) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
     throw Exception('No authentication token found');
   }
+
   try {
     final response = await http.put(
       Uri.parse('$baseUrl/api/v1/members/$id'),
@@ -189,6 +191,7 @@ Future updateMember(
         'tanggal_keluar':
             tanggalKeluar != null ? formatDateOnly(tanggalKeluar) : null,
         'work_unit_id': workUnitId,
+        'status': status,
       }),
     );
     if (response.statusCode == 200) {

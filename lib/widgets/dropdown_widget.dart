@@ -2,11 +2,18 @@ import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:flutter/material.dart';
 
 class DropdownWidget extends StatefulWidget {
-  const DropdownWidget(
-      {super.key, required this.items, required this.onSelected});
+  const DropdownWidget({
+    super.key,
+    required this.items,
+    required this.onSelected,
+    this.currentDropDownName,
+    this.resetKey,
+  });
 
   final Function(String) onSelected;
+  final String? currentDropDownName;
   final List<String> items;
+  final Key? resetKey;
 
   @override
   State<DropdownWidget> createState() => _DropdownWidgetState();
@@ -14,6 +21,23 @@ class DropdownWidget extends StatefulWidget {
 
 class _DropdownWidgetState extends State<DropdownWidget> {
   String? selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedValue = widget.currentDropDownName;
+  }
+
+  @override
+  void didUpdateWidget(covariant DropdownWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.resetKey != oldWidget.resetKey) {
+      setState(() {
+        selectedValue = null;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(

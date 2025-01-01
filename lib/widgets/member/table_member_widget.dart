@@ -118,9 +118,7 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                 for (int i = 0; i < paginatedMembers.length; i++)
                   TableRow(
                     decoration: BoxDecoration(
-                      color: i.isEven
-                          ? Colors.grey.shade200 // Warna untuk baris genap
-                          : Colors.white, // Warna untuk baris ganjil
+                      color: i.isEven ? Colors.grey.shade200 : Colors.white,
                     ),
                     children: <Widget>[
                       Center(

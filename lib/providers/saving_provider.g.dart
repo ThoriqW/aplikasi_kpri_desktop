@@ -7,7 +7,7 @@ part of 'saving_provider.dart';
 // **************************************************************************
 
 String _$getAllSavingMembersHash() =>
-    r'3665379185a807b6f83e584119e9e144ec8e4539';
+    r'a9e3173bd15058c2348ca26fcd2dd2389f9b8923';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -43,10 +43,12 @@ class GetAllSavingMembersFamily extends Family<AsyncValue> {
   GetAllSavingMembersProvider call(
     String tahun,
     int workUnitId,
+    String search,
   ) {
     return GetAllSavingMembersProvider(
       tahun,
       workUnitId,
+      search,
     );
   }
 
@@ -57,6 +59,7 @@ class GetAllSavingMembersFamily extends Family<AsyncValue> {
     return call(
       provider.tahun,
       provider.workUnitId,
+      provider.search,
     );
   }
 
@@ -81,11 +84,13 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
   GetAllSavingMembersProvider(
     String tahun,
     int workUnitId,
+    String search,
   ) : this._internal(
           (ref) => getAllSavingMembers(
             ref as GetAllSavingMembersRef,
             tahun,
             workUnitId,
+            search,
           ),
           from: getAllSavingMembersProvider,
           name: r'getAllSavingMembersProvider',
@@ -98,6 +103,7 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
               GetAllSavingMembersFamily._allTransitiveDependencies,
           tahun: tahun,
           workUnitId: workUnitId,
+          search: search,
         );
 
   GetAllSavingMembersProvider._internal(
@@ -109,10 +115,12 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
     required super.from,
     required this.tahun,
     required this.workUnitId,
+    required this.search,
   }) : super.internal();
 
   final String tahun;
   final int workUnitId;
+  final String search;
 
   @override
   Override overrideWith(
@@ -129,6 +137,7 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
         debugGetCreateSourceHash: null,
         tahun: tahun,
         workUnitId: workUnitId,
+        search: search,
       ),
     );
   }
@@ -142,7 +151,8 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
   bool operator ==(Object other) {
     return other is GetAllSavingMembersProvider &&
         other.tahun == tahun &&
-        other.workUnitId == workUnitId;
+        other.workUnitId == workUnitId &&
+        other.search == search;
   }
 
   @override
@@ -150,6 +160,7 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, tahun.hashCode);
     hash = _SystemHash.combine(hash, workUnitId.hashCode);
+    hash = _SystemHash.combine(hash, search.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -161,6 +172,9 @@ mixin GetAllSavingMembersRef on AutoDisposeFutureProviderRef<Object?> {
 
   /// The parameter `workUnitId` of this provider.
   int get workUnitId;
+
+  /// The parameter `search` of this provider.
+  String get search;
 }
 
 class _GetAllSavingMembersProviderElement
@@ -172,6 +186,8 @@ class _GetAllSavingMembersProviderElement
   String get tahun => (origin as GetAllSavingMembersProvider).tahun;
   @override
   int get workUnitId => (origin as GetAllSavingMembersProvider).workUnitId;
+  @override
+  String get search => (origin as GetAllSavingMembersProvider).search;
 }
 
 String _$createMemberSavingsHash() =>
@@ -305,7 +321,7 @@ class _CreateMemberSavingsProviderElement
 }
 
 String _$updateMemberSavingsHash() =>
-    r'edc2c0284d67d63fcc0b6a85a7061fd0252fbfad';
+    r'a7bc658bf7aef193a4116edb9a65df6cc0d21eaf';
 
 /// See also [updateMemberSavings].
 @ProviderFor(updateMemberSavings)
@@ -466,6 +482,151 @@ class _UpdateMemberSavingsProviderElement
   @override
   Map<String, Map<String, dynamic>> get updateSavingsObject =>
       (origin as UpdateMemberSavingsProvider).updateSavingsObject;
+}
+
+String _$addMemberSavingsHash() => r'62aa881596b01b15b39f0c930b94e75c0cbe949b';
+
+/// See also [addMemberSavings].
+@ProviderFor(addMemberSavings)
+const addMemberSavingsProvider = AddMemberSavingsFamily();
+
+/// See also [addMemberSavings].
+class AddMemberSavingsFamily extends Family<AsyncValue> {
+  /// See also [addMemberSavings].
+  const AddMemberSavingsFamily();
+
+  /// See also [addMemberSavings].
+  AddMemberSavingsProvider call(
+    String memberId,
+    String tahun,
+  ) {
+    return AddMemberSavingsProvider(
+      memberId,
+      tahun,
+    );
+  }
+
+  @override
+  AddMemberSavingsProvider getProviderOverride(
+    covariant AddMemberSavingsProvider provider,
+  ) {
+    return call(
+      provider.memberId,
+      provider.tahun,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'addMemberSavingsProvider';
+}
+
+/// See also [addMemberSavings].
+class AddMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
+  /// See also [addMemberSavings].
+  AddMemberSavingsProvider(
+    String memberId,
+    String tahun,
+  ) : this._internal(
+          (ref) => addMemberSavings(
+            ref as AddMemberSavingsRef,
+            memberId,
+            tahun,
+          ),
+          from: addMemberSavingsProvider,
+          name: r'addMemberSavingsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$addMemberSavingsHash,
+          dependencies: AddMemberSavingsFamily._dependencies,
+          allTransitiveDependencies:
+              AddMemberSavingsFamily._allTransitiveDependencies,
+          memberId: memberId,
+          tahun: tahun,
+        );
+
+  AddMemberSavingsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.memberId,
+    required this.tahun,
+  }) : super.internal();
+
+  final String memberId;
+  final String tahun;
+
+  @override
+  Override overrideWith(
+    FutureOr<Object?> Function(AddMemberSavingsRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: AddMemberSavingsProvider._internal(
+        (ref) => create(ref as AddMemberSavingsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        memberId: memberId,
+        tahun: tahun,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Object?> createElement() {
+    return _AddMemberSavingsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AddMemberSavingsProvider &&
+        other.memberId == memberId &&
+        other.tahun == tahun;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, memberId.hashCode);
+    hash = _SystemHash.combine(hash, tahun.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin AddMemberSavingsRef on AutoDisposeFutureProviderRef<Object?> {
+  /// The parameter `memberId` of this provider.
+  String get memberId;
+
+  /// The parameter `tahun` of this provider.
+  String get tahun;
+}
+
+class _AddMemberSavingsProviderElement
+    extends AutoDisposeFutureProviderElement<Object?> with AddMemberSavingsRef {
+  _AddMemberSavingsProviderElement(super.provider);
+
+  @override
+  String get memberId => (origin as AddMemberSavingsProvider).memberId;
+  @override
+  String get tahun => (origin as AddMemberSavingsProvider).tahun;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -667,7 +667,7 @@ class _GetMemberProviderElement
   String get id => (origin as GetMemberProvider).id;
 }
 
-String _$updateMemberHash() => r'111eb10d832fb499c97461fdadced0a163cb1d48';
+String _$updateMemberHash() => r'a08f5243bda677e4178821dc1ffd2b505f6cf284';
 
 /// See also [updateMember].
 @ProviderFor(updateMember)
@@ -696,6 +696,7 @@ class UpdateMemberFamily extends Family<AsyncValue> {
     DateTime? tanggalMasuk,
     DateTime? tanggalKeluar,
     int workUnitId,
+    int status,
   ) {
     return UpdateMemberProvider(
       id,
@@ -714,6 +715,7 @@ class UpdateMemberFamily extends Family<AsyncValue> {
       tanggalMasuk,
       tanggalKeluar,
       workUnitId,
+      status,
     );
   }
 
@@ -738,6 +740,7 @@ class UpdateMemberFamily extends Family<AsyncValue> {
       provider.tanggalMasuk,
       provider.tanggalKeluar,
       provider.workUnitId,
+      provider.status,
     );
   }
 
@@ -776,6 +779,7 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
     DateTime? tanggalMasuk,
     DateTime? tanggalKeluar,
     int workUnitId,
+    int status,
   ) : this._internal(
           (ref) => updateMember(
             ref as UpdateMemberRef,
@@ -795,6 +799,7 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
             tanggalMasuk,
             tanggalKeluar,
             workUnitId,
+            status,
           ),
           from: updateMemberProvider,
           name: r'updateMemberProvider',
@@ -821,6 +826,7 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
           tanggalMasuk: tanggalMasuk,
           tanggalKeluar: tanggalKeluar,
           workUnitId: workUnitId,
+          status: status,
         );
 
   UpdateMemberProvider._internal(
@@ -846,6 +852,7 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
     required this.tanggalMasuk,
     required this.tanggalKeluar,
     required this.workUnitId,
+    required this.status,
   }) : super.internal();
 
   final String id;
@@ -864,6 +871,7 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
   final DateTime? tanggalMasuk;
   final DateTime? tanggalKeluar;
   final int workUnitId;
+  final int status;
 
   @override
   Override overrideWith(
@@ -894,6 +902,7 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
         tanggalMasuk: tanggalMasuk,
         tanggalKeluar: tanggalKeluar,
         workUnitId: workUnitId,
+        status: status,
       ),
     );
   }
@@ -921,7 +930,8 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
         other.nip == nip &&
         other.tanggalMasuk == tanggalMasuk &&
         other.tanggalKeluar == tanggalKeluar &&
-        other.workUnitId == workUnitId;
+        other.workUnitId == workUnitId &&
+        other.status == status;
   }
 
   @override
@@ -943,6 +953,7 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
     hash = _SystemHash.combine(hash, tanggalMasuk.hashCode);
     hash = _SystemHash.combine(hash, tanggalKeluar.hashCode);
     hash = _SystemHash.combine(hash, workUnitId.hashCode);
+    hash = _SystemHash.combine(hash, status.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -996,6 +1007,9 @@ mixin UpdateMemberRef on AutoDisposeFutureProviderRef<Object?> {
 
   /// The parameter `workUnitId` of this provider.
   int get workUnitId;
+
+  /// The parameter `status` of this provider.
+  int get status;
 }
 
 class _UpdateMemberProviderElement
@@ -1034,6 +1048,8 @@ class _UpdateMemberProviderElement
   DateTime? get tanggalKeluar => (origin as UpdateMemberProvider).tanggalKeluar;
   @override
   int get workUnitId => (origin as UpdateMemberProvider).workUnitId;
+  @override
+  int get status => (origin as UpdateMemberProvider).status;
 }
 
 String _$deleteMemberHash() => r'9651d1aa621c81ffed929d8e639a9cf9a07bd8f8';

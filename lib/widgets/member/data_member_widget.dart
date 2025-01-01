@@ -25,6 +25,9 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
   TextEditingController searchController = TextEditingController();
   List<String> status = ["Tidak Aktif", "Aktif"];
 
+  Key dropdownStatusKey = UniqueKey();
+  Key dropdownWorkUnitKey = UniqueKey();
+
   @override
   void dispose() {
     _debounce?.cancel();
@@ -98,10 +101,11 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
               Row(
                 children: [
                   const Text(
-                    "Pilih Status",
+                    "Status",
                   ),
                   const SizedBox(width: 16),
                   DropdownWidget(
+                    key: dropdownStatusKey,
                     items: status,
                     onSelected: (String value) => setState(() {
                       selectedStatus = value;
@@ -115,10 +119,11 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
               Row(
                 children: [
                   const Text(
-                    "Pilih Unit Kerja",
+                    "Unit Kerja",
                   ),
                   const SizedBox(width: 16),
                   WorkUnitsDropdown(
+                    key: dropdownWorkUnitKey,
                     onSelected: (String value) => setState(() {
                       selectedUnit = value;
                     }),
@@ -134,7 +139,10 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                   setState(() {
                     searchQuery = '';
                     selectedUnit = '';
+                    selectedStatus = '';
                     searchController.clear();
+                    dropdownStatusKey = UniqueKey();
+                    dropdownWorkUnitKey = UniqueKey();
                   });
                 },
               ),

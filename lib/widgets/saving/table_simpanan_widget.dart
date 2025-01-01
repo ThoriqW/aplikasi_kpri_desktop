@@ -3,6 +3,7 @@ import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/saving/add_member_simpanan_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/saving/create_simpanan_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +11,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 class TableSimpananWidget extends ConsumerStatefulWidget {
-  const TableSimpananWidget(
-      {super.key, required this.tahun, required this.workUnitId});
+  const TableSimpananWidget({
+    super.key,
+    required this.tahun,
+    required this.workUnitId,
+    required this.searchQuery,
+  });
 
   final String tahun;
   final int workUnitId;
+  final String searchQuery;
 
   @override
   ConsumerState<TableSimpananWidget> createState() =>
@@ -22,9 +28,6 @@ class TableSimpananWidget extends ConsumerStatefulWidget {
 }
 
 class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
-  TextEditingController searchController = TextEditingController();
-  String searchQuery = '';
-
   Map<String, Map<String, dynamic>> updateSavingsObject = {};
 
   int currentPage = 0;
@@ -33,7 +36,8 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
   @override
   Widget build(BuildContext context) {
     final getAllSavingMembers = ref.watch(
-      getAllSavingMembersProvider(widget.tahun, widget.workUnitId),
+      getAllSavingMembersProvider(
+          widget.tahun, widget.workUnitId, widget.searchQuery),
     );
     return getAllSavingMembers.when(
       data: (saving) {
@@ -46,38 +50,39 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
         return Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Flexible(
-                  child: TextField(
-                    controller: searchController,
-                    onChanged: (value) {
-                      setState(() {
-                        searchQuery = value;
-                      });
-                    },
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.search,
-                      ),
-                      hintText: 'Cari Anggota',
-                      border: InputBorder.none,
-                      filled: true,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ButtonWidget(
+                      text: "Simpan",
+                      onTap: () {
+                        updateDataSavings(
+                            int.parse(widget.tahun), widget.workUnitId);
+                        updateSavingsObject = {};
+                      },
                     ),
-                  ),
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    const Text(
+                      "*tekan enter setelah edit simpanan",
+                      style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        color: GlobalColors.onBackground,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 18),
-                Expanded(
-                  child: ButtonWidget(
-                    text: "Simpan",
-                    onTap: () {
-                      updateDataSavings(
-                          int.parse(widget.tahun), widget.workUnitId);
-                      updateSavingsObject = {};
-                    },
-                  ),
-                )
+                const SizedBox(
+                  width: 12,
+                ),
+                Flexible(
+                    child: AddMemberSimpananWidget(
+                  year: widget.tahun,
+                  workUnitID: widget.workUnitId,
+                ))
               ],
             ),
             const SizedBox(
@@ -106,13 +111,15 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                     columnWidths: const <int, TableColumnWidth>{
                       0: IntrinsicColumnWidth(),
                       1: IntrinsicColumnWidth(),
-                      2: FlexColumnWidth(),
-                      3: IntrinsicColumnWidth(),
+                      2: IntrinsicColumnWidth(),
+                      3: FlexColumnWidth(),
                       4: IntrinsicColumnWidth(),
                       5: IntrinsicColumnWidth(),
                       6: IntrinsicColumnWidth(),
                       7: IntrinsicColumnWidth(),
                       8: IntrinsicColumnWidth(),
+                      9: IntrinsicColumnWidth(),
+                      10: IntrinsicColumnWidth(),
                     },
                     defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                     children: <TableRow>[
@@ -127,6 +134,10 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                           Container(
                             padding: const EdgeInsets.all(9),
                             child: const Text("No. Anggota"),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(9),
+                            child: const Text("ID"),
                           ),
                           Container(
                             padding: const EdgeInsets.all(9),
@@ -162,6 +173,12 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                               child: const Text("Suka Rela"),
                             ),
                           ),
+                          Center(
+                            child: Container(
+                              padding: const EdgeInsets.all(9),
+                              child: const Text("Aksi"),
+                            ),
+                          ),
                         ],
                       ),
                       for (int j = 0; j < pageData.length; j++)
@@ -183,6 +200,12 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                               padding: const EdgeInsets.all(9),
                               child: Text(
                                 pageData[j]['nomor_anggota'].toString(),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(9),
+                              child: Text(
+                                pageData[j]['member_profile_id'].toString(),
                               ),
                             ),
                             Container(
@@ -309,6 +332,19 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                 ),
                               ),
                             ),
+                            Center(
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    size: 18,
+                                    color: GlobalColors.primary,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                     ],
@@ -360,8 +396,8 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
       error: (error, stackTrace) => CreateSimpananWidget(
         tahun: widget.tahun,
         onComplete: () {
-          ref.invalidate(
-              getAllSavingMembersProvider(widget.tahun, widget.workUnitId));
+          ref.invalidate(getAllSavingMembersProvider(
+              widget.tahun, widget.workUnitId, widget.searchQuery));
         },
       ),
       loading: () => const LinearProgressIndicator(),
@@ -388,8 +424,6 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
     updateSavingsObject[key]![bulan]![jenis] = int.tryParse(
             newValue.replaceAll("Rp", "").replaceAll(".", "").trim()) ??
         0;
-
-    print(updateSavingsObject);
   }
 
   Future<void> updateDataSavings(
@@ -410,8 +444,15 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
               alertTitle: "Sukses",
             );
           },
-        ).then((_) => ref.invalidate(getAllSavingMembersProvider(
-            widget.tahun, int.parse(workUnitId.toString()))));
+        ).then(
+          (_) => ref.invalidate(
+            getAllSavingMembersProvider(
+              widget.tahun,
+              int.parse(workUnitId.toString()),
+              widget.searchQuery,
+            ),
+          ),
+        );
       } else if (updateMemberSavings is ErrorResponse) {
         await showDialog(
           context: context,

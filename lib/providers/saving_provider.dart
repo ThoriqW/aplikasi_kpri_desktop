@@ -14,7 +14,12 @@ const baseUrl = API.baseUrl;
 const storage = FlutterSecureStorage();
 
 @riverpod
-Future getAllSavingMembers(ref, String tahun, int workUnitId) async {
+Future getAllSavingMembers(
+  ref,
+  String tahun,
+  int workUnitId,
+  String search,
+) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
@@ -24,7 +29,7 @@ Future getAllSavingMembers(ref, String tahun, int workUnitId) async {
   try {
     final response = await http.get(
       Uri.parse(
-          '$baseUrl/api/v1/savings?tahun=$tahun&work_unit_id=$workUnitId'),
+          '$baseUrl/api/v1/savings?tahun=$tahun&work_unit_id=$workUnitId&search=$search'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
@@ -85,11 +90,6 @@ Future updateMemberSavings(
 
   final transformedUpdateSavings = transformSavingsData(updateSavingsObject);
 
-  print(jsonEncode({
-    'tahun': tahun,
-    'savings': transformedUpdateSavings,
-  }));
-
   try {
     final response = await http.post(
       Uri.parse('$baseUrl/api/v1/savings/update'),
@@ -103,6 +103,43 @@ Future updateMemberSavings(
       }),
     );
     if (response.statusCode == 200) {
+      return SuccessResponse.fromJson(jsonDecode(response.body));
+    } else {
+      return ErrorResponse.fromJson(jsonDecode(response.body));
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
+}
+
+@riverpod
+Future addMemberSavings(
+  ref,
+  String memberId,
+  String tahun,
+) async {
+  final String? token = await storage.read(key: 'authToken');
+
+  if (token == null) {
+    throw Exception('No authentication token found');
+  }
+
+  print(tahun);
+  print(memberId);
+
+  try {
+    final response = await http.post(
+      Uri.parse('$baseUrl/api/v1/savings/$tahun/add-member'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({
+        'member_profile_id': int.parse(memberId),
+      }),
+    );
+    print(response.body);
+    if (response.statusCode == 201) {
       return SuccessResponse.fromJson(jsonDecode(response.body));
     } else {
       return ErrorResponse.fromJson(jsonDecode(response.body));

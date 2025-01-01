@@ -39,7 +39,7 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
   final TextEditingController tanggalMasukController = TextEditingController();
 
   String selectedUnit = '';
-  int status = 0;
+  int status = 1;
 
   @override
   Widget build(BuildContext context) {

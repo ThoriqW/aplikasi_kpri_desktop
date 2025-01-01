@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
@@ -17,8 +19,11 @@ class DataSimpananWidget extends ConsumerStatefulWidget {
 
 class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
   final TextEditingController tahunController = TextEditingController();
+  TextEditingController searchController = TextEditingController();
+  String searchQuery = '';
   String selectedUnit = '';
   int selectedYear = DateTime.now().year;
+  Timer? _debounce;
 
   late Widget pilihWorkUnit = const Text(
     "Silahkan pilih unit kerja",
@@ -56,12 +61,58 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
           ),
           const SizedBox(height: 16),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: TextField(
+                        controller: searchController,
+                        onChanged: (value) {
+                          if (_debounce?.isActive ?? false) {
+                            _debounce?.cancel();
+                          }
+                          _debounce =
+                              Timer(const Duration(milliseconds: 500), () {
+                            setState(() {
+                              searchQuery = value;
+                            });
+                          });
+                        },
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.search,
+                          ),
+                          hintText: 'Cari Anggota',
+                          border: InputBorder.none,
+                          filled: true,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 20),
               Row(
                 children: [
                   const Text(
-                    "Pilih Tahun Simpanan",
+                    "Unit Kerja",
+                  ),
+                  const SizedBox(width: 12),
+                  WorkUnitsDropdown(
+                    onSelected: (String value) => setState(() {
+                      selectedUnit = value;
+                    }),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 20),
+              Row(
+                children: [
+                  const Text(
+                    "Tahun Simpanan",
                   ),
                   const SizedBox(width: 8),
                   SizedBox(
@@ -84,7 +135,7 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                           () {
                             ref.invalidate(
                               getAllSavingMembersProvider(tahunController.text,
-                                  int.parse(selectedUnit)),
+                                  int.parse(selectedUnit), searchQuery),
                             );
                           },
                         );
@@ -104,26 +155,15 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                   ),
                 ],
               ),
-              Row(
-                children: [
-                  const Text(
-                    "Pilih Unit Kerja",
-                  ),
-                  const SizedBox(width: 24),
-                  WorkUnitsDropdown(
-                    onSelected: (String value) => setState(() {
-                      selectedUnit = value;
-                    }),
-                  ),
-                ],
-              ),
             ],
           ),
           const SizedBox(height: 30),
           selectedUnit != ''
               ? TableSimpananWidget(
                   tahun: tahunController.text,
-                  workUnitId: int.parse(selectedUnit))
+                  workUnitId: int.parse(selectedUnit),
+                  searchQuery: searchQuery,
+                )
               : pilihWorkUnit
         ],
       ),

@@ -25,7 +25,7 @@ class DashboardDetailsCard extends StatelessWidget {
             children: [
               Container(
                 width: double.infinity,
-                color: GlobalColors.header,
+                color: GlobalColors.secondary,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 8.0,
