@@ -16,11 +16,13 @@ class TableSimpananWidget extends ConsumerStatefulWidget {
     required this.tahun,
     required this.workUnitId,
     required this.searchQuery,
+    required this.currentPage,
   });
 
   final String tahun;
   final int workUnitId;
   final String searchQuery;
+  final int currentPage;
 
   @override
   ConsumerState<TableSimpananWidget> createState() =>
@@ -29,10 +31,6 @@ class TableSimpananWidget extends ConsumerStatefulWidget {
 
 class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
   Map<String, Map<String, dynamic>> updateSavingsObject = {};
-
-  int currentPage = 0;
-  int rowsPerPage = 12;
-
   @override
   Widget build(BuildContext context) {
     final getAllSavingMembers = ref.watch(
@@ -41,12 +39,29 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
     );
     return getAllSavingMembers.when(
       data: (saving) {
-        List<dynamic> savings = saving as List<dynamic>;
-        int totalPages = (savings[0]['members'].length / rowsPerPage).ceil();
-        List<dynamic> pageData = savings[0]['members']
-            .skip(currentPage * rowsPerPage)
-            .take(rowsPerPage)
-            .toList();
+        if (saving == null ||
+            saving is! Map<String, dynamic> ||
+            !saving.containsKey('data')) {
+          return const Text("Data tidak valid");
+        }
+        final List<dynamic> savingsResponse = saving['data'];
+        if (savingsResponse.isEmpty) {
+          return Row(
+            children: [
+              Text(saving['message']),
+              const SizedBox(width: 8),
+              CreateSimpananWidget(
+                tahun: widget.tahun,
+                onComplete: () {
+                  ref.invalidate(getAllSavingMembersProvider(
+                      widget.tahun, widget.workUnitId, widget.searchQuery));
+                },
+              ),
+            ],
+          );
+        }
+        List<dynamic> savings = savingsResponse;
+        List<dynamic> memberSavingsData = savings[0]['members'];
         return Column(
           children: [
             Row(
@@ -181,7 +196,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                           ),
                         ],
                       ),
-                      for (int j = 0; j < pageData.length; j++)
+                      for (int j = 0; j < memberSavingsData.length; j++)
                         TableRow(
                           decoration: BoxDecoration(
                             color:
@@ -199,26 +214,28 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                             Container(
                               padding: const EdgeInsets.all(9),
                               child: Text(
-                                pageData[j]['nomor_anggota'].toString(),
+                                memberSavingsData[j]['nomor_anggota']
+                                    .toString(),
                               ),
                             ),
                             Container(
                               padding: const EdgeInsets.all(9),
                               child: Text(
-                                pageData[j]['member_profile_id'].toString(),
+                                memberSavingsData[j]['member_profile_id']
+                                    .toString(),
                               ),
                             ),
                             Container(
                               padding: const EdgeInsets.all(9),
                               child: Text(
-                                pageData[j]['nama_lengkap'].toString(),
+                                memberSavingsData[j]['nama_lengkap'].toString(),
                               ),
                             ),
                             Center(
                               child: Container(
                                 padding: const EdgeInsets.all(9),
                                 child: Text(
-                                  pageData[j]['tahun'].toString(),
+                                  memberSavingsData[j]['tahun'].toString(),
                                 ),
                               ),
                             ),
@@ -226,7 +243,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                               child: Container(
                                 padding: const EdgeInsets.all(9),
                                 child: Text(
-                                  pageData[j]['bulan'].toString(),
+                                  memberSavingsData[j]['bulan'].toString(),
                                 ),
                               ),
                             ),
@@ -241,7 +258,8 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                       decimalDigits: 0,
                                     ).format(
                                       double.parse(
-                                        pageData[j]['pokok'].toString(),
+                                        memberSavingsData[j]['pokok']
+                                            .toString(),
                                       ),
                                     ),
                                   ),
@@ -254,9 +272,9 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                   onSubmitted: (newPokok) {
                                     updateValueSaving(
                                       updateSavingsObject,
-                                      pageData[j]['member_profile_id']
+                                      memberSavingsData[j]['member_profile_id']
                                           .toString(),
-                                      pageData[j]['bulan'].toString(),
+                                      memberSavingsData[j]['bulan'].toString(),
                                       'pokok',
                                       newPokok,
                                     );
@@ -275,7 +293,8 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                       decimalDigits: 0,
                                     ).format(
                                       double.parse(
-                                        pageData[j]['wajib'].toString(),
+                                        memberSavingsData[j]['wajib']
+                                            .toString(),
                                       ),
                                     ),
                                   ),
@@ -288,9 +307,9 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                   onSubmitted: (newWajib) {
                                     updateValueSaving(
                                       updateSavingsObject,
-                                      pageData[j]['member_profile_id']
+                                      memberSavingsData[j]['member_profile_id']
                                           .toString(),
-                                      pageData[j]['bulan'].toString(),
+                                      memberSavingsData[j]['bulan'].toString(),
                                       'wajib',
                                       newWajib,
                                     );
@@ -309,7 +328,8 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                       decimalDigits: 0,
                                     ).format(
                                       double.parse(
-                                        pageData[j]['sukarela'].toString(),
+                                        memberSavingsData[j]['sukarela']
+                                            .toString(),
                                       ),
                                     ),
                                   ),
@@ -322,9 +342,9 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                   onSubmitted: (newSukarela) {
                                     updateValueSaving(
                                       updateSavingsObject,
-                                      pageData[j]['member_profile_id']
+                                      memberSavingsData[j]['member_profile_id']
                                           .toString(),
-                                      pageData[j]['bulan'].toString(),
+                                      memberSavingsData[j]['bulan'].toString(),
                                       'sukarela',
                                       newSukarela,
                                     );
@@ -356,13 +376,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ElevatedButton(
-                  onPressed: currentPage > 0
-                      ? () {
-                          setState(() {
-                            currentPage--;
-                          });
-                        }
-                      : null,
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
@@ -370,17 +384,11 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                   ),
                   child: const Text('Sebelumnya'),
                 ),
-                Text(
-                  'Halaman ${currentPage + 1} dari $totalPages',
+                const Text(
+                  'Halaman dari',
                 ),
                 ElevatedButton(
-                  onPressed: (currentPage + 1) < totalPages
-                      ? () {
-                          setState(() {
-                            currentPage++;
-                          });
-                        }
-                      : null,
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
@@ -393,13 +401,8 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
           ],
         );
       },
-      error: (error, stackTrace) => CreateSimpananWidget(
-        tahun: widget.tahun,
-        onComplete: () {
-          ref.invalidate(getAllSavingMembersProvider(
-              widget.tahun, widget.workUnitId, widget.searchQuery));
-        },
-      ),
+      error: (error, stackTrace) =>
+          const Text('Oops, something unexpected happened'),
       loading: () => const LinearProgressIndicator(),
     );
   }

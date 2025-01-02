@@ -14,7 +14,10 @@ const baseUrl = API.baseUrl;
 const storage = FlutterSecureStorage();
 
 @riverpod
-Future getAllWorkUnits(ref) async {
+Future getAllWorkUnits(
+  ref,
+  String search,
+) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
@@ -23,7 +26,7 @@ Future getAllWorkUnits(ref) async {
 
   try {
     final response = await http.get(
-      Uri.parse('$baseUrl/api/v1/work-units'),
+      Uri.parse('$baseUrl/api/v1/work-units?search=$search'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
@@ -31,8 +34,10 @@ Future getAllWorkUnits(ref) async {
     );
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      final List<dynamic> workunits = jsonResponse['data'];
-      return List<Map<String, dynamic>>.from(workunits);
+      return jsonResponse;
+    } else if (response.statusCode == 404) {
+      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      return jsonResponse;
     } else {
       throw ErrorResponse.fromJson(jsonDecode(response.body)).errors;
     }

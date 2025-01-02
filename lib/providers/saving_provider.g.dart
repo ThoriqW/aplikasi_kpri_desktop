@@ -7,7 +7,7 @@ part of 'saving_provider.dart';
 // **************************************************************************
 
 String _$getAllSavingMembersHash() =>
-    r'a9e3173bd15058c2348ca26fcd2dd2389f9b8923';
+    r'ee0500f33140b54889d15bdd4b19cb745f5c50b1';
 
 /// Copied from Dart SDK
 class _SystemHash {

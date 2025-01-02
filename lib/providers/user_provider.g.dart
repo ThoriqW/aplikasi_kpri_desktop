@@ -317,20 +317,134 @@ class _UpdateCurrentUserProviderElement
   String get agama => (origin as UpdateCurrentUserProvider).agama;
 }
 
-String _$getAllUserHash() => r'd3b09d766323ae2df40fa3d40e2a15e589ffdf64';
+String _$getAllUserHash() => r'bf6d73f535e47f03f16b6d1db2749e438b9ee9eb';
 
 /// See also [getAllUser].
 @ProviderFor(getAllUser)
-final getAllUserProvider = AutoDisposeFutureProvider<Object?>.internal(
-  getAllUser,
-  name: r'getAllUserProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$getAllUserHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const getAllUserProvider = GetAllUserFamily();
 
-typedef GetAllUserRef = AutoDisposeFutureProviderRef<Object?>;
+/// See also [getAllUser].
+class GetAllUserFamily extends Family<AsyncValue> {
+  /// See also [getAllUser].
+  const GetAllUserFamily();
+
+  /// See also [getAllUser].
+  GetAllUserProvider call(
+    String search,
+  ) {
+    return GetAllUserProvider(
+      search,
+    );
+  }
+
+  @override
+  GetAllUserProvider getProviderOverride(
+    covariant GetAllUserProvider provider,
+  ) {
+    return call(
+      provider.search,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getAllUserProvider';
+}
+
+/// See also [getAllUser].
+class GetAllUserProvider extends AutoDisposeFutureProvider<Object?> {
+  /// See also [getAllUser].
+  GetAllUserProvider(
+    String search,
+  ) : this._internal(
+          (ref) => getAllUser(
+            ref as GetAllUserRef,
+            search,
+          ),
+          from: getAllUserProvider,
+          name: r'getAllUserProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getAllUserHash,
+          dependencies: GetAllUserFamily._dependencies,
+          allTransitiveDependencies:
+              GetAllUserFamily._allTransitiveDependencies,
+          search: search,
+        );
+
+  GetAllUserProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.search,
+  }) : super.internal();
+
+  final String search;
+
+  @override
+  Override overrideWith(
+    FutureOr<Object?> Function(GetAllUserRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetAllUserProvider._internal(
+        (ref) => create(ref as GetAllUserRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        search: search,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Object?> createElement() {
+    return _GetAllUserProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetAllUserProvider && other.search == search;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, search.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin GetAllUserRef on AutoDisposeFutureProviderRef<Object?> {
+  /// The parameter `search` of this provider.
+  String get search;
+}
+
+class _GetAllUserProviderElement
+    extends AutoDisposeFutureProviderElement<Object?> with GetAllUserRef {
+  _GetAllUserProviderElement(super.provider);
+
+  @override
+  String get search => (origin as GetAllUserProvider).search;
+}
+
 String _$getUserHash() => r'f9d9fef786dee951a16044a8866eeb4fa99e1847';
 
 /// See also [getUser].

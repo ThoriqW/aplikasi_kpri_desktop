@@ -22,6 +22,7 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
   TextEditingController searchController = TextEditingController();
   String searchQuery = '';
   String selectedUnit = '';
+  int currentPage = 0;
   int selectedYear = DateTime.now().year;
   Timer? _debounce;
 
@@ -163,6 +164,7 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                   tahun: tahunController.text,
                   workUnitId: int.parse(selectedUnit),
                   searchQuery: searchQuery,
+                  currentPage: currentPage,
                 )
               : pilihWorkUnit
         ],

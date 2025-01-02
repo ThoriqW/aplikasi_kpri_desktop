@@ -30,7 +30,7 @@ class _AddMemberSimpananWidgetState
       child: Row(
         children: [
           const Text(
-            "Tambah Member Simpanan",
+            "Tambah Anggota Simpanan",
           ),
           const SizedBox(width: 12),
           Expanded(

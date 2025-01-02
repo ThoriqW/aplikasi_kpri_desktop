@@ -8,9 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TableWorkUnitWidget extends ConsumerStatefulWidget {
-  const TableWorkUnitWidget({super.key, required this.onEdit});
+  const TableWorkUnitWidget({
+    super.key,
+    required this.onEdit,
+    required this.searchQuery,
+  });
 
   final Function onEdit;
+  final String searchQuery;
 
   @override
   ConsumerState<TableWorkUnitWidget> createState() =>
@@ -18,50 +23,25 @@ class TableWorkUnitWidget extends ConsumerStatefulWidget {
 }
 
 class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
-  int currentPage = 0;
-  final int rowsPerPage = 5;
-  TextEditingController searchController = TextEditingController();
-  String searchQuery = '';
   @override
   Widget build(BuildContext context) {
-    final dataWorkUnits = ref.watch(getAllWorkUnitsProvider);
+    final dataWorkUnits = ref.watch(
+      getAllWorkUnitsProvider(widget.searchQuery),
+    );
     return dataWorkUnits.when(
       data: (workUnit) {
-        List<dynamic> workUnits = workUnit as List<dynamic>;
-        if (searchQuery.isNotEmpty) {
-          workUnits = workUnits.where((m) {
-            final nama = m['nama'].toString().toLowerCase();
-            return nama.contains(searchQuery.toLowerCase());
-          }).toList();
+        if (workUnit == null ||
+            workUnit is! Map<String, dynamic> ||
+            !workUnit.containsKey('data')) {
+          return const Text("Data tidak valid");
         }
-
-        int startIndex = currentPage * rowsPerPage;
-        int endIndex = (startIndex + rowsPerPage < workUnits.length)
-            ? startIndex + rowsPerPage
-            : workUnits.length;
-        List<dynamic> paginatedWorkUnits =
-            workUnits.sublist(startIndex, endIndex);
-
+        final List<dynamic> savingsResponse = workUnit['data'];
+        if (savingsResponse.isEmpty) {
+          return Text(workUnit['message']);
+        }
+        List<dynamic> workUnits = savingsResponse;
         return Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: TextField(
-                controller: searchController,
-                onChanged: (value) {
-                  setState(() {
-                    searchQuery = value;
-                    currentPage = 0;
-                  });
-                },
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.search),
-                  hintText: 'Cari Unit Kerja',
-                  border: InputBorder.none,
-                  filled: true,
-                ),
-              ),
-            ),
             Table(
               columnWidths: const <int, TableColumnWidth>{
                 0: IntrinsicColumnWidth(),
@@ -114,7 +94,7 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
                     ),
                   ],
                 ),
-                for (int i = 0; i < paginatedWorkUnits.length; i++)
+                for (int i = 0; i < workUnits.length; i++)
                   TableRow(
                     decoration: BoxDecoration(
                       color: i.isEven ? Colors.grey.shade200 : Colors.white,
@@ -132,20 +112,20 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
                         child: Container(
                           padding: const EdgeInsets.all(9),
                           child: Text(
-                            paginatedWorkUnits[i]['id'].toString(),
+                            workUnits[i]['id'].toString(),
                           ),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
-                          paginatedWorkUnits[i]['nama'].toString(),
+                          workUnits[i]['nama'].toString(),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
-                          paginatedWorkUnits[i]['kode'].toString(),
+                          workUnits[i]['kode'].toString(),
                         ),
                       ),
                       Center(
@@ -159,7 +139,7 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
                                       .watch(
                                           idWorkUnitNotifierProvider.notifier)
                                       .setId(
-                                        paginatedWorkUnits[i]['id'],
+                                        workUnits[i]['id'],
                                       );
                                   widget.onEdit();
                                 },
@@ -192,9 +172,8 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
                                           ),
                                           TextButton(
                                             onPressed: () async {
-                                              _deleteWorkUnit(
-                                                  paginatedWorkUnits[i]['id']
-                                                      .toString());
+                                              _deleteWorkUnit(workUnits[i]['id']
+                                                  .toString());
                                             },
                                             child: const Text('OK'),
                                           ),
@@ -222,13 +201,7 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ElevatedButton(
-                  onPressed: currentPage > 0
-                      ? () {
-                          setState(() {
-                            currentPage--;
-                          });
-                        }
-                      : null,
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
@@ -236,17 +209,11 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
                   ),
                   child: const Text('Sebelumnya'),
                 ),
-                Text(
-                  'Halaman ${currentPage + 1} dari ${(workUnits.length / rowsPerPage).ceil()}',
+                const Text(
+                  'Halaman dari',
                 ),
                 ElevatedButton(
-                  onPressed: (currentPage + 1) * rowsPerPage < workUnits.length
-                      ? () {
-                          setState(() {
-                            currentPage++;
-                          });
-                        }
-                      : null,
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
@@ -260,7 +227,7 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
         );
       },
       error: (error, stackTrace) =>
-          const Text('Data unit kerja tidak ditemukan'),
+          const Text('Oops, something unexpected happened'),
       loading: () => const LinearProgressIndicator(),
     );
   }

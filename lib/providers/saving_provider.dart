@@ -35,13 +35,14 @@ Future getAllSavingMembers(
         'Authorization': 'Bearer $token',
       },
     );
-
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      final List<dynamic> savingsResponse = jsonResponse['data'];
-      return List<Map<String, dynamic>>.from(savingsResponse);
+      return jsonResponse;
+    } else if (response.statusCode == 404) {
+      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      return jsonResponse;
     } else {
-      throw ErrorResponse.fromJson(jsonDecode(response.body)).errors;
+      return ErrorResponse.fromJson(jsonDecode(response.body)).errors;
     }
   } catch (e) {
     throw Exception(e);

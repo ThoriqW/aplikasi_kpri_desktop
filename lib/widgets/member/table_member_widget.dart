@@ -13,19 +13,19 @@ class TableMemberWidget extends ConsumerStatefulWidget {
     required this.selectedUnit,
     required this.searchQuery,
     required this.status,
+    required this.currentPage,
   });
 
   final String selectedUnit;
   final String searchQuery;
   final String status;
+  final int currentPage;
 
   @override
   ConsumerState<TableMemberWidget> createState() => _TableMemberWidgetState();
 }
 
 class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
-  int currentPage = 0;
-  final int rowsPerPage = 10;
   @override
   Widget build(BuildContext context) {
     final getAllMember = ref.watch(getAllMemberProvider(
@@ -35,15 +35,16 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
     ));
     return getAllMember.when(
       data: (member) {
-        List<dynamic> members = member as List<dynamic>;
-
-        int startIndex = currentPage * rowsPerPage;
-        int endIndex = (startIndex + rowsPerPage < members.length)
-            ? startIndex + rowsPerPage
-            : members.length;
-
-        List<dynamic> paginatedMembers = members.sublist(startIndex, endIndex);
-
+        if (member == null ||
+            member is! Map<String, dynamic> ||
+            !member.containsKey('data')) {
+          return const Text("Data tidak valid");
+        }
+        final List<dynamic> savingsResponse = member['data'];
+        if (savingsResponse.isEmpty) {
+          return Text(member['message']);
+        }
+        List<dynamic> members = savingsResponse;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -115,7 +116,7 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                     ),
                   ],
                 ),
-                for (int i = 0; i < paginatedMembers.length; i++)
+                for (int i = 0; i < members.length; i++)
                   TableRow(
                     decoration: BoxDecoration(
                       color: i.isEven ? Colors.grey.shade200 : Colors.white,
@@ -125,7 +126,7 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                         child: Container(
                           padding: const EdgeInsets.all(9),
                           child: Text(
-                            (startIndex + i + 1).toString(),
+                            (0 + i + 1).toString(),
                           ),
                         ),
                       ),
@@ -133,63 +134,62 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                         child: Container(
                           padding: const EdgeInsets.all(9),
                           child: Text(
-                            paginatedMembers[i]['id'].toString(),
+                            members[i]['id'].toString(),
                           ),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
-                          paginatedMembers[i]['nama_lengkap'].toString(),
+                          members[i]['nama_lengkap'].toString(),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
-                          paginatedMembers[i]['nomor_anggota'].toString(),
+                          members[i]['nomor_anggota'].toString(),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
-                          paginatedMembers[i]['nik'].toString(),
+                          members[i]['nik'].toString(),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
-                          paginatedMembers[i]['phone'].toString(),
+                          members[i]['phone'].toString(),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
-                          paginatedMembers[i]['alamat'].toString(),
+                          members[i]['alamat'].toString(),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
-                          paginatedMembers[i]['tanggal_lahir'].toString(),
+                          members[i]['tanggal_lahir'].toString(),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
-                          paginatedMembers[i]['work_unit'].toString(),
+                          members[i]['work_unit'].toString(),
                         ),
                       ),
                       CircleAvatar(
                         radius: 16,
-                        backgroundColor:
-                            paginatedMembers[i]['status'].toString() == '1'
-                                ? GlobalColors.secondary
-                                : const Color.fromARGB(255, 250, 201, 201),
+                        backgroundColor: members[i]['status'].toString() == '1'
+                            ? GlobalColors.secondary
+                            : const Color.fromARGB(255, 250, 201, 201),
                         child: Icon(
-                          paginatedMembers[i]['status'].toString() == '1'
+                          members[i]['status'].toString() == '1'
                               ? Icons.check_circle
                               : Icons.cancel,
-                          color: paginatedMembers[i]['status'].toString() == '1'
+                          color: members[i]['status'].toString() == '1'
                               ? GlobalColors.primary
                               : Colors.redAccent,
                         ),
@@ -203,7 +203,7 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                                 onPressed: () {
                                   ref
                                       .watch(idMemberNotifierProvider.notifier)
-                                      .setId(paginatedMembers[i]['id']);
+                                      .setId(members[i]['id']);
                                   ref
                                       .watch(
                                         memberModeNotifierProvider.notifier,
@@ -239,9 +239,8 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                                           ),
                                           TextButton(
                                             onPressed: () async {
-                                              _deleteMember(paginatedMembers[i]
-                                                      ['id']
-                                                  .toString());
+                                              _deleteMember(
+                                                  members[i]['id'].toString());
                                             },
                                             child: const Text('OK'),
                                           ),
@@ -269,13 +268,7 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ElevatedButton(
-                  onPressed: currentPage > 0
-                      ? () {
-                          setState(() {
-                            currentPage--;
-                          });
-                        }
-                      : null,
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
@@ -283,17 +276,11 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                   ),
                   child: const Text('Sebelumnya'),
                 ),
-                Text(
-                  'Halaman ${currentPage + 1} dari ${(members.length / rowsPerPage).ceil()}',
+                const Text(
+                  'Halaman dari',
                 ),
                 ElevatedButton(
-                  onPressed: (currentPage + 1) * rowsPerPage < members.length
-                      ? () {
-                          setState(() {
-                            currentPage++;
-                          });
-                        }
-                      : null,
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
@@ -306,12 +293,8 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
           ],
         );
       },
-      error: (error, stackTrace) => const Text(
-        "Anggota tidak ditemukan",
-        style: TextStyle(
-          fontStyle: FontStyle.italic,
-        ),
-      ),
+      error: (error, stackTrace) =>
+          const Text('Oops, something unexpected happened'),
       loading: () => const LinearProgressIndicator(),
     );
   }

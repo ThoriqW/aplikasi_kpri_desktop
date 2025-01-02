@@ -13,7 +13,7 @@ class SettingWidget extends ConsumerWidget {
     return const Stack(
       children: [
         SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: Padding(
             padding: EdgeInsets.only(top: 75.0, bottom: 30.0),
             child: Column(

@@ -21,6 +21,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
   String selectedUnit = '';
   String searchQuery = '';
   String selectedStatus = '';
+  int currentPage = 0;
   Timer? _debounce;
   TextEditingController searchController = TextEditingController();
   List<String> status = ["Tidak Aktif", "Aktif"];
@@ -63,7 +64,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                 icon: const Icon(Icons.add),
               ),
               const SizedBox(
-                width: 24,
+                width: 20,
               ),
               Expanded(
                 child: Row(
@@ -153,7 +154,8 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
             selectedUnit: selectedUnit,
             searchQuery: searchQuery,
             status: selectedStatus,
-          )
+            currentPage: currentPage,
+          ),
         ],
       ),
     );

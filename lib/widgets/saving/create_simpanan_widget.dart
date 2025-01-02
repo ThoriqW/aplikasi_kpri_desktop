@@ -1,9 +1,7 @@
 import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
-import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
-import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,31 +21,19 @@ class _CreateSimpananWidgetState extends ConsumerState<CreateSimpananWidget> {
   bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
-    return CustomCardWidget(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Belum ada simpanan tahun ${widget.tahun}",
-            style: const TextStyle(
-              fontStyle: FontStyle.italic,
+    return _isLoading
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
+        : TextButton.icon(
+            icon: const Icon(Icons.add),
+            label: const Text(
+              'Tambah',
             ),
-          ),
-          const SizedBox(height: 16),
-          _isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : ButtonWidget(
-                  text: "Simpanan ${widget.tahun}",
-                  onTap: () {
-                    createSimpanan(widget.tahun);
-                  },
-                  width: 160,
-                ),
-        ],
-      ),
-    );
+            onPressed: () {
+              createSimpanan(widget.tahun);
+            },
+          );
   }
 
   Future<void> createSimpanan(String tahun) async {

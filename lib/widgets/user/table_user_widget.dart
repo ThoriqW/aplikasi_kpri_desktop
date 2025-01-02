@@ -8,60 +8,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TableUserWidget extends ConsumerStatefulWidget {
-  const TableUserWidget({super.key, required this.onEdit});
+  const TableUserWidget({
+    super.key,
+    required this.onEdit,
+    required this.searchQuery,
+  });
 
   final Function onEdit;
+  final String searchQuery;
 
   @override
   ConsumerState<TableUserWidget> createState() => _TableUserWidgetState();
 }
 
 class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
-  int currentPage = 0;
-  final int rowsPerPage = 5;
-  TextEditingController searchController = TextEditingController();
-  String searchQuery = '';
   @override
   Widget build(BuildContext context) {
-    final dataUsers = ref.watch(getAllUserProvider);
+    final dataUsers = ref.watch(getAllUserProvider(widget.searchQuery));
     return dataUsers.when(
       data: (user) {
-        List<dynamic> users = user as List<dynamic>;
-
-        if (searchQuery.isNotEmpty) {
-          users = users.where((m) {
-            final username = m['username'].toString().toLowerCase();
-            return username.contains(searchQuery.toLowerCase());
-          }).toList();
+        if (user == null ||
+            user is! Map<String, dynamic> ||
+            !user.containsKey('data')) {
+          return const Text("Data tidak valid");
         }
-
-        int startIndex = currentPage * rowsPerPage;
-        int endIndex = (startIndex + rowsPerPage < users.length)
-            ? startIndex + rowsPerPage
-            : users.length;
-        List<dynamic> paginatedUsers = users.sublist(startIndex, endIndex);
-
+        final List<dynamic> savingsResponse = user['data'];
+        if (savingsResponse.isEmpty) {
+          return Text(user['message']);
+        }
+        List<dynamic> users = savingsResponse;
         return Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: TextField(
-                controller: searchController,
-                onChanged: (value) {
-                  setState(() {
-                    searchQuery = value;
-                    currentPage = 0;
-                  });
-                },
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.search),
-                  hintText: 'Cari User',
-                  border: InputBorder.none,
-                  filled: true,
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
             Table(
               columnWidths: const <int, TableColumnWidth>{
                 0: IntrinsicColumnWidth(),
@@ -117,7 +94,7 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
                     ),
                   ],
                 ),
-                for (int i = 0; i < paginatedUsers.length; i++)
+                for (int i = 0; i < users.length; i++)
                   TableRow(
                     decoration: BoxDecoration(
                       color: i.isEven ? Colors.grey.shade200 : Colors.white,
@@ -127,7 +104,7 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
                         child: Container(
                           padding: const EdgeInsets.all(9),
                           child: Text(
-                            (startIndex + i + 1).toString(),
+                            (0 + i + 1).toString(),
                           ),
                         ),
                       ),
@@ -135,26 +112,26 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
                         child: Container(
                           padding: const EdgeInsets.all(9),
                           child: Text(
-                            paginatedUsers[i]['id'].toString(),
+                            users[i]['id'].toString(),
                           ),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
-                          paginatedUsers[i]['username'].toString(),
+                          users[i]['username'].toString(),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
-                          paginatedUsers[i]['nama_lengkap'].toString(),
+                          users[i]['nama_lengkap'].toString(),
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: Text(
-                          paginatedUsers[i]['role'].toString(),
+                          users[i]['role'].toString(),
                         ),
                       ),
                       Center(
@@ -167,7 +144,7 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
                                 onPressed: () async {
                                   ref
                                       .watch(idUserNotifierProvider.notifier)
-                                      .setId(paginatedUsers[i]['id']);
+                                      .setId(users[i]['id']);
                                   widget.onEdit();
                                 },
                                 icon: const Icon(
@@ -200,8 +177,7 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
                                           TextButton(
                                             onPressed: () async {
                                               _deleteUser(
-                                                paginatedUsers[i]['id']
-                                                    .toString(),
+                                                users[i]['id'].toString(),
                                               );
                                             },
                                             child: const Text('OK'),
@@ -230,13 +206,7 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ElevatedButton(
-                  onPressed: currentPage > 0
-                      ? () {
-                          setState(() {
-                            currentPage--;
-                          });
-                        }
-                      : null,
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
@@ -244,17 +214,11 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
                   ),
                   child: const Text('Sebelumnya'),
                 ),
-                Text(
-                  'Halaman ${currentPage + 1} dari ${(users.length / rowsPerPage).ceil()}',
+                const Text(
+                  'Halaman dari',
                 ),
                 ElevatedButton(
-                  onPressed: (currentPage + 1) * rowsPerPage < users.length
-                      ? () {
-                          setState(() {
-                            currentPage++;
-                          });
-                        }
-                      : null,
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,

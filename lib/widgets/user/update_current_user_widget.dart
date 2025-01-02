@@ -59,7 +59,7 @@ class _UpdateCurrentUserWidgetState
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Profile",
+                "Profil",
                 style: TextStyle(
                   color: GlobalColors.primary,
                   fontWeight: FontWeight.bold,

@@ -92,7 +92,10 @@ Future updateCurrentUser(
 }
 
 @riverpod
-Future getAllUser(ref) async {
+Future getAllUser(
+  ref,
+  String search,
+) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
@@ -100,7 +103,7 @@ Future getAllUser(ref) async {
   }
   try {
     final response = await http.get(
-      Uri.parse('$baseUrl/api/v1/users'),
+      Uri.parse('$baseUrl/api/v1/users?search=$search'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
@@ -108,8 +111,10 @@ Future getAllUser(ref) async {
     );
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      final List<dynamic> users = jsonResponse['data'];
-      return List<Map<String, dynamic>>.from(users);
+      return jsonResponse;
+    } else if (response.statusCode == 404) {
+      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      return jsonResponse;
     } else {
       return ErrorResponse.fromJson(jsonDecode(response.body)).errors;
     }

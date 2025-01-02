@@ -39,11 +39,20 @@ class _WorkUnitsDropdownState extends ConsumerState<WorkUnitsDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    final getAllWorkUnits = ref.watch(getAllWorkUnitsProvider);
+    final getAllWorkUnits = ref.watch(getAllWorkUnitsProvider(''));
 
     return getAllWorkUnits.when(
       data: (workUnit) {
-        List<dynamic> workUnits = workUnit as List<dynamic>;
+        if (workUnit == null ||
+            workUnit is! Map<String, dynamic> ||
+            !workUnit.containsKey('data')) {
+          return const Text("Data tidak valid");
+        }
+        final List<dynamic> savingsResponse = workUnit['data'];
+        if (savingsResponse.isEmpty) {
+          return Text(workUnit['message']);
+        }
+        List<dynamic> workUnits = savingsResponse;
         return DropdownButton<String>(
           value: dropdownValue,
           icon: const Icon(Icons.arrow_downward),

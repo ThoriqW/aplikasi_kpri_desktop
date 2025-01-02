@@ -89,7 +89,7 @@ class AdminWidget extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.only(top: 75.0, bottom: 30.0),
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: bodyContent,
           ),
         ),

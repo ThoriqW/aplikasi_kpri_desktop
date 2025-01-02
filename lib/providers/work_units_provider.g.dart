@@ -6,22 +6,7 @@ part of 'work_units_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getAllWorkUnitsHash() => r'903c714b1dc4177c45648aa25a518d02d192667d';
-
-/// See also [getAllWorkUnits].
-@ProviderFor(getAllWorkUnits)
-final getAllWorkUnitsProvider = AutoDisposeFutureProvider<Object?>.internal(
-  getAllWorkUnits,
-  name: r'getAllWorkUnitsProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$getAllWorkUnitsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef GetAllWorkUnitsRef = AutoDisposeFutureProviderRef<Object?>;
-String _$getWorkUnitHash() => r'0d23c1ec2c65e8277d600b65115d456ea1c37e78';
+String _$getAllWorkUnitsHash() => r'fde0c351a9b460efa0ac6ad401ddbe261813575d';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -43,6 +28,134 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
+
+/// See also [getAllWorkUnits].
+@ProviderFor(getAllWorkUnits)
+const getAllWorkUnitsProvider = GetAllWorkUnitsFamily();
+
+/// See also [getAllWorkUnits].
+class GetAllWorkUnitsFamily extends Family<AsyncValue> {
+  /// See also [getAllWorkUnits].
+  const GetAllWorkUnitsFamily();
+
+  /// See also [getAllWorkUnits].
+  GetAllWorkUnitsProvider call(
+    String search,
+  ) {
+    return GetAllWorkUnitsProvider(
+      search,
+    );
+  }
+
+  @override
+  GetAllWorkUnitsProvider getProviderOverride(
+    covariant GetAllWorkUnitsProvider provider,
+  ) {
+    return call(
+      provider.search,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getAllWorkUnitsProvider';
+}
+
+/// See also [getAllWorkUnits].
+class GetAllWorkUnitsProvider extends AutoDisposeFutureProvider<Object?> {
+  /// See also [getAllWorkUnits].
+  GetAllWorkUnitsProvider(
+    String search,
+  ) : this._internal(
+          (ref) => getAllWorkUnits(
+            ref as GetAllWorkUnitsRef,
+            search,
+          ),
+          from: getAllWorkUnitsProvider,
+          name: r'getAllWorkUnitsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getAllWorkUnitsHash,
+          dependencies: GetAllWorkUnitsFamily._dependencies,
+          allTransitiveDependencies:
+              GetAllWorkUnitsFamily._allTransitiveDependencies,
+          search: search,
+        );
+
+  GetAllWorkUnitsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.search,
+  }) : super.internal();
+
+  final String search;
+
+  @override
+  Override overrideWith(
+    FutureOr<Object?> Function(GetAllWorkUnitsRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetAllWorkUnitsProvider._internal(
+        (ref) => create(ref as GetAllWorkUnitsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        search: search,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Object?> createElement() {
+    return _GetAllWorkUnitsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetAllWorkUnitsProvider && other.search == search;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, search.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin GetAllWorkUnitsRef on AutoDisposeFutureProviderRef<Object?> {
+  /// The parameter `search` of this provider.
+  String get search;
+}
+
+class _GetAllWorkUnitsProviderElement
+    extends AutoDisposeFutureProviderElement<Object?> with GetAllWorkUnitsRef {
+  _GetAllWorkUnitsProviderElement(super.provider);
+
+  @override
+  String get search => (origin as GetAllWorkUnitsProvider).search;
+}
+
+String _$getWorkUnitHash() => r'0d23c1ec2c65e8277d600b65115d456ea1c37e78';
 
 /// See also [getWorkUnit].
 @ProviderFor(getWorkUnit)

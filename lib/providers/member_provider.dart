@@ -101,8 +101,10 @@ Future getAllMember(
     );
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      final List<dynamic> members = jsonResponse['data'];
-      return List<Map<String, dynamic>>.from(members);
+      return jsonResponse;
+    } else if (response.statusCode == 404) {
+      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      return jsonResponse;
     } else {
       throw ErrorResponse.fromJson(jsonDecode(response.body)).errors;
     }
