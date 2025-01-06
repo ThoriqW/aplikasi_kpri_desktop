@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
+import 'package:aplikasi_kpri_desktop/providers/member_provider.dart';
 import 'package:aplikasi_kpri_desktop/providers/member_route_provider.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
@@ -21,7 +22,8 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
   String selectedUnit = '';
   String searchQuery = '';
   String selectedStatus = '';
-  int currentPage = 0;
+  int currentPage = 1;
+  int perPage = 15;
   Timer? _debounce;
   TextEditingController searchController = TextEditingController();
   List<String> status = ["Tidak Aktif", "Aktif"];
@@ -81,13 +83,14 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                           _debounce =
                               Timer(const Duration(milliseconds: 500), () {
                             setState(() {
+                              currentPage = 1;
                               searchQuery = value;
                             });
                           });
                         },
                         decoration: const InputDecoration(
                           prefixIcon: Icon(Icons.search),
-                          hintText: 'Cari Anggota',
+                          hintText: 'Cari',
                           border: InputBorder.none,
                           filled: true,
                         ),
@@ -154,7 +157,38 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
             selectedUnit: selectedUnit,
             searchQuery: searchQuery,
             status: selectedStatus,
+            perPage: perPage,
             currentPage: currentPage,
+          ),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  if (currentPage > 1) {
+                    setState(() {
+                      currentPage--;
+                    });
+                  }
+                },
+              ),
+              const SizedBox(width: 6),
+              IconButton(
+                icon: const Icon(Icons.arrow_forward),
+                onPressed: () {
+                  if (currentPage <
+                      ref
+                          .watch(totalPageMemberProvider.notifier)
+                          .getTotalMember()) {
+                    setState(() {
+                      currentPage++;
+                    });
+                  }
+                },
+              ),
+            ],
           ),
         ],
       ),

@@ -17,6 +17,8 @@ const storage = FlutterSecureStorage();
 Future getAllWorkUnits(
   ref,
   String search,
+  int perPage,
+  int page,
 ) async {
   final String? token = await storage.read(key: 'authToken');
 
@@ -26,7 +28,8 @@ Future getAllWorkUnits(
 
   try {
     final response = await http.get(
-      Uri.parse('$baseUrl/api/v1/work-units?search=$search'),
+      Uri.parse(
+          '$baseUrl/api/v1/work-units?search=$search&per_page=$perPage&page=$page'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
@@ -151,5 +154,19 @@ Future deleteWorkUnit(ref, String id) async {
     }
   } catch (e) {
     throw Exception(e);
+  }
+}
+
+@riverpod
+class TotalPageWorkUnits extends _$TotalPageWorkUnits {
+  @override
+  int build() => 0;
+
+  void setTotalMember(int total) {
+    state = total;
+  }
+
+  int getTotalMember() {
+    return state;
   }
 }

@@ -9,11 +9,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AddMemberSimpananWidget extends ConsumerStatefulWidget {
-  const AddMemberSimpananWidget(
-      {super.key, required this.year, required this.workUnitID});
+  const AddMemberSimpananWidget({
+    super.key,
+    required this.year,
+    required this.workUnitID,
+    required this.perPage,
+    required this.currentPage,
+  });
 
   final String year;
   final int workUnitID;
+  final int perPage;
+  final int currentPage;
 
   @override
   ConsumerState<AddMemberSimpananWidget> createState() =>
@@ -35,7 +42,7 @@ class _AddMemberSimpananWidgetState
           const SizedBox(width: 12),
           Expanded(
               child: TextFormWidget(
-                  controller: idUserController, text: "ID User")),
+                  controller: idUserController, text: "Nomor Anggota")),
           const SizedBox(width: 12),
           IconButton(
             onPressed: () {
@@ -72,6 +79,8 @@ class _AddMemberSimpananWidgetState
               widget.year.toString(),
               widget.workUnitID,
               '',
+              widget.perPage,
+              widget.currentPage,
             ),
           ),
         );

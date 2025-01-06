@@ -12,10 +12,14 @@ class TableUserWidget extends ConsumerStatefulWidget {
     super.key,
     required this.onEdit,
     required this.searchQuery,
+    required this.perPage,
+    required this.currentPage,
   });
 
   final Function onEdit;
   final String searchQuery;
+  final int perPage;
+  final int currentPage;
 
   @override
   ConsumerState<TableUserWidget> createState() => _TableUserWidgetState();
@@ -24,7 +28,11 @@ class TableUserWidget extends ConsumerStatefulWidget {
 class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
   @override
   Widget build(BuildContext context) {
-    final dataUsers = ref.watch(getAllUserProvider(widget.searchQuery));
+    final dataUsers = ref.watch(getAllUserProvider(
+      widget.searchQuery,
+      widget.perPage,
+      widget.currentPage,
+    ));
     return dataUsers.when(
       data: (user) {
         if (user == null ||
@@ -32,13 +40,36 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
             !user.containsKey('data')) {
           return const Text("Data tidak valid");
         }
-        final List<dynamic> savingsResponse = user['data'];
-        if (savingsResponse.isEmpty) {
+        final List<dynamic> userResponse = user['data'];
+        if (userResponse.isEmpty) {
           return Text(user['message']);
         }
-        List<dynamic> users = savingsResponse;
+
+        int totalPage = user['pagination']['last_page'];
+        int currentPage = user['pagination']['current_page'];
+        int totalMember = user['pagination']['total'];
+
+        List<dynamic> users = userResponse;
+
+        Future.microtask(() {
+          ref
+              .watch(totalPageUsersProvider.notifier)
+              .setTotalMember(user['pagination']['last_page']);
+        });
+
         return Column(
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Halaman $currentPage dari $totalPage',
+                ),
+                Text(
+                  'Total data $totalMember',
+                ),
+              ],
+            ),
             Table(
               columnWidths: const <int, TableColumnWidth>{
                 0: IntrinsicColumnWidth(),
@@ -199,33 +230,6 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
                       ),
                     ],
                   ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
-                    ),
-                  ),
-                  child: const Text('Sebelumnya'),
-                ),
-                const Text(
-                  'Halaman dari',
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
-                    ),
-                  ),
-                  child: const Text('Selanjutnya'),
-                ),
               ],
             ),
           ],

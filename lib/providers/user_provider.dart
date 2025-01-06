@@ -95,6 +95,8 @@ Future updateCurrentUser(
 Future getAllUser(
   ref,
   String search,
+  int perPage,
+  int page,
 ) async {
   final String? token = await storage.read(key: 'authToken');
 
@@ -103,7 +105,8 @@ Future getAllUser(
   }
   try {
     final response = await http.get(
-      Uri.parse('$baseUrl/api/v1/users?search=$search'),
+      Uri.parse(
+          '$baseUrl/api/v1/users?search=$search&per_page=$perPage&page=$page'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
@@ -252,5 +255,19 @@ Future deleteUser(ref, String id) async {
     }
   } catch (e) {
     throw Exception(e);
+  }
+}
+
+@riverpod
+class TotalPageUsers extends _$TotalPageUsers {
+  @override
+  int build() => 0;
+
+  void setTotalMember(int total) {
+    state = total;
+  }
+
+  int getTotalMember() {
+    return state;
   }
 }

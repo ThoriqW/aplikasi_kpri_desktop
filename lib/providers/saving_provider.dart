@@ -19,6 +19,8 @@ Future getAllSavingMembers(
   String tahun,
   int workUnitId,
   String search,
+  int perPage,
+  int page,
 ) async {
   final String? token = await storage.read(key: 'authToken');
 
@@ -29,7 +31,7 @@ Future getAllSavingMembers(
   try {
     final response = await http.get(
       Uri.parse(
-          '$baseUrl/api/v1/savings?tahun=$tahun&work_unit_id=$workUnitId&search=$search'),
+          '$baseUrl/api/v1/savings?tahun=$tahun&work_unit_id=$workUnitId&search=$search&per_page=$perPage&page=$page'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
@@ -125,9 +127,6 @@ Future addMemberSavings(
     throw Exception('No authentication token found');
   }
 
-  print(tahun);
-  print(memberId);
-
   try {
     final response = await http.post(
       Uri.parse('$baseUrl/api/v1/savings/$tahun/add-member'),
@@ -139,8 +138,39 @@ Future addMemberSavings(
         'member_profile_id': int.parse(memberId),
       }),
     );
-    print(response.body);
+
     if (response.statusCode == 201) {
+      return SuccessResponse.fromJson(jsonDecode(response.body));
+    } else {
+      return ErrorResponse.fromJson(jsonDecode(response.body));
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
+}
+
+@riverpod
+Future deleteMemberSavings(
+  ref,
+  String id,
+  String tahun,
+) async {
+  final String? token = await storage.read(key: 'authToken');
+
+  if (token == null) {
+    throw Exception('No authentication token found');
+  }
+
+  try {
+    final response = await http.delete(
+      Uri.parse('$baseUrl/api/v1/savings/$tahun/member/$id'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    print(response);
+    if (response.statusCode == 200) {
       return SuccessResponse.fromJson(jsonDecode(response.body));
     } else {
       return ErrorResponse.fromJson(jsonDecode(response.body));
@@ -162,4 +192,18 @@ List<Map<String, dynamic>> transformSavingsData(
       ...months.map((month, savings) => MapEntry(month, savings)),
     };
   }).toList();
+}
+
+@riverpod
+class TotalPageSavings extends _$TotalPageSavings {
+  @override
+  int build() => 0;
+
+  void setTotalMember(int total) {
+    state = total;
+  }
+
+  int getTotalMember() {
+    return state;
+  }
 }

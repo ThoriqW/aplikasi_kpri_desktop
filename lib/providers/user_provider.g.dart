@@ -317,7 +317,7 @@ class _UpdateCurrentUserProviderElement
   String get agama => (origin as UpdateCurrentUserProvider).agama;
 }
 
-String _$getAllUserHash() => r'bf6d73f535e47f03f16b6d1db2749e438b9ee9eb';
+String _$getAllUserHash() => r'a39d7dd46cd6e04e133638c4927804fe49b36577';
 
 /// See also [getAllUser].
 @ProviderFor(getAllUser)
@@ -331,9 +331,13 @@ class GetAllUserFamily extends Family<AsyncValue> {
   /// See also [getAllUser].
   GetAllUserProvider call(
     String search,
+    int perPage,
+    int page,
   ) {
     return GetAllUserProvider(
       search,
+      perPage,
+      page,
     );
   }
 
@@ -343,6 +347,8 @@ class GetAllUserFamily extends Family<AsyncValue> {
   ) {
     return call(
       provider.search,
+      provider.perPage,
+      provider.page,
     );
   }
 
@@ -366,10 +372,14 @@ class GetAllUserProvider extends AutoDisposeFutureProvider<Object?> {
   /// See also [getAllUser].
   GetAllUserProvider(
     String search,
+    int perPage,
+    int page,
   ) : this._internal(
           (ref) => getAllUser(
             ref as GetAllUserRef,
             search,
+            perPage,
+            page,
           ),
           from: getAllUserProvider,
           name: r'getAllUserProvider',
@@ -381,6 +391,8 @@ class GetAllUserProvider extends AutoDisposeFutureProvider<Object?> {
           allTransitiveDependencies:
               GetAllUserFamily._allTransitiveDependencies,
           search: search,
+          perPage: perPage,
+          page: page,
         );
 
   GetAllUserProvider._internal(
@@ -391,9 +403,13 @@ class GetAllUserProvider extends AutoDisposeFutureProvider<Object?> {
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.search,
+    required this.perPage,
+    required this.page,
   }) : super.internal();
 
   final String search;
+  final int perPage;
+  final int page;
 
   @override
   Override overrideWith(
@@ -409,6 +425,8 @@ class GetAllUserProvider extends AutoDisposeFutureProvider<Object?> {
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         search: search,
+        perPage: perPage,
+        page: page,
       ),
     );
   }
@@ -420,13 +438,18 @@ class GetAllUserProvider extends AutoDisposeFutureProvider<Object?> {
 
   @override
   bool operator ==(Object other) {
-    return other is GetAllUserProvider && other.search == search;
+    return other is GetAllUserProvider &&
+        other.search == search &&
+        other.perPage == perPage &&
+        other.page == page;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, search.hashCode);
+    hash = _SystemHash.combine(hash, perPage.hashCode);
+    hash = _SystemHash.combine(hash, page.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -435,6 +458,12 @@ class GetAllUserProvider extends AutoDisposeFutureProvider<Object?> {
 mixin GetAllUserRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `search` of this provider.
   String get search;
+
+  /// The parameter `perPage` of this provider.
+  int get perPage;
+
+  /// The parameter `page` of this provider.
+  int get page;
 }
 
 class _GetAllUserProviderElement
@@ -443,6 +472,10 @@ class _GetAllUserProviderElement
 
   @override
   String get search => (origin as GetAllUserProvider).search;
+  @override
+  int get perPage => (origin as GetAllUserProvider).perPage;
+  @override
+  int get page => (origin as GetAllUserProvider).page;
 }
 
 String _$getUserHash() => r'f9d9fef786dee951a16044a8866eeb4fa99e1847';
@@ -1133,5 +1166,22 @@ class _DeleteUserProviderElement
   @override
   String get id => (origin as DeleteUserProvider).id;
 }
+
+String _$totalPageUsersHash() => r'8eddb04c9dabdfdc18a75665ab3b2c8f9bab8ea0';
+
+/// See also [TotalPageUsers].
+@ProviderFor(TotalPageUsers)
+final totalPageUsersProvider =
+    AutoDisposeNotifierProvider<TotalPageUsers, int>.internal(
+  TotalPageUsers.new,
+  name: r'totalPageUsersProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$totalPageUsersHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$TotalPageUsers = AutoDisposeNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

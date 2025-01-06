@@ -6,7 +6,7 @@ part of 'work_units_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getAllWorkUnitsHash() => r'fde0c351a9b460efa0ac6ad401ddbe261813575d';
+String _$getAllWorkUnitsHash() => r'e89f3cafe4f508abae213643271958605a28d4b9';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -41,9 +41,13 @@ class GetAllWorkUnitsFamily extends Family<AsyncValue> {
   /// See also [getAllWorkUnits].
   GetAllWorkUnitsProvider call(
     String search,
+    int perPage,
+    int page,
   ) {
     return GetAllWorkUnitsProvider(
       search,
+      perPage,
+      page,
     );
   }
 
@@ -53,6 +57,8 @@ class GetAllWorkUnitsFamily extends Family<AsyncValue> {
   ) {
     return call(
       provider.search,
+      provider.perPage,
+      provider.page,
     );
   }
 
@@ -76,10 +82,14 @@ class GetAllWorkUnitsProvider extends AutoDisposeFutureProvider<Object?> {
   /// See also [getAllWorkUnits].
   GetAllWorkUnitsProvider(
     String search,
+    int perPage,
+    int page,
   ) : this._internal(
           (ref) => getAllWorkUnits(
             ref as GetAllWorkUnitsRef,
             search,
+            perPage,
+            page,
           ),
           from: getAllWorkUnitsProvider,
           name: r'getAllWorkUnitsProvider',
@@ -91,6 +101,8 @@ class GetAllWorkUnitsProvider extends AutoDisposeFutureProvider<Object?> {
           allTransitiveDependencies:
               GetAllWorkUnitsFamily._allTransitiveDependencies,
           search: search,
+          perPage: perPage,
+          page: page,
         );
 
   GetAllWorkUnitsProvider._internal(
@@ -101,9 +113,13 @@ class GetAllWorkUnitsProvider extends AutoDisposeFutureProvider<Object?> {
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.search,
+    required this.perPage,
+    required this.page,
   }) : super.internal();
 
   final String search;
+  final int perPage;
+  final int page;
 
   @override
   Override overrideWith(
@@ -119,6 +135,8 @@ class GetAllWorkUnitsProvider extends AutoDisposeFutureProvider<Object?> {
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         search: search,
+        perPage: perPage,
+        page: page,
       ),
     );
   }
@@ -130,13 +148,18 @@ class GetAllWorkUnitsProvider extends AutoDisposeFutureProvider<Object?> {
 
   @override
   bool operator ==(Object other) {
-    return other is GetAllWorkUnitsProvider && other.search == search;
+    return other is GetAllWorkUnitsProvider &&
+        other.search == search &&
+        other.perPage == perPage &&
+        other.page == page;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, search.hashCode);
+    hash = _SystemHash.combine(hash, perPage.hashCode);
+    hash = _SystemHash.combine(hash, page.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -145,6 +168,12 @@ class GetAllWorkUnitsProvider extends AutoDisposeFutureProvider<Object?> {
 mixin GetAllWorkUnitsRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `search` of this provider.
   String get search;
+
+  /// The parameter `perPage` of this provider.
+  int get perPage;
+
+  /// The parameter `page` of this provider.
+  int get page;
 }
 
 class _GetAllWorkUnitsProviderElement
@@ -153,6 +182,10 @@ class _GetAllWorkUnitsProviderElement
 
   @override
   String get search => (origin as GetAllWorkUnitsProvider).search;
+  @override
+  int get perPage => (origin as GetAllWorkUnitsProvider).perPage;
+  @override
+  int get page => (origin as GetAllWorkUnitsProvider).page;
 }
 
 String _$getWorkUnitHash() => r'0d23c1ec2c65e8277d600b65115d456ea1c37e78';
@@ -716,5 +749,23 @@ class _DeleteWorkUnitProviderElement
   @override
   String get id => (origin as DeleteWorkUnitProvider).id;
 }
+
+String _$totalPageWorkUnitsHash() =>
+    r'fdde12d5cfb1e2b564bdd4e6b84b0aa86ad79972';
+
+/// See also [TotalPageWorkUnits].
+@ProviderFor(TotalPageWorkUnits)
+final totalPageWorkUnitsProvider =
+    AutoDisposeNotifierProvider<TotalPageWorkUnits, int>.internal(
+  TotalPageWorkUnits.new,
+  name: r'totalPageWorkUnitsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$totalPageWorkUnitsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$TotalPageWorkUnits = AutoDisposeNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

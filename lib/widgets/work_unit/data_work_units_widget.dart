@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
+import 'package:aplikasi_kpri_desktop/providers/work_units_provider.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/work_unit/table_work_unit_widget.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,8 @@ class DataWorkUnitsWidget extends ConsumerStatefulWidget {
 class _DataWorkUnitsWidgetState extends ConsumerState<DataWorkUnitsWidget> {
   TextEditingController searchController = TextEditingController();
   String searchQuery = '';
+  int currentPage = 1;
+  int perPage = 5;
   Timer? _debounce;
   @override
   Widget build(BuildContext context) {
@@ -59,7 +62,39 @@ class _DataWorkUnitsWidgetState extends ConsumerState<DataWorkUnitsWidget> {
           TableWorkUnitWidget(
             onEdit: widget.onEdit,
             searchQuery: searchQuery,
-          )
+            perPage: perPage,
+            currentPage: currentPage,
+          ),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  if (currentPage > 1) {
+                    setState(() {
+                      currentPage--;
+                    });
+                  }
+                },
+              ),
+              const SizedBox(width: 6),
+              IconButton(
+                icon: const Icon(Icons.arrow_forward),
+                onPressed: () {
+                  if (currentPage <
+                      ref
+                          .watch(totalPageWorkUnitsProvider.notifier)
+                          .getTotalMember()) {
+                    setState(() {
+                      currentPage++;
+                    });
+                  }
+                },
+              ),
+            ],
+          ),
         ],
       ),
     );

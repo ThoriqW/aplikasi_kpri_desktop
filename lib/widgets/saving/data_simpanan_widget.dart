@@ -22,7 +22,8 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
   TextEditingController searchController = TextEditingController();
   String searchQuery = '';
   String selectedUnit = '';
-  int currentPage = 0;
+  int currentPage = 1;
+  int perPage = 10;
   int selectedYear = DateTime.now().year;
   Timer? _debounce;
 
@@ -78,6 +79,7 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                           _debounce =
                               Timer(const Duration(milliseconds: 500), () {
                             setState(() {
+                              currentPage = 1;
                               searchQuery = value;
                             });
                           });
@@ -86,7 +88,7 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                           prefixIcon: Icon(
                             Icons.search,
                           ),
-                          hintText: 'Cari Anggota',
+                          hintText: 'Cari ',
                           border: InputBorder.none,
                           filled: true,
                         ),
@@ -135,8 +137,13 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                         setState(
                           () {
                             ref.invalidate(
-                              getAllSavingMembersProvider(tahunController.text,
-                                  int.parse(selectedUnit), searchQuery),
+                              getAllSavingMembersProvider(
+                                tahunController.text,
+                                int.parse(selectedUnit),
+                                searchQuery,
+                                perPage,
+                                currentPage,
+                              ),
                             );
                           },
                         );
@@ -160,13 +167,48 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
           ),
           const SizedBox(height: 30),
           selectedUnit != ''
-              ? TableSimpananWidget(
-                  tahun: tahunController.text,
-                  workUnitId: int.parse(selectedUnit),
-                  searchQuery: searchQuery,
-                  currentPage: currentPage,
+              ? Column(
+                  children: [
+                    TableSimpananWidget(
+                      tahun: tahunController.text,
+                      workUnitId: int.parse(selectedUnit),
+                      searchQuery: searchQuery,
+                      perPage: perPage,
+                      currentPage: currentPage,
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back),
+                          onPressed: () {
+                            if (currentPage > 1) {
+                              setState(() {
+                                currentPage--;
+                              });
+                            }
+                          },
+                        ),
+                        const SizedBox(width: 6),
+                        IconButton(
+                          icon: const Icon(Icons.arrow_forward),
+                          onPressed: () {
+                            if (currentPage <
+                                ref
+                                    .watch(totalPageSavingsProvider.notifier)
+                                    .getTotalMember()) {
+                              setState(() {
+                                currentPage++;
+                              });
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
                 )
-              : pilihWorkUnit
+              : pilihWorkUnit,
         ],
       ),
     );

@@ -16,12 +16,14 @@ class TableSimpananWidget extends ConsumerStatefulWidget {
     required this.tahun,
     required this.workUnitId,
     required this.searchQuery,
+    required this.perPage,
     required this.currentPage,
   });
 
   final String tahun;
   final int workUnitId;
   final String searchQuery;
+  final int perPage;
   final int currentPage;
 
   @override
@@ -31,11 +33,30 @@ class TableSimpananWidget extends ConsumerStatefulWidget {
 
 class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
   Map<String, Map<String, dynamic>> updateSavingsObject = {};
+  List<String> bulan = [
+    'Januari',
+    'Februari',
+    'Maret',
+    'April',
+    'Mei',
+    'Juni',
+    'Juli',
+    'Agustus',
+    'September',
+    'Oktober',
+    'November',
+    'Desember',
+  ];
   @override
   Widget build(BuildContext context) {
     final getAllSavingMembers = ref.watch(
       getAllSavingMembersProvider(
-          widget.tahun, widget.workUnitId, widget.searchQuery),
+        widget.tahun,
+        widget.workUnitId,
+        widget.searchQuery,
+        widget.perPage,
+        widget.currentPage,
+      ),
     );
     return getAllSavingMembers.when(
       data: (saving) {
@@ -44,7 +65,9 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
             !saving.containsKey('data')) {
           return const Text("Data tidak valid");
         }
+
         final List<dynamic> savingsResponse = saving['data'];
+
         if (savingsResponse.isEmpty) {
           return Row(
             children: [
@@ -54,14 +77,30 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                 tahun: widget.tahun,
                 onComplete: () {
                   ref.invalidate(getAllSavingMembersProvider(
-                      widget.tahun, widget.workUnitId, widget.searchQuery));
+                    widget.tahun,
+                    widget.workUnitId,
+                    widget.searchQuery,
+                    widget.perPage,
+                    widget.currentPage,
+                  ));
                 },
               ),
             ],
           );
         }
+
+        int totalPage = saving['pagination']['last_page'];
+        int currentPage = saving['pagination']['current_page'];
+        int totalMember = saving['pagination']['total'];
+
         List<dynamic> savings = savingsResponse;
-        List<dynamic> memberSavingsData = savings[0]['members'];
+
+        Future.microtask(() {
+          ref
+              .watch(totalPageSavingsProvider.notifier)
+              .setTotalMember(saving['pagination']['last_page']);
+        });
+
         return Column(
           children: [
             Row(
@@ -97,306 +136,323 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                     child: AddMemberSimpananWidget(
                   year: widget.tahun,
                   workUnitID: widget.workUnitId,
+                  currentPage: widget.currentPage,
+                  perPage: widget.perPage,
                 ))
               ],
             ),
             const SizedBox(
-              height: 20,
+              height: 12,
             ),
-            for (int i = 0; i < savings.length; i++)
-              Column(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Halaman $currentPage dari $totalPage',
+                ),
+                Text(
+                  'Total data $totalMember',
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Table(
+                columnWidths: const <int, TableColumnWidth>{
+                  0: IntrinsicColumnWidth(),
+                  1: IntrinsicColumnWidth(),
+                  2: IntrinsicColumnWidth(),
+                  3: IntrinsicColumnWidth(),
+                  4: IntrinsicColumnWidth(),
+                  5: IntrinsicColumnWidth(),
+                  6: IntrinsicColumnWidth(),
+                  7: IntrinsicColumnWidth(),
+                  8: IntrinsicColumnWidth(),
+                  9: IntrinsicColumnWidth(),
+                  10: IntrinsicColumnWidth(),
+                  11: IntrinsicColumnWidth(),
+                  12: IntrinsicColumnWidth(),
+                  13: IntrinsicColumnWidth(),
+                  14: IntrinsicColumnWidth(),
+                  15: IntrinsicColumnWidth(),
+                  16: IntrinsicColumnWidth(),
+                  17: IntrinsicColumnWidth(),
+                },
+                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(9),
-                    color: GlobalColors.secondary,
-                    child: Center(
-                      child: Text(
-                        savings[i]['work_unit'],
-                        style: const TextStyle(
-                          color: GlobalColors.primary,
-                          fontWeight: FontWeight.bold,
+                  TableRow(
+                    decoration: const BoxDecoration(
+                      color: GlobalColors.secondary,
+                    ),
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.all(9),
+                        child: const Text(
+                          "NO",
+                          style: TextStyle(
+                            color: GlobalColors.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Table(
-                    columnWidths: const <int, TableColumnWidth>{
-                      0: IntrinsicColumnWidth(),
-                      1: IntrinsicColumnWidth(),
-                      2: IntrinsicColumnWidth(),
-                      3: FlexColumnWidth(),
-                      4: IntrinsicColumnWidth(),
-                      5: IntrinsicColumnWidth(),
-                      6: IntrinsicColumnWidth(),
-                      7: IntrinsicColumnWidth(),
-                      8: IntrinsicColumnWidth(),
-                      9: IntrinsicColumnWidth(),
-                      10: IntrinsicColumnWidth(),
-                    },
-                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                    children: <TableRow>[
-                      TableRow(
-                        decoration:
-                            const BoxDecoration(color: GlobalColors.secondary),
-                        children: <Widget>[
-                          Container(
-                            padding: const EdgeInsets.all(9),
-                            child: const Text("No"),
+                      Container(
+                        padding: const EdgeInsets.all(9),
+                        child: const Text(
+                          "UNIT KERJA",
+                          style: TextStyle(
+                            color: GlobalColors.primary,
+                            fontWeight: FontWeight.bold,
                           ),
-                          Container(
-                            padding: const EdgeInsets.all(9),
-                            child: const Text("No. Anggota"),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(9),
-                            child: const Text("ID"),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(9),
-                            child: const Text("Nama Anggota"),
-                          ),
-                          Center(
-                            child: Container(
-                              padding: const EdgeInsets.all(9),
-                              child: const Text("Tahun"),
-                            ),
-                          ),
-                          Center(
-                            child: Container(
-                              padding: const EdgeInsets.all(9),
-                              child: const Text("Bulan"),
-                            ),
-                          ),
-                          Center(
-                            child: Container(
-                              padding: const EdgeInsets.all(9),
-                              child: const Text("Utama"),
-                            ),
-                          ),
-                          Center(
-                            child: Container(
-                              padding: const EdgeInsets.all(9),
-                              child: const Text("Wajib"),
-                            ),
-                          ),
-                          Center(
-                            child: Container(
-                              padding: const EdgeInsets.all(9),
-                              child: const Text("Suka Rela"),
-                            ),
-                          ),
-                          Center(
-                            child: Container(
-                              padding: const EdgeInsets.all(9),
-                              child: const Text("Aksi"),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                      for (int j = 0; j < memberSavingsData.length; j++)
-                        TableRow(
-                          decoration: BoxDecoration(
-                            color:
-                                j.isEven ? Colors.grey.shade200 : Colors.white,
+                      Container(
+                        padding: const EdgeInsets.all(9),
+                        child: const Text(
+                          "NOMOR ANGGOTA",
+                          style: TextStyle(
+                            color: GlobalColors.primary,
+                            fontWeight: FontWeight.bold,
                           ),
-                          children: <Widget>[
-                            Center(
-                              child: Container(
-                                padding: const EdgeInsets.all(9),
-                                child: Text(
-                                  (j + 1).toString(),
-                                ),
-                              ),
-                            ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(9),
+                        child: const Text(
+                          "NAMA LENGKAP",
+                          style: TextStyle(
+                            color: GlobalColors.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(9),
+                        child: const Text(
+                          "TAHUN",
+                          style: TextStyle(
+                            color: GlobalColors.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      for (int b = 0; b < bulan.length; b++)
+                        Column(
+                          children: [
                             Container(
                               padding: const EdgeInsets.all(9),
                               child: Text(
-                                memberSavingsData[j]['nomor_anggota']
-                                    .toString(),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(9),
-                              child: Text(
-                                memberSavingsData[j]['member_profile_id']
-                                    .toString(),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(9),
-                              child: Text(
-                                memberSavingsData[j]['nama_lengkap'].toString(),
-                              ),
-                            ),
-                            Center(
-                              child: Container(
-                                padding: const EdgeInsets.all(9),
-                                child: Text(
-                                  memberSavingsData[j]['tahun'].toString(),
+                                bulan[b].toUpperCase(),
+                                style: const TextStyle(
+                                  color: GlobalColors.primary,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            Center(
-                              child: Container(
-                                padding: const EdgeInsets.all(9),
-                                child: Text(
-                                  memberSavingsData[j]['bulan'].toString(),
-                                ),
-                              ),
-                            ),
-                            Center(
-                              child: Container(
-                                padding: const EdgeInsets.all(9),
-                                child: EditableText(
-                                  controller: TextEditingController(
-                                    text: NumberFormat.currency(
-                                      locale: 'id',
-                                      symbol: 'Rp',
-                                      decimalDigits: 0,
-                                    ).format(
-                                      double.parse(
-                                        memberSavingsData[j]['pokok']
-                                            .toString(),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.all(5),
+                                    child: const Text(
+                                      "POKOK",
+                                      style: TextStyle(
+                                        color: GlobalColors.primary,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                   ),
-                                  focusNode: FocusNode(),
-                                  cursorColor: GlobalColors.primary,
-                                  backgroundCursorColor: GlobalColors.secondary,
-                                  style: const TextStyle(
-                                    color: Color(0xDE000000),
-                                  ),
-                                  onSubmitted: (newPokok) {
-                                    updateValueSaving(
-                                      updateSavingsObject,
-                                      memberSavingsData[j]['member_profile_id']
-                                          .toString(),
-                                      memberSavingsData[j]['bulan'].toString(),
-                                      'pokok',
-                                      newPokok,
-                                    );
-                                  },
                                 ),
-                              ),
-                            ),
-                            Center(
-                              child: Container(
-                                padding: const EdgeInsets.all(9),
-                                child: EditableText(
-                                  controller: TextEditingController(
-                                    text: NumberFormat.currency(
-                                      locale: 'id',
-                                      symbol: 'Rp',
-                                      decimalDigits: 0,
-                                    ).format(
-                                      double.parse(
-                                        memberSavingsData[j]['wajib']
-                                            .toString(),
+                                Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.all(5),
+                                    child: const Text(
+                                      "WAJIB",
+                                      style: TextStyle(
+                                        color: GlobalColors.primary,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                   ),
-                                  focusNode: FocusNode(),
-                                  cursorColor: GlobalColors.primary,
-                                  backgroundCursorColor: GlobalColors.secondary,
-                                  style: const TextStyle(
-                                    color: Color(0xDE000000),
-                                  ),
-                                  onSubmitted: (newWajib) {
-                                    updateValueSaving(
-                                      updateSavingsObject,
-                                      memberSavingsData[j]['member_profile_id']
-                                          .toString(),
-                                      memberSavingsData[j]['bulan'].toString(),
-                                      'wajib',
-                                      newWajib,
-                                    );
-                                  },
                                 ),
-                              ),
-                            ),
-                            Center(
-                              child: Container(
-                                padding: const EdgeInsets.all(9),
-                                child: EditableText(
-                                  controller: TextEditingController(
-                                    text: NumberFormat.currency(
-                                      locale: 'id',
-                                      symbol: 'Rp',
-                                      decimalDigits: 0,
-                                    ).format(
-                                      double.parse(
-                                        memberSavingsData[j]['sukarela']
-                                            .toString(),
+                                Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.all(5),
+                                    child: const Text(
+                                      "SUKA RELA",
+                                      style: TextStyle(
+                                        color: GlobalColors.primary,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                   ),
-                                  focusNode: FocusNode(),
-                                  cursorColor: GlobalColors.primary,
-                                  backgroundCursorColor: GlobalColors.secondary,
-                                  style: const TextStyle(
-                                    color: Color(0xDE000000),
-                                  ),
-                                  onSubmitted: (newSukarela) {
-                                    updateValueSaving(
-                                      updateSavingsObject,
-                                      memberSavingsData[j]['member_profile_id']
-                                          .toString(),
-                                      memberSavingsData[j]['bulan'].toString(),
-                                      'sukarela',
-                                      newSukarela,
-                                    );
-                                  },
                                 ),
-                              ),
-                            ),
-                            Center(
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.edit,
-                                    size: 18,
-                                    color: GlobalColors.primary,
-                                  ),
-                                ),
-                              ),
-                            ),
+                              ],
+                            )
                           ],
                         ),
                     ],
                   ),
+                  for (int i = 0; i < savings.length; i++)
+                    TableRow(
+                      decoration: BoxDecoration(
+                        color: i.isEven ? Colors.grey.shade200 : Colors.white,
+                      ),
+                      children: <Widget>[
+                        Center(
+                          child: Container(
+                            padding: const EdgeInsets.all(9),
+                            child: Text(
+                              (0 + i + 1).toString(),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(9),
+                          child: Text(
+                            savings[i]['work_unit'].toString(),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(9),
+                          child: Text(
+                            savings[i]['nomor_anggota'].toString(),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(9),
+                          child: Text(
+                            savings[i]['nama_lengkap'].toString(),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(9),
+                          child: Text(
+                            savings[i]['tahun'].toString(),
+                          ),
+                        ),
+                        for (int j = 0; j < savings[i]['savings'].length; j++)
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  padding: const EdgeInsets.all(5),
+                                  child: EditableText(
+                                    controller: TextEditingController(
+                                      text: NumberFormat.currency(
+                                        locale: 'id',
+                                        symbol: 'Rp',
+                                        decimalDigits: 0,
+                                      ).format(
+                                        double.parse(
+                                          savings[i]['savings'][j]['pokok']
+                                              .toString(),
+                                        ),
+                                      ),
+                                    ),
+                                    focusNode: FocusNode(),
+                                    cursorColor: GlobalColors.primary,
+                                    backgroundCursorColor:
+                                        GlobalColors.secondary,
+                                    style: const TextStyle(
+                                      color: Color(0xDE000000),
+                                    ),
+                                    onSubmitted: (newPokok) {
+                                      updateValueSaving(
+                                        updateSavingsObject,
+                                        savings[i]['member_profile_id']
+                                            .toString(),
+                                        savings[i]['savings'][j]['bulan']
+                                            .toString(),
+                                        'pokok',
+                                        newPokok,
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  padding: const EdgeInsets.all(5),
+                                  child: EditableText(
+                                    controller: TextEditingController(
+                                      text: NumberFormat.currency(
+                                        locale: 'id',
+                                        symbol: 'Rp',
+                                        decimalDigits: 0,
+                                      ).format(
+                                        double.parse(
+                                          savings[i]['savings'][j]['wajib']
+                                              .toString(),
+                                        ),
+                                      ),
+                                    ),
+                                    focusNode: FocusNode(),
+                                    cursorColor: GlobalColors.primary,
+                                    backgroundCursorColor:
+                                        GlobalColors.secondary,
+                                    style: const TextStyle(
+                                      color: Color(0xDE000000),
+                                    ),
+                                    onSubmitted: (newPokok) {
+                                      updateValueSaving(
+                                        updateSavingsObject,
+                                        savings[i]['member_profile_id']
+                                            .toString(),
+                                        savings[i]['savings'][j]['bulan']
+                                            .toString(),
+                                        'wajib',
+                                        newPokok,
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  padding: const EdgeInsets.all(5),
+                                  child: EditableText(
+                                    controller: TextEditingController(
+                                      text: NumberFormat.currency(
+                                        locale: 'id',
+                                        symbol: 'Rp',
+                                        decimalDigits: 0,
+                                      ).format(
+                                        double.parse(
+                                          savings[i]['savings'][j]['sukarela']
+                                              .toString(),
+                                        ),
+                                      ),
+                                    ),
+                                    focusNode: FocusNode(),
+                                    cursorColor: GlobalColors.primary,
+                                    backgroundCursorColor:
+                                        GlobalColors.secondary,
+                                    style: const TextStyle(
+                                      color: Color(0xDE000000),
+                                    ),
+                                    onSubmitted: (newPokok) {
+                                      updateValueSaving(
+                                        updateSavingsObject,
+                                        savings[i]['member_profile_id']
+                                            .toString(),
+                                        savings[i]['savings'][j]['bulan']
+                                            .toString(),
+                                        'sukarela',
+                                        newPokok,
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                      ],
+                    ),
                 ],
               ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
-                    ),
-                  ),
-                  child: const Text('Sebelumnya'),
-                ),
-                const Text(
-                  'Halaman dari',
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,
-                    ),
-                  ),
-                  child: const Text('Selanjutnya'),
-                ),
-              ],
             ),
           ],
         );
@@ -453,6 +509,8 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
               widget.tahun,
               int.parse(workUnitId.toString()),
               widget.searchQuery,
+              widget.perPage,
+              widget.currentPage,
             ),
           ),
         );

@@ -7,7 +7,7 @@ part of 'saving_provider.dart';
 // **************************************************************************
 
 String _$getAllSavingMembersHash() =>
-    r'ee0500f33140b54889d15bdd4b19cb745f5c50b1';
+    r'29b3b73f6b4457f74490832e6512ad353b515ae4';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -44,11 +44,15 @@ class GetAllSavingMembersFamily extends Family<AsyncValue> {
     String tahun,
     int workUnitId,
     String search,
+    int perPage,
+    int page,
   ) {
     return GetAllSavingMembersProvider(
       tahun,
       workUnitId,
       search,
+      perPage,
+      page,
     );
   }
 
@@ -60,6 +64,8 @@ class GetAllSavingMembersFamily extends Family<AsyncValue> {
       provider.tahun,
       provider.workUnitId,
       provider.search,
+      provider.perPage,
+      provider.page,
     );
   }
 
@@ -85,12 +91,16 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
     String tahun,
     int workUnitId,
     String search,
+    int perPage,
+    int page,
   ) : this._internal(
           (ref) => getAllSavingMembers(
             ref as GetAllSavingMembersRef,
             tahun,
             workUnitId,
             search,
+            perPage,
+            page,
           ),
           from: getAllSavingMembersProvider,
           name: r'getAllSavingMembersProvider',
@@ -104,6 +114,8 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
           tahun: tahun,
           workUnitId: workUnitId,
           search: search,
+          perPage: perPage,
+          page: page,
         );
 
   GetAllSavingMembersProvider._internal(
@@ -116,11 +128,15 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
     required this.tahun,
     required this.workUnitId,
     required this.search,
+    required this.perPage,
+    required this.page,
   }) : super.internal();
 
   final String tahun;
   final int workUnitId;
   final String search;
+  final int perPage;
+  final int page;
 
   @override
   Override overrideWith(
@@ -138,6 +154,8 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
         tahun: tahun,
         workUnitId: workUnitId,
         search: search,
+        perPage: perPage,
+        page: page,
       ),
     );
   }
@@ -152,7 +170,9 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
     return other is GetAllSavingMembersProvider &&
         other.tahun == tahun &&
         other.workUnitId == workUnitId &&
-        other.search == search;
+        other.search == search &&
+        other.perPage == perPage &&
+        other.page == page;
   }
 
   @override
@@ -161,6 +181,8 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
     hash = _SystemHash.combine(hash, tahun.hashCode);
     hash = _SystemHash.combine(hash, workUnitId.hashCode);
     hash = _SystemHash.combine(hash, search.hashCode);
+    hash = _SystemHash.combine(hash, perPage.hashCode);
+    hash = _SystemHash.combine(hash, page.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -175,6 +197,12 @@ mixin GetAllSavingMembersRef on AutoDisposeFutureProviderRef<Object?> {
 
   /// The parameter `search` of this provider.
   String get search;
+
+  /// The parameter `perPage` of this provider.
+  int get perPage;
+
+  /// The parameter `page` of this provider.
+  int get page;
 }
 
 class _GetAllSavingMembersProviderElement
@@ -188,6 +216,10 @@ class _GetAllSavingMembersProviderElement
   int get workUnitId => (origin as GetAllSavingMembersProvider).workUnitId;
   @override
   String get search => (origin as GetAllSavingMembersProvider).search;
+  @override
+  int get perPage => (origin as GetAllSavingMembersProvider).perPage;
+  @override
+  int get page => (origin as GetAllSavingMembersProvider).page;
 }
 
 String _$createMemberSavingsHash() =>
@@ -484,7 +516,7 @@ class _UpdateMemberSavingsProviderElement
       (origin as UpdateMemberSavingsProvider).updateSavingsObject;
 }
 
-String _$addMemberSavingsHash() => r'62aa881596b01b15b39f0c930b94e75c0cbe949b';
+String _$addMemberSavingsHash() => r'85a9731aefb98031aa16022133bc947dac42acb7';
 
 /// See also [addMemberSavings].
 @ProviderFor(addMemberSavings)
@@ -628,5 +660,169 @@ class _AddMemberSavingsProviderElement
   @override
   String get tahun => (origin as AddMemberSavingsProvider).tahun;
 }
+
+String _$deleteMemberSavingsHash() =>
+    r'2489da640070e07515f5d23596e2bf76ccc622a2';
+
+/// See also [deleteMemberSavings].
+@ProviderFor(deleteMemberSavings)
+const deleteMemberSavingsProvider = DeleteMemberSavingsFamily();
+
+/// See also [deleteMemberSavings].
+class DeleteMemberSavingsFamily extends Family<AsyncValue> {
+  /// See also [deleteMemberSavings].
+  const DeleteMemberSavingsFamily();
+
+  /// See also [deleteMemberSavings].
+  DeleteMemberSavingsProvider call(
+    String id,
+    String tahun,
+  ) {
+    return DeleteMemberSavingsProvider(
+      id,
+      tahun,
+    );
+  }
+
+  @override
+  DeleteMemberSavingsProvider getProviderOverride(
+    covariant DeleteMemberSavingsProvider provider,
+  ) {
+    return call(
+      provider.id,
+      provider.tahun,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'deleteMemberSavingsProvider';
+}
+
+/// See also [deleteMemberSavings].
+class DeleteMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
+  /// See also [deleteMemberSavings].
+  DeleteMemberSavingsProvider(
+    String id,
+    String tahun,
+  ) : this._internal(
+          (ref) => deleteMemberSavings(
+            ref as DeleteMemberSavingsRef,
+            id,
+            tahun,
+          ),
+          from: deleteMemberSavingsProvider,
+          name: r'deleteMemberSavingsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$deleteMemberSavingsHash,
+          dependencies: DeleteMemberSavingsFamily._dependencies,
+          allTransitiveDependencies:
+              DeleteMemberSavingsFamily._allTransitiveDependencies,
+          id: id,
+          tahun: tahun,
+        );
+
+  DeleteMemberSavingsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+    required this.tahun,
+  }) : super.internal();
+
+  final String id;
+  final String tahun;
+
+  @override
+  Override overrideWith(
+    FutureOr<Object?> Function(DeleteMemberSavingsRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: DeleteMemberSavingsProvider._internal(
+        (ref) => create(ref as DeleteMemberSavingsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+        tahun: tahun,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Object?> createElement() {
+    return _DeleteMemberSavingsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is DeleteMemberSavingsProvider &&
+        other.id == id &&
+        other.tahun == tahun;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+    hash = _SystemHash.combine(hash, tahun.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin DeleteMemberSavingsRef on AutoDisposeFutureProviderRef<Object?> {
+  /// The parameter `id` of this provider.
+  String get id;
+
+  /// The parameter `tahun` of this provider.
+  String get tahun;
+}
+
+class _DeleteMemberSavingsProviderElement
+    extends AutoDisposeFutureProviderElement<Object?>
+    with DeleteMemberSavingsRef {
+  _DeleteMemberSavingsProviderElement(super.provider);
+
+  @override
+  String get id => (origin as DeleteMemberSavingsProvider).id;
+  @override
+  String get tahun => (origin as DeleteMemberSavingsProvider).tahun;
+}
+
+String _$totalPageSavingsHash() => r'0d8e2405ad73c587febbba1d8a8c3b8a5bc64414';
+
+/// See also [TotalPageSavings].
+@ProviderFor(TotalPageSavings)
+final totalPageSavingsProvider =
+    AutoDisposeNotifierProvider<TotalPageSavings, int>.internal(
+  TotalPageSavings.new,
+  name: r'totalPageSavingsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$totalPageSavingsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$TotalPageSavings = AutoDisposeNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

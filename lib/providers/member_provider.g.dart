@@ -379,7 +379,7 @@ class _AddMemberProviderElement
   int get status => (origin as AddMemberProvider).status;
 }
 
-String _$getAllMemberHash() => r'c880057c3ad5936b3dfa522b5051a01e8d5a78d0';
+String _$getAllMemberHash() => r'2364cc3b691eff0e1786613760351cef9c9a14b9';
 
 /// See also [getAllMember].
 @ProviderFor(getAllMember)
@@ -395,11 +395,15 @@ class GetAllMemberFamily extends Family<AsyncValue> {
     String search,
     String workUnitId,
     String status,
+    int perPage,
+    int page,
   ) {
     return GetAllMemberProvider(
       search,
       workUnitId,
       status,
+      perPage,
+      page,
     );
   }
 
@@ -411,6 +415,8 @@ class GetAllMemberFamily extends Family<AsyncValue> {
       provider.search,
       provider.workUnitId,
       provider.status,
+      provider.perPage,
+      provider.page,
     );
   }
 
@@ -436,12 +442,16 @@ class GetAllMemberProvider extends AutoDisposeFutureProvider<Object?> {
     String search,
     String workUnitId,
     String status,
+    int perPage,
+    int page,
   ) : this._internal(
           (ref) => getAllMember(
             ref as GetAllMemberRef,
             search,
             workUnitId,
             status,
+            perPage,
+            page,
           ),
           from: getAllMemberProvider,
           name: r'getAllMemberProvider',
@@ -455,6 +465,8 @@ class GetAllMemberProvider extends AutoDisposeFutureProvider<Object?> {
           search: search,
           workUnitId: workUnitId,
           status: status,
+          perPage: perPage,
+          page: page,
         );
 
   GetAllMemberProvider._internal(
@@ -467,11 +479,15 @@ class GetAllMemberProvider extends AutoDisposeFutureProvider<Object?> {
     required this.search,
     required this.workUnitId,
     required this.status,
+    required this.perPage,
+    required this.page,
   }) : super.internal();
 
   final String search;
   final String workUnitId;
   final String status;
+  final int perPage;
+  final int page;
 
   @override
   Override overrideWith(
@@ -489,6 +505,8 @@ class GetAllMemberProvider extends AutoDisposeFutureProvider<Object?> {
         search: search,
         workUnitId: workUnitId,
         status: status,
+        perPage: perPage,
+        page: page,
       ),
     );
   }
@@ -503,7 +521,9 @@ class GetAllMemberProvider extends AutoDisposeFutureProvider<Object?> {
     return other is GetAllMemberProvider &&
         other.search == search &&
         other.workUnitId == workUnitId &&
-        other.status == status;
+        other.status == status &&
+        other.perPage == perPage &&
+        other.page == page;
   }
 
   @override
@@ -512,6 +532,8 @@ class GetAllMemberProvider extends AutoDisposeFutureProvider<Object?> {
     hash = _SystemHash.combine(hash, search.hashCode);
     hash = _SystemHash.combine(hash, workUnitId.hashCode);
     hash = _SystemHash.combine(hash, status.hashCode);
+    hash = _SystemHash.combine(hash, perPage.hashCode);
+    hash = _SystemHash.combine(hash, page.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -526,6 +548,12 @@ mixin GetAllMemberRef on AutoDisposeFutureProviderRef<Object?> {
 
   /// The parameter `status` of this provider.
   String get status;
+
+  /// The parameter `perPage` of this provider.
+  int get perPage;
+
+  /// The parameter `page` of this provider.
+  int get page;
 }
 
 class _GetAllMemberProviderElement
@@ -538,6 +566,10 @@ class _GetAllMemberProviderElement
   String get workUnitId => (origin as GetAllMemberProvider).workUnitId;
   @override
   String get status => (origin as GetAllMemberProvider).status;
+  @override
+  int get perPage => (origin as GetAllMemberProvider).perPage;
+  @override
+  int get page => (origin as GetAllMemberProvider).page;
 }
 
 String _$getMemberHash() => r'a16b567e00c5ccab446f43e7e6ef48b39d124eea';
@@ -1179,5 +1211,22 @@ class _DeleteMemberProviderElement
   @override
   String get id => (origin as DeleteMemberProvider).id;
 }
+
+String _$totalPageMemberHash() => r'0648fc78dd3380900267dbab9b31eb62bedc20ee';
+
+/// See also [TotalPageMember].
+@ProviderFor(TotalPageMember)
+final totalPageMemberProvider =
+    AutoDisposeNotifierProvider<TotalPageMember, int>.internal(
+  TotalPageMember.new,
+  name: r'totalPageMemberProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$totalPageMemberHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$TotalPageMember = AutoDisposeNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

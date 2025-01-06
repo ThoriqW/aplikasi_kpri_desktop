@@ -39,7 +39,7 @@ class _WorkUnitsDropdownState extends ConsumerState<WorkUnitsDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    final getAllWorkUnits = ref.watch(getAllWorkUnitsProvider(''));
+    final getAllWorkUnits = ref.watch(getAllWorkUnitsProvider('', 0, 0));
 
     return getAllWorkUnits.when(
       data: (workUnit) {
