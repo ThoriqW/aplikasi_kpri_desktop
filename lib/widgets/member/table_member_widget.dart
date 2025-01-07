@@ -92,6 +92,7 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                   8: IntrinsicColumnWidth(),
                   9: IntrinsicColumnWidth(),
                   10: IntrinsicColumnWidth(),
+                  11: IntrinsicColumnWidth(),
                 },
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 children: <TableRow>[
@@ -133,6 +134,16 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                         padding: const EdgeInsets.all(9),
                         child: const Text(
                           "NOMOR ANGGOTA",
+                          style: TextStyle(
+                            color: GlobalColors.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(9),
+                        child: const Text(
+                          "NIP",
                           style: TextStyle(
                             color: GlobalColors.primary,
                             fontWeight: FontWeight.bold,
@@ -245,6 +256,12 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                           padding: const EdgeInsets.all(9),
                           child: Text(
                             members[i]['nomor_anggota'].toString(),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(9),
+                          child: Text(
+                            members[i]['nip'].toString(),
                           ),
                         ),
                         Container(

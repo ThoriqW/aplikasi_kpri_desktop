@@ -180,6 +180,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                   15: IntrinsicColumnWidth(),
                   16: IntrinsicColumnWidth(),
                   17: IntrinsicColumnWidth(),
+                  18: IntrinsicColumnWidth(),
                 },
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 children: [
@@ -293,6 +294,18 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                             )
                           ],
                         ),
+                      Center(
+                        child: Container(
+                          padding: const EdgeInsets.all(9),
+                          child: const Text(
+                            "AKSI",
+                            style: TextStyle(
+                              color: GlobalColors.primary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   for (int i = 0; i < savings.length; i++)
@@ -449,6 +462,67 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                               ),
                             ],
                           ),
+                        Center(
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(2),
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    size: 18,
+                                    color: GlobalColors.primary,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(2),
+                                child: IconButton(
+                                  onPressed: () async {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: const Text("Info"),
+                                          content: const Text(
+                                            "Yakin hapus member?",
+                                          ),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                context,
+                                                'Cancel',
+                                              ),
+                                              child: const Text('Cancel'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                _deleteMemberSavings(
+                                                  savings[i]
+                                                          ['member_profile_id']
+                                                      .toString(),
+                                                  savings[i]['tahun']
+                                                      .toString(),
+                                                );
+                                              },
+                                              child: const Text('OK'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                  icon: const Icon(
+                                    Icons.delete,
+                                    size: 18,
+                                    color: Colors.redAccent,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                 ],
@@ -533,6 +607,56 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
           return CustomAlertDialog(
             alertDesc: e.toString(),
             alertTitle: "Error",
+          );
+        },
+      );
+    }
+  }
+
+  Future<void> _deleteMemberSavings(String id, String tahun) async {
+    try {
+      final deleteMemberSavings = await ref.watch(
+        deleteMemberSavingsProvider(id, tahun).future,
+      );
+      if (!mounted) return;
+      Navigator.pop(context, 'OK');
+      if (deleteMemberSavings is SuccessResponse) {
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomAlertDialog(
+              alertDesc: deleteMemberSavings.message,
+              alertTitle: "Sukses",
+            );
+          },
+        );
+        ref.invalidate(getAllSavingMembersProvider(
+          widget.tahun,
+          widget.workUnitId,
+          widget.searchQuery,
+          widget.perPage,
+          widget.currentPage,
+        ));
+      } else if (deleteMemberSavings is ErrorResponse) {
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomAlertDialog(
+              alertDesc: deleteMemberSavings.errors,
+              alertTitle: "Gagal",
+            );
+          },
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      Navigator.pop(context, 'OK');
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomAlertDialog(
+            alertDesc: e.toString().substring(11),
+            alertTitle: "Gagal",
           );
         },
       );
