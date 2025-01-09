@@ -1212,6 +1212,136 @@ class _DeleteMemberProviderElement
   String get id => (origin as DeleteMemberProvider).id;
 }
 
+String _$resetPasswordMemberHash() =>
+    r'816831943f84d0480e34985012795c7b0fe92e28';
+
+/// See also [resetPasswordMember].
+@ProviderFor(resetPasswordMember)
+const resetPasswordMemberProvider = ResetPasswordMemberFamily();
+
+/// See also [resetPasswordMember].
+class ResetPasswordMemberFamily extends Family<AsyncValue> {
+  /// See also [resetPasswordMember].
+  const ResetPasswordMemberFamily();
+
+  /// See also [resetPasswordMember].
+  ResetPasswordMemberProvider call(
+    String id,
+  ) {
+    return ResetPasswordMemberProvider(
+      id,
+    );
+  }
+
+  @override
+  ResetPasswordMemberProvider getProviderOverride(
+    covariant ResetPasswordMemberProvider provider,
+  ) {
+    return call(
+      provider.id,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'resetPasswordMemberProvider';
+}
+
+/// See also [resetPasswordMember].
+class ResetPasswordMemberProvider extends AutoDisposeFutureProvider<Object?> {
+  /// See also [resetPasswordMember].
+  ResetPasswordMemberProvider(
+    String id,
+  ) : this._internal(
+          (ref) => resetPasswordMember(
+            ref as ResetPasswordMemberRef,
+            id,
+          ),
+          from: resetPasswordMemberProvider,
+          name: r'resetPasswordMemberProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$resetPasswordMemberHash,
+          dependencies: ResetPasswordMemberFamily._dependencies,
+          allTransitiveDependencies:
+              ResetPasswordMemberFamily._allTransitiveDependencies,
+          id: id,
+        );
+
+  ResetPasswordMemberProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+  }) : super.internal();
+
+  final String id;
+
+  @override
+  Override overrideWith(
+    FutureOr<Object?> Function(ResetPasswordMemberRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: ResetPasswordMemberProvider._internal(
+        (ref) => create(ref as ResetPasswordMemberRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Object?> createElement() {
+    return _ResetPasswordMemberProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ResetPasswordMemberProvider && other.id == id;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin ResetPasswordMemberRef on AutoDisposeFutureProviderRef<Object?> {
+  /// The parameter `id` of this provider.
+  String get id;
+}
+
+class _ResetPasswordMemberProviderElement
+    extends AutoDisposeFutureProviderElement<Object?>
+    with ResetPasswordMemberRef {
+  _ResetPasswordMemberProviderElement(super.provider);
+
+  @override
+  String get id => (origin as ResetPasswordMemberProvider).id;
+}
+
 String _$totalPageMemberHash() => r'0648fc78dd3380900267dbab9b31eb62bedc20ee';
 
 /// See also [TotalPageMember].

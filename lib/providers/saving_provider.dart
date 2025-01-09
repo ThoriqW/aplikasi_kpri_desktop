@@ -193,11 +193,6 @@ Future transferMemberSavings(
   if (token == null) {
     throw Exception('No authentication token found');
   }
-
-  print(id);
-  print(tahun);
-  print(workUnitId);
-
   try {
     final response = await http.patch(
       Uri.parse('$baseUrl/api/v1/savings/$tahun/transfer-work-unit/$id'),

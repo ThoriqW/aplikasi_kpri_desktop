@@ -809,7 +809,7 @@ class _DeleteMemberSavingsProviderElement
 }
 
 String _$transferMemberSavingsHash() =>
-    r'90c521b1d97df48e4ff5bbc9188b6dc4c9ecb4ff';
+    r'45f4381d1ebabc3f7caaf70c19900f23d6162d7e';
 
 /// See also [transferMemberSavings].
 @ProviderFor(transferMemberSavings)

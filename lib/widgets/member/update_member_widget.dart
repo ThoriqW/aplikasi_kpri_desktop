@@ -343,22 +343,40 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                     ),
                   ),
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const Text(
-                          "Status",
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Status",
+                            ),
+                            const SizedBox(height: 8),
+                            DropdownWidget(
+                              items: status,
+                              currentDropDownName: selectedStatus,
+                              onSelected: (String value) => setState(
+                                () {
+                                  selectedStatus = value;
+                                },
+                              ),
+                            )
+                          ],
                         ),
-                        const SizedBox(height: 8),
-                        DropdownWidget(
-                          items: status,
-                          currentDropDownName: selectedStatus,
-                          onSelected: (String value) => setState(
-                            () {
-                              selectedStatus = value;
-                            },
+                        const SizedBox(width: 8),
+                        TextButton.icon(
+                          onPressed: () {
+                            _resetPasswordMember(memberData['id'].toString());
+                          },
+                          icon: const Icon(
+                            Icons.reset_tv,
+                            color: Colors.redAccent,
                           ),
-                        )
+                          label: const Text(
+                            'Reset Password',
+                          ),
+                        ),
                       ],
                     ),
                   )
@@ -369,7 +387,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ButtonWidget(
-                    text: "Update",
+                    text: "Ganti",
                     onTap: () async {
                       await _updateMember(
                         ref
@@ -451,6 +469,50 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
       }
     } catch (e) {
       if (!mounted) return;
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CustomAlertDialog(
+            alertDesc: e.toString().substring(11),
+            alertTitle: "Gagal",
+          );
+        },
+      );
+    }
+  }
+
+  Future<void> _resetPasswordMember(String id) async {
+    try {
+      final resetPasswordMember = await ref.watch(
+        resetPasswordMemberProvider(id).future,
+      );
+      if (!mounted) return;
+      if (resetPasswordMember is SuccessResponse) {
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomAlertDialog(
+              alertDesc: resetPasswordMember.message,
+              alertTitle: "Sukses",
+            );
+          },
+        ).then((_) {
+          ref.watch(memberModeNotifierProvider.notifier).switchToView();
+        });
+      } else if (resetPasswordMember is ErrorResponse) {
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomAlertDialog(
+              alertDesc: resetPasswordMember.errors,
+              alertTitle: "Gagal",
+            );
+          },
+        );
+      }
+    } catch (e) {
+      if (!mounted) return;
+      Navigator.pop(context, 'OK');
       await showDialog(
         context: context,
         builder: (BuildContext context) {

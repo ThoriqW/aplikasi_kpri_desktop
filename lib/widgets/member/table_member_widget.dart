@@ -93,6 +93,7 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                   9: IntrinsicColumnWidth(),
                   10: IntrinsicColumnWidth(),
                   11: IntrinsicColumnWidth(),
+                  12: IntrinsicColumnWidth(),
                 },
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 children: <TableRow>[
@@ -124,6 +125,16 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                         padding: const EdgeInsets.all(9),
                         child: const Text(
                           "NAMA ANGGOTA",
+                          style: TextStyle(
+                            color: GlobalColors.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(9),
+                        child: const Text(
+                          "JENIS KELAMIN",
                           style: TextStyle(
                             color: GlobalColors.primary,
                             fontWeight: FontWeight.bold,
@@ -250,6 +261,12 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                           padding: const EdgeInsets.all(9),
                           child: Text(
                             members[i]['nama_lengkap'].toString(),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(9),
+                          child: Text(
+                            members[i]['jenis_kelamin'].toString(),
                           ),
                         ),
                         Container(

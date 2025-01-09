@@ -228,6 +228,35 @@ Future deleteMember(ref, String id) async {
         'Authorization': 'Bearer $token',
       },
     );
+
+    if (response.statusCode == 200) {
+      return SuccessResponse.fromJson(jsonDecode(response.body));
+    } else {
+      return ErrorResponse.fromJson(jsonDecode(response.body));
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
+}
+
+@riverpod
+Future resetPasswordMember(ref, String id) async {
+  final String? token = await storage.read(key: 'authToken');
+
+  if (token == null) {
+    throw Exception('No authentication token found');
+  }
+
+  print(id);
+
+  try {
+    final response = await http.put(
+      Uri.parse('$baseUrl/api/v1/members/$id/reset-password'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
     if (response.statusCode == 200) {
       return SuccessResponse.fromJson(jsonDecode(response.body));
     } else {
