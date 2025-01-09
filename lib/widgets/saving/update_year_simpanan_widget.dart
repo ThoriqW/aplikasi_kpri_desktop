@@ -1,10 +1,11 @@
-import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/text_form_widget.dart';
 import 'package:flutter/material.dart';
 
 class UpdateYearSimpanan extends StatefulWidget {
-  const UpdateYearSimpanan({super.key});
+  const UpdateYearSimpanan({super.key, required this.tahun});
+
+  final String tahun;
 
   @override
   State<UpdateYearSimpanan> createState() => _UpdateYearSimpananState();
@@ -15,15 +16,12 @@ class _UpdateYearSimpananState extends State<UpdateYearSimpanan> {
       TextEditingController();
   @override
   Widget build(BuildContext context) {
+    tahunControllerController.text = widget.tahun;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
           "Update Tahun Simpanan",
-          style: TextStyle(
-            color: GlobalColors.onBackground,
-            fontWeight: FontWeight.bold,
-          ),
         ),
         const SizedBox(height: 8),
         Row(

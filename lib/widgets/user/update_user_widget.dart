@@ -84,10 +84,6 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                       children: [
                         const Text(
                           "Username",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
@@ -102,10 +98,6 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                       children: [
                         const Text(
                           "New Password",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
@@ -125,10 +117,6 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                       children: [
                         const Text(
                           "Nama Lengkap",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
@@ -144,10 +132,6 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                       children: [
                         const Text(
                           "NIK",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(controller: nikController, text: "NIK"),
@@ -165,10 +149,6 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                       children: [
                         const Text(
                           "Email",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
@@ -183,10 +163,6 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                       children: [
                         const Text(
                           "Nomor HP",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
@@ -205,10 +181,6 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                       children: [
                         const Text(
                           "Alamat",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
@@ -223,10 +195,6 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                       children: [
                         const Text(
                           "Tanggal Lahir",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
                         DatePickerWidget(date: tanggalLahirController),
@@ -244,10 +212,6 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                       children: [
                         const Text(
                           "Jenis Kelamin",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
@@ -263,10 +227,6 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                       children: [
                         const Text(
                           "Agama",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(

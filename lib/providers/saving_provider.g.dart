@@ -516,7 +516,7 @@ class _UpdateMemberSavingsProviderElement
       (origin as UpdateMemberSavingsProvider).updateSavingsObject;
 }
 
-String _$addMemberSavingsHash() => r'85a9731aefb98031aa16022133bc947dac42acb7';
+String _$addMemberSavingsHash() => r'bc9dbbd7eb6fd7d6238598c3de3b0c4e222284a2';
 
 /// See also [addMemberSavings].
 @ProviderFor(addMemberSavings)
@@ -662,7 +662,7 @@ class _AddMemberSavingsProviderElement
 }
 
 String _$deleteMemberSavingsHash() =>
-    r'2489da640070e07515f5d23596e2bf76ccc622a2';
+    r'dc31ba1a0a58df0851185659f3f604b167504b66';
 
 /// See also [deleteMemberSavings].
 @ProviderFor(deleteMemberSavings)
@@ -806,6 +806,169 @@ class _DeleteMemberSavingsProviderElement
   String get id => (origin as DeleteMemberSavingsProvider).id;
   @override
   String get tahun => (origin as DeleteMemberSavingsProvider).tahun;
+}
+
+String _$transferMemberSavingsHash() =>
+    r'90c521b1d97df48e4ff5bbc9188b6dc4c9ecb4ff';
+
+/// See also [transferMemberSavings].
+@ProviderFor(transferMemberSavings)
+const transferMemberSavingsProvider = TransferMemberSavingsFamily();
+
+/// See also [transferMemberSavings].
+class TransferMemberSavingsFamily extends Family<AsyncValue> {
+  /// See also [transferMemberSavings].
+  const TransferMemberSavingsFamily();
+
+  /// See also [transferMemberSavings].
+  TransferMemberSavingsProvider call(
+    String id,
+    String tahun,
+    String workUnitId,
+  ) {
+    return TransferMemberSavingsProvider(
+      id,
+      tahun,
+      workUnitId,
+    );
+  }
+
+  @override
+  TransferMemberSavingsProvider getProviderOverride(
+    covariant TransferMemberSavingsProvider provider,
+  ) {
+    return call(
+      provider.id,
+      provider.tahun,
+      provider.workUnitId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'transferMemberSavingsProvider';
+}
+
+/// See also [transferMemberSavings].
+class TransferMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
+  /// See also [transferMemberSavings].
+  TransferMemberSavingsProvider(
+    String id,
+    String tahun,
+    String workUnitId,
+  ) : this._internal(
+          (ref) => transferMemberSavings(
+            ref as TransferMemberSavingsRef,
+            id,
+            tahun,
+            workUnitId,
+          ),
+          from: transferMemberSavingsProvider,
+          name: r'transferMemberSavingsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$transferMemberSavingsHash,
+          dependencies: TransferMemberSavingsFamily._dependencies,
+          allTransitiveDependencies:
+              TransferMemberSavingsFamily._allTransitiveDependencies,
+          id: id,
+          tahun: tahun,
+          workUnitId: workUnitId,
+        );
+
+  TransferMemberSavingsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+    required this.tahun,
+    required this.workUnitId,
+  }) : super.internal();
+
+  final String id;
+  final String tahun;
+  final String workUnitId;
+
+  @override
+  Override overrideWith(
+    FutureOr<Object?> Function(TransferMemberSavingsRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: TransferMemberSavingsProvider._internal(
+        (ref) => create(ref as TransferMemberSavingsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+        tahun: tahun,
+        workUnitId: workUnitId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Object?> createElement() {
+    return _TransferMemberSavingsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is TransferMemberSavingsProvider &&
+        other.id == id &&
+        other.tahun == tahun &&
+        other.workUnitId == workUnitId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+    hash = _SystemHash.combine(hash, tahun.hashCode);
+    hash = _SystemHash.combine(hash, workUnitId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin TransferMemberSavingsRef on AutoDisposeFutureProviderRef<Object?> {
+  /// The parameter `id` of this provider.
+  String get id;
+
+  /// The parameter `tahun` of this provider.
+  String get tahun;
+
+  /// The parameter `workUnitId` of this provider.
+  String get workUnitId;
+}
+
+class _TransferMemberSavingsProviderElement
+    extends AutoDisposeFutureProviderElement<Object?>
+    with TransferMemberSavingsRef {
+  _TransferMemberSavingsProviderElement(super.provider);
+
+  @override
+  String get id => (origin as TransferMemberSavingsProvider).id;
+  @override
+  String get tahun => (origin as TransferMemberSavingsProvider).tahun;
+  @override
+  String get workUnitId => (origin as TransferMemberSavingsProvider).workUnitId;
 }
 
 String _$totalPageSavingsHash() => r'0d8e2405ad73c587febbba1d8a8c3b8a5bc64414';

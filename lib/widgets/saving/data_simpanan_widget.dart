@@ -209,14 +209,17 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    const Row(
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        DeleteSimpananWidget(),
-                        SizedBox(
+                        const DeleteSimpananWidget(),
+                        const SizedBox(
                           width: 8,
                         ),
-                        Expanded(child: UpdateYearSimpanan())
+                        Expanded(
+                            child: UpdateYearSimpanan(
+                          tahun: tahunController.text,
+                        ))
                       ],
                     )
                   ],

@@ -1,5 +1,6 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
+import 'package:aplikasi_kpri_desktop/providers/saving_route_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
@@ -468,7 +469,26 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                               Container(
                                 padding: const EdgeInsets.all(2),
                                 child: IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    ref
+                                        .watch(idMemberSavingsNotifierProvider
+                                            .notifier)
+                                        .setId(
+                                          savings[i]['member_profile_id'],
+                                        );
+                                    ref
+                                        .watch(
+                                            tahunMemberSavingsNotifierProvider
+                                                .notifier)
+                                        .setTahunSimpanan(
+                                          savings[i]['tahun'],
+                                        );
+                                    ref
+                                        .watch(
+                                          savingModeNotifierProvider.notifier,
+                                        )
+                                        .switchToTransferMember();
+                                  },
                                   icon: const Icon(
                                     Icons.edit,
                                     size: 18,

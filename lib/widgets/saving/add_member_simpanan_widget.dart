@@ -4,8 +4,8 @@ import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/text_form_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AddMemberSimpananWidget extends ConsumerStatefulWidget {
@@ -41,8 +41,33 @@ class _AddMemberSimpananWidgetState
           ),
           const SizedBox(width: 12),
           Expanded(
-              child: TextFormWidget(
-                  controller: idUserController, text: "Nomor Anggota")),
+            child: TextFormField(
+              controller: idUserController,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              decoration: InputDecoration(
+                filled: false,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                  vertical: 12,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.grey.shade300,
+                    width: 1.0,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(0)),
+                ),
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: GlobalColors.primary,
+                    width: 2.0,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(0)),
+                ),
+              ),
+            ),
+          ),
           const SizedBox(width: 12),
           IconButton(
             onPressed: () {
@@ -90,6 +115,20 @@ class _AddMemberSimpananWidgetState
           builder: (BuildContext context) {
             return CustomAlertDialog(
               alertDesc: addMemberSavings.errors,
+              alertTitle: "Gagal",
+            );
+          },
+        );
+      } else {
+        final errorMessage = addMemberSavings is Map<String, dynamic> &&
+                addMemberSavings.containsKey('message')
+            ? addMemberSavings['message']
+            : "Terjadi kesalahan, coba lagi nanti.";
+        await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomAlertDialog(
+              alertDesc: errorMessage,
               alertTitle: "Gagal",
             );
           },

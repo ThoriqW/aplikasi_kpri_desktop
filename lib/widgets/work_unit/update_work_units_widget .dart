@@ -64,10 +64,6 @@ class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
                       children: [
                         const Text(
                           "Nama Work Unit",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
@@ -83,10 +79,6 @@ class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
                       children: [
                         const Text(
                           "Kode Work Unit",
-                          style: TextStyle(
-                            color: GlobalColors.onBackground,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
@@ -102,7 +94,7 @@ class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ButtonWidget(
-                    text: "Simpan",
+                    text: "Ganti",
                     onTap: () async {
                       await _updateWorkUnit(workUnitData['id'].toString());
                     },

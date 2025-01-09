@@ -135,12 +135,14 @@ Future addMemberSavings(
         'Authorization': 'Bearer $token',
       },
       body: jsonEncode({
-        'member_profile_id': int.parse(memberId),
+        'member_profile_id': memberId == '' ? 0 : int.parse(memberId),
       }),
     );
-
     if (response.statusCode == 201) {
       return SuccessResponse.fromJson(jsonDecode(response.body));
+    } else if (response.statusCode == 404) {
+      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      return jsonResponse;
     } else {
       return ErrorResponse.fromJson(jsonDecode(response.body));
     }
@@ -169,9 +171,49 @@ Future deleteMemberSavings(
         'Authorization': 'Bearer $token',
       },
     );
-    print(response);
     if (response.statusCode == 200) {
       return SuccessResponse.fromJson(jsonDecode(response.body));
+    } else {
+      return ErrorResponse.fromJson(jsonDecode(response.body));
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
+}
+
+@riverpod
+Future transferMemberSavings(
+  ref,
+  String id,
+  String tahun,
+  String workUnitId,
+) async {
+  final String? token = await storage.read(key: 'authToken');
+
+  if (token == null) {
+    throw Exception('No authentication token found');
+  }
+
+  print(id);
+  print(tahun);
+  print(workUnitId);
+
+  try {
+    final response = await http.patch(
+      Uri.parse('$baseUrl/api/v1/savings/$tahun/transfer-work-unit/$id'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({
+        'work_unit_id': workUnitId == '' ? 0 : int.parse(workUnitId),
+      }),
+    );
+    if (response.statusCode == 200) {
+      return SuccessResponse.fromJson(jsonDecode(response.body));
+    } else if (response.statusCode == 404) {
+      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      return jsonResponse;
     } else {
       return ErrorResponse.fromJson(jsonDecode(response.body));
     }
