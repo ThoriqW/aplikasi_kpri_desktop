@@ -58,9 +58,9 @@ class _UpdateCurrentUserWidgetState
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Profil",
-                style: TextStyle(
+              Text(
+                "User ${profileData['nama_lengkap']}",
+                style: const TextStyle(
                   color: GlobalColors.primary,
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -180,10 +180,10 @@ class _UpdateCurrentUserWidgetState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          "Tanggal Lahir",
+                          "Agama",
                         ),
                         const SizedBox(height: 8),
-                        DatePickerWidget(date: tanggalLahirController),
+                        TextFormWidget(controller: agamaController, text: ""),
                       ],
                     ),
                   ),
@@ -211,10 +211,10 @@ class _UpdateCurrentUserWidgetState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          "Agama",
+                          "Tanggal Lahir",
                         ),
                         const SizedBox(height: 8),
-                        TextFormWidget(controller: agamaController, text: ""),
+                        DatePickerWidget(date: tanggalLahirController),
                       ],
                     ),
                   ),
@@ -225,7 +225,7 @@ class _UpdateCurrentUserWidgetState
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ButtonWidget(
-                    text: "Simpan",
+                    text: "Ganti",
                     onTap: () async {
                       await _updateCurrentUser();
                     },

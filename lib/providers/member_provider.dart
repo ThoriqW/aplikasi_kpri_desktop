@@ -246,9 +246,6 @@ Future resetPasswordMember(ref, String id) async {
   if (token == null) {
     throw Exception('No authentication token found');
   }
-
-  print(id);
-
   try {
     final response = await http.put(
       Uri.parse('$baseUrl/api/v1/members/$id/reset-password'),

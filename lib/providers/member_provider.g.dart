@@ -1213,7 +1213,7 @@ class _DeleteMemberProviderElement
 }
 
 String _$resetPasswordMemberHash() =>
-    r'816831943f84d0480e34985012795c7b0fe92e28';
+    r'0b5976bbe9fb64368b2912f35989343b559fdd70';
 
 /// See also [resetPasswordMember].
 @ProviderFor(resetPasswordMember)

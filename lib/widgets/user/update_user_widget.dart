@@ -241,7 +241,7 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ButtonWidget(
-                    text: "Simpan",
+                    text: "Ganti",
                     onTap: () async {
                       await _updateUser(profileData['id'].toString());
                     },

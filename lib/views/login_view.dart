@@ -69,7 +69,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                   padding: const EdgeInsets.all(50),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: GlobalColors.header,
+                      color: Colors.grey.shade300,
                     ),
                   ),
                   child: Column(

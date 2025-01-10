@@ -86,35 +86,51 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
-                        "No",
+                        "NO",
+                        style: TextStyle(
+                          color: GlobalColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
                         "ID",
+                        style: TextStyle(
+                          color: GlobalColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
-                        "Nama Unit Kerja",
+                        "NAMA UNIT KERJA",
+                        style: TextStyle(
+                          color: GlobalColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
-                        "Kode",
+                        "KODE",
+                        style: TextStyle(
+                          color: GlobalColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Center(
                       child: Container(
                         padding: const EdgeInsets.all(9),
                         child: const Text(
-                          "Aksi",
+                          "AKSI",
                           style: TextStyle(
-                            color: Colors.black87,
-                            fontWeight: FontWeight.w500,
+                            color: GlobalColors.primary,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),

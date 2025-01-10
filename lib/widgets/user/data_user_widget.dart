@@ -65,7 +65,7 @@ class _DataUserWidgetState extends ConsumerState<DataUserWidget> {
             ),
             const SizedBox(height: 10),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
                   icon: const Icon(Icons.arrow_back),

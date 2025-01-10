@@ -101,8 +101,8 @@ class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return CustomAlertDialog(
-            alertDesc: e.toString(),
+          return const CustomAlertDialog(
+            alertDesc: "Gagal terhubung ke server",
             alertTitle: "Error",
           );
         },

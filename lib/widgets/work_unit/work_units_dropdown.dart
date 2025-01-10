@@ -76,6 +76,7 @@ class _WorkUnitsDropdownState extends ConsumerState<WorkUnitsDropdown> {
               ),
             );
           }).toList(),
+          menuMaxHeight: 200.0,
         );
       },
       loading: () => const CircularProgressIndicator(),

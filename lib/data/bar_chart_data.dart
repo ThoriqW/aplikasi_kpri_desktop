@@ -9,7 +9,7 @@ class BarData {
       barRods: [
         BarChartRodData(
           toY: 13.00,
-          color: GlobalColors.primary,
+          color: const Color.fromARGB(255, 22, 66, 60),
           width: 50,
           borderRadius: BorderRadius.zero,
         )
@@ -31,7 +31,7 @@ class BarData {
       barRods: [
         BarChartRodData(
           toY: 33.00,
-          color: GlobalColors.primary,
+          color: const Color.fromARGB(255, 22, 66, 60),
           width: 50,
           borderRadius: BorderRadius.zero,
         )
@@ -53,7 +53,7 @@ class BarData {
       barRods: [
         BarChartRodData(
           toY: 63.00,
-          color: GlobalColors.primary,
+          color: const Color.fromARGB(255, 22, 66, 60),
           width: 50,
           borderRadius: BorderRadius.zero,
         )
@@ -75,7 +75,7 @@ class BarData {
       barRods: [
         BarChartRodData(
           toY: 73.00,
-          color: GlobalColors.primary,
+          color: const Color.fromARGB(255, 22, 66, 60),
           width: 50,
           borderRadius: BorderRadius.zero,
         )
@@ -97,7 +97,7 @@ class BarData {
       barRods: [
         BarChartRodData(
           toY: 93.00,
-          color: GlobalColors.primary,
+          color: const Color.fromARGB(255, 22, 66, 60),
           width: 50,
           borderRadius: BorderRadius.zero,
         )
@@ -119,7 +119,7 @@ class BarData {
       barRods: [
         BarChartRodData(
           toY: 83.00,
-          color: GlobalColors.primary,
+          color: const Color.fromARGB(255, 22, 66, 60),
           width: 50,
           borderRadius: BorderRadius.zero,
         )

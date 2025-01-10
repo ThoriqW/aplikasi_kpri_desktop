@@ -31,30 +31,28 @@ class _SideMenuWidgetState extends ConsumerState<SideMenuWidget> {
           decoration: const BoxDecoration(
             color: GlobalColors.white,
             border: Border(
-              right: BorderSide(color: GlobalColors.secondary, width: 3),
+              right: BorderSide(color: GlobalColors.secondary, width: 4),
             ),
           ),
           child: Column(
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 13,
                   vertical: 30,
                 ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
                       "assets/images/koperasi_indonesia.png",
                       width: 50,
                     ),
-                    Expanded(
-                      child: Text(
-                        "APLIKASI KOPERASI",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
+                    Text(
+                      "APLIKASI KOPERASI",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
                     ),
                   ],
@@ -114,7 +112,7 @@ class _SideMenuWidgetState extends ConsumerState<SideMenuWidget> {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
-        color: isSelected ? GlobalColors.secondary : Colors.transparent,
+        color: isSelected ? GlobalColors.primary : Colors.transparent,
       ),
       child: InkWell(
         onTap: () {
@@ -132,14 +130,14 @@ class _SideMenuWidgetState extends ConsumerState<SideMenuWidget> {
               ),
               child: Icon(
                 data.menu[index].icon,
-                color: isSelected ? GlobalColors.primary : Colors.black38,
+                color: isSelected ? GlobalColors.white : Colors.black38,
               ),
             ),
             Expanded(
               child: Text(
                 data.menu[index].title,
                 style: TextStyle(
-                  color: isSelected ? GlobalColors.primary : Colors.black,
+                  color: isSelected ? GlobalColors.white : Colors.black,
                   fontSize: 16,
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 ),

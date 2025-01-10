@@ -971,6 +971,283 @@ class _TransferMemberSavingsProviderElement
   String get workUnitId => (origin as TransferMemberSavingsProvider).workUnitId;
 }
 
+String _$deleteTahunSavingsHash() =>
+    r'5d0637d6ce9aa8f022fa058bc06091889e806c97';
+
+/// See also [deleteTahunSavings].
+@ProviderFor(deleteTahunSavings)
+const deleteTahunSavingsProvider = DeleteTahunSavingsFamily();
+
+/// See also [deleteTahunSavings].
+class DeleteTahunSavingsFamily extends Family<AsyncValue> {
+  /// See also [deleteTahunSavings].
+  const DeleteTahunSavingsFamily();
+
+  /// See also [deleteTahunSavings].
+  DeleteTahunSavingsProvider call(
+    String tahun,
+  ) {
+    return DeleteTahunSavingsProvider(
+      tahun,
+    );
+  }
+
+  @override
+  DeleteTahunSavingsProvider getProviderOverride(
+    covariant DeleteTahunSavingsProvider provider,
+  ) {
+    return call(
+      provider.tahun,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'deleteTahunSavingsProvider';
+}
+
+/// See also [deleteTahunSavings].
+class DeleteTahunSavingsProvider extends AutoDisposeFutureProvider<Object?> {
+  /// See also [deleteTahunSavings].
+  DeleteTahunSavingsProvider(
+    String tahun,
+  ) : this._internal(
+          (ref) => deleteTahunSavings(
+            ref as DeleteTahunSavingsRef,
+            tahun,
+          ),
+          from: deleteTahunSavingsProvider,
+          name: r'deleteTahunSavingsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$deleteTahunSavingsHash,
+          dependencies: DeleteTahunSavingsFamily._dependencies,
+          allTransitiveDependencies:
+              DeleteTahunSavingsFamily._allTransitiveDependencies,
+          tahun: tahun,
+        );
+
+  DeleteTahunSavingsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.tahun,
+  }) : super.internal();
+
+  final String tahun;
+
+  @override
+  Override overrideWith(
+    FutureOr<Object?> Function(DeleteTahunSavingsRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: DeleteTahunSavingsProvider._internal(
+        (ref) => create(ref as DeleteTahunSavingsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        tahun: tahun,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Object?> createElement() {
+    return _DeleteTahunSavingsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is DeleteTahunSavingsProvider && other.tahun == tahun;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, tahun.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin DeleteTahunSavingsRef on AutoDisposeFutureProviderRef<Object?> {
+  /// The parameter `tahun` of this provider.
+  String get tahun;
+}
+
+class _DeleteTahunSavingsProviderElement
+    extends AutoDisposeFutureProviderElement<Object?>
+    with DeleteTahunSavingsRef {
+  _DeleteTahunSavingsProviderElement(super.provider);
+
+  @override
+  String get tahun => (origin as DeleteTahunSavingsProvider).tahun;
+}
+
+String _$updateTahunSavingsHash() =>
+    r'b1b4273ec67d8c2b2ddee801f91e1e38a92c742c';
+
+/// See also [updateTahunSavings].
+@ProviderFor(updateTahunSavings)
+const updateTahunSavingsProvider = UpdateTahunSavingsFamily();
+
+/// See also [updateTahunSavings].
+class UpdateTahunSavingsFamily extends Family<AsyncValue> {
+  /// See also [updateTahunSavings].
+  const UpdateTahunSavingsFamily();
+
+  /// See also [updateTahunSavings].
+  UpdateTahunSavingsProvider call(
+    String tahun,
+    String newTahun,
+  ) {
+    return UpdateTahunSavingsProvider(
+      tahun,
+      newTahun,
+    );
+  }
+
+  @override
+  UpdateTahunSavingsProvider getProviderOverride(
+    covariant UpdateTahunSavingsProvider provider,
+  ) {
+    return call(
+      provider.tahun,
+      provider.newTahun,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'updateTahunSavingsProvider';
+}
+
+/// See also [updateTahunSavings].
+class UpdateTahunSavingsProvider extends AutoDisposeFutureProvider<Object?> {
+  /// See also [updateTahunSavings].
+  UpdateTahunSavingsProvider(
+    String tahun,
+    String newTahun,
+  ) : this._internal(
+          (ref) => updateTahunSavings(
+            ref as UpdateTahunSavingsRef,
+            tahun,
+            newTahun,
+          ),
+          from: updateTahunSavingsProvider,
+          name: r'updateTahunSavingsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$updateTahunSavingsHash,
+          dependencies: UpdateTahunSavingsFamily._dependencies,
+          allTransitiveDependencies:
+              UpdateTahunSavingsFamily._allTransitiveDependencies,
+          tahun: tahun,
+          newTahun: newTahun,
+        );
+
+  UpdateTahunSavingsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.tahun,
+    required this.newTahun,
+  }) : super.internal();
+
+  final String tahun;
+  final String newTahun;
+
+  @override
+  Override overrideWith(
+    FutureOr<Object?> Function(UpdateTahunSavingsRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: UpdateTahunSavingsProvider._internal(
+        (ref) => create(ref as UpdateTahunSavingsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        tahun: tahun,
+        newTahun: newTahun,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Object?> createElement() {
+    return _UpdateTahunSavingsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is UpdateTahunSavingsProvider &&
+        other.tahun == tahun &&
+        other.newTahun == newTahun;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, tahun.hashCode);
+    hash = _SystemHash.combine(hash, newTahun.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin UpdateTahunSavingsRef on AutoDisposeFutureProviderRef<Object?> {
+  /// The parameter `tahun` of this provider.
+  String get tahun;
+
+  /// The parameter `newTahun` of this provider.
+  String get newTahun;
+}
+
+class _UpdateTahunSavingsProviderElement
+    extends AutoDisposeFutureProviderElement<Object?>
+    with UpdateTahunSavingsRef {
+  _UpdateTahunSavingsProviderElement(super.provider);
+
+  @override
+  String get tahun => (origin as UpdateTahunSavingsProvider).tahun;
+  @override
+  String get newTahun => (origin as UpdateTahunSavingsProvider).newTahun;
+}
+
 String _$totalPageSavingsHash() => r'0d8e2405ad73c587febbba1d8a8c3b8a5bc64414';
 
 /// See also [TotalPageSavings].

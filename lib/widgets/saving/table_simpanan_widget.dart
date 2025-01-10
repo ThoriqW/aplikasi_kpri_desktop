@@ -148,6 +148,24 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.edit_document,
+                    color: GlobalColors.primary,
+                  ),
+                  onPressed: () {
+                    ref
+                        .watch(
+                          savingModeNotifierProvider.notifier,
+                        )
+                        .switchToEditSimpanan();
+                    ref
+                        .watch(tahunMemberSavingsNotifierProvider.notifier)
+                        .setTahunSimpanan(
+                          int.parse(widget.tahun),
+                        );
+                  },
+                ),
                 Text(
                   'Halaman $currentPage dari $totalPage',
                 ),
@@ -182,6 +200,7 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                   16: IntrinsicColumnWidth(),
                   17: IntrinsicColumnWidth(),
                   18: IntrinsicColumnWidth(),
+                  19: IntrinsicColumnWidth(),
                 },
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 children: [
@@ -244,12 +263,16 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                         Column(
                           children: [
                             Container(
+                              color: const Color.fromARGB(255, 88, 163, 153),
+                              width: double.infinity,
                               padding: const EdgeInsets.all(9),
-                              child: Text(
-                                bulan[b].toUpperCase(),
-                                style: const TextStyle(
-                                  color: GlobalColors.primary,
-                                  fontWeight: FontWeight.bold,
+                              child: Center(
+                                child: Text(
+                                  bulan[b].toUpperCase(),
+                                  style: const TextStyle(
+                                    color: GlobalColors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
@@ -257,36 +280,48 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                               children: [
                                 Expanded(
                                   child: Container(
+                                    color:
+                                        const Color.fromARGB(255, 22, 66, 60),
                                     padding: const EdgeInsets.all(5),
-                                    child: const Text(
-                                      "POKOK",
-                                      style: TextStyle(
-                                        color: GlobalColors.primary,
-                                        fontWeight: FontWeight.bold,
+                                    child: const Center(
+                                      child: Text(
+                                        "POKOK",
+                                        style: TextStyle(
+                                          color: GlobalColors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                                 Expanded(
                                   child: Container(
+                                    color:
+                                        const Color.fromARGB(255, 13, 124, 102),
                                     padding: const EdgeInsets.all(5),
-                                    child: const Text(
-                                      "WAJIB",
-                                      style: TextStyle(
-                                        color: GlobalColors.primary,
-                                        fontWeight: FontWeight.bold,
+                                    child: const Center(
+                                      child: Text(
+                                        "WAJIB",
+                                        style: TextStyle(
+                                          color: GlobalColors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                                 Expanded(
                                   child: Container(
+                                    color:
+                                        const Color.fromARGB(255, 0, 113, 45),
                                     padding: const EdgeInsets.all(5),
-                                    child: const Text(
-                                      "SUKA RELA",
-                                      style: TextStyle(
-                                        color: GlobalColors.primary,
-                                        fontWeight: FontWeight.bold,
+                                    child: const Center(
+                                      child: Text(
+                                        "SUKA RELA",
+                                        style: TextStyle(
+                                          color: GlobalColors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -295,6 +330,16 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                             )
                           ],
                         ),
+                      Container(
+                        padding: const EdgeInsets.all(9),
+                        child: const Text(
+                          "TOTAL SIMPANAN",
+                          style: TextStyle(
+                            color: GlobalColors.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                       Center(
                         child: Container(
                           padding: const EdgeInsets.all(9),
@@ -463,6 +508,20 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                               ),
                             ],
                           ),
+                        Container(
+                          padding: const EdgeInsets.all(9),
+                          child: Text(
+                            NumberFormat.currency(
+                              locale: 'id',
+                              symbol: 'Rp',
+                              decimalDigits: 0,
+                            ).format(
+                              double.parse(
+                                savings[i]['total_savings'].toString(),
+                              ),
+                            ),
+                          ),
+                        ),
                         Center(
                           child: Row(
                             children: [

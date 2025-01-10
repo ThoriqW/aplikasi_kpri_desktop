@@ -88,38 +88,62 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
-                        "No",
+                        "NO",
+                        style: TextStyle(
+                          color: GlobalColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
                         "ID",
+                        style: TextStyle(
+                          color: GlobalColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
-                        "Username",
+                        "USERNAME",
+                        style: TextStyle(
+                          color: GlobalColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
-                        "Nama Lengkap",
+                        "NAMA LENGKAP",
+                        style: TextStyle(
+                          color: GlobalColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
-                        "Role",
+                        "ROLE",
+                        style: TextStyle(
+                          color: GlobalColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Center(
                       child: Container(
                         padding: const EdgeInsets.all(9),
                         child: const Text(
-                          "Aksi",
+                          "AKSI",
+                          style: TextStyle(
+                            color: GlobalColors.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),

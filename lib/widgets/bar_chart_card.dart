@@ -19,7 +19,7 @@ class BarChartCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "PENDAPATAN KOPERASI",
+              "SIMPANAN KOPERASI",
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
@@ -85,7 +85,7 @@ class BarChartCard extends StatelessWidget {
                     ),
                   ),
                   borderData: FlBorderData(show: false),
-                  barGroups: data.barGroups, // Prepared barGroups
+                  barGroups: data.barGroups,
                   maxY: 105,
                   minY: 0,
                 ),

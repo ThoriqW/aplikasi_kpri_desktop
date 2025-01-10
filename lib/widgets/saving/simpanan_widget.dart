@@ -3,6 +3,7 @@ import 'package:aplikasi_kpri_desktop/providers/saving_route_provider.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/saving/data_simpanan_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/header_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/saving/edit_data_simpanan_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/saving/transfer_member_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,6 +22,9 @@ class SimpananWidget extends ConsumerWidget {
         break;
       case SavingMode.transferMember:
         savingsContent = const TransferMemberWidget();
+        break;
+      case SavingMode.editSimpanan:
+        savingsContent = const EditDataSimpanan();
         break;
     }
     return Stack(

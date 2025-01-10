@@ -67,7 +67,7 @@ class _DataWorkUnitsWidgetState extends ConsumerState<DataWorkUnitsWidget> {
           ),
           const SizedBox(height: 10),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
                 icon: const Icon(Icons.arrow_back),

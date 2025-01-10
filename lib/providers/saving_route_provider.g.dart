@@ -7,7 +7,7 @@ part of 'saving_route_provider.dart';
 // **************************************************************************
 
 String _$savingModeNotifierHash() =>
-    r'288ffe40781d9d5f94ce1cf210ca89694a4efc26';
+    r'8413798cb4a00172babd03111bc61692e3d98aac';
 
 /// See also [SavingModeNotifier].
 @ProviderFor(SavingModeNotifier)

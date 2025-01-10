@@ -4,9 +4,7 @@ import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/saving/delete_simpanan_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/saving/table_simpanan_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/saving/update_year_simpanan_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/text_form_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/work_unit/work_units_dropdown.dart';
 import 'package:flutter/material.dart';
@@ -181,7 +179,7 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                     ),
                     const SizedBox(height: 10),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         IconButton(
                           icon: const Icon(Icons.arrow_back),
@@ -209,20 +207,6 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        const DeleteSimpananWidget(),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Expanded(
-                            child: UpdateYearSimpanan(
-                          tahun: tahunController.text,
-                        ))
-                      ],
-                    )
                   ],
                 )
               : pilihWorkUnit,

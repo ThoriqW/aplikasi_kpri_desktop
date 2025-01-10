@@ -2,7 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'saving_route_provider.g.dart';
 
-enum SavingMode { view, transferMember }
+enum SavingMode { view, transferMember, editSimpanan }
 
 @riverpod
 class SavingModeNotifier extends _$SavingModeNotifier {
@@ -11,6 +11,7 @@ class SavingModeNotifier extends _$SavingModeNotifier {
 
   void switchToView() => state = SavingMode.view;
   void switchToTransferMember() => state = SavingMode.transferMember;
+  void switchToEditSimpanan() => state = SavingMode.editSimpanan;
 }
 
 @riverpod

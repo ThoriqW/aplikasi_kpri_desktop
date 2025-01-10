@@ -1,9 +1,7 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
-import 'package:aplikasi_kpri_desktop/providers/admin_route_provider.dart';
 import 'package:aplikasi_kpri_desktop/providers/member_provider.dart';
 import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
 import 'package:aplikasi_kpri_desktop/providers/saving_route_provider.dart';
-import 'package:aplikasi_kpri_desktop/providers/work_units_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
@@ -27,6 +25,7 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
   final TextEditingController namaWorkUnitController = TextEditingController();
   String selectedUnit = '';
   String tahun = '';
+  bool isInitialized = false;
   @override
   Widget build(BuildContext context) {
     final getMemberSaving = ref.watch(
@@ -43,9 +42,13 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
       child: getMemberSaving.when(
         data: (memberSavings) {
           final memberSavingsData = memberSavings as Map<String, dynamic>;
-          namaMemberController.text = memberSavingsData['nama_lengkap'];
-          namaWorkUnitController.text = memberSavingsData['work_unit'];
-          selectedUnit = memberSavingsData['work_unit_id'].toString();
+          if (!isInitialized) {
+            namaMemberController.text = memberSavingsData['nama_lengkap'];
+            namaWorkUnitController.text = memberSavingsData['work_unit'];
+            selectedUnit = memberSavingsData['work_unit_id'].toString();
+
+            isInitialized = true;
+          }
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -123,7 +126,6 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
                   ButtonWidget(
                     text: "Ganti",
                     onTap: () async {
-                      print(selectedUnit);
                       _transferMemberSaving(
                         ref
                             .watch(idMemberSavingsNotifierProvider.notifier)
@@ -169,10 +171,11 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
               alertTitle: "Sukses",
             );
           },
-        ).then((_) => ref.invalidate(getWorkUnitProvider(ref
-            .watch(idWorkUnitNotifierProvider.notifier)
-            .getId()
-            .toString())));
+        ).then((_) => ref
+            .watch(
+              savingModeNotifierProvider.notifier,
+            )
+            .switchToView());
       } else if (transferMemberSaving is ErrorResponse) {
         await showDialog(
           context: context,

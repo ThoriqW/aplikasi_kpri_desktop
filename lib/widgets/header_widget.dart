@@ -12,7 +12,7 @@ class HeaderWidget extends ConsumerWidget {
     final getCurrentUser = ref.watch(getCurrentUserProvider);
     return CustomCardWidget(
         border: 7,
-        color: GlobalColors.white,
+        color: const Color.fromARGB(255, 88, 163, 153),
         child: getCurrentUser.when(
           data: (user) {
             final Map<String, dynamic> currentUser =
@@ -26,7 +26,7 @@ class HeaderWidget extends ConsumerWidget {
                       radius: 20,
                       backgroundColor: GlobalColors.secondary,
                       child: CircleAvatar(
-                        backgroundColor: GlobalColors.white,
+                        backgroundColor: Color.fromARGB(255, 88, 163, 153),
                         radius: 18,
                         child: Icon(
                           Icons.person,
@@ -39,6 +39,7 @@ class HeaderWidget extends ConsumerWidget {
                     Text(
                       'Hello, ${currentUser['nama_lengkap']}',
                       style: const TextStyle(
+                        color: GlobalColors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

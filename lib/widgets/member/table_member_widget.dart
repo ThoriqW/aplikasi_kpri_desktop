@@ -94,6 +94,7 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                   10: IntrinsicColumnWidth(),
                   11: IntrinsicColumnWidth(),
                   12: IntrinsicColumnWidth(),
+                  13: IntrinsicColumnWidth(),
                 },
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 children: <TableRow>[
@@ -135,6 +136,16 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                         padding: const EdgeInsets.all(9),
                         child: const Text(
                           "JENIS KELAMIN",
+                          style: TextStyle(
+                            color: GlobalColors.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(9),
+                        child: const Text(
+                          "USERNAME",
                           style: TextStyle(
                             color: GlobalColors.primary,
                             fontWeight: FontWeight.bold,
@@ -267,6 +278,12 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                           padding: const EdgeInsets.all(9),
                           child: Text(
                             members[i]['jenis_kelamin'].toString(),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(9),
+                          child: Text(
+                            members[i]['username'].toString(),
                           ),
                         ),
                         Container(
@@ -441,8 +458,8 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
       await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return CustomAlertDialog(
-            alertDesc: e.toString().substring(11),
+          return const CustomAlertDialog(
+            alertDesc: "Gagal terhubung ke server",
             alertTitle: "Gagal",
           );
         },

@@ -317,7 +317,7 @@ class _UpdateCurrentUserProviderElement
   String get agama => (origin as UpdateCurrentUserProvider).agama;
 }
 
-String _$getAllUserHash() => r'a39d7dd46cd6e04e133638c4927804fe49b36577';
+String _$getAllUserHash() => r'99d97703f322506b5c67b4c4a5ddd6c82c5cc371';
 
 /// See also [getAllUser].
 @ProviderFor(getAllUser)

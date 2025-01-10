@@ -115,9 +115,6 @@ Future getAllUser(
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
       return jsonResponse;
-    } else if (response.statusCode == 404) {
-      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      return jsonResponse;
     } else {
       return ErrorResponse.fromJson(jsonDecode(response.body)).errors;
     }

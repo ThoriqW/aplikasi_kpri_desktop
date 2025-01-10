@@ -217,6 +217,68 @@ Future transferMemberSavings(
   }
 }
 
+@riverpod
+Future deleteTahunSavings(
+  ref,
+  String tahun,
+) async {
+  final String? token = await storage.read(key: 'authToken');
+
+  if (token == null) {
+    throw Exception('No authentication token found');
+  }
+
+  try {
+    final response = await http.delete(
+      Uri.parse('$baseUrl/api/v1/savings/$tahun'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
+      return SuccessResponse.fromJson(jsonDecode(response.body));
+    } else {
+      return ErrorResponse.fromJson(jsonDecode(response.body));
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
+}
+
+@riverpod
+Future updateTahunSavings(
+  ref,
+  String tahun,
+  String newTahun,
+) async {
+  final String? token = await storage.read(key: 'authToken');
+
+  if (token == null) {
+    throw Exception('No authentication token found');
+  }
+
+  try {
+    final response = await http.put(
+      Uri.parse('$baseUrl/api/v1/savings/$tahun'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({
+        'tahun': newTahun,
+      }),
+    );
+    if (response.statusCode == 200) {
+      return SuccessResponse.fromJson(jsonDecode(response.body));
+    } else {
+      return ErrorResponse.fromJson(jsonDecode(response.body));
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
+}
+
 List<Map<String, dynamic>> transformSavingsData(
   Map<String, Map<String, dynamic>> updateSavingsObject,
 ) {
