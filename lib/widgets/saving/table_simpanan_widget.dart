@@ -1,4 +1,5 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
+import 'package:aplikasi_kpri_desktop/excel/excel_savings.dart';
 import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
 import 'package:aplikasi_kpri_desktop/providers/saving_route_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
@@ -148,23 +149,32 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.edit_document,
-                    color: GlobalColors.primary,
-                  ),
-                  onPressed: () {
-                    ref
-                        .watch(
-                          savingModeNotifierProvider.notifier,
-                        )
-                        .switchToEditSimpanan();
-                    ref
-                        .watch(tahunMemberSavingsNotifierProvider.notifier)
-                        .setTahunSimpanan(
-                          int.parse(widget.tahun),
-                        );
-                  },
+                Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(
+                        Icons.edit_document,
+                        color: GlobalColors.primary,
+                      ),
+                      onPressed: () {
+                        ref
+                            .watch(
+                              savingModeNotifierProvider.notifier,
+                            )
+                            .switchToEditSimpanan();
+                        ref
+                            .watch(tahunMemberSavingsNotifierProvider.notifier)
+                            .setTahunSimpanan(
+                              int.parse(widget.tahun),
+                            );
+                      },
+                    ),
+                    ExcelSavings(
+                      bulan: bulan,
+                      tahun: widget.tahun,
+                      workUnitId: widget.workUnitId,
+                    )
+                  ],
                 ),
                 Text(
                   'Halaman $currentPage dari $totalPage',

@@ -207,6 +207,7 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 10),
                   ],
                 )
               : pilihWorkUnit,
