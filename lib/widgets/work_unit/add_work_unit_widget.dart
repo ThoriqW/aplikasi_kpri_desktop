@@ -19,6 +19,7 @@ class AddWorkUnitWidget extends ConsumerStatefulWidget {
 class _AddWorkUnitWidgetState extends ConsumerState<AddWorkUnitWidget> {
   final TextEditingController namaWorkUnitController = TextEditingController();
   final TextEditingController kodeWorkUnitController = TextEditingController();
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     return CustomCardWidget(
@@ -58,7 +59,7 @@ class _AddWorkUnitWidgetState extends ConsumerState<AddWorkUnitWidget> {
           ),
           const SizedBox(height: 15),
           ButtonWidget(
-            text: "Simpan",
+            text: _isLoading ? "Loading..." : "Simpan",
             onTap: () async {
               await _saveWorkUnit();
             },
@@ -69,6 +70,9 @@ class _AddWorkUnitWidgetState extends ConsumerState<AddWorkUnitWidget> {
   }
 
   Future<void> _saveWorkUnit() async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       final addWorkUnit = await ref.read(
         addWorkUnitProvider(
@@ -102,8 +106,8 @@ class _AddWorkUnitWidgetState extends ConsumerState<AddWorkUnitWidget> {
       await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return CustomAlertDialog(
-            alertDesc: e.toString(),
+          return const CustomAlertDialog(
+            alertDesc: "Gagal terhubung ke server!!",
             alertTitle: "Error",
           );
         },
@@ -113,6 +117,9 @@ class _AddWorkUnitWidgetState extends ConsumerState<AddWorkUnitWidget> {
         namaWorkUnitController.clear();
         kodeWorkUnitController.clear();
       }
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 }

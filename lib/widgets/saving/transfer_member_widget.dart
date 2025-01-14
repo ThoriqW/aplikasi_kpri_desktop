@@ -26,6 +26,7 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
   String selectedUnit = '';
   String tahun = '';
   bool isInitialized = false;
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     final getMemberSaving = ref.watch(
@@ -124,7 +125,7 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
                     width: 24,
                   ),
                   ButtonWidget(
-                    text: "Ganti",
+                    text: _isLoading ? "Loading..." : "Pindah",
                     onTap: () async {
                       _transferMemberSaving(
                         ref
@@ -141,8 +142,8 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
             ],
           );
         },
-        error: (error, stackTrace) => Text(
-          error.toString(),
+        error: (error, stackTrace) => const Text(
+          "Gagal terhubung ke server!!",
         ),
         loading: () => const LinearProgressIndicator(),
       ),
@@ -154,6 +155,9 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
     String tahun,
     String workUnitId,
   ) async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       final transferMemberSaving =
           await ref.watch(transferMemberSavingsProvider(
@@ -186,32 +190,22 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
             );
           },
         );
-      } else {
-        final errorMessage = transferMemberSaving is Map<String, dynamic> &&
-                transferMemberSaving.containsKey('message')
-            ? transferMemberSaving['message']
-            : "Terjadi kesalahan, coba lagi nanti.";
-        await showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return CustomAlertDialog(
-              alertDesc: errorMessage,
-              alertTitle: "Gagal",
-            );
-          },
-        );
       }
     } catch (e) {
       if (!mounted) return;
       await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return CustomAlertDialog(
-            alertDesc: e.toString(),
+          return const CustomAlertDialog(
+            alertDesc: "Gagal terhubung ke server!!",
             alertTitle: "Error",
           );
         },
       );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 }

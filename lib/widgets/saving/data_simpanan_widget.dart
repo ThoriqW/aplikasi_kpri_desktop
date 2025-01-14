@@ -137,6 +137,8 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                       if (selectedUnit != '') {
                         setState(
                           () {
+                            searchController.clear();
+                            searchQuery = '';
                             ref.invalidate(
                               getAllSavingMembersProvider(
                                 tahunController.text,
@@ -148,6 +150,7 @@ class _DataSimpananWidgetState extends ConsumerState<DataSimpananWidget> {
                             );
                           },
                         );
+                        searchController.clear();
                       } else {
                         await showDialog(
                           context: context,

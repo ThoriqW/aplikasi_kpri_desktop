@@ -1,3 +1,3 @@
 class API {
-  static const baseUrl = 'http://localhost:8000';
+  static const baseUrl = 'https://bekoperasi.talion.cloud';
 }

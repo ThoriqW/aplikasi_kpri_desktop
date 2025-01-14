@@ -38,7 +38,7 @@ class _UpdateYearSimpananState extends ConsumerState<UpdateYearSimpanan> {
             ),
             const SizedBox(width: 8),
             ButtonWidget(
-              text: "Ganti",
+              text: "Update",
               onTap: () async {
                 await showDialog(
                   context: context,
@@ -96,7 +96,6 @@ class _UpdateYearSimpananState extends ConsumerState<UpdateYearSimpanan> {
               savingModeNotifierProvider.notifier,
             )
             .switchToView());
-        ;
       } else if (updateTahunSavings is ErrorResponse) {
         await showDialog(
           context: context,
@@ -114,8 +113,8 @@ class _UpdateYearSimpananState extends ConsumerState<UpdateYearSimpanan> {
       await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return CustomAlertDialog(
-            alertDesc: e.toString().substring(11),
+          return const CustomAlertDialog(
+            alertDesc: "Gagal terhubung ke server!!",
             alertTitle: "Gagal",
           );
         },

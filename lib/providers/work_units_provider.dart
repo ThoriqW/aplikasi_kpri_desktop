@@ -38,11 +38,8 @@ Future getAllWorkUnits(
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
       return jsonResponse;
-    } else if (response.statusCode == 404) {
-      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      return jsonResponse;
     } else {
-      throw ErrorResponse.fromJson(jsonDecode(response.body)).errors;
+      return ErrorResponse.fromJson(jsonDecode(response.body)).errors;
     }
   } catch (e) {
     throw Exception(e);
@@ -69,7 +66,7 @@ Future getWorkUnit(ref, String id) async {
       final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
       return jsonResponse['data'];
     } else {
-      throw ErrorResponse.fromJson(jsonDecode(response.body)).errors;
+      return ErrorResponse.fromJson(jsonDecode(response.body)).errors;
     }
   } catch (e) {
     throw Exception(e);

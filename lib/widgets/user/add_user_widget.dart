@@ -19,6 +19,7 @@ class AddUserWidget extends ConsumerStatefulWidget {
 class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     return CustomCardWidget(
@@ -58,7 +59,7 @@ class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
           ),
           const SizedBox(height: 15),
           ButtonWidget(
-            text: "Simpan",
+            text: _isLoading ? "Loading..." : "Simpan",
             onTap: () async {
               await registerUser();
             },
@@ -69,6 +70,9 @@ class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
   }
 
   Future<void> registerUser() async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       final registerUser = await ref.watch(registerUserProvider(
         usernameController.text,
@@ -102,7 +106,7 @@ class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
         context: context,
         builder: (BuildContext context) {
           return const CustomAlertDialog(
-            alertDesc: "Gagal terhubung ke server",
+            alertDesc: "Gagal terhubung ke server!!",
             alertTitle: "Error",
           );
         },
@@ -110,6 +114,9 @@ class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
     } finally {
       usernameController.clear();
       passwordController.clear();
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 }

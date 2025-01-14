@@ -23,6 +23,7 @@ class UpdateWorkUnitWidget extends ConsumerStatefulWidget {
 class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
   final TextEditingController namaWorkUnitController = TextEditingController();
   final TextEditingController kodeWorkUnitController = TextEditingController();
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +33,13 @@ class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
       color: GlobalColors.white,
       child: getWorkUnit.when(
         data: (workUnit) {
+          if (workUnit == null) {
+            return const Text("Data tidak valid");
+          }
+          if (workUnit is ErrorResponse) {
+            return Text(workUnit.toString());
+          }
+
           final workUnitData = workUnit as Map<String, dynamic>;
 
           namaWorkUnitController.text = workUnitData['nama'];
@@ -67,8 +75,7 @@ class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
-                            controller: namaWorkUnitController,
-                            text: "Nama Work Unit"),
+                            controller: namaWorkUnitController, text: ""),
                       ],
                     ),
                   ),
@@ -82,8 +89,7 @@ class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
-                            controller: kodeWorkUnitController,
-                            text: "Kode Work Unit"),
+                            controller: kodeWorkUnitController, text: ""),
                       ],
                     ),
                   ),
@@ -94,7 +100,7 @@ class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ButtonWidget(
-                    text: "Ganti",
+                    text: _isLoading ? "Loading..." : "Update",
                     onTap: () async {
                       await _updateWorkUnit(workUnitData['id'].toString());
                     },
@@ -104,13 +110,16 @@ class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
             ],
           );
         },
-        error: (error, stackTrace) => Text(error.toString()),
+        error: (error, stackTrace) => const Text('Gagal terhubung ke server!!'),
         loading: () => const LinearProgressIndicator(),
       ),
     );
   }
 
   Future<void> _updateWorkUnit(String id) async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       final updateWorkUnit = await ref.watch(updateWorkUnitProvider(
         id,
@@ -127,10 +136,8 @@ class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
               alertTitle: "Sukses",
             );
           },
-        ).then((_) => ref.invalidate(getWorkUnitProvider(ref
-            .watch(idWorkUnitNotifierProvider.notifier)
-            .getId()
-            .toString())));
+        ).then(
+            (_) => ref.read(adminModeNotifierProvider.notifier).switchToView());
       } else if (updateWorkUnit is ErrorResponse) {
         await showDialog(
           context: context,
@@ -147,12 +154,16 @@ class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
       await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return CustomAlertDialog(
-            alertDesc: e.toString(),
+          return const CustomAlertDialog(
+            alertDesc: "Gagal terhubung ke server!!",
             alertTitle: "Error",
           );
         },
       );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 }

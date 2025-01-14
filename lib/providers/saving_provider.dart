@@ -40,9 +40,6 @@ Future getAllSavingMembers(
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
       return jsonResponse;
-    } else if (response.statusCode == 404) {
-      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      return jsonResponse;
     } else {
       return ErrorResponse.fromJson(jsonDecode(response.body)).errors;
     }
@@ -140,9 +137,6 @@ Future addMemberSavings(
     );
     if (response.statusCode == 201) {
       return SuccessResponse.fromJson(jsonDecode(response.body));
-    } else if (response.statusCode == 404) {
-      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      return jsonResponse;
     } else {
       return ErrorResponse.fromJson(jsonDecode(response.body));
     }
@@ -206,9 +200,6 @@ Future transferMemberSavings(
     );
     if (response.statusCode == 200) {
       return SuccessResponse.fromJson(jsonDecode(response.body));
-    } else if (response.statusCode == 404) {
-      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      return jsonResponse;
     } else {
       return ErrorResponse.fromJson(jsonDecode(response.body));
     }
@@ -303,6 +294,43 @@ class TotalPageSavings extends _$TotalPageSavings {
   }
 
   int getTotalMember() {
+    return state;
+  }
+}
+
+@riverpod
+class UpdateSavingObject extends _$UpdateSavingObject {
+  @override
+  Map<String, Map<String, dynamic>> build() => {};
+
+  void updateValueSaving(
+    String nomorAnggota,
+    String bulan,
+    String jenis,
+    String newValue,
+  ) {
+    String key = nomorAnggota;
+
+    if (!state.containsKey(key)) {
+      state[key] = {};
+    }
+
+    if (!state[key]!.containsKey(bulan)) {
+      state[key]![bulan] = {};
+    }
+
+    state[key]![bulan]![jenis] = int.tryParse(
+            newValue.replaceAll("Rp", "").replaceAll(".", "").trim()) ??
+        0;
+
+    state = {...state};
+  }
+
+  void clearUpdateValueSaving() {
+    state = {};
+  }
+
+  Map<String, Map<String, dynamic>> getUpdateValueSaving() {
     return state;
   }
 }

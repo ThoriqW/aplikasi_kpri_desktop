@@ -21,19 +21,15 @@ class _CreateSimpananWidgetState extends ConsumerState<CreateSimpananWidget> {
   bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
-    return _isLoading
-        ? const Center(
-            child: CircularProgressIndicator(),
-          )
-        : TextButton.icon(
-            icon: const Icon(Icons.add),
-            label: const Text(
-              'Tambah',
-            ),
-            onPressed: () {
-              createSimpanan(widget.tahun);
-            },
-          );
+    return TextButton.icon(
+      icon: _isLoading ? const Icon(Icons.autorenew) : const Icon(Icons.add),
+      label: Text(
+        _isLoading ? "Loading..." : 'Tambah',
+      ),
+      onPressed: () {
+        createSimpanan(widget.tahun);
+      },
+    );
   }
 
   Future<void> createSimpanan(String tahun) async {
@@ -78,8 +74,8 @@ class _CreateSimpananWidgetState extends ConsumerState<CreateSimpananWidget> {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return CustomAlertDialog(
-            alertDesc: e.toString().substring(11),
+          return const CustomAlertDialog(
+            alertDesc: "Gagal terhubung ke server!!",
             alertTitle: "Gagal",
           );
         },

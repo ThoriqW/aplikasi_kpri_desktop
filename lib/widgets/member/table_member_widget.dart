@@ -2,12 +2,11 @@ import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/member_provider.dart';
 import 'package:aplikasi_kpri_desktop/providers/member_route_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
-import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
-import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
+import 'package:aplikasi_kpri_desktop/widgets/member/delete_member_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TableMemberWidget extends ConsumerStatefulWidget {
+class TableMemberWidget extends ConsumerWidget {
   const TableMemberWidget({
     super.key,
     required this.selectedUnit,
@@ -24,31 +23,23 @@ class TableMemberWidget extends ConsumerStatefulWidget {
   final int currentPage;
 
   @override
-  ConsumerState<TableMemberWidget> createState() => _TableMemberWidgetState();
-}
-
-class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final getAllMember = ref.watch(getAllMemberProvider(
-      widget.searchQuery,
-      widget.selectedUnit,
-      widget.status,
-      widget.perPage,
-      widget.currentPage,
+      searchQuery,
+      selectedUnit,
+      status,
+      perPage,
+      currentPage,
     ));
     return getAllMember.when(
       data: (member) {
-        if (member == null ||
-            member is! Map<String, dynamic> ||
-            !member.containsKey('data')) {
+        if (member == null) {
           return const Text("Data tidak valid");
         }
-
-        final List<dynamic> memberResponse = member['data'];
-        if (memberResponse.isEmpty) {
-          return Text(member['message']);
+        if (member is ErrorResponse || member is! Map<String, dynamic>) {
+          return Text(member.toString());
         }
+        final List<dynamic> memberResponse = member['data'];
 
         int totalPage = member['pagination']['last_page'];
         int currentPage = member['pagination']['current_page'];
@@ -367,45 +358,8 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
                                   ),
                                 ),
                               ),
-                              Container(
-                                padding: const EdgeInsets.all(2),
-                                child: IconButton(
-                                  onPressed: () async {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: const Text("Info"),
-                                          content: const Text(
-                                            "Yakin hapus member?",
-                                          ),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(
-                                                context,
-                                                'Cancel',
-                                              ),
-                                              child: const Text('Cancel'),
-                                            ),
-                                            TextButton(
-                                              onPressed: () async {
-                                                _deleteMember(members[i]['id']
-                                                    .toString());
-                                              },
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                  icon: const Icon(
-                                    Icons.delete,
-                                    size: 18,
-                                    color: Colors.redAccent,
-                                  ),
-                                ),
-                              ),
+                              DeleteMemberWidget(
+                                  id: members[i]['id'].toString())
                             ],
                           ),
                         ),
@@ -417,53 +371,8 @@ class _TableMemberWidgetState extends ConsumerState<TableMemberWidget> {
           ],
         );
       },
-      error: (error, stackTrace) =>
-          const Text('Oops, something unexpected happened'),
+      error: (error, stackTrace) => const Text('Gagal terhubung ke server!!'),
       loading: () => const LinearProgressIndicator(),
     );
-  }
-
-  Future<void> _deleteMember(String id) async {
-    try {
-      final deleteMember = await ref.watch(
-        deleteMemberProvider(id).future,
-      );
-      if (!mounted) return;
-      Navigator.pop(context, 'OK');
-      if (deleteMember is SuccessResponse) {
-        await showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return CustomAlertDialog(
-              alertDesc: deleteMember.message,
-              alertTitle: "Sukses",
-            );
-          },
-        );
-        ref.invalidate(getAllMemberProvider);
-      } else if (deleteMember is ErrorResponse) {
-        await showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return CustomAlertDialog(
-              alertDesc: deleteMember.errors,
-              alertTitle: "Gagal",
-            );
-          },
-        );
-      }
-    } catch (e) {
-      if (!mounted) return;
-      Navigator.pop(context, 'OK');
-      await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return const CustomAlertDialog(
-            alertDesc: "Gagal terhubung ke server",
-            alertTitle: "Gagal",
-          );
-        },
-      );
-    }
   }
 }

@@ -84,7 +84,6 @@ class _DeleteSimpananWidgetState extends ConsumerState<DeleteSimpananWidget> {
               savingModeNotifierProvider.notifier,
             )
             .switchToView());
-        ;
       } else if (deleteTahunSavings is ErrorResponse) {
         await showDialog(
           context: context,
@@ -102,8 +101,8 @@ class _DeleteSimpananWidgetState extends ConsumerState<DeleteSimpananWidget> {
       await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return CustomAlertDialog(
-            alertDesc: e.toString().substring(11),
+          return const CustomAlertDialog(
+            alertDesc: "Gagal terhubung ke server!!",
             alertTitle: "Gagal",
           );
         },

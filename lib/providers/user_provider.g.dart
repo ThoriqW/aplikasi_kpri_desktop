@@ -6,7 +6,7 @@ part of 'user_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getCurrentUserHash() => r'32ec4476f10b80df0cff4ccabf8581c56865545d';
+String _$getCurrentUserHash() => r'a4ab0748673ae012a1759958e83e2239956529c0';
 
 /// See also [getCurrentUser].
 @ProviderFor(getCurrentUser)
@@ -478,7 +478,7 @@ class _GetAllUserProviderElement
   int get page => (origin as GetAllUserProvider).page;
 }
 
-String _$getUserHash() => r'f9d9fef786dee951a16044a8866eeb4fa99e1847';
+String _$getUserHash() => r'671e0e20c2109c0adfaf8af2272f85e0698aa4a1';
 
 /// See also [getUser].
 @ProviderFor(getUser)

@@ -80,7 +80,7 @@ class _WorkUnitsDropdownState extends ConsumerState<WorkUnitsDropdown> {
         );
       },
       loading: () => const CircularProgressIndicator(),
-      error: (error, _) => Text('Error: $error'),
+      error: (error, _) => const Text('Gagal terhubung ke server!!'),
     );
   }
 }

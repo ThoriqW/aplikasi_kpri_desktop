@@ -40,6 +40,7 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
 
   String selectedUnit = '';
   int status = 1;
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -287,7 +288,7 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ButtonWidget(
-                text: "Simpan",
+                text: _isLoading ? "Loading..." : "Simpan",
                 onTap: () async {
                   await _saveMember();
                 },
@@ -300,6 +301,9 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
   }
 
   Future<void> _saveMember() async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       final addMember = await ref.watch(addMemberProvider(
         namaLengkapController.text,
@@ -351,12 +355,16 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
       await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return CustomAlertDialog(
-            alertDesc: e.toString().substring(11),
+          return const CustomAlertDialog(
+            alertDesc: "Gagal terhubung ke server!!",
             alertTitle: "Gagal",
           );
         },
       );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 }

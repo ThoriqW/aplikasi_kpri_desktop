@@ -6,7 +6,7 @@ part of 'work_units_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getAllWorkUnitsHash() => r'e89f3cafe4f508abae213643271958605a28d4b9';
+String _$getAllWorkUnitsHash() => r'e71c0c7d1c2c029f3cef8ea86694216a25b17925';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -188,7 +188,7 @@ class _GetAllWorkUnitsProviderElement
   int get page => (origin as GetAllWorkUnitsProvider).page;
 }
 
-String _$getWorkUnitHash() => r'0d23c1ec2c65e8277d600b65115d456ea1c37e78';
+String _$getWorkUnitHash() => r'5e2735dc4b28f950f55ab44732dfcd00c71cd29c';
 
 /// See also [getWorkUnit].
 @ProviderFor(getWorkUnit)

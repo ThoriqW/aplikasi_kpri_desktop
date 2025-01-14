@@ -30,6 +30,7 @@ class AddMemberSimpananWidget extends ConsumerStatefulWidget {
 class _AddMemberSimpananWidgetState
     extends ConsumerState<AddMemberSimpananWidget> {
   final TextEditingController idUserController = TextEditingController();
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     return CustomCardWidget(
@@ -73,7 +74,12 @@ class _AddMemberSimpananWidgetState
             onPressed: () {
               _addMemberSavings();
             },
-            icon: const Icon(Icons.add),
+            icon: _isLoading
+                ? const Icon(
+                    Icons.autorenew,
+                    color: GlobalColors.primary,
+                  )
+                : const Icon(Icons.add),
           ),
         ],
       ),
@@ -81,6 +87,9 @@ class _AddMemberSimpananWidgetState
   }
 
   Future<void> _addMemberSavings() async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       final addMemberSavings = await ref.read(
         addMemberSavingsProvider(
@@ -119,28 +128,14 @@ class _AddMemberSimpananWidgetState
             );
           },
         );
-      } else {
-        final errorMessage = addMemberSavings is Map<String, dynamic> &&
-                addMemberSavings.containsKey('message')
-            ? addMemberSavings['message']
-            : "Terjadi kesalahan, coba lagi nanti.";
-        await showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return CustomAlertDialog(
-              alertDesc: errorMessage,
-              alertTitle: "Gagal",
-            );
-          },
-        );
       }
     } catch (e) {
       if (!mounted) return;
       await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return CustomAlertDialog(
-            alertDesc: e.toString(),
+          return const CustomAlertDialog(
+            alertDesc: "Gagal terhubung ke server!!",
             alertTitle: "Error",
           );
         },
@@ -149,6 +144,9 @@ class _AddMemberSimpananWidgetState
       if (mounted) {
         idUserController.clear();
       }
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 }

@@ -138,7 +138,7 @@ class _DataMemberWidgetState extends ConsumerState<DataMemberWidget> {
                 width: 24,
               ),
               ButtonWidget(
-                text: "Hapus",
+                text: "Clear",
                 onTap: () {
                   setState(() {
                     searchQuery = '';

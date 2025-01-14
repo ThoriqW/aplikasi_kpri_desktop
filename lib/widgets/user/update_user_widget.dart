@@ -32,30 +32,40 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
   final TextEditingController tanggalLahirController = TextEditingController();
   final TextEditingController jenisKelaminController = TextEditingController();
   final TextEditingController agamaController = TextEditingController();
-  final TextEditingController fotoController = TextEditingController(); // BELUM
-
+  bool _isLoading = false;
+  bool isInitialized = false;
   @override
   Widget build(BuildContext context) {
-    final getProfile = ref.watch(getUserProvider(
+    final getUser = ref.watch(getUserProvider(
         ref.watch(idUserNotifierProvider.notifier).getId().toString()));
     return CustomCardWidget(
       color: GlobalColors.white,
-      child: getProfile.when(
-        data: (profile) {
-          final profileData = profile as Map<String, dynamic>;
+      child: getUser.when(
+        data: (user) {
+          if (user == null) {
+            return const Text("Data tidak valid");
+          }
+          if (user is ErrorResponse) {
+            return Text(user.toString());
+          }
 
-          usernameController.text = profileData['username'];
-          namaLengkapController.text = profileData['nama_lengkap'] ?? '';
-          nikController.text = profileData['nik'] ?? '';
-          emailController.text = profileData['email'] ?? '';
-          nomorHpController.text = profileData['phone'] ?? '';
-          alamatController.text = profileData['alamat'] ?? '';
-          profileData['tanggal_lahir'] != null
-              ? tanggalLahirController.text =
-                  profileData['tanggal_lahir'].toString().split(" ")[0]
-              : tanggalLahirController.text = '';
-          jenisKelaminController.text = profileData['jenis_kelamin'] ?? '';
-          agamaController.text = profileData['agama'] ?? '';
+          final userData = user as Map<String, dynamic>;
+
+          if (!isInitialized) {
+            usernameController.text = userData['username'];
+            namaLengkapController.text = userData['nama_lengkap'] ?? '';
+            nikController.text = userData['nik'] ?? '';
+            emailController.text = userData['email'] ?? '';
+            nomorHpController.text = userData['phone'] ?? '';
+            alamatController.text = userData['alamat'] ?? '';
+            userData['tanggal_lahir'] != null
+                ? tanggalLahirController.text =
+                    userData['tanggal_lahir'].toString().split(" ")[0]
+                : tanggalLahirController.text = '';
+            jenisKelaminController.text = userData['jenis_kelamin'] ?? '';
+            agamaController.text = userData['agama'] ?? '';
+            isInitialized = true;
+          }
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,7 +97,7 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
-                            controller: usernameController, text: "Username"),
+                            controller: usernameController, text: ""),
                       ],
                     ),
                   ),
@@ -101,8 +111,7 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
-                            controller: newPasswordController,
-                            text: "New Password"),
+                            controller: newPasswordController, text: ""),
                       ],
                     ),
                   ),
@@ -120,8 +129,7 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
-                            controller: namaLengkapController,
-                            text: "Nama Lengkap"),
+                            controller: namaLengkapController, text: ""),
                       ],
                     ),
                   ),
@@ -134,7 +142,7 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                           "NIK",
                         ),
                         const SizedBox(height: 8),
-                        TextFormWidget(controller: nikController, text: "NIK"),
+                        TextFormWidget(controller: nikController, text: ""),
                       ],
                     ),
                   ),
@@ -151,8 +159,7 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                           "Email",
                         ),
                         const SizedBox(height: 8),
-                        TextFormWidget(
-                            controller: emailController, text: "Email"),
+                        TextFormWidget(controller: emailController, text: ""),
                       ],
                     ),
                   ),
@@ -165,8 +172,7 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                           "Nomor HP",
                         ),
                         const SizedBox(height: 8),
-                        TextFormWidget(
-                            controller: nomorHpController, text: "Nomor HP"),
+                        TextFormWidget(controller: nomorHpController, text: ""),
                       ],
                     ),
                   ),
@@ -183,8 +189,7 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                           "Alamat",
                         ),
                         const SizedBox(height: 8),
-                        TextFormWidget(
-                            controller: alamatController, text: "Alamat"),
+                        TextFormWidget(controller: alamatController, text: ""),
                       ],
                     ),
                   ),
@@ -215,8 +220,7 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                         ),
                         const SizedBox(height: 8),
                         TextFormWidget(
-                            controller: jenisKelaminController,
-                            text: "Jenis Kelamin"),
+                            controller: jenisKelaminController, text: ""),
                       ],
                     ),
                   ),
@@ -229,8 +233,7 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                           "Agama",
                         ),
                         const SizedBox(height: 8),
-                        TextFormWidget(
-                            controller: agamaController, text: "Agama"),
+                        TextFormWidget(controller: agamaController, text: ""),
                       ],
                     ),
                   ),
@@ -241,9 +244,9 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ButtonWidget(
-                    text: "Ganti",
+                    text: _isLoading ? "Loading..." : "Update",
                     onTap: () async {
-                      await _updateUser(profileData['id'].toString());
+                      await _updateUser(userData['id'].toString());
                     },
                   ),
                 ],
@@ -251,13 +254,16 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
             ],
           );
         },
-        error: (error, stackTrace) => Text(error.toString()),
+        error: (error, stackTrace) => const Text('Gagal terhubung ke server!!'),
         loading: () => const LinearProgressIndicator(),
       ),
     );
   }
 
   Future<void> _updateUser(String id) async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       final updateUser = await ref.watch(updateUserProvider(
         id,
@@ -284,8 +290,8 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
               alertTitle: "Sukses",
             );
           },
-        ).then((_) => ref.invalidate(getUserProvider(
-            ref.watch(idUserNotifierProvider.notifier).getId().toString())));
+        ).then(
+            (_) => ref.read(adminModeNotifierProvider.notifier).switchToView());
       } else if (updateUser is ErrorResponse) {
         await showDialog(
           context: context,
@@ -302,12 +308,16 @@ class _UpdateUserWidgetState extends ConsumerState<UpdateUserWidget> {
       await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return CustomAlertDialog(
-            alertDesc: e.toString(),
+          return const CustomAlertDialog(
+            alertDesc: "Gagal terhubung ke server!!",
             alertTitle: "Error",
           );
         },
       );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 }

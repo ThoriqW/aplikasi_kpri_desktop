@@ -32,34 +32,45 @@ class _UpdateCurrentUserWidgetState
   final TextEditingController jenisKelaminController = TextEditingController();
   final TextEditingController agamaController = TextEditingController();
   final TextEditingController fotoController = TextEditingController(); // belum
-
+  bool _isLoading = false;
+  bool isInitialized = false;
   @override
   Widget build(BuildContext context) {
-    final getProfile = ref.watch(getCurrentUserProvider);
+    final getUser = ref.watch(getCurrentUserProvider);
     return CustomCardWidget(
       color: GlobalColors.white,
-      child: getProfile.when(
-        data: (profile) {
-          final profileData = profile as Map<String, dynamic>;
+      child: getUser.when(
+        data: (user) {
+          if (user == null) {
+            return const Text("Data tidak valid");
+          }
+          if (user is ErrorResponse) {
+            return Text(user.toString());
+          }
 
-          usernameController.text = profileData['username'];
-          namaLengkapController.text = profileData['nama_lengkap'] ?? '';
-          nikController.text = profileData['nik'] ?? '';
-          emailController.text = profileData['email'] ?? '';
-          nomorHpController.text = profileData['phone'] ?? '';
-          alamatController.text = profileData['alamat'] ?? '';
-          profileData['tanggal_lahir'] != null
-              ? tanggalLahirController.text =
-                  profileData['tanggal_lahir'].toString().split(" ")[0]
-              : tanggalLahirController.text = '';
-          jenisKelaminController.text = profileData['jenis_kelamin'] ?? '';
-          agamaController.text = profileData['agama'] ?? '';
+          final userData = user as Map<String, dynamic>;
+
+          if (!isInitialized) {
+            usernameController.text = userData['username'];
+            namaLengkapController.text = userData['nama_lengkap'] ?? '';
+            nikController.text = userData['nik'] ?? '';
+            emailController.text = userData['email'] ?? '';
+            nomorHpController.text = userData['phone'] ?? '';
+            alamatController.text = userData['alamat'] ?? '';
+            userData['tanggal_lahir'] != null
+                ? tanggalLahirController.text =
+                    userData['tanggal_lahir'].toString().split(" ")[0]
+                : tanggalLahirController.text = '';
+            jenisKelaminController.text = userData['jenis_kelamin'] ?? '';
+            agamaController.text = userData['agama'] ?? '';
+            isInitialized = true;
+          }
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "User ${profileData['nama_lengkap']}",
+                "User ${userData['nama_lengkap']}",
                 style: const TextStyle(
                   color: GlobalColors.primary,
                   fontWeight: FontWeight.bold,
@@ -225,7 +236,7 @@ class _UpdateCurrentUserWidgetState
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ButtonWidget(
-                    text: "Ganti",
+                    text: _isLoading ? "Loading..." : "Update",
                     onTap: () async {
                       await _updateCurrentUser();
                     },
@@ -235,15 +246,19 @@ class _UpdateCurrentUserWidgetState
             ],
           );
         },
-        error: (error, stackTrace) => Text(error.toString()),
+        error: (error, stackTrace) =>
+            const Text("'Gagal terhubung ke server!!'"),
         loading: () => const LinearProgressIndicator(),
       ),
     );
   }
 
   Future<void> _updateCurrentUser() async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
-      final updateProfile = await ref.watch(updateCurrentUserProvider(
+      final updateuser = await ref.watch(updateCurrentUserProvider(
         usernameController.text,
         newPasswordController.text,
         namaLengkapController.text,
@@ -258,22 +273,22 @@ class _UpdateCurrentUserWidgetState
         agamaController.text,
       ).future);
       if (!mounted) return;
-      if (updateProfile is SuccessResponse) {
+      if (updateuser is SuccessResponse) {
         await showDialog(
           context: context,
           builder: (BuildContext context) {
             return CustomAlertDialog(
-              alertDesc: updateProfile.message,
+              alertDesc: updateuser.message,
               alertTitle: "Sukses",
             );
           },
         ).then((_) => ref.invalidate(getCurrentUserProvider));
-      } else if (updateProfile is ErrorResponse) {
+      } else if (updateuser is ErrorResponse) {
         await showDialog(
           context: context,
           builder: (BuildContext context) {
             return CustomAlertDialog(
-              alertDesc: updateProfile.errors,
+              alertDesc: updateuser.errors,
               alertTitle: "Gagal",
             );
           },
@@ -284,12 +299,16 @@ class _UpdateCurrentUserWidgetState
       await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return CustomAlertDialog(
-            alertDesc: e.toString(),
+          return const CustomAlertDialog(
+            alertDesc: 'Gagal terhubung ke server!!',
             alertTitle: "Error",
           );
         },
       );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 }

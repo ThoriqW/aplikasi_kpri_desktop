@@ -16,8 +16,12 @@ class LoginView extends ConsumerStatefulWidget {
 class _LoginViewState extends ConsumerState<LoginView> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
 
   Future<void> _login() async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       final authNotifier = ref.watch(authNotifierProvider.notifier);
       await authNotifier.login(
@@ -43,6 +47,10 @@ class _LoginViewState extends ConsumerState<LoginView> {
           );
         },
       );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -103,18 +111,26 @@ class _LoginViewState extends ConsumerState<LoginView> {
                             onTap: () {
                               _login();
                             },
-                            child: const SizedBox(
+                            child: SizedBox(
                               width: 150,
                               height: 45,
                               child: Center(
-                                child: Text(
-                                  "Masuk",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: GlobalColors.white,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
+                                child: _isLoading
+                                    ? const SizedBox(
+                                        width: 20,
+                                        height: 20,
+                                        child: CircularProgressIndicator(
+                                          color: GlobalColors.white,
+                                        ),
+                                      )
+                                    : const Text(
+                                        "Masuk",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
                               ),
                             ),
                           ),
@@ -123,7 +139,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

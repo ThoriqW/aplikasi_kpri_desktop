@@ -3,16 +3,15 @@ import 'package:aplikasi_kpri_desktop/excel/excel_savings.dart';
 import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
 import 'package:aplikasi_kpri_desktop/providers/saving_route_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
-import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
-import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/saving/add_member_simpanan_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/saving/create_simpanan_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
+import 'package:aplikasi_kpri_desktop/widgets/saving/delete_member_saving_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/saving/update_simpanan_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class TableSimpananWidget extends ConsumerStatefulWidget {
+class TableSimpananWidget extends ConsumerWidget {
   const TableSimpananWidget({
     super.key,
     required this.tahun,
@@ -29,73 +28,65 @@ class TableSimpananWidget extends ConsumerStatefulWidget {
   final int currentPage;
 
   @override
-  ConsumerState<TableSimpananWidget> createState() =>
-      _TableSimpananWidgetState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    List<String> bulan = [
+      'Januari',
+      'Februari',
+      'Maret',
+      'April',
+      'Mei',
+      'Juni',
+      'Juli',
+      'Agustus',
+      'September',
+      'Oktober',
+      'November',
+      'Desember',
+    ];
 
-class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
-  Map<String, Map<String, dynamic>> updateSavingsObject = {};
-  List<String> bulan = [
-    'Januari',
-    'Februari',
-    'Maret',
-    'April',
-    'Mei',
-    'Juni',
-    'Juli',
-    'Agustus',
-    'September',
-    'Oktober',
-    'November',
-    'Desember',
-  ];
-  @override
-  Widget build(BuildContext context) {
     final getAllSavingMembers = ref.watch(
       getAllSavingMembersProvider(
-        widget.tahun,
-        widget.workUnitId,
-        widget.searchQuery,
-        widget.perPage,
-        widget.currentPage,
+        tahun,
+        workUnitId,
+        searchQuery,
+        perPage,
+        currentPage,
       ),
     );
     return getAllSavingMembers.when(
       data: (saving) {
-        if (saving == null ||
-            saving is! Map<String, dynamic> ||
-            !saving.containsKey('data')) {
+        if (saving == null) {
           return const Text("Data tidak valid");
         }
-
-        final List<dynamic> savingsResponse = saving['data'];
-
-        if (savingsResponse.isEmpty) {
+        if (saving is ErrorResponse || saving is! Map<String, dynamic>) {
           return Row(
             children: [
-              Text(saving['message']),
+              Text(saving.toString()),
               const SizedBox(width: 8),
-              CreateSimpananWidget(
-                tahun: widget.tahun,
-                onComplete: () {
-                  ref.invalidate(getAllSavingMembersProvider(
-                    widget.tahun,
-                    widget.workUnitId,
-                    widget.searchQuery,
-                    widget.perPage,
-                    widget.currentPage,
-                  ));
-                },
-              ),
+              if (saving.toString() == "Simpanan tidak ditemukan")
+                CreateSimpananWidget(
+                  tahun: tahun,
+                  onComplete: () {
+                    ref.invalidate(getAllSavingMembersProvider(
+                      tahun,
+                      workUnitId,
+                      searchQuery,
+                      perPage,
+                      1,
+                    ));
+                  },
+                ),
             ],
           );
         }
+
+        final List<dynamic> savingResponse = saving['data'];
 
         int totalPage = saving['pagination']['last_page'];
         int currentPage = saving['pagination']['current_page'];
         int totalMember = saving['pagination']['total'];
 
-        List<dynamic> savings = savingsResponse;
+        List<dynamic> savings = savingResponse;
 
         Future.microtask(() {
           ref
@@ -108,38 +99,22 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ButtonWidget(
-                      text: "Simpan",
-                      onTap: () {
-                        updateDataSavings(
-                            int.parse(widget.tahun), widget.workUnitId);
-                        updateSavingsObject = {};
-                      },
-                    ),
-                    const SizedBox(
-                      height: 4,
-                    ),
-                    const Text(
-                      "*tekan enter setelah edit simpanan",
-                      style: TextStyle(
-                        fontStyle: FontStyle.italic,
-                        color: GlobalColors.onBackground,
-                      ),
-                    ),
-                  ],
+                UpdateSimpananWidget(
+                  tahun: int.parse(tahun),
+                  workUnitId: workUnitId,
+                  currentPage: currentPage,
+                  perPage: perPage,
+                  searchQuery: searchQuery,
                 ),
                 const SizedBox(
                   width: 12,
                 ),
                 Flexible(
                     child: AddMemberSimpananWidget(
-                  year: widget.tahun,
-                  workUnitID: widget.workUnitId,
-                  currentPage: widget.currentPage,
-                  perPage: widget.perPage,
+                  year: tahun,
+                  workUnitID: workUnitId,
+                  currentPage: currentPage,
+                  perPage: perPage,
                 ))
               ],
             ),
@@ -165,14 +140,14 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                         ref
                             .watch(tahunMemberSavingsNotifierProvider.notifier)
                             .setTahunSimpanan(
-                              int.parse(widget.tahun),
+                              int.parse(tahun),
                             );
                       },
                     ),
                     ExcelSavings(
                       bulan: bulan,
-                      tahun: widget.tahun,
-                      workUnitId: widget.workUnitId,
+                      tahun: tahun,
+                      workUnitId: workUnitId,
                     )
                   ],
                 ),
@@ -429,15 +404,17 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                       color: Color(0xDE000000),
                                     ),
                                     onSubmitted: (newPokok) {
-                                      updateValueSaving(
-                                        updateSavingsObject,
-                                        savings[i]['member_profile_id']
-                                            .toString(),
-                                        savings[i]['savings'][j]['bulan']
-                                            .toString(),
-                                        'pokok',
-                                        newPokok,
-                                      );
+                                      ref
+                                          .watch(updateSavingObjectProvider
+                                              .notifier)
+                                          .updateValueSaving(
+                                            savings[i]['member_profile_id']
+                                                .toString(),
+                                            savings[i]['savings'][j]['bulan']
+                                                .toString(),
+                                            'pokok',
+                                            newPokok,
+                                          );
                                     },
                                   ),
                                 ),
@@ -466,15 +443,17 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                       color: Color(0xDE000000),
                                     ),
                                     onSubmitted: (newPokok) {
-                                      updateValueSaving(
-                                        updateSavingsObject,
-                                        savings[i]['member_profile_id']
-                                            .toString(),
-                                        savings[i]['savings'][j]['bulan']
-                                            .toString(),
-                                        'wajib',
-                                        newPokok,
-                                      );
+                                      ref
+                                          .watch(updateSavingObjectProvider
+                                              .notifier)
+                                          .updateValueSaving(
+                                            savings[i]['member_profile_id']
+                                                .toString(),
+                                            savings[i]['savings'][j]['bulan']
+                                                .toString(),
+                                            'wajib',
+                                            newPokok,
+                                          );
                                     },
                                   ),
                                 ),
@@ -503,15 +482,17 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                       color: Color(0xDE000000),
                                     ),
                                     onSubmitted: (newPokok) {
-                                      updateValueSaving(
-                                        updateSavingsObject,
-                                        savings[i]['member_profile_id']
-                                            .toString(),
-                                        savings[i]['savings'][j]['bulan']
-                                            .toString(),
-                                        'sukarela',
-                                        newPokok,
-                                      );
+                                      ref
+                                          .watch(updateSavingObjectProvider
+                                              .notifier)
+                                          .updateValueSaving(
+                                            savings[i]['member_profile_id']
+                                                .toString(),
+                                            savings[i]['savings'][j]['bulan']
+                                                .toString(),
+                                            'sukarela',
+                                            newPokok,
+                                          );
                                     },
                                   ),
                                 ),
@@ -565,50 +546,16 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
                                   ),
                                 ),
                               ),
-                              Container(
-                                padding: const EdgeInsets.all(2),
-                                child: IconButton(
-                                  onPressed: () async {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: const Text("Info"),
-                                          content: const Text(
-                                            "Yakin hapus member?",
-                                          ),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(
-                                                context,
-                                                'Cancel',
-                                              ),
-                                              child: const Text('Cancel'),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                _deleteMemberSavings(
-                                                  savings[i]
-                                                          ['member_profile_id']
-                                                      .toString(),
-                                                  savings[i]['tahun']
-                                                      .toString(),
-                                                );
-                                              },
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                  icon: const Icon(
-                                    Icons.delete,
-                                    size: 18,
-                                    color: Colors.redAccent,
-                                  ),
-                                ),
-                              ),
+                              DeleteMemberSavingWidget(
+                                tahun: int.parse(tahun),
+                                workUnitId: workUnitId,
+                                currentPage: currentPage,
+                                perPage: perPage,
+                                searchQuery: searchQuery,
+                                memberId:
+                                    savings[i]['member_profile_id'].toString(),
+                                tahunSaving: savings[i]['tahun'].toString(),
+                              )
                             ],
                           ),
                         ),
@@ -620,135 +567,8 @@ class _TableSimpananWidgetState extends ConsumerState<TableSimpananWidget> {
           ],
         );
       },
-      error: (error, stackTrace) =>
-          const Text('Oops, something unexpected happened'),
+      error: (error, stackTrace) => const Text('Gagal terhubung ke server!!'),
       loading: () => const LinearProgressIndicator(),
     );
-  }
-
-  Future<void> updateValueSaving(
-    Map<String, Map<String, dynamic>> updateSavingsObject,
-    String nomorAnggota,
-    String bulan,
-    String jenis,
-    String newValue,
-  ) async {
-    String key = nomorAnggota;
-
-    if (!updateSavingsObject.containsKey(key)) {
-      updateSavingsObject[key] = {};
-    }
-
-    if (!updateSavingsObject[key]!.containsKey(bulan)) {
-      updateSavingsObject[key]![bulan] = {};
-    }
-
-    updateSavingsObject[key]![bulan]![jenis] = int.tryParse(
-            newValue.replaceAll("Rp", "").replaceAll(".", "").trim()) ??
-        0;
-  }
-
-  Future<void> updateDataSavings(
-    int tahun,
-    int workUnitId,
-  ) async {
-    try {
-      final updateMemberSavings = await ref.watch(
-          updateMemberSavingsProvider(tahun, workUnitId, updateSavingsObject)
-              .future);
-      if (!mounted) return;
-      if (updateMemberSavings is SuccessResponse) {
-        await showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return CustomAlertDialog(
-              alertDesc: updateMemberSavings.message,
-              alertTitle: "Sukses",
-            );
-          },
-        ).then(
-          (_) => ref.invalidate(
-            getAllSavingMembersProvider(
-              widget.tahun,
-              int.parse(workUnitId.toString()),
-              widget.searchQuery,
-              widget.perPage,
-              widget.currentPage,
-            ),
-          ),
-        );
-      } else if (updateMemberSavings is ErrorResponse) {
-        await showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return CustomAlertDialog(
-              alertDesc: updateMemberSavings.errors,
-              alertTitle: "Gagal",
-            );
-          },
-        );
-      }
-    } catch (e) {
-      if (!mounted) return;
-      await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CustomAlertDialog(
-            alertDesc: e.toString(),
-            alertTitle: "Error",
-          );
-        },
-      );
-    }
-  }
-
-  Future<void> _deleteMemberSavings(String id, String tahun) async {
-    try {
-      final deleteMemberSavings = await ref.watch(
-        deleteMemberSavingsProvider(id, tahun).future,
-      );
-      if (!mounted) return;
-      Navigator.pop(context, 'OK');
-      if (deleteMemberSavings is SuccessResponse) {
-        await showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return CustomAlertDialog(
-              alertDesc: deleteMemberSavings.message,
-              alertTitle: "Sukses",
-            );
-          },
-        );
-        ref.invalidate(getAllSavingMembersProvider(
-          widget.tahun,
-          widget.workUnitId,
-          widget.searchQuery,
-          widget.perPage,
-          widget.currentPage,
-        ));
-      } else if (deleteMemberSavings is ErrorResponse) {
-        await showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return CustomAlertDialog(
-              alertDesc: deleteMemberSavings.errors,
-              alertTitle: "Gagal",
-            );
-          },
-        );
-      }
-    } catch (e) {
-      if (!mounted) return;
-      Navigator.pop(context, 'OK');
-      await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CustomAlertDialog(
-            alertDesc: e.toString().substring(11),
-            alertTitle: "Gagal",
-          );
-        },
-      );
-    }
   }
 }

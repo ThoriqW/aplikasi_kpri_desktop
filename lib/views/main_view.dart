@@ -6,6 +6,8 @@ import 'package:aplikasi_kpri_desktop/widgets/member/member_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/setting/setting_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/side_menu_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/saving/simpanan_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/tagihan/tagihan_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/under_maintanance.dart';
 import 'package:flutter/material.dart';
 
 class MainView extends StatefulWidget {
@@ -30,6 +32,9 @@ class _MainViewState extends State<MainView> {
         case 2:
           _currentView = const SimpananWidget();
           break;
+        case 3:
+          _currentView = const TagihanWidget();
+          break;
         case 5:
           _currentView = const AdminWidget();
           break;
@@ -37,7 +42,7 @@ class _MainViewState extends State<MainView> {
           _currentView = const SettingWidget();
           break;
         default:
-          _currentView = const DashBoardWidget();
+          _currentView = const UnderMaintanance();
           break;
       }
     });

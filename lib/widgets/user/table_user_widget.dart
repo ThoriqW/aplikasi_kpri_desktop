@@ -35,15 +35,13 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
     ));
     return dataUsers.when(
       data: (user) {
-        if (user == null ||
-            user is! Map<String, dynamic> ||
-            !user.containsKey('data')) {
+        if (user == null) {
           return const Text("Data tidak valid");
         }
-        final List<dynamic> userResponse = user['data'];
-        if (userResponse.isEmpty) {
-          return Text(user['message']);
+        if (user is ErrorResponse || user is! Map<String, dynamic>) {
+          return Text(user.toString());
         }
+        final List<dynamic> userResponse = user['data'];
 
         int totalPage = user['pagination']['last_page'];
         int currentPage = user['pagination']['current_page'];
@@ -259,8 +257,7 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
           ],
         );
       },
-      error: (error, stackTrace) =>
-          const Text('Oops, something unexpected happened'),
+      error: (error, stackTrace) => const Text('Gagal terhubung ke server!!'),
       loading: () => const LinearProgressIndicator(),
     );
   }
@@ -300,8 +297,8 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
       await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return CustomAlertDialog(
-            alertDesc: e.toString().substring(11),
+          return const CustomAlertDialog(
+            alertDesc: "Gagal terhubung ke server!!",
             alertTitle: "Gagal",
           );
         },

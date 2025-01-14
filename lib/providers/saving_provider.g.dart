@@ -7,7 +7,7 @@ part of 'saving_provider.dart';
 // **************************************************************************
 
 String _$getAllSavingMembersHash() =>
-    r'29b3b73f6b4457f74490832e6512ad353b515ae4';
+    r'62aed06bdaa5a2b125ee2863c4c399fdf85750d4';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -516,7 +516,7 @@ class _UpdateMemberSavingsProviderElement
       (origin as UpdateMemberSavingsProvider).updateSavingsObject;
 }
 
-String _$addMemberSavingsHash() => r'bc9dbbd7eb6fd7d6238598c3de3b0c4e222284a2';
+String _$addMemberSavingsHash() => r'210cffc6fd2ad670946474a70c8ffeed71b92f21';
 
 /// See also [addMemberSavings].
 @ProviderFor(addMemberSavings)
@@ -809,7 +809,7 @@ class _DeleteMemberSavingsProviderElement
 }
 
 String _$transferMemberSavingsHash() =>
-    r'45f4381d1ebabc3f7caaf70c19900f23d6162d7e';
+    r'f517dff028facf209869e7ef90eba9b888685777';
 
 /// See also [transferMemberSavings].
 @ProviderFor(transferMemberSavings)
@@ -1264,5 +1264,23 @@ final totalPageSavingsProvider =
 );
 
 typedef _$TotalPageSavings = AutoDisposeNotifier<int>;
+String _$updateSavingObjectHash() =>
+    r'd07ec7df32678b86cf44088bd1a9deac6376e757';
+
+/// See also [UpdateSavingObject].
+@ProviderFor(UpdateSavingObject)
+final updateSavingObjectProvider = AutoDisposeNotifierProvider<
+    UpdateSavingObject, Map<String, Map<String, dynamic>>>.internal(
+  UpdateSavingObject.new,
+  name: r'updateSavingObjectProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$updateSavingObjectHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$UpdateSavingObject
+    = AutoDisposeNotifier<Map<String, Map<String, dynamic>>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -8,6 +8,7 @@ import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:aplikasi_kpri_desktop/utils/datepicker_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/dropdown_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/member/reset_password_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/text_form_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/work_unit/work_units_dropdown.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
   String selectedUnit = '';
   String selectedStatus = '';
   bool isInitialized = false;
+  bool _isLoading = false;
   List<String> status = ["Tidak Aktif", "Aktif"];
   @override
   Widget build(BuildContext context) {
@@ -52,6 +54,13 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
       color: GlobalColors.white,
       child: getMember.when(
         data: (member) {
+          if (member == null) {
+            return const Text("Data tidak valid");
+          }
+          if (member is ErrorResponse) {
+            return Text(member.toString());
+          }
+
           final memberData = member as Map<String, dynamic>;
 
           if (!isInitialized) {
@@ -365,18 +374,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                           ],
                         ),
                         const SizedBox(width: 8),
-                        TextButton.icon(
-                          onPressed: () {
-                            _resetPasswordMember(memberData['id'].toString());
-                          },
-                          icon: const Icon(
-                            Icons.reset_tv,
-                            color: Colors.redAccent,
-                          ),
-                          label: const Text(
-                            'Reset Password',
-                          ),
-                        ),
+                        ResetPasswordWidget(id: memberData['id'].toString())
                       ],
                     ),
                   )
@@ -387,7 +385,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ButtonWidget(
-                    text: "Ganti",
+                    text: _isLoading ? "Loading..." : "Update",
                     onTap: () async {
                       await _updateMember(
                         ref
@@ -402,13 +400,16 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
             ],
           );
         },
-        error: (error, stackTrace) => Text(error.toString()),
+        error: (error, stackTrace) => const Text("Gagal terhubung ke server!!"),
         loading: () => const LinearProgressIndicator(),
       ),
     );
   }
 
   Future<void> _updateMember(String id) async {
+    setState(() {
+      _isLoading = true;
+    });
     int idStatus;
     if (selectedStatus == 'Aktif') {
       idStatus = 1;
@@ -472,56 +473,16 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
       await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return CustomAlertDialog(
-            alertDesc: e.toString().substring(11),
+          return const CustomAlertDialog(
+            alertDesc: "Gagal terhubung ke server!!",
             alertTitle: "Gagal",
           );
         },
       );
-    }
-  }
-
-  Future<void> _resetPasswordMember(String id) async {
-    try {
-      final resetPasswordMember = await ref.watch(
-        resetPasswordMemberProvider(id).future,
-      );
-      if (!mounted) return;
-      if (resetPasswordMember is SuccessResponse) {
-        await showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return CustomAlertDialog(
-              alertDesc: resetPasswordMember.message,
-              alertTitle: "Sukses",
-            );
-          },
-        ).then((_) {
-          ref.watch(memberModeNotifierProvider.notifier).switchToView();
-        });
-      } else if (resetPasswordMember is ErrorResponse) {
-        await showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return CustomAlertDialog(
-              alertDesc: resetPasswordMember.errors,
-              alertTitle: "Gagal",
-            );
-          },
-        );
-      }
-    } catch (e) {
-      if (!mounted) return;
-      Navigator.pop(context, 'OK');
-      await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CustomAlertDialog(
-            alertDesc: e.toString().substring(11),
-            alertTitle: "Gagal",
-          );
-        },
-      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 }

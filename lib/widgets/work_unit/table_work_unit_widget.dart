@@ -38,15 +38,13 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
     );
     return dataWorkUnits.when(
       data: (workUnit) {
-        if (workUnit == null ||
-            workUnit is! Map<String, dynamic> ||
-            !workUnit.containsKey('data')) {
+        if (workUnit == null) {
           return const Text("Data tidak valid");
         }
-        final List<dynamic> workUnitResponse = workUnit['data'];
-        if (workUnitResponse.isEmpty) {
-          return Text(workUnit['message']);
+        if (workUnit is ErrorResponse || workUnit is! Map<String, dynamic>) {
+          return Text(workUnit.toString());
         }
+        final List<dynamic> workUnitResponse = workUnit['data'];
         int totalPage = workUnit['pagination']['last_page'];
         int currentPage = workUnit['pagination']['current_page'];
         int totalMember = workUnit['pagination']['total'];
@@ -242,8 +240,7 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
           ],
         );
       },
-      error: (error, stackTrace) =>
-          const Text('Oops, something unexpected happened'),
+      error: (error, stackTrace) => const Text('Gagal terhubung ke server!!'),
       loading: () => const LinearProgressIndicator(),
     );
   }
@@ -283,8 +280,8 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return CustomAlertDialog(
-            alertDesc: e.toString().substring(11),
+          return const CustomAlertDialog(
+            alertDesc: "Gagal terhubung ke server!!",
             alertTitle: "Gagal",
           );
         },
