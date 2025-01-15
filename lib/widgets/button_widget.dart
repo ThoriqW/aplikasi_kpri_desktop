@@ -26,8 +26,14 @@ class ButtonWidget extends StatelessWidget {
         elevation: 4.0,
         child: InkWell(
           onTap: () => {onTap()},
-          borderRadius: BorderRadius.circular(8.0),
-          child: SizedBox(
+          child: Container(
+            decoration: BoxDecoration(
+              color: backgroundColor ?? GlobalColors.primary,
+              gradient: const LinearGradient(
+                  colors: [Color(0xFF093637), Color(0xFF44A08D)],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.topRight),
+            ),
             width: width ?? 140,
             height: height ?? 40,
             child: Center(

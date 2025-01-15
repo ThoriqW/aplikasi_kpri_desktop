@@ -81,14 +81,14 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
               children: <TableRow>[
                 TableRow(
                   decoration:
-                      const BoxDecoration(color: GlobalColors.secondary),
+                      const BoxDecoration(color: GlobalColors.headerTable),
                   children: <Widget>[
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
                         "NO",
                         style: TextStyle(
-                          color: GlobalColors.primary,
+                          color: GlobalColors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -98,7 +98,7 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
                       child: const Text(
                         "ID",
                         style: TextStyle(
-                          color: GlobalColors.primary,
+                          color: GlobalColors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -108,7 +108,7 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
                       child: const Text(
                         "USERNAME",
                         style: TextStyle(
-                          color: GlobalColors.primary,
+                          color: GlobalColors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -118,7 +118,7 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
                       child: const Text(
                         "NAMA LENGKAP",
                         style: TextStyle(
-                          color: GlobalColors.primary,
+                          color: GlobalColors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -128,7 +128,7 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
                       child: const Text(
                         "ROLE",
                         style: TextStyle(
-                          color: GlobalColors.primary,
+                          color: GlobalColors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -139,7 +139,7 @@ class _TableUserWidgetState extends ConsumerState<TableUserWidget> {
                         child: const Text(
                           "AKSI",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

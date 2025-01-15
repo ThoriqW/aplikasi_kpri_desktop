@@ -79,14 +79,14 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
               children: <TableRow>[
                 TableRow(
                   decoration:
-                      const BoxDecoration(color: GlobalColors.secondary),
+                      const BoxDecoration(color: GlobalColors.headerTable),
                   children: <Widget>[
                     Container(
                       padding: const EdgeInsets.all(9),
                       child: const Text(
                         "NO",
                         style: TextStyle(
-                          color: GlobalColors.primary,
+                          color: GlobalColors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -96,7 +96,7 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
                       child: const Text(
                         "ID",
                         style: TextStyle(
-                          color: GlobalColors.primary,
+                          color: GlobalColors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -106,7 +106,7 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
                       child: const Text(
                         "NAMA UNIT KERJA",
                         style: TextStyle(
-                          color: GlobalColors.primary,
+                          color: GlobalColors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -116,7 +116,7 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
                       child: const Text(
                         "KODE",
                         style: TextStyle(
-                          color: GlobalColors.primary,
+                          color: GlobalColors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -127,7 +127,7 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
                         child: const Text(
                           "AKSI",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

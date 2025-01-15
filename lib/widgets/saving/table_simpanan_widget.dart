@@ -191,7 +191,7 @@ class TableSimpananWidget extends ConsumerWidget {
                 children: [
                   TableRow(
                     decoration: const BoxDecoration(
-                      color: GlobalColors.secondary,
+                      color: GlobalColors.headerTable,
                     ),
                     children: <Widget>[
                       Container(
@@ -199,7 +199,7 @@ class TableSimpananWidget extends ConsumerWidget {
                         child: const Text(
                           "NO",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -209,7 +209,7 @@ class TableSimpananWidget extends ConsumerWidget {
                         child: const Text(
                           "UNIT KERJA",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -219,7 +219,7 @@ class TableSimpananWidget extends ConsumerWidget {
                         child: const Text(
                           "NOMOR ANGGOTA",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -229,7 +229,7 @@ class TableSimpananWidget extends ConsumerWidget {
                         child: const Text(
                           "NAMA LENGKAP",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -239,7 +239,7 @@ class TableSimpananWidget extends ConsumerWidget {
                         child: const Text(
                           "TAHUN",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -248,7 +248,7 @@ class TableSimpananWidget extends ConsumerWidget {
                         Column(
                           children: [
                             Container(
-                              color: const Color.fromARGB(255, 88, 163, 153),
+                              color: GlobalColors.primary,
                               width: double.infinity,
                               padding: const EdgeInsets.all(9),
                               child: Center(
@@ -265,8 +265,7 @@ class TableSimpananWidget extends ConsumerWidget {
                               children: [
                                 Expanded(
                                   child: Container(
-                                    color:
-                                        const Color.fromARGB(255, 22, 66, 60),
+                                    color: const Color(0xFF219C90),
                                     padding: const EdgeInsets.all(5),
                                     child: const Center(
                                       child: Text(
@@ -281,8 +280,7 @@ class TableSimpananWidget extends ConsumerWidget {
                                 ),
                                 Expanded(
                                   child: Container(
-                                    color:
-                                        const Color.fromARGB(255, 13, 124, 102),
+                                    color: const Color(0xFF507687),
                                     padding: const EdgeInsets.all(5),
                                     child: const Center(
                                       child: Text(
@@ -297,8 +295,7 @@ class TableSimpananWidget extends ConsumerWidget {
                                 ),
                                 Expanded(
                                   child: Container(
-                                    color:
-                                        const Color.fromARGB(255, 0, 113, 45),
+                                    color: const Color(0xFF384B70),
                                     padding: const EdgeInsets.all(5),
                                     child: const Center(
                                       child: Text(
@@ -320,7 +317,7 @@ class TableSimpananWidget extends ConsumerWidget {
                         child: const Text(
                           "TOTAL SIMPANAN",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -331,7 +328,7 @@ class TableSimpananWidget extends ConsumerWidget {
                           child: const Text(
                             "AKSI",
                             style: TextStyle(
-                              color: GlobalColors.primary,
+                              color: GlobalColors.white,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

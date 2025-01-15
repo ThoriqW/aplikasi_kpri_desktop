@@ -91,14 +91,14 @@ class TableMemberWidget extends ConsumerWidget {
                 children: <TableRow>[
                   TableRow(
                     decoration:
-                        const BoxDecoration(color: GlobalColors.secondary),
+                        const BoxDecoration(color: GlobalColors.headerTable),
                     children: <Widget>[
                       Container(
                         padding: const EdgeInsets.all(9),
                         child: const Text(
                           "NO",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -108,7 +108,7 @@ class TableMemberWidget extends ConsumerWidget {
                         child: const Text(
                           "ID",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -118,7 +118,7 @@ class TableMemberWidget extends ConsumerWidget {
                         child: const Text(
                           "NAMA ANGGOTA",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -128,7 +128,7 @@ class TableMemberWidget extends ConsumerWidget {
                         child: const Text(
                           "JENIS KELAMIN",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -138,7 +138,7 @@ class TableMemberWidget extends ConsumerWidget {
                         child: const Text(
                           "USERNAME",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -148,7 +148,7 @@ class TableMemberWidget extends ConsumerWidget {
                         child: const Text(
                           "NOMOR ANGGOTA",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -158,7 +158,7 @@ class TableMemberWidget extends ConsumerWidget {
                         child: const Text(
                           "NIP",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -168,7 +168,7 @@ class TableMemberWidget extends ConsumerWidget {
                         child: const Text(
                           "NIK",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -178,7 +178,7 @@ class TableMemberWidget extends ConsumerWidget {
                         child: const Text(
                           "NOMOR HP",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -188,7 +188,7 @@ class TableMemberWidget extends ConsumerWidget {
                         child: const Text(
                           "ALAMAT",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -198,7 +198,7 @@ class TableMemberWidget extends ConsumerWidget {
                         child: const Text(
                           "TANGGAL LAHIR",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -208,7 +208,7 @@ class TableMemberWidget extends ConsumerWidget {
                         child: const Text(
                           "UNIT KERJA",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -218,7 +218,7 @@ class TableMemberWidget extends ConsumerWidget {
                         child: const Text(
                           "STATUS",
                           style: TextStyle(
-                            color: GlobalColors.primary,
+                            color: GlobalColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -229,7 +229,7 @@ class TableMemberWidget extends ConsumerWidget {
                           child: const Text(
                             "AKSI",
                             style: TextStyle(
-                              color: GlobalColors.primary,
+                              color: GlobalColors.white,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
