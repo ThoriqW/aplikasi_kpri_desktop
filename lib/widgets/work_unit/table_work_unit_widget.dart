@@ -2,12 +2,11 @@ import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/admin_route_provider.dart';
 import 'package:aplikasi_kpri_desktop/providers/work_units_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
-import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
-import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
+import 'package:aplikasi_kpri_desktop/widgets/work_unit/delete_work_unit_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TableWorkUnitWidget extends ConsumerStatefulWidget {
+class TableWorkUnitWidget extends ConsumerWidget {
   const TableWorkUnitWidget({
     super.key,
     required this.onEdit,
@@ -22,18 +21,12 @@ class TableWorkUnitWidget extends ConsumerStatefulWidget {
   final int currentPage;
 
   @override
-  ConsumerState<TableWorkUnitWidget> createState() =>
-      _TableWorkUnitWidgetState();
-}
-
-class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final dataWorkUnits = ref.watch(
       getAllWorkUnitsProvider(
-        widget.searchQuery,
-        widget.perPage,
-        widget.currentPage,
+        searchQuery,
+        perPage,
+        currentPage,
       ),
     );
     return dataWorkUnits.when(
@@ -182,7 +175,7 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
                                       .setId(
                                         workUnits[i]['id'],
                                       );
-                                  widget.onEdit();
+                                  onEdit();
                                 },
                                 icon: const Icon(
                                   Icons.edit,
@@ -191,45 +184,8 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
                                 ),
                               ),
                             ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              child: IconButton(
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text("Info"),
-                                        content: const Text(
-                                          "Yakin hapus work unit?",
-                                        ),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                              context,
-                                              'Cancel',
-                                            ),
-                                            child: const Text('Cancel'),
-                                          ),
-                                          TextButton(
-                                            onPressed: () async {
-                                              _deleteWorkUnit(workUnits[i]['id']
-                                                  .toString());
-                                            },
-                                            child: const Text('OK'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
-                                icon: const Icon(
-                                  Icons.delete,
-                                  size: 18,
-                                  color: Colors.redAccent,
-                                ),
-                              ),
-                            ),
+                            DeleteWorkUnitWidget(
+                                id: workUnits[i]['id'].toString()),
                           ],
                         ),
                       ),
@@ -243,49 +199,5 @@ class _TableWorkUnitWidgetState extends ConsumerState<TableWorkUnitWidget> {
       error: (error, stackTrace) => const Text('Gagal terhubung ke server!!'),
       loading: () => const LinearProgressIndicator(),
     );
-  }
-
-  Future<void> _deleteWorkUnit(String id) async {
-    try {
-      final deleteMember = await ref.watch(
-        deleteWorkUnitProvider(id).future,
-      );
-      if (!mounted) return;
-      Navigator.pop(context, 'OK');
-      if (deleteMember is SuccessResponse) {
-        await showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return CustomAlertDialog(
-              alertDesc: deleteMember.message,
-              alertTitle: "Sukses",
-            );
-          },
-        );
-        ref.invalidate(getAllWorkUnitsProvider);
-      } else if (deleteMember is ErrorResponse) {
-        await showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return CustomAlertDialog(
-              alertDesc: deleteMember.errors,
-              alertTitle: "Gagal",
-            );
-          },
-        );
-      }
-    } catch (e) {
-      if (!mounted) return;
-      Navigator.pop(context, 'OK');
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return const CustomAlertDialog(
-            alertDesc: "Gagal terhubung ke server!!",
-            alertTitle: "Gagal",
-          );
-        },
-      );
-    }
   }
 }
