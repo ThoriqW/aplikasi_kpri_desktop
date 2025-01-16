@@ -95,7 +95,7 @@ class _DeleteMemberSavingWidgetState
           },
         );
         ref.invalidate(getAllSavingMembersProvider(
-          widget.tahun.toString(),
+          widget.tahun,
           widget.workUnitId,
           widget.searchQuery,
           widget.perPage,

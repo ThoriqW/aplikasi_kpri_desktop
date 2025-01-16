@@ -9,7 +9,7 @@ class CreateSimpananWidget extends ConsumerStatefulWidget {
   const CreateSimpananWidget(
       {super.key, required this.tahun, required this.onComplete});
 
-  final String tahun;
+  final int tahun;
   final VoidCallback onComplete;
 
   @override
@@ -32,7 +32,7 @@ class _CreateSimpananWidgetState extends ConsumerState<CreateSimpananWidget> {
     );
   }
 
-  Future<void> createSimpanan(String tahun) async {
+  Future<void> createSimpanan(int tahun) async {
     setState(() {
       _isLoading = true;
     });

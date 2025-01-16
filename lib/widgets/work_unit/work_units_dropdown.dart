@@ -53,33 +53,48 @@ class _WorkUnitsDropdownState extends ConsumerState<WorkUnitsDropdown> {
           return Text(workUnit['message']);
         }
         List<dynamic> workUnits = savingsResponse;
-        return DropdownButton<String>(
-          value: dropdownValue,
-          icon: const Icon(Icons.arrow_downward),
-          elevation: 16,
-          underline: Container(
-            height: 2,
-            color: GlobalColors.onBackground,
+        return Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.grey.shade300,
+              width: 1.0,
+            ),
+            borderRadius: const BorderRadius.all(Radius.circular(0)),
           ),
-          onChanged: (String? value) {
-            setState(() {
-              dropdownValue = value;
-            });
-            widget.onSelected(dropdownValue!);
-          },
-          items: workUnits.map<DropdownMenuItem<String>>((workUnit) {
-            return DropdownMenuItem<String>(
-              value: workUnit['id'].toString(),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(workUnit['nama']),
-              ),
-            );
-          }).toList(),
-          menuMaxHeight: 200.0,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: DropdownButton<String>(
+              value: dropdownValue,
+              icon: const Icon(Icons.arrow_downward),
+              elevation: 16,
+              underline: const SizedBox(),
+              onChanged: (String? value) {
+                setState(() {
+                  dropdownValue = value;
+                });
+                widget.onSelected(dropdownValue!);
+              },
+              items: workUnits.map<DropdownMenuItem<String>>((workUnit) {
+                return DropdownMenuItem<String>(
+                  value: workUnit['id'].toString(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(workUnit['nama']),
+                  ),
+                );
+              }).toList(),
+              menuMaxHeight: 300.0,
+            ),
+          ),
         );
       },
-      loading: () => const CircularProgressIndicator(),
+      loading: () => const SizedBox(
+        width: 20,
+        height: 20,
+        child: CircularProgressIndicator(
+          color: GlobalColors.primary,
+        ),
+      ),
       error: (error, _) => const Text('Gagal terhubung ke server!!'),
     );
   }

@@ -83,7 +83,7 @@ class _UpdateSimpananWidgetState extends ConsumerState<UpdateSimpananWidget> {
         ).then(
           (_) => ref.invalidate(
             getAllSavingMembersProvider(
-              widget.tahun.toString(),
+              widget.tahun,
               int.parse(workUnitId.toString()),
               widget.searchQuery,
               widget.perPage,

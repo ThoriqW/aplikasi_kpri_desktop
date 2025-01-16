@@ -7,7 +7,7 @@ part of 'saving_provider.dart';
 // **************************************************************************
 
 String _$getAllSavingMembersHash() =>
-    r'62aed06bdaa5a2b125ee2863c4c399fdf85750d4';
+    r'8b0cdd1847ce9f702f1957e46981053b70fc45dd';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -41,7 +41,7 @@ class GetAllSavingMembersFamily extends Family<AsyncValue> {
 
   /// See also [getAllSavingMembers].
   GetAllSavingMembersProvider call(
-    String tahun,
+    int tahun,
     int workUnitId,
     String search,
     int perPage,
@@ -88,7 +88,7 @@ class GetAllSavingMembersFamily extends Family<AsyncValue> {
 class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
   /// See also [getAllSavingMembers].
   GetAllSavingMembersProvider(
-    String tahun,
+    int tahun,
     int workUnitId,
     String search,
     int perPage,
@@ -132,7 +132,7 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
     required this.page,
   }) : super.internal();
 
-  final String tahun;
+  final int tahun;
   final int workUnitId;
   final String search;
   final int perPage;
@@ -188,9 +188,11 @@ class GetAllSavingMembersProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin GetAllSavingMembersRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `tahun` of this provider.
-  String get tahun;
+  int get tahun;
 
   /// The parameter `workUnitId` of this provider.
   int get workUnitId;
@@ -211,7 +213,7 @@ class _GetAllSavingMembersProviderElement
   _GetAllSavingMembersProviderElement(super.provider);
 
   @override
-  String get tahun => (origin as GetAllSavingMembersProvider).tahun;
+  int get tahun => (origin as GetAllSavingMembersProvider).tahun;
   @override
   int get workUnitId => (origin as GetAllSavingMembersProvider).workUnitId;
   @override
@@ -223,7 +225,7 @@ class _GetAllSavingMembersProviderElement
 }
 
 String _$createMemberSavingsHash() =>
-    r'c8ad19599e0ada000e46a36e3ae6ab1fd1df83e2';
+    r'3ce05546837279477d3c4ad91d46c7d07044eb32';
 
 /// See also [createMemberSavings].
 @ProviderFor(createMemberSavings)
@@ -236,7 +238,7 @@ class CreateMemberSavingsFamily extends Family<AsyncValue> {
 
   /// See also [createMemberSavings].
   CreateMemberSavingsProvider call(
-    String tahun,
+    int tahun,
   ) {
     return CreateMemberSavingsProvider(
       tahun,
@@ -271,7 +273,7 @@ class CreateMemberSavingsFamily extends Family<AsyncValue> {
 class CreateMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
   /// See also [createMemberSavings].
   CreateMemberSavingsProvider(
-    String tahun,
+    int tahun,
   ) : this._internal(
           (ref) => createMemberSavings(
             ref as CreateMemberSavingsRef,
@@ -299,7 +301,7 @@ class CreateMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
     required this.tahun,
   }) : super.internal();
 
-  final String tahun;
+  final int tahun;
 
   @override
   Override overrideWith(
@@ -338,9 +340,11 @@ class CreateMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin CreateMemberSavingsRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `tahun` of this provider.
-  String get tahun;
+  int get tahun;
 }
 
 class _CreateMemberSavingsProviderElement
@@ -349,7 +353,7 @@ class _CreateMemberSavingsProviderElement
   _CreateMemberSavingsProviderElement(super.provider);
 
   @override
-  String get tahun => (origin as CreateMemberSavingsProvider).tahun;
+  int get tahun => (origin as CreateMemberSavingsProvider).tahun;
 }
 
 String _$updateMemberSavingsHash() =>
@@ -491,6 +495,8 @@ class UpdateMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin UpdateMemberSavingsRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `tahun` of this provider.
   int get tahun;
@@ -516,7 +522,7 @@ class _UpdateMemberSavingsProviderElement
       (origin as UpdateMemberSavingsProvider).updateSavingsObject;
 }
 
-String _$addMemberSavingsHash() => r'210cffc6fd2ad670946474a70c8ffeed71b92f21';
+String _$addMemberSavingsHash() => r'fb73fc551414949be1f41b22fd11258636f58173';
 
 /// See also [addMemberSavings].
 @ProviderFor(addMemberSavings)
@@ -530,7 +536,7 @@ class AddMemberSavingsFamily extends Family<AsyncValue> {
   /// See also [addMemberSavings].
   AddMemberSavingsProvider call(
     String memberId,
-    String tahun,
+    int tahun,
   ) {
     return AddMemberSavingsProvider(
       memberId,
@@ -568,7 +574,7 @@ class AddMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
   /// See also [addMemberSavings].
   AddMemberSavingsProvider(
     String memberId,
-    String tahun,
+    int tahun,
   ) : this._internal(
           (ref) => addMemberSavings(
             ref as AddMemberSavingsRef,
@@ -600,7 +606,7 @@ class AddMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
   }) : super.internal();
 
   final String memberId;
-  final String tahun;
+  final int tahun;
 
   @override
   Override overrideWith(
@@ -643,12 +649,14 @@ class AddMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin AddMemberSavingsRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `memberId` of this provider.
   String get memberId;
 
   /// The parameter `tahun` of this provider.
-  String get tahun;
+  int get tahun;
 }
 
 class _AddMemberSavingsProviderElement
@@ -658,7 +666,7 @@ class _AddMemberSavingsProviderElement
   @override
   String get memberId => (origin as AddMemberSavingsProvider).memberId;
   @override
-  String get tahun => (origin as AddMemberSavingsProvider).tahun;
+  int get tahun => (origin as AddMemberSavingsProvider).tahun;
 }
 
 String _$deleteMemberSavingsHash() =>
@@ -789,6 +797,8 @@ class DeleteMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin DeleteMemberSavingsRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -947,6 +957,8 @@ class TransferMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin TransferMemberSavingsRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -1087,6 +1099,8 @@ class DeleteTahunSavingsProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin DeleteTahunSavingsRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `tahun` of this provider.
   String get tahun;
@@ -1229,6 +1243,8 @@ class UpdateTahunSavingsProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin UpdateTahunSavingsRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `tahun` of this provider.
   String get tahun;
@@ -1282,5 +1298,21 @@ final updateSavingObjectProvider = AutoDisposeNotifierProvider<
 
 typedef _$UpdateSavingObject
     = AutoDisposeNotifier<Map<String, Map<String, dynamic>>>;
+String _$searchSavingsHash() => r'bb3163c2bfb94fe33c0835fb116690c8d26956f4';
+
+/// See also [SearchSavings].
+@ProviderFor(SearchSavings)
+final searchSavingsProvider =
+    AutoDisposeNotifierProvider<SearchSavings, Map<String, dynamic>>.internal(
+  SearchSavings.new,
+  name: r'searchSavingsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$searchSavingsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$SearchSavings = AutoDisposeNotifier<Map<String, dynamic>>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

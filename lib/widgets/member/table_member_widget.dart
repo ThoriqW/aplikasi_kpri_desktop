@@ -16,9 +16,9 @@ class TableMemberWidget extends ConsumerWidget {
     required this.currentPage,
   });
 
-  final String selectedUnit;
   final String searchQuery;
   final String status;
+  final int selectedUnit;
   final int perPage;
   final int currentPage;
 
@@ -37,7 +37,8 @@ class TableMemberWidget extends ConsumerWidget {
           return const Text("Data tidak valid");
         }
         if (member is ErrorResponse || member is! Map<String, dynamic>) {
-          return Text(member.toString());
+          return SizedBox(
+              width: double.infinity, child: Text(member.toString()));
         }
         final List<dynamic> memberResponse = member['data'];
 

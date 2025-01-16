@@ -16,7 +16,7 @@ const storage = FlutterSecureStorage();
 @riverpod
 Future getAllSavingMembers(
   ref,
-  String tahun,
+  int tahun,
   int workUnitId,
   String search,
   int perPage,
@@ -49,7 +49,7 @@ Future getAllSavingMembers(
 }
 
 @riverpod
-Future createMemberSavings(ref, String tahun) async {
+Future createMemberSavings(ref, int tahun) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
@@ -116,7 +116,7 @@ Future updateMemberSavings(
 Future addMemberSavings(
   ref,
   String memberId,
-  String tahun,
+  int tahun,
 ) async {
   final String? token = await storage.read(key: 'authToken');
 
@@ -331,6 +331,40 @@ class UpdateSavingObject extends _$UpdateSavingObject {
   }
 
   Map<String, Map<String, dynamic>> getUpdateValueSaving() {
+    return state;
+  }
+}
+
+@riverpod
+class SearchSavings extends _$SearchSavings {
+  @override
+  Map<String, dynamic> build() {
+    return {
+      'tahun': DateTime.now().year,
+      'workUnitId': 0,
+      'searchQuery': '',
+      'perPage': 10,
+      'currentPage': 1,
+    };
+  }
+
+  void setSearchSavings({
+    int? tahun,
+    int? workUnitId,
+    String? searchQuery,
+    int? perPage,
+    int? currentPage,
+  }) {
+    state = {
+      'tahun': tahun ?? state['tahun'],
+      'workUnitId': workUnitId ?? state['workUnitId'],
+      'searchQuery': searchQuery ?? state['searchQuery'],
+      'perPage': perPage ?? state['perPage'],
+      'currentPage': currentPage ?? state['currentPage'],
+    };
+  }
+
+  Map<String, dynamic> getSearchSavings() {
     return state;
   }
 }

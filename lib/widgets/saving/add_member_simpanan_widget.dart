@@ -17,7 +17,7 @@ class AddMemberSimpananWidget extends ConsumerStatefulWidget {
     required this.currentPage,
   });
 
-  final String year;
+  final int year;
   final int workUnitID;
   final int perPage;
   final int currentPage;
@@ -110,7 +110,7 @@ class _AddMemberSimpananWidgetState
         ).then(
           (value) => ref.invalidate(
             getAllSavingMembersProvider(
-              widget.year.toString(),
+              widget.year,
               widget.workUnitID,
               '',
               widget.perPage,

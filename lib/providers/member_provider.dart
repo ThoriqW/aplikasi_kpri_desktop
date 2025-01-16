@@ -79,7 +79,7 @@ Future addMember(
 Future getAllMember(
   ref,
   String search,
-  String workUnitId,
+  int workUnitId,
   String status,
   int perPage,
   int page,
@@ -277,4 +277,41 @@ class TotalPageMember extends _$TotalPageMember {
 
 String formatDateOnly(DateTime date) {
   return DateFormat('yyyy-MM-dd').format(date);
+}
+
+@riverpod
+class SearchMember extends _$SearchMember {
+  @override
+  Map<String, dynamic> build() {
+    return {
+      'tahun': DateTime.now().year,
+      'workUnitId': 0,
+      'searchQuery': '',
+      'perPage': 15,
+      'currentPage': 1,
+      'status': '',
+    };
+  }
+
+  void setSearchMember({
+    int? tahun,
+    int? workUnitId,
+    String? searchQuery,
+    int? perPage,
+    int? currentPage,
+    String? status,
+  }) {
+    state = {
+      'tahun': tahun ?? state['tahun'],
+      'workUnitId': workUnitId ?? state['workUnitId'],
+      'searchQuery': searchQuery ?? state['searchQuery'],
+      'perPage': perPage ?? state['perPage'],
+      'currentPage': currentPage ?? state['currentPage'],
+      'status': status ?? state['status'],
+    };
+  }
+
+  Map<String, dynamic> getSearchMember() {
+    return state;
+  }
 }

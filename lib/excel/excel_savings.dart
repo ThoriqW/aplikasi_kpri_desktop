@@ -18,7 +18,7 @@ class ExcelSavings extends ConsumerStatefulWidget {
   });
 
   final List<String> bulan;
-  final String tahun;
+  final int tahun;
   final int workUnitId;
 
   @override

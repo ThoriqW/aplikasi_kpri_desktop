@@ -21,9 +21,9 @@ class TableSimpananWidget extends ConsumerWidget {
     required this.currentPage,
   });
 
-  final String tahun;
-  final int workUnitId;
   final String searchQuery;
+  final int tahun;
+  final int workUnitId;
   final int perPage;
   final int currentPage;
 
@@ -100,7 +100,7 @@ class TableSimpananWidget extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 UpdateSimpananWidget(
-                  tahun: int.parse(tahun),
+                  tahun: tahun,
                   workUnitId: workUnitId,
                   currentPage: currentPage,
                   perPage: perPage,
@@ -140,7 +140,7 @@ class TableSimpananWidget extends ConsumerWidget {
                         ref
                             .watch(tahunMemberSavingsNotifierProvider.notifier)
                             .setTahunSimpanan(
-                              int.parse(tahun),
+                              tahun,
                             );
                       },
                     ),
@@ -265,7 +265,7 @@ class TableSimpananWidget extends ConsumerWidget {
                               children: [
                                 Expanded(
                                   child: Container(
-                                    color: const Color(0xFF219C90),
+                                    color: const Color(0xFF000B58),
                                     padding: const EdgeInsets.all(5),
                                     child: const Center(
                                       child: Text(
@@ -280,7 +280,7 @@ class TableSimpananWidget extends ConsumerWidget {
                                 ),
                                 Expanded(
                                   child: Container(
-                                    color: const Color(0xFF507687),
+                                    color: const Color(0xFF003161),
                                     padding: const EdgeInsets.all(5),
                                     child: const Center(
                                       child: Text(
@@ -295,7 +295,7 @@ class TableSimpananWidget extends ConsumerWidget {
                                 ),
                                 Expanded(
                                   child: Container(
-                                    color: const Color(0xFF384B70),
+                                    color: const Color(0xFF006A67),
                                     padding: const EdgeInsets.all(5),
                                     child: const Center(
                                       child: Text(
@@ -382,16 +382,21 @@ class TableSimpananWidget extends ConsumerWidget {
                                   padding: const EdgeInsets.all(5),
                                   child: EditableText(
                                     controller: TextEditingController(
-                                      text: NumberFormat.currency(
-                                        locale: 'id',
-                                        symbol: 'Rp',
-                                        decimalDigits: 0,
-                                      ).format(
-                                        double.parse(
-                                          savings[i]['savings'][j]['pokok']
-                                              .toString(),
-                                        ),
-                                      ),
+                                      text: savings[i]['savings'][j]['pokok']
+                                                  .toString() !=
+                                              '0.00'
+                                          ? NumberFormat.currency(
+                                              locale: 'id',
+                                              symbol: 'Rp',
+                                              decimalDigits: 0,
+                                            ).format(
+                                              double.parse(
+                                                savings[i]['savings'][j]
+                                                        ['pokok']
+                                                    .toString(),
+                                              ),
+                                            )
+                                          : '',
                                     ),
                                     focusNode: FocusNode(),
                                     cursorColor: GlobalColors.primary,
@@ -421,16 +426,21 @@ class TableSimpananWidget extends ConsumerWidget {
                                   padding: const EdgeInsets.all(5),
                                   child: EditableText(
                                     controller: TextEditingController(
-                                      text: NumberFormat.currency(
-                                        locale: 'id',
-                                        symbol: 'Rp',
-                                        decimalDigits: 0,
-                                      ).format(
-                                        double.parse(
-                                          savings[i]['savings'][j]['wajib']
-                                              .toString(),
-                                        ),
-                                      ),
+                                      text: savings[i]['savings'][j]['wajib']
+                                                  .toString() !=
+                                              '0.00'
+                                          ? NumberFormat.currency(
+                                              locale: 'id',
+                                              symbol: 'Rp',
+                                              decimalDigits: 0,
+                                            ).format(
+                                              double.parse(
+                                                savings[i]['savings'][j]
+                                                        ['wajib']
+                                                    .toString(),
+                                              ),
+                                            )
+                                          : '',
                                     ),
                                     focusNode: FocusNode(),
                                     cursorColor: GlobalColors.primary,
@@ -460,16 +470,21 @@ class TableSimpananWidget extends ConsumerWidget {
                                   padding: const EdgeInsets.all(5),
                                   child: EditableText(
                                     controller: TextEditingController(
-                                      text: NumberFormat.currency(
-                                        locale: 'id',
-                                        symbol: 'Rp',
-                                        decimalDigits: 0,
-                                      ).format(
-                                        double.parse(
-                                          savings[i]['savings'][j]['sukarela']
-                                              .toString(),
-                                        ),
-                                      ),
+                                      text: savings[i]['savings'][j]['sukarela']
+                                                  .toString() !=
+                                              '0.00'
+                                          ? NumberFormat.currency(
+                                              locale: 'id',
+                                              symbol: 'Rp',
+                                              decimalDigits: 0,
+                                            ).format(
+                                              double.parse(
+                                                savings[i]['savings'][j]
+                                                        ['sukarela']
+                                                    .toString(),
+                                              ),
+                                            )
+                                          : '',
                                     ),
                                     focusNode: FocusNode(),
                                     cursorColor: GlobalColors.primary,
@@ -544,7 +559,7 @@ class TableSimpananWidget extends ConsumerWidget {
                                 ),
                               ),
                               DeleteMemberSavingWidget(
-                                tahun: int.parse(tahun),
+                                tahun: tahun,
                                 workUnitId: workUnitId,
                                 currentPage: currentPage,
                                 perPage: perPage,

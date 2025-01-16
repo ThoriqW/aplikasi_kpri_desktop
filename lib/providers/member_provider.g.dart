@@ -296,6 +296,8 @@ class AddMemberProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin AddMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `namaLengkap` of this provider.
   String get namaLengkap;
@@ -379,7 +381,7 @@ class _AddMemberProviderElement
   int get status => (origin as AddMemberProvider).status;
 }
 
-String _$getAllMemberHash() => r'2c21c1cc095792474a67f434a165af776c794e25';
+String _$getAllMemberHash() => r'36c508198129346ab8c1a0d13a7ac9e04380f4ec';
 
 /// See also [getAllMember].
 @ProviderFor(getAllMember)
@@ -393,7 +395,7 @@ class GetAllMemberFamily extends Family<AsyncValue> {
   /// See also [getAllMember].
   GetAllMemberProvider call(
     String search,
-    String workUnitId,
+    int workUnitId,
     String status,
     int perPage,
     int page,
@@ -440,7 +442,7 @@ class GetAllMemberProvider extends AutoDisposeFutureProvider<Object?> {
   /// See also [getAllMember].
   GetAllMemberProvider(
     String search,
-    String workUnitId,
+    int workUnitId,
     String status,
     int perPage,
     int page,
@@ -484,7 +486,7 @@ class GetAllMemberProvider extends AutoDisposeFutureProvider<Object?> {
   }) : super.internal();
 
   final String search;
-  final String workUnitId;
+  final int workUnitId;
   final String status;
   final int perPage;
   final int page;
@@ -539,12 +541,14 @@ class GetAllMemberProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin GetAllMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `search` of this provider.
   String get search;
 
   /// The parameter `workUnitId` of this provider.
-  String get workUnitId;
+  int get workUnitId;
 
   /// The parameter `status` of this provider.
   String get status;
@@ -563,7 +567,7 @@ class _GetAllMemberProviderElement
   @override
   String get search => (origin as GetAllMemberProvider).search;
   @override
-  String get workUnitId => (origin as GetAllMemberProvider).workUnitId;
+  int get workUnitId => (origin as GetAllMemberProvider).workUnitId;
   @override
   String get status => (origin as GetAllMemberProvider).status;
   @override
@@ -686,6 +690,8 @@ class GetMemberProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin GetMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -991,6 +997,8 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin UpdateMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -1199,6 +1207,8 @@ class DeleteMemberProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin DeleteMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -1328,6 +1338,8 @@ class ResetPasswordMemberProvider extends AutoDisposeFutureProvider<Object?> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin ResetPasswordMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `id` of this provider.
   String get id;
@@ -1358,5 +1370,20 @@ final totalPageMemberProvider =
 );
 
 typedef _$TotalPageMember = AutoDisposeNotifier<int>;
+String _$searchMemberHash() => r'43a37ca4fa797cd913637b1dcbde2937952e100e';
+
+/// See also [SearchMember].
+@ProviderFor(SearchMember)
+final searchMemberProvider =
+    AutoDisposeNotifierProvider<SearchMember, Map<String, dynamic>>.internal(
+  SearchMember.new,
+  name: r'searchMemberProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$searchMemberHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$SearchMember = AutoDisposeNotifier<Map<String, dynamic>>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
