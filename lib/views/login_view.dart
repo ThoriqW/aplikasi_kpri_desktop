@@ -105,32 +105,42 @@ class _LoginViewState extends ConsumerState<LoginView> {
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: Material(
-                          color: GlobalColors.primary,
                           elevation: 4.0,
-                          child: InkWell(
-                            onTap: () {
-                              _login();
-                            },
-                            child: SizedBox(
-                              width: 150,
-                              height: 45,
-                              child: Center(
-                                child: _isLoading
-                                    ? const SizedBox(
-                                        width: 20,
-                                        height: 20,
-                                        child: CircularProgressIndicator(
-                                          color: GlobalColors.white,
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                  colors: [
+                                    Color(0xFF093637),
+                                    Color(0xFF44A08D)
+                                  ],
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.topRight),
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                _login();
+                              },
+                              child: SizedBox(
+                                width: 150,
+                                height: 45,
+                                child: Center(
+                                  child: _isLoading
+                                      ? const SizedBox(
+                                          width: 20,
+                                          height: 20,
+                                          child: CircularProgressIndicator(
+                                            color: GlobalColors.white,
+                                          ),
+                                        )
+                                      : const Text(
+                                          "Masuk",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                         ),
-                                      )
-                                    : const Text(
-                                        "Masuk",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
+                                ),
                               ),
                             ),
                           ),

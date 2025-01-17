@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'admin_route_provider.dart';
+part of 'admin_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator

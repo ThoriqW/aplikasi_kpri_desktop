@@ -1,6 +1,8 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/bills_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
+import 'package:aplikasi_kpri_desktop/widgets/tagihan/create_tagihan_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/tagihan/delete_member_tagihan_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -44,6 +46,14 @@ class TableTagihanWidget extends ConsumerWidget {
           return Row(
             children: [
               Text(bill.toString()),
+              const SizedBox(width: 8),
+              CreateTagihanWidget(
+                bulan: bulan,
+                tahun: tahun,
+                onComplete: () async {
+                  ref.invalidate(getAllBillsMembersProvider);
+                },
+              )
             ],
           );
         }
@@ -100,6 +110,7 @@ class TableTagihanWidget extends ConsumerWidget {
                   15: IntrinsicColumnWidth(),
                   16: IntrinsicColumnWidth(),
                   17: IntrinsicColumnWidth(),
+                  18: IntrinsicColumnWidth(),
                 },
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 children: [
@@ -278,6 +289,18 @@ class TableTagihanWidget extends ConsumerWidget {
                           ),
                         ),
                       ),
+                      Center(
+                        child: Container(
+                          padding: const EdgeInsets.all(9),
+                          child: const Text(
+                            "AKSI",
+                            style: TextStyle(
+                              color: GlobalColors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   for (int i = 0; i < bills.length; i++)
@@ -331,7 +354,7 @@ class TableTagihanWidget extends ConsumerWidget {
                                     '0.00'
                                 ? NumberFormat.currency(
                                     locale: 'id',
-                                    symbol: 'Rp',
+                                    symbol: '',
                                     decimalDigits: 0,
                                   ).format(
                                     double.parse(
@@ -349,7 +372,7 @@ class TableTagihanWidget extends ConsumerWidget {
                                     '0.00'
                                 ? NumberFormat.currency(
                                     locale: 'id',
-                                    symbol: 'Rp',
+                                    symbol: '',
                                     decimalDigits: 0,
                                   ).format(
                                     double.parse(
@@ -366,7 +389,7 @@ class TableTagihanWidget extends ConsumerWidget {
                             bills[i]['bills'][0]['pokok'].toString() != '0.00'
                                 ? NumberFormat.currency(
                                     locale: 'id',
-                                    symbol: 'Rp',
+                                    symbol: '',
                                     decimalDigits: 0,
                                   ).format(
                                     double.parse(
@@ -382,7 +405,7 @@ class TableTagihanWidget extends ConsumerWidget {
                             bills[i]['bills'][0]['bunga'].toString() != '0.00'
                                 ? NumberFormat.currency(
                                     locale: 'id',
-                                    symbol: 'Rp',
+                                    symbol: '',
                                     decimalDigits: 0,
                                   ).format(
                                     double.parse(
@@ -398,7 +421,7 @@ class TableTagihanWidget extends ConsumerWidget {
                             bills[i]['bills'][0]['barang'].toString() != '0.00'
                                 ? NumberFormat.currency(
                                     locale: 'id',
-                                    symbol: 'Rp',
+                                    symbol: '',
                                     decimalDigits: 0,
                                   ).format(
                                     double.parse(
@@ -413,37 +436,19 @@ class TableTagihanWidget extends ConsumerWidget {
                           child: Text(
                             bills[i]['bills'][0]['jangka_waktu'].toString() !=
                                     '0'
-                                ? NumberFormat.currency(
-                                    locale: 'id',
-                                    symbol: 'Rp',
-                                    decimalDigits: 0,
-                                  ).format(
-                                    double.parse(
-                                      bills[i]['bills'][0]['jangka_waktu']
-                                          .toString(),
-                                    ),
-                                  )
+                                ? bills[i]['bills'][0]['jangka_waktu']
+                                    .toString()
                                 : '',
                           ),
                         ),
                         Container(
                           padding: const EdgeInsets.all(9),
-                          child: Text(
-                            bills[i]['bills'][0]['jangka_waktu_ke']
-                                        .toString() !=
-                                    '0'
-                                ? NumberFormat.currency(
-                                    locale: 'id',
-                                    symbol: 'Rp',
-                                    decimalDigits: 0,
-                                  ).format(
-                                    double.parse(
-                                      bills[i]['bills'][0]['jangka_waktu_ke']
-                                          .toString(),
-                                    ),
-                                  )
-                                : '',
-                          ),
+                          child: Text(bills[i]['bills'][0]['jangka_waktu_ke']
+                                      .toString() !=
+                                  '0'
+                              ? bills[i]['bills'][0]['jangka_waktu_ke']
+                                  .toString()
+                              : ''),
                         ),
                         Container(
                           padding: const EdgeInsets.all(9),
@@ -452,7 +457,7 @@ class TableTagihanWidget extends ConsumerWidget {
                                     '0.00'
                                 ? NumberFormat.currency(
                                     locale: 'id',
-                                    symbol: 'Rp',
+                                    symbol: '',
                                     decimalDigits: 0,
                                   ).format(
                                     double.parse(
@@ -470,7 +475,7 @@ class TableTagihanWidget extends ConsumerWidget {
                                     '0.00'
                                 ? NumberFormat.currency(
                                     locale: 'id',
-                                    symbol: 'Rp',
+                                    symbol: '',
                                     decimalDigits: 0,
                                   ).format(
                                     double.parse(
@@ -488,7 +493,7 @@ class TableTagihanWidget extends ConsumerWidget {
                                     '0.00'
                                 ? NumberFormat.currency(
                                     locale: 'id',
-                                    symbol: 'Rp',
+                                    symbol: '',
                                     decimalDigits: 0,
                                   ).format(
                                     double.parse(
@@ -503,6 +508,92 @@ class TableTagihanWidget extends ConsumerWidget {
                           padding: const EdgeInsets.all(9),
                           child: Text(
                               bills[i]['bills'][0]['keterangan'].toString()),
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(2),
+                              child: IconButton(
+                                onPressed: () {
+                                  ref
+                                      .watch(dataMemberTagihanNotifierProvider
+                                          .notifier)
+                                      .setData(
+                                        bills[i]['member_profile_id'],
+                                        bills[i]['nama_lengkap'].toString(),
+                                        bills[i]['bills'][0]['simpanan_wajib']
+                                            .toString(),
+                                        bills[i]['bills'][0]['dana_sosial']
+                                            .toString(),
+                                        bills[i]['bills'][0]['pokok']
+                                            .toString(),
+                                        bills[i]['bills'][0]['bunga']
+                                            .toString(),
+                                        bills[i]['bills'][0]['barang']
+                                            .toString(),
+                                        bills[i]['bills'][0]['jangka_waktu']
+                                            .toString(),
+                                        bills[i]['bills'][0]['jangka_waktu_ke']
+                                            .toString(),
+                                        bills[i]['bills'][0]['sisa_tunggakan']
+                                            .toString(),
+                                        bills[i]['bills'][0]['keterangan']
+                                            .toString(),
+                                        tahun,
+                                        bulan,
+                                      );
+                                  ref
+                                      .watch(
+                                          tagihanModeNotifierProvider.notifier)
+                                      .switchToeditTagihanMember();
+                                },
+                                icon: const Icon(
+                                  Icons.edit,
+                                  size: 18,
+                                  color: GlobalColors.primary,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(2),
+                              child: IconButton(
+                                onPressed: () {
+                                  ref
+                                      .watch(
+                                          dataTransferMemberTagihanNotifierProvider
+                                              .notifier)
+                                      .setData(
+                                        bills[i]['member_profile_id']
+                                            .toString(),
+                                        bills[i]['nama_lengkap'].toString(),
+                                        bills[i]['work_unit_id'].toString(),
+                                        bills[i]['work_unit'].toString(),
+                                        bills[i]['tahun'].toString(),
+                                        bills[i]['bulan'].toString(),
+                                      );
+                                  ref
+                                      .watch(
+                                        tagihanModeNotifierProvider.notifier,
+                                      )
+                                      .switchToTransferTagihanMember();
+                                },
+                                icon: const Icon(
+                                  Icons.move_up,
+                                  size: 18,
+                                  color: GlobalColors.primary,
+                                ),
+                              ),
+                            ),
+                            DeleteMemberTagihanWidget(
+                              tahun: tahun,
+                              workUnitId: workUnitId,
+                              searchQuery: searchQuery,
+                              perPage: perPage,
+                              currentPage: currentPage,
+                              bulan: bulan,
+                              memberId: bills[i]['member_profile_id'],
+                            )
+                          ],
                         ),
                       ],
                     )

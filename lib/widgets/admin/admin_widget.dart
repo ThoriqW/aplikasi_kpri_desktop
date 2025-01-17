@@ -1,5 +1,5 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
-import 'package:aplikasi_kpri_desktop/providers/admin_route_provider.dart';
+import 'package:aplikasi_kpri_desktop/providers/admin_provider.dart';
 import 'package:aplikasi_kpri_desktop/widgets/user/add_user_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/work_unit/add_work_unit_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';

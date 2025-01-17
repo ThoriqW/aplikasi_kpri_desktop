@@ -1,7 +1,6 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/excel/excel_savings.dart';
 import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
-import 'package:aplikasi_kpri_desktop/providers/saving_route_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/saving/add_member_simpanan_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/saving/create_simpanan_widget.dart';
@@ -387,7 +386,7 @@ class TableSimpananWidget extends ConsumerWidget {
                                               '0.00'
                                           ? NumberFormat.currency(
                                               locale: 'id',
-                                              symbol: 'Rp',
+                                              symbol: '',
                                               decimalDigits: 0,
                                             ).format(
                                               double.parse(
@@ -431,7 +430,7 @@ class TableSimpananWidget extends ConsumerWidget {
                                               '0.00'
                                           ? NumberFormat.currency(
                                               locale: 'id',
-                                              symbol: 'Rp',
+                                              symbol: '',
                                               decimalDigits: 0,
                                             ).format(
                                               double.parse(
@@ -475,7 +474,7 @@ class TableSimpananWidget extends ConsumerWidget {
                                               '0.00'
                                           ? NumberFormat.currency(
                                               locale: 'id',
-                                              symbol: 'Rp',
+                                              symbol: '',
                                               decimalDigits: 0,
                                             ).format(
                                               double.parse(
@@ -514,15 +513,17 @@ class TableSimpananWidget extends ConsumerWidget {
                         Container(
                           padding: const EdgeInsets.all(9),
                           child: Text(
-                            NumberFormat.currency(
-                              locale: 'id',
-                              symbol: 'Rp',
-                              decimalDigits: 0,
-                            ).format(
-                              double.parse(
-                                savings[i]['total_savings'].toString(),
-                              ),
-                            ),
+                            savings[i]['total_savings'].toString() != '0.00'
+                                ? NumberFormat.currency(
+                                    locale: 'id',
+                                    symbol: '',
+                                    decimalDigits: 0,
+                                  ).format(
+                                    double.parse(
+                                      savings[i]['total_savings'].toString(),
+                                    ),
+                                  )
+                                : '',
                           ),
                         ),
                         Center(
@@ -533,16 +534,13 @@ class TableSimpananWidget extends ConsumerWidget {
                                 child: IconButton(
                                   onPressed: () {
                                     ref
-                                        .watch(idMemberSavingsNotifierProvider
+                                        .watch(dataTransferMemberSavingsNotifierProvider
                                             .notifier)
-                                        .setId(
+                                        .setData(
                                           savings[i]['member_profile_id'],
-                                        );
-                                    ref
-                                        .watch(
-                                            tahunMemberSavingsNotifierProvider
-                                                .notifier)
-                                        .setTahunSimpanan(
+                                          savings[i]['nama_lengkap'].toString(),
+                                          savings[i]['work_unit_id'],
+                                          savings[i]['work_unit'].toString(),
                                           savings[i]['tahun'],
                                         );
                                     ref
@@ -552,7 +550,7 @@ class TableSimpananWidget extends ConsumerWidget {
                                         .switchToTransferMember();
                                   },
                                   icon: const Icon(
-                                    Icons.edit,
+                                    Icons.move_up,
                                     size: 18,
                                     color: GlobalColors.primary,
                                   ),

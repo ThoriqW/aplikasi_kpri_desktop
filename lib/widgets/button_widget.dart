@@ -22,14 +22,12 @@ class ButtonWidget extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomLeft,
       child: Material(
-        color: backgroundColor ?? GlobalColors.primary,
         elevation: 4.0,
         child: InkWell(
           onTap: () => {onTap()},
           child: Container(
-            decoration: BoxDecoration(
-              color: backgroundColor ?? GlobalColors.primary,
-              gradient: const LinearGradient(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
                   colors: [Color(0xFF093637), Color(0xFF44A08D)],
                   begin: Alignment.centerLeft,
                   end: Alignment.topRight),

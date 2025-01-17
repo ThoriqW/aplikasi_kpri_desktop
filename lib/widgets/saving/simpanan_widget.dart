@@ -1,5 +1,5 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
-import 'package:aplikasi_kpri_desktop/providers/saving_route_provider.dart';
+import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/saving/bottom_navigation_simpanan_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/saving/data_simpanan_widget.dart';
@@ -31,7 +31,7 @@ class SimpananWidget extends ConsumerWidget {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 75.0, bottom: 30.0),
+          padding: const EdgeInsets.only(top: 75.0, bottom: 70.0),
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(

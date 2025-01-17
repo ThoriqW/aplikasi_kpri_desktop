@@ -287,7 +287,7 @@ class SearchMember extends _$SearchMember {
       'tahun': DateTime.now().year,
       'workUnitId': 0,
       'searchQuery': '',
-      'perPage': 15,
+      'perPage': 35,
       'currentPage': 1,
       'status': '',
     };
@@ -312,6 +312,34 @@ class SearchMember extends _$SearchMember {
   }
 
   Map<String, dynamic> getSearchMember() {
+    return state;
+  }
+}
+
+//ROUTE
+
+enum MemberMode { view, update, add }
+
+@riverpod
+class MemberModeNotifier extends _$MemberModeNotifier {
+  @override
+  MemberMode build() => MemberMode.view;
+
+  void switchToView() => state = MemberMode.view;
+  void switchToUpdateUser() => state = MemberMode.update;
+  void switchToAddUser() => state = MemberMode.add;
+}
+
+@riverpod
+class IdMemberNotifier extends _$IdMemberNotifier {
+  @override
+  int build() => 0;
+
+  void setId(int id) {
+    state = id;
+  }
+
+  int getId() {
     return state;
   }
 }

@@ -34,36 +34,6 @@ class DataSimpananWidget extends ConsumerWidget {
                 perPage: searchCriteriaBills['perPage'],
                 currentPage: searchCriteriaBills['currentPage'],
               ),
-              // const SizedBox(height: 10),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     IconButton(
-              //       icon: const Icon(Icons.arrow_back),
-              //       onPressed: () {
-              //         if (currentPage > 1) {
-              //           setState(() {
-              //             currentPage--;
-              //           });
-              //         }
-              //       },
-              //     ),
-              //     const SizedBox(width: 6),
-              //     IconButton(
-              //       icon: const Icon(Icons.arrow_forward),
-              //       onPressed: () {
-              //         if (currentPage <
-              //             ref
-              //                 .watch(totalPageSavingsProvider.notifier)
-              //                 .getTotalMember()) {
-              //           setState(() {
-              //             currentPage++;
-              //           });
-              //         }
-              //       },
-              //     ),
-              //   ],
-              // ),
             ],
           )
         ],

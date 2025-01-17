@@ -356,172 +356,6 @@ class _CreateMemberSavingsProviderElement
   int get tahun => (origin as CreateMemberSavingsProvider).tahun;
 }
 
-String _$updateMemberSavingsHash() =>
-    r'a7bc658bf7aef193a4116edb9a65df6cc0d21eaf';
-
-/// See also [updateMemberSavings].
-@ProviderFor(updateMemberSavings)
-const updateMemberSavingsProvider = UpdateMemberSavingsFamily();
-
-/// See also [updateMemberSavings].
-class UpdateMemberSavingsFamily extends Family<AsyncValue> {
-  /// See also [updateMemberSavings].
-  const UpdateMemberSavingsFamily();
-
-  /// See also [updateMemberSavings].
-  UpdateMemberSavingsProvider call(
-    int tahun,
-    int workUnitId,
-    Map<String, Map<String, dynamic>> updateSavingsObject,
-  ) {
-    return UpdateMemberSavingsProvider(
-      tahun,
-      workUnitId,
-      updateSavingsObject,
-    );
-  }
-
-  @override
-  UpdateMemberSavingsProvider getProviderOverride(
-    covariant UpdateMemberSavingsProvider provider,
-  ) {
-    return call(
-      provider.tahun,
-      provider.workUnitId,
-      provider.updateSavingsObject,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'updateMemberSavingsProvider';
-}
-
-/// See also [updateMemberSavings].
-class UpdateMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
-  /// See also [updateMemberSavings].
-  UpdateMemberSavingsProvider(
-    int tahun,
-    int workUnitId,
-    Map<String, Map<String, dynamic>> updateSavingsObject,
-  ) : this._internal(
-          (ref) => updateMemberSavings(
-            ref as UpdateMemberSavingsRef,
-            tahun,
-            workUnitId,
-            updateSavingsObject,
-          ),
-          from: updateMemberSavingsProvider,
-          name: r'updateMemberSavingsProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$updateMemberSavingsHash,
-          dependencies: UpdateMemberSavingsFamily._dependencies,
-          allTransitiveDependencies:
-              UpdateMemberSavingsFamily._allTransitiveDependencies,
-          tahun: tahun,
-          workUnitId: workUnitId,
-          updateSavingsObject: updateSavingsObject,
-        );
-
-  UpdateMemberSavingsProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.tahun,
-    required this.workUnitId,
-    required this.updateSavingsObject,
-  }) : super.internal();
-
-  final int tahun;
-  final int workUnitId;
-  final Map<String, Map<String, dynamic>> updateSavingsObject;
-
-  @override
-  Override overrideWith(
-    FutureOr<Object?> Function(UpdateMemberSavingsRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: UpdateMemberSavingsProvider._internal(
-        (ref) => create(ref as UpdateMemberSavingsRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        tahun: tahun,
-        workUnitId: workUnitId,
-        updateSavingsObject: updateSavingsObject,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<Object?> createElement() {
-    return _UpdateMemberSavingsProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is UpdateMemberSavingsProvider &&
-        other.tahun == tahun &&
-        other.workUnitId == workUnitId &&
-        other.updateSavingsObject == updateSavingsObject;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, tahun.hashCode);
-    hash = _SystemHash.combine(hash, workUnitId.hashCode);
-    hash = _SystemHash.combine(hash, updateSavingsObject.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin UpdateMemberSavingsRef on AutoDisposeFutureProviderRef<Object?> {
-  /// The parameter `tahun` of this provider.
-  int get tahun;
-
-  /// The parameter `workUnitId` of this provider.
-  int get workUnitId;
-
-  /// The parameter `updateSavingsObject` of this provider.
-  Map<String, Map<String, dynamic>> get updateSavingsObject;
-}
-
-class _UpdateMemberSavingsProviderElement
-    extends AutoDisposeFutureProviderElement<Object?>
-    with UpdateMemberSavingsRef {
-  _UpdateMemberSavingsProviderElement(super.provider);
-
-  @override
-  int get tahun => (origin as UpdateMemberSavingsProvider).tahun;
-  @override
-  int get workUnitId => (origin as UpdateMemberSavingsProvider).workUnitId;
-  @override
-  Map<String, Map<String, dynamic>> get updateSavingsObject =>
-      (origin as UpdateMemberSavingsProvider).updateSavingsObject;
-}
-
 String _$addMemberSavingsHash() => r'fb73fc551414949be1f41b22fd11258636f58173';
 
 /// See also [addMemberSavings].
@@ -1264,22 +1098,172 @@ class _UpdateTahunSavingsProviderElement
   String get newTahun => (origin as UpdateTahunSavingsProvider).newTahun;
 }
 
-String _$totalPageSavingsHash() => r'0d8e2405ad73c587febbba1d8a8c3b8a5bc64414';
+String _$updateMemberSavingsHash() =>
+    r'a7bc658bf7aef193a4116edb9a65df6cc0d21eaf';
 
-/// See also [TotalPageSavings].
-@ProviderFor(TotalPageSavings)
-final totalPageSavingsProvider =
-    AutoDisposeNotifierProvider<TotalPageSavings, int>.internal(
-  TotalPageSavings.new,
-  name: r'totalPageSavingsProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$totalPageSavingsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+/// See also [updateMemberSavings].
+@ProviderFor(updateMemberSavings)
+const updateMemberSavingsProvider = UpdateMemberSavingsFamily();
 
-typedef _$TotalPageSavings = AutoDisposeNotifier<int>;
+/// See also [updateMemberSavings].
+class UpdateMemberSavingsFamily extends Family<AsyncValue> {
+  /// See also [updateMemberSavings].
+  const UpdateMemberSavingsFamily();
+
+  /// See also [updateMemberSavings].
+  UpdateMemberSavingsProvider call(
+    int tahun,
+    int workUnitId,
+    Map<String, Map<String, dynamic>> updateSavingsObject,
+  ) {
+    return UpdateMemberSavingsProvider(
+      tahun,
+      workUnitId,
+      updateSavingsObject,
+    );
+  }
+
+  @override
+  UpdateMemberSavingsProvider getProviderOverride(
+    covariant UpdateMemberSavingsProvider provider,
+  ) {
+    return call(
+      provider.tahun,
+      provider.workUnitId,
+      provider.updateSavingsObject,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'updateMemberSavingsProvider';
+}
+
+/// See also [updateMemberSavings].
+class UpdateMemberSavingsProvider extends AutoDisposeFutureProvider<Object?> {
+  /// See also [updateMemberSavings].
+  UpdateMemberSavingsProvider(
+    int tahun,
+    int workUnitId,
+    Map<String, Map<String, dynamic>> updateSavingsObject,
+  ) : this._internal(
+          (ref) => updateMemberSavings(
+            ref as UpdateMemberSavingsRef,
+            tahun,
+            workUnitId,
+            updateSavingsObject,
+          ),
+          from: updateMemberSavingsProvider,
+          name: r'updateMemberSavingsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$updateMemberSavingsHash,
+          dependencies: UpdateMemberSavingsFamily._dependencies,
+          allTransitiveDependencies:
+              UpdateMemberSavingsFamily._allTransitiveDependencies,
+          tahun: tahun,
+          workUnitId: workUnitId,
+          updateSavingsObject: updateSavingsObject,
+        );
+
+  UpdateMemberSavingsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.tahun,
+    required this.workUnitId,
+    required this.updateSavingsObject,
+  }) : super.internal();
+
+  final int tahun;
+  final int workUnitId;
+  final Map<String, Map<String, dynamic>> updateSavingsObject;
+
+  @override
+  Override overrideWith(
+    FutureOr<Object?> Function(UpdateMemberSavingsRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: UpdateMemberSavingsProvider._internal(
+        (ref) => create(ref as UpdateMemberSavingsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        tahun: tahun,
+        workUnitId: workUnitId,
+        updateSavingsObject: updateSavingsObject,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Object?> createElement() {
+    return _UpdateMemberSavingsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is UpdateMemberSavingsProvider &&
+        other.tahun == tahun &&
+        other.workUnitId == workUnitId &&
+        other.updateSavingsObject == updateSavingsObject;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, tahun.hashCode);
+    hash = _SystemHash.combine(hash, workUnitId.hashCode);
+    hash = _SystemHash.combine(hash, updateSavingsObject.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin UpdateMemberSavingsRef on AutoDisposeFutureProviderRef<Object?> {
+  /// The parameter `tahun` of this provider.
+  int get tahun;
+
+  /// The parameter `workUnitId` of this provider.
+  int get workUnitId;
+
+  /// The parameter `updateSavingsObject` of this provider.
+  Map<String, Map<String, dynamic>> get updateSavingsObject;
+}
+
+class _UpdateMemberSavingsProviderElement
+    extends AutoDisposeFutureProviderElement<Object?>
+    with UpdateMemberSavingsRef {
+  _UpdateMemberSavingsProviderElement(super.provider);
+
+  @override
+  int get tahun => (origin as UpdateMemberSavingsProvider).tahun;
+  @override
+  int get workUnitId => (origin as UpdateMemberSavingsProvider).workUnitId;
+  @override
+  Map<String, Map<String, dynamic>> get updateSavingsObject =>
+      (origin as UpdateMemberSavingsProvider).updateSavingsObject;
+}
+
 String _$updateSavingObjectHash() =>
     r'd07ec7df32678b86cf44088bd1a9deac6376e757';
 
@@ -1314,5 +1298,90 @@ final searchSavingsProvider =
 );
 
 typedef _$SearchSavings = AutoDisposeNotifier<Map<String, dynamic>>;
+String _$totalPageSavingsHash() => r'0d8e2405ad73c587febbba1d8a8c3b8a5bc64414';
+
+/// See also [TotalPageSavings].
+@ProviderFor(TotalPageSavings)
+final totalPageSavingsProvider =
+    AutoDisposeNotifierProvider<TotalPageSavings, int>.internal(
+  TotalPageSavings.new,
+  name: r'totalPageSavingsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$totalPageSavingsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$TotalPageSavings = AutoDisposeNotifier<int>;
+String _$dataTransferMemberSavingsNotifierHash() =>
+    r'aaaae97bea6d2279a9049d14af70196ae6fe6ac6';
+
+/// See also [DataTransferMemberSavingsNotifier].
+@ProviderFor(DataTransferMemberSavingsNotifier)
+final dataTransferMemberSavingsNotifierProvider = AutoDisposeNotifierProvider<
+    DataTransferMemberSavingsNotifier, Map<String, dynamic>>.internal(
+  DataTransferMemberSavingsNotifier.new,
+  name: r'dataTransferMemberSavingsNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$dataTransferMemberSavingsNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$DataTransferMemberSavingsNotifier
+    = AutoDisposeNotifier<Map<String, dynamic>>;
+String _$savingModeNotifierHash() =>
+    r'8413798cb4a00172babd03111bc61692e3d98aac';
+
+/// See also [SavingModeNotifier].
+@ProviderFor(SavingModeNotifier)
+final savingModeNotifierProvider =
+    AutoDisposeNotifierProvider<SavingModeNotifier, SavingMode>.internal(
+  SavingModeNotifier.new,
+  name: r'savingModeNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$savingModeNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$SavingModeNotifier = AutoDisposeNotifier<SavingMode>;
+String _$idMemberSavingsNotifierHash() =>
+    r'b2832c857ab1fc3b90b3ee57a36dfd1009160cf6';
+
+/// See also [IdMemberSavingsNotifier].
+@ProviderFor(IdMemberSavingsNotifier)
+final idMemberSavingsNotifierProvider =
+    AutoDisposeNotifierProvider<IdMemberSavingsNotifier, int>.internal(
+  IdMemberSavingsNotifier.new,
+  name: r'idMemberSavingsNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$idMemberSavingsNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$IdMemberSavingsNotifier = AutoDisposeNotifier<int>;
+String _$tahunMemberSavingsNotifierHash() =>
+    r'acb122933053aa0ad319b0c941daad75fe57a2c1';
+
+/// See also [TahunMemberSavingsNotifier].
+@ProviderFor(TahunMemberSavingsNotifier)
+final tahunMemberSavingsNotifierProvider =
+    AutoDisposeNotifierProvider<TahunMemberSavingsNotifier, int>.internal(
+  TahunMemberSavingsNotifier.new,
+  name: r'tahunMemberSavingsNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$tahunMemberSavingsNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$TahunMemberSavingsNotifier = AutoDisposeNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

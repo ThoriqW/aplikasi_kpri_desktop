@@ -1,6 +1,5 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/member_provider.dart';
-import 'package:aplikasi_kpri_desktop/providers/member_route_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
@@ -34,7 +33,6 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController jenisKelaminController = TextEditingController();
   final TextEditingController agamaController = TextEditingController();
-  final TextEditingController fotoController = TextEditingController(); // BELUM
   final TextEditingController jabatanController = TextEditingController();
   final TextEditingController pangkatController = TextEditingController();
   final TextEditingController nipController = TextEditingController();
@@ -381,21 +379,16 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                 ],
               ),
               const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ButtonWidget(
-                    text: _isLoading ? "Loading..." : "Update",
-                    onTap: () async {
-                      await _updateMember(
-                        ref
-                            .watch(idMemberNotifierProvider.notifier)
-                            .getId()
-                            .toString(),
-                      );
-                    },
-                  ),
-                ],
+              ButtonWidget(
+                text: _isLoading ? "Loading..." : "Update",
+                onTap: () async {
+                  await _updateMember(
+                    ref
+                        .watch(idMemberNotifierProvider.notifier)
+                        .getId()
+                        .toString(),
+                  );
+                },
               ),
             ],
           );

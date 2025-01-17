@@ -1,5 +1,5 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
-import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
+import 'package:aplikasi_kpri_desktop/providers/bills_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/button_widget.dart';
@@ -10,15 +10,16 @@ import 'package:aplikasi_kpri_desktop/widgets/work_unit/work_units_dropdown.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TransferMemberWidget extends ConsumerStatefulWidget {
-  const TransferMemberWidget({super.key});
+class TransferMemberTagihanWidget extends ConsumerStatefulWidget {
+  const TransferMemberTagihanWidget({super.key});
 
   @override
-  ConsumerState<TransferMemberWidget> createState() =>
-      _TransferMemberWidgetState();
+  ConsumerState<TransferMemberTagihanWidget> createState() =>
+      _TransferMemberTagihanWidgetState();
 }
 
-class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
+class _TransferMemberTagihanWidgetState
+    extends ConsumerState<TransferMemberTagihanWidget> {
   final TextEditingController namaMemberController = TextEditingController();
   final TextEditingController namaWorkUnitController = TextEditingController();
   String selectedUnit = '';
@@ -26,15 +27,13 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
   bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
-    final dataTransferSavingsMember =
-        ref.watch(dataTransferMemberSavingsNotifierProvider.notifier).getData();
+    final dataTransferTagihanMember =
+        ref.watch(dataTransferMemberTagihanNotifierProvider.notifier).getData();
     if (!isInitialized) {
-      namaMemberController.text =
-          dataTransferSavingsMember['nama_member'].toString();
-      namaWorkUnitController.text =
-          dataTransferSavingsMember['namaWorkUnit'].toString();
+      namaMemberController.text = dataTransferTagihanMember['nama_member'];
+      namaWorkUnitController.text = dataTransferTagihanMember['namaWorkUnit'];
 
-      selectedUnit = dataTransferSavingsMember['unit_kerja_id'].toString();
+      selectedUnit = dataTransferTagihanMember['unit_kerja_id'];
 
       isInitialized = true;
     }
@@ -48,7 +47,7 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
             onPressed: () async {
               ref
                   .watch(
-                    savingModeNotifierProvider.notifier,
+                    tagihanModeNotifierProvider.notifier,
                   )
                   .switchToView();
             },
@@ -118,9 +117,10 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
                 text: _isLoading ? "Loading..." : "Pindah",
                 onTap: () async {
                   _transferMemberSaving(
-                    dataTransferSavingsMember['member_profile_id'].toString(),
-                    dataTransferSavingsMember['tahun'].toString(),
+                    dataTransferTagihanMember['member_profile_id'],
+                    dataTransferTagihanMember['tahun'],
                     selectedUnit,
+                    dataTransferTagihanMember['bulan'],
                   );
                 },
               ),
@@ -135,16 +135,18 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
     String id,
     String tahun,
     String workUnitId,
+    String bulan,
   ) async {
     setState(() {
       _isLoading = true;
     });
     try {
       final transferMemberSaving =
-          await ref.watch(transferMemberSavingsProvider(
+          await ref.watch(transferMemberTagihanProvider(
         id,
         tahun,
         workUnitId,
+        bulan,
       ).future);
       if (!mounted) return;
       if (transferMemberSaving is SuccessResponse) {
@@ -158,11 +160,11 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
           },
         ).then((_) {
           ref
-              .watch(dataTransferMemberSavingsNotifierProvider.notifier)
-              .clearDataTransferMemberSavings();
+              .watch(dataTransferMemberTagihanNotifierProvider.notifier)
+              .clearDataTransferMemberTagihan();
           ref
               .watch(
-                savingModeNotifierProvider.notifier,
+                tagihanModeNotifierProvider.notifier,
               )
               .switchToView();
         });

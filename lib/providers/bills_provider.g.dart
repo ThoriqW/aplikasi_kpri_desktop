@@ -241,7 +241,7 @@ class _GetAllBillsMembersProviderElement
 }
 
 String _$createMemberTagihanHash() =>
-    r'e6f7164c447b2b2a40ceced94b807405f320fe6e';
+    r'a95f60aa7d7c26b8c6e15e930f4c8d9abeba2f17';
 
 /// See also [createMemberTagihan].
 @ProviderFor(createMemberTagihan)
@@ -254,10 +254,12 @@ class CreateMemberTagihanFamily extends Family<AsyncValue> {
 
   /// See also [createMemberTagihan].
   CreateMemberTagihanProvider call(
-    String tahun,
+    int tahun,
+    int bulan,
   ) {
     return CreateMemberTagihanProvider(
       tahun,
+      bulan,
     );
   }
 
@@ -267,6 +269,7 @@ class CreateMemberTagihanFamily extends Family<AsyncValue> {
   ) {
     return call(
       provider.tahun,
+      provider.bulan,
     );
   }
 
@@ -289,11 +292,13 @@ class CreateMemberTagihanFamily extends Family<AsyncValue> {
 class CreateMemberTagihanProvider extends AutoDisposeFutureProvider<Object?> {
   /// See also [createMemberTagihan].
   CreateMemberTagihanProvider(
-    String tahun,
+    int tahun,
+    int bulan,
   ) : this._internal(
           (ref) => createMemberTagihan(
             ref as CreateMemberTagihanRef,
             tahun,
+            bulan,
           ),
           from: createMemberTagihanProvider,
           name: r'createMemberTagihanProvider',
@@ -305,6 +310,7 @@ class CreateMemberTagihanProvider extends AutoDisposeFutureProvider<Object?> {
           allTransitiveDependencies:
               CreateMemberTagihanFamily._allTransitiveDependencies,
           tahun: tahun,
+          bulan: bulan,
         );
 
   CreateMemberTagihanProvider._internal(
@@ -315,9 +321,11 @@ class CreateMemberTagihanProvider extends AutoDisposeFutureProvider<Object?> {
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.tahun,
+    required this.bulan,
   }) : super.internal();
 
-  final String tahun;
+  final int tahun;
+  final int bulan;
 
   @override
   Override overrideWith(
@@ -333,6 +341,7 @@ class CreateMemberTagihanProvider extends AutoDisposeFutureProvider<Object?> {
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         tahun: tahun,
+        bulan: bulan,
       ),
     );
   }
@@ -344,13 +353,16 @@ class CreateMemberTagihanProvider extends AutoDisposeFutureProvider<Object?> {
 
   @override
   bool operator ==(Object other) {
-    return other is CreateMemberTagihanProvider && other.tahun == tahun;
+    return other is CreateMemberTagihanProvider &&
+        other.tahun == tahun &&
+        other.bulan == bulan;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, tahun.hashCode);
+    hash = _SystemHash.combine(hash, bulan.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -360,7 +372,10 @@ class CreateMemberTagihanProvider extends AutoDisposeFutureProvider<Object?> {
 // ignore: unused_element
 mixin CreateMemberTagihanRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `tahun` of this provider.
-  String get tahun;
+  int get tahun;
+
+  /// The parameter `bulan` of this provider.
+  int get bulan;
 }
 
 class _CreateMemberTagihanProviderElement
@@ -369,7 +384,521 @@ class _CreateMemberTagihanProviderElement
   _CreateMemberTagihanProviderElement(super.provider);
 
   @override
-  String get tahun => (origin as CreateMemberTagihanProvider).tahun;
+  int get tahun => (origin as CreateMemberTagihanProvider).tahun;
+  @override
+  int get bulan => (origin as CreateMemberTagihanProvider).bulan;
+}
+
+String _$updateMemberTagihanHash() =>
+    r'7f0ba89b0b35668fcd2126fc816ba7158d2d98fc';
+
+/// See also [updateMemberTagihan].
+@ProviderFor(updateMemberTagihan)
+const updateMemberTagihanProvider = UpdateMemberTagihanFamily();
+
+/// See also [updateMemberTagihan].
+class UpdateMemberTagihanFamily extends Family<AsyncValue> {
+  /// See also [updateMemberTagihan].
+  const UpdateMemberTagihanFamily();
+
+  /// See also [updateMemberTagihan].
+  UpdateMemberTagihanProvider call(
+    int tahun,
+    int bulan,
+    Map<String, dynamic> updateTagihanObject,
+  ) {
+    return UpdateMemberTagihanProvider(
+      tahun,
+      bulan,
+      updateTagihanObject,
+    );
+  }
+
+  @override
+  UpdateMemberTagihanProvider getProviderOverride(
+    covariant UpdateMemberTagihanProvider provider,
+  ) {
+    return call(
+      provider.tahun,
+      provider.bulan,
+      provider.updateTagihanObject,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'updateMemberTagihanProvider';
+}
+
+/// See also [updateMemberTagihan].
+class UpdateMemberTagihanProvider extends AutoDisposeFutureProvider<Object?> {
+  /// See also [updateMemberTagihan].
+  UpdateMemberTagihanProvider(
+    int tahun,
+    int bulan,
+    Map<String, dynamic> updateTagihanObject,
+  ) : this._internal(
+          (ref) => updateMemberTagihan(
+            ref as UpdateMemberTagihanRef,
+            tahun,
+            bulan,
+            updateTagihanObject,
+          ),
+          from: updateMemberTagihanProvider,
+          name: r'updateMemberTagihanProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$updateMemberTagihanHash,
+          dependencies: UpdateMemberTagihanFamily._dependencies,
+          allTransitiveDependencies:
+              UpdateMemberTagihanFamily._allTransitiveDependencies,
+          tahun: tahun,
+          bulan: bulan,
+          updateTagihanObject: updateTagihanObject,
+        );
+
+  UpdateMemberTagihanProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.tahun,
+    required this.bulan,
+    required this.updateTagihanObject,
+  }) : super.internal();
+
+  final int tahun;
+  final int bulan;
+  final Map<String, dynamic> updateTagihanObject;
+
+  @override
+  Override overrideWith(
+    FutureOr<Object?> Function(UpdateMemberTagihanRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: UpdateMemberTagihanProvider._internal(
+        (ref) => create(ref as UpdateMemberTagihanRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        tahun: tahun,
+        bulan: bulan,
+        updateTagihanObject: updateTagihanObject,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Object?> createElement() {
+    return _UpdateMemberTagihanProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is UpdateMemberTagihanProvider &&
+        other.tahun == tahun &&
+        other.bulan == bulan &&
+        other.updateTagihanObject == updateTagihanObject;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, tahun.hashCode);
+    hash = _SystemHash.combine(hash, bulan.hashCode);
+    hash = _SystemHash.combine(hash, updateTagihanObject.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin UpdateMemberTagihanRef on AutoDisposeFutureProviderRef<Object?> {
+  /// The parameter `tahun` of this provider.
+  int get tahun;
+
+  /// The parameter `bulan` of this provider.
+  int get bulan;
+
+  /// The parameter `updateTagihanObject` of this provider.
+  Map<String, dynamic> get updateTagihanObject;
+}
+
+class _UpdateMemberTagihanProviderElement
+    extends AutoDisposeFutureProviderElement<Object?>
+    with UpdateMemberTagihanRef {
+  _UpdateMemberTagihanProviderElement(super.provider);
+
+  @override
+  int get tahun => (origin as UpdateMemberTagihanProvider).tahun;
+  @override
+  int get bulan => (origin as UpdateMemberTagihanProvider).bulan;
+  @override
+  Map<String, dynamic> get updateTagihanObject =>
+      (origin as UpdateMemberTagihanProvider).updateTagihanObject;
+}
+
+String _$deleteMemberTagihanHash() =>
+    r'3afe3a42e7afda9a99d1ec5c6796618244ea616f';
+
+/// See also [deleteMemberTagihan].
+@ProviderFor(deleteMemberTagihan)
+const deleteMemberTagihanProvider = DeleteMemberTagihanFamily();
+
+/// See also [deleteMemberTagihan].
+class DeleteMemberTagihanFamily extends Family<AsyncValue> {
+  /// See also [deleteMemberTagihan].
+  const DeleteMemberTagihanFamily();
+
+  /// See also [deleteMemberTagihan].
+  DeleteMemberTagihanProvider call(
+    String id,
+    String tahun,
+    String bulan,
+  ) {
+    return DeleteMemberTagihanProvider(
+      id,
+      tahun,
+      bulan,
+    );
+  }
+
+  @override
+  DeleteMemberTagihanProvider getProviderOverride(
+    covariant DeleteMemberTagihanProvider provider,
+  ) {
+    return call(
+      provider.id,
+      provider.tahun,
+      provider.bulan,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'deleteMemberTagihanProvider';
+}
+
+/// See also [deleteMemberTagihan].
+class DeleteMemberTagihanProvider extends AutoDisposeFutureProvider<Object?> {
+  /// See also [deleteMemberTagihan].
+  DeleteMemberTagihanProvider(
+    String id,
+    String tahun,
+    String bulan,
+  ) : this._internal(
+          (ref) => deleteMemberTagihan(
+            ref as DeleteMemberTagihanRef,
+            id,
+            tahun,
+            bulan,
+          ),
+          from: deleteMemberTagihanProvider,
+          name: r'deleteMemberTagihanProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$deleteMemberTagihanHash,
+          dependencies: DeleteMemberTagihanFamily._dependencies,
+          allTransitiveDependencies:
+              DeleteMemberTagihanFamily._allTransitiveDependencies,
+          id: id,
+          tahun: tahun,
+          bulan: bulan,
+        );
+
+  DeleteMemberTagihanProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+    required this.tahun,
+    required this.bulan,
+  }) : super.internal();
+
+  final String id;
+  final String tahun;
+  final String bulan;
+
+  @override
+  Override overrideWith(
+    FutureOr<Object?> Function(DeleteMemberTagihanRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: DeleteMemberTagihanProvider._internal(
+        (ref) => create(ref as DeleteMemberTagihanRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+        tahun: tahun,
+        bulan: bulan,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Object?> createElement() {
+    return _DeleteMemberTagihanProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is DeleteMemberTagihanProvider &&
+        other.id == id &&
+        other.tahun == tahun &&
+        other.bulan == bulan;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+    hash = _SystemHash.combine(hash, tahun.hashCode);
+    hash = _SystemHash.combine(hash, bulan.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin DeleteMemberTagihanRef on AutoDisposeFutureProviderRef<Object?> {
+  /// The parameter `id` of this provider.
+  String get id;
+
+  /// The parameter `tahun` of this provider.
+  String get tahun;
+
+  /// The parameter `bulan` of this provider.
+  String get bulan;
+}
+
+class _DeleteMemberTagihanProviderElement
+    extends AutoDisposeFutureProviderElement<Object?>
+    with DeleteMemberTagihanRef {
+  _DeleteMemberTagihanProviderElement(super.provider);
+
+  @override
+  String get id => (origin as DeleteMemberTagihanProvider).id;
+  @override
+  String get tahun => (origin as DeleteMemberTagihanProvider).tahun;
+  @override
+  String get bulan => (origin as DeleteMemberTagihanProvider).bulan;
+}
+
+String _$transferMemberTagihanHash() =>
+    r'e9c3d9c1ddc53fbefd620ddb8ce820cef98bc8e9';
+
+/// See also [transferMemberTagihan].
+@ProviderFor(transferMemberTagihan)
+const transferMemberTagihanProvider = TransferMemberTagihanFamily();
+
+/// See also [transferMemberTagihan].
+class TransferMemberTagihanFamily extends Family<AsyncValue> {
+  /// See also [transferMemberTagihan].
+  const TransferMemberTagihanFamily();
+
+  /// See also [transferMemberTagihan].
+  TransferMemberTagihanProvider call(
+    String id,
+    String tahun,
+    String workUnitId,
+    String bulan,
+  ) {
+    return TransferMemberTagihanProvider(
+      id,
+      tahun,
+      workUnitId,
+      bulan,
+    );
+  }
+
+  @override
+  TransferMemberTagihanProvider getProviderOverride(
+    covariant TransferMemberTagihanProvider provider,
+  ) {
+    return call(
+      provider.id,
+      provider.tahun,
+      provider.workUnitId,
+      provider.bulan,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'transferMemberTagihanProvider';
+}
+
+/// See also [transferMemberTagihan].
+class TransferMemberTagihanProvider extends AutoDisposeFutureProvider<Object?> {
+  /// See also [transferMemberTagihan].
+  TransferMemberTagihanProvider(
+    String id,
+    String tahun,
+    String workUnitId,
+    String bulan,
+  ) : this._internal(
+          (ref) => transferMemberTagihan(
+            ref as TransferMemberTagihanRef,
+            id,
+            tahun,
+            workUnitId,
+            bulan,
+          ),
+          from: transferMemberTagihanProvider,
+          name: r'transferMemberTagihanProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$transferMemberTagihanHash,
+          dependencies: TransferMemberTagihanFamily._dependencies,
+          allTransitiveDependencies:
+              TransferMemberTagihanFamily._allTransitiveDependencies,
+          id: id,
+          tahun: tahun,
+          workUnitId: workUnitId,
+          bulan: bulan,
+        );
+
+  TransferMemberTagihanProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.id,
+    required this.tahun,
+    required this.workUnitId,
+    required this.bulan,
+  }) : super.internal();
+
+  final String id;
+  final String tahun;
+  final String workUnitId;
+  final String bulan;
+
+  @override
+  Override overrideWith(
+    FutureOr<Object?> Function(TransferMemberTagihanRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: TransferMemberTagihanProvider._internal(
+        (ref) => create(ref as TransferMemberTagihanRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        id: id,
+        tahun: tahun,
+        workUnitId: workUnitId,
+        bulan: bulan,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Object?> createElement() {
+    return _TransferMemberTagihanProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is TransferMemberTagihanProvider &&
+        other.id == id &&
+        other.tahun == tahun &&
+        other.workUnitId == workUnitId &&
+        other.bulan == bulan;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
+    hash = _SystemHash.combine(hash, tahun.hashCode);
+    hash = _SystemHash.combine(hash, workUnitId.hashCode);
+    hash = _SystemHash.combine(hash, bulan.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin TransferMemberTagihanRef on AutoDisposeFutureProviderRef<Object?> {
+  /// The parameter `id` of this provider.
+  String get id;
+
+  /// The parameter `tahun` of this provider.
+  String get tahun;
+
+  /// The parameter `workUnitId` of this provider.
+  String get workUnitId;
+
+  /// The parameter `bulan` of this provider.
+  String get bulan;
+}
+
+class _TransferMemberTagihanProviderElement
+    extends AutoDisposeFutureProviderElement<Object?>
+    with TransferMemberTagihanRef {
+  _TransferMemberTagihanProviderElement(super.provider);
+
+  @override
+  String get id => (origin as TransferMemberTagihanProvider).id;
+  @override
+  String get tahun => (origin as TransferMemberTagihanProvider).tahun;
+  @override
+  String get workUnitId => (origin as TransferMemberTagihanProvider).workUnitId;
+  @override
+  String get bulan => (origin as TransferMemberTagihanProvider).bulan;
 }
 
 String _$totalPageBillsHash() => r'49b2985c3266048e8490a3f44e3277e2c64d7715';
@@ -403,5 +932,57 @@ final searchBillsProvider =
 );
 
 typedef _$SearchBills = AutoDisposeNotifier<Map<String, dynamic>>;
+String _$dataMemberTagihanNotifierHash() =>
+    r'e22ea9b55948dce23f7e4bc11e2e5cdd69516b01';
+
+/// See also [DataMemberTagihanNotifier].
+@ProviderFor(DataMemberTagihanNotifier)
+final dataMemberTagihanNotifierProvider = AutoDisposeNotifierProvider<
+    DataMemberTagihanNotifier, Map<String, dynamic>>.internal(
+  DataMemberTagihanNotifier.new,
+  name: r'dataMemberTagihanNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$dataMemberTagihanNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$DataMemberTagihanNotifier = AutoDisposeNotifier<Map<String, dynamic>>;
+String _$dataTransferMemberTagihanNotifierHash() =>
+    r'cd011f0ec7bddfe7d1ac8be2f53ab042c104b1b2';
+
+/// See also [DataTransferMemberTagihanNotifier].
+@ProviderFor(DataTransferMemberTagihanNotifier)
+final dataTransferMemberTagihanNotifierProvider = AutoDisposeNotifierProvider<
+    DataTransferMemberTagihanNotifier, Map<String, dynamic>>.internal(
+  DataTransferMemberTagihanNotifier.new,
+  name: r'dataTransferMemberTagihanNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$dataTransferMemberTagihanNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$DataTransferMemberTagihanNotifier
+    = AutoDisposeNotifier<Map<String, dynamic>>;
+String _$tagihanModeNotifierHash() =>
+    r'959069899d0b57ad094f7c2e8d33d49439fe06a2';
+
+/// See also [TagihanModeNotifier].
+@ProviderFor(TagihanModeNotifier)
+final tagihanModeNotifierProvider =
+    AutoDisposeNotifierProvider<TagihanModeNotifier, TagihanMode>.internal(
+  TagihanModeNotifier.new,
+  name: r'tagihanModeNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$tagihanModeNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$TagihanModeNotifier = AutoDisposeNotifier<TagihanMode>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

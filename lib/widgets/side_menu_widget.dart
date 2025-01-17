@@ -80,7 +80,10 @@ class _SideMenuWidgetState extends ConsumerState<SideMenuWidget> {
                   vertical: 30,
                 ),
                 child: IconButton(
-                  icon: const Icon(Icons.logout),
+                  icon: const Icon(
+                    Icons.logout,
+                    size: 25.0,
+                  ),
                   color: Colors.redAccent,
                   onPressed: () async {
                     final authNotifier =

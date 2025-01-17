@@ -64,12 +64,10 @@ class _UpdateSimpananWidgetState extends ConsumerState<UpdateSimpananWidget> {
     });
     try {
       final updateMemberSavings = await ref.watch(updateMemberSavingsProvider(
-              tahun,
-              workUnitId,
-              ref
-                  .watch(updateSavingObjectProvider.notifier)
-                  .getUpdateValueSaving())
-          .future);
+        tahun,
+        workUnitId,
+        ref.watch(updateSavingObjectProvider.notifier).getUpdateValueSaving(),
+      ).future);
       if (!mounted) return;
       if (updateMemberSavings is SuccessResponse) {
         await showDialog(

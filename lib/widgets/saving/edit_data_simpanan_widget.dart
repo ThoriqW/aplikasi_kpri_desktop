@@ -1,5 +1,5 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
-import 'package:aplikasi_kpri_desktop/providers/saving_route_provider.dart';
+import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/saving/delete_simpanan_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/saving/update_year_simpanan_widget.dart';

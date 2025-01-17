@@ -1,6 +1,5 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/member_provider.dart';
-import 'package:aplikasi_kpri_desktop/providers/member_route_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/member/delete_member_widget.dart';
 import 'package:flutter/material.dart';
@@ -368,6 +367,28 @@ class TableMemberWidget extends ConsumerWidget {
                     ),
                 ],
               ),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () {
+                    if (currentPage > 1) {}
+                  },
+                ),
+                const SizedBox(width: 6),
+                IconButton(
+                  icon: const Icon(Icons.arrow_forward),
+                  onPressed: () {
+                    if (currentPage <
+                        ref
+                            .watch(totalPageMemberProvider.notifier)
+                            .getTotalMember()) {}
+                  },
+                ),
+              ],
             ),
           ],
         );

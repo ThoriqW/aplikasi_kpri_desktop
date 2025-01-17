@@ -50,7 +50,7 @@ Future getAllBillsMembers(
 }
 
 @riverpod
-Future createMemberTagihan(ref, String tahun) async {
+Future createMemberTagihan(ref, int tahun, int bulan) async {
   final String? token = await storage.read(key: 'authToken');
 
   if (token == null) {
@@ -64,9 +64,74 @@ Future createMemberTagihan(ref, String tahun) async {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
       },
-      body: jsonEncode({'tahun': tahun}),
+      body: jsonEncode({
+        'tahun': tahun,
+        'bulan': bulan,
+      }),
     );
     if (response.statusCode == 201) {
+      return SuccessResponse.fromJson(jsonDecode(response.body));
+    } else {
+      return ErrorResponse.fromJson(jsonDecode(response.body));
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
+}
+
+@riverpod
+Future updateMemberTagihan(
+  ref,
+  int tahun,
+  int bulan,
+  Map<String, dynamic> updateTagihanObject,
+) async {
+  final String? token = await storage.read(key: 'authToken');
+
+  if (token == null) {
+    throw Exception('No authentication token found');
+  }
+
+  try {
+    final response = await http.post(
+      Uri.parse('$baseUrl/api/v1/bills/update'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({
+        'tahun': tahun,
+        'bulan': bulan,
+        'bills': [updateTagihanObject],
+      }),
+    );
+    if (response.statusCode == 200) {
+      return SuccessResponse.fromJson(jsonDecode(response.body));
+    } else {
+      return ErrorResponse.fromJson(jsonDecode(response.body));
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
+}
+
+@riverpod
+Future deleteMemberTagihan(ref, String id, String tahun, String bulan) async {
+  final String? token = await storage.read(key: 'authToken');
+
+  if (token == null) {
+    throw Exception('No authentication token found');
+  }
+
+  try {
+    final response = await http.delete(
+      Uri.parse('$baseUrl/api/v1/bills/$tahun/$bulan/member/$id'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
       return SuccessResponse.fromJson(jsonDecode(response.body));
     } else {
       return ErrorResponse.fromJson(jsonDecode(response.body));
@@ -125,4 +190,127 @@ class SearchBills extends _$SearchBills {
   Map<String, dynamic> getSearchBills() {
     return state;
   }
+}
+
+@riverpod
+class DataMemberTagihanNotifier extends _$DataMemberTagihanNotifier {
+  @override
+  Map<String, dynamic> build() => {};
+
+  void setData(
+    int memberProfileId,
+    String namaMember,
+    String simpananWajib,
+    String danaSosial,
+    String pokok,
+    String bunga,
+    String barang,
+    String jangkaWaktu,
+    String jangkaWaktuKe,
+    String sisaTunggakan,
+    String keterangan,
+    int tahun,
+    int bulan,
+  ) {
+    state = {
+      "member_profile_id": memberProfileId,
+      "nama_member": namaMember,
+      "simpanan_wajib": simpananWajib,
+      "dana_sosial": danaSosial,
+      "pokok": pokok,
+      "bunga": bunga,
+      "barang": barang,
+      "jangka_waktu": jangkaWaktu,
+      "jangka_waktu_ke": jangkaWaktuKe,
+      "sisa_tunggakan": sisaTunggakan,
+      "keterangan": keterangan,
+      "tahun": tahun,
+      "bulan": bulan,
+    };
+  }
+
+  void clearDataMemberTagihan() {
+    state = {};
+  }
+
+  Map<String, dynamic> getData() {
+    return state;
+  }
+}
+
+@riverpod
+Future transferMemberTagihan(
+    ref, String id, String tahun, String workUnitId, String bulan) async {
+  final String? token = await storage.read(key: 'authToken');
+
+  if (token == null) {
+    throw Exception('No authentication token found');
+  }
+
+  try {
+    final response = await http.patch(
+      Uri.parse('$baseUrl/api/v1/bills/$tahun/$bulan/transfer-work-unit/$id'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({
+        'work_unit_id': workUnitId == '' ? 0 : int.parse(workUnitId),
+      }),
+    );
+    if (response.statusCode == 200) {
+      return SuccessResponse.fromJson(jsonDecode(response.body));
+    } else {
+      return ErrorResponse.fromJson(jsonDecode(response.body));
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
+}
+
+@riverpod
+class DataTransferMemberTagihanNotifier
+    extends _$DataTransferMemberTagihanNotifier {
+  @override
+  Map<String, dynamic> build() => {};
+
+  void setData(
+    String memberProfileId,
+    String namaMember,
+    String unitKeraId,
+    String unitKerja,
+    String tahun,
+    String bulan,
+  ) {
+    state = {
+      "member_profile_id": memberProfileId,
+      "nama_member": namaMember,
+      "unit_kerja_id": unitKeraId,
+      "namaWorkUnit": unitKerja,
+      "tahun": tahun,
+      "bulan": bulan,
+    };
+  }
+
+  void clearDataTransferMemberTagihan() {
+    state = {};
+  }
+
+  Map<String, dynamic> getData() {
+    return state;
+  }
+}
+
+//ROUTE
+enum TagihanMode { view, editTagihanMember, transferMemberTagihan }
+
+@riverpod
+class TagihanModeNotifier extends _$TagihanModeNotifier {
+  @override
+  TagihanMode build() => TagihanMode.view;
+
+  void switchToView() => state = TagihanMode.view;
+  void switchToeditTagihanMember() => state = TagihanMode.editTagihanMember;
+  void switchToTransferTagihanMember() =>
+      state = TagihanMode.transferMemberTagihan;
 }

@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'admin_route_provider.g.dart';
+part 'admin_provider.g.dart';
 
 enum AdminMode { view, editUser, editWorkUnit }
 

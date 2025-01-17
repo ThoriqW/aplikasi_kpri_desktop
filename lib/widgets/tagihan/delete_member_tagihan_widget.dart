@@ -1,37 +1,37 @@
-import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
+import 'package:aplikasi_kpri_desktop/providers/bills_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DeleteMemberSavingWidget extends ConsumerStatefulWidget {
-  const DeleteMemberSavingWidget({
+class DeleteMemberTagihanWidget extends ConsumerStatefulWidget {
+  const DeleteMemberTagihanWidget({
     super.key,
     required this.tahun,
     required this.workUnitId,
-    required this.currentPage,
-    required this.perPage,
     required this.searchQuery,
+    required this.perPage,
+    required this.currentPage,
+    required this.bulan,
     required this.memberId,
-    required this.tahunSaving,
   });
 
+  final String searchQuery;
+  final int bulan;
   final int tahun;
   final int workUnitId;
-  final String searchQuery;
   final int perPage;
   final int currentPage;
-  final String memberId;
-  final String tahunSaving;
+  final int memberId;
 
   @override
-  ConsumerState<DeleteMemberSavingWidget> createState() =>
-      _DeleteMemberSavingWidgetState();
+  ConsumerState<DeleteMemberTagihanWidget> createState() =>
+      _DeleteMemberTagihanWidgetState();
 }
 
-class _DeleteMemberSavingWidgetState
-    extends ConsumerState<DeleteMemberSavingWidget> {
+class _DeleteMemberTagihanWidgetState
+    extends ConsumerState<DeleteMemberTagihanWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,7 +44,7 @@ class _DeleteMemberSavingWidgetState
               return AlertDialog(
                 title: const Text("Info"),
                 content: const Text(
-                  "Yakin hapus simpanan member?",
+                  "Yakin hapus tagihan member?",
                 ),
                 actions: <Widget>[
                   TextButton(
@@ -56,9 +56,10 @@ class _DeleteMemberSavingWidgetState
                   ),
                   TextButton(
                     onPressed: () {
-                      _deleteMemberSavings(
-                        widget.memberId,
-                        widget.tahunSaving,
+                      _deleteMemberTagihan(
+                        widget.memberId.toString(),
+                        widget.tahun.toString(),
+                        widget.bulan.toString(),
                       );
                     },
                     child: const Text('OK'),
@@ -77,10 +78,11 @@ class _DeleteMemberSavingWidgetState
     );
   }
 
-  Future<void> _deleteMemberSavings(String id, String tahun) async {
+  Future<void> _deleteMemberTagihan(
+      String id, String tahun, String bulan) async {
     try {
       final deleteMemberSavings = await ref.watch(
-        deleteMemberSavingsProvider(id, tahun).future,
+        deleteMemberTagihanProvider(id, tahun, bulan).future,
       );
       if (!mounted) return;
       Navigator.pop(context, 'OK');
@@ -94,10 +96,11 @@ class _DeleteMemberSavingWidgetState
             );
           },
         );
-        ref.invalidate(getAllSavingMembersProvider(
+        ref.invalidate(getAllBillsMembersProvider(
           widget.tahun,
           widget.workUnitId,
           widget.searchQuery,
+          widget.bulan,
           widget.perPage,
           widget.currentPage,
         ));

@@ -76,43 +76,6 @@ Future createMemberSavings(ref, int tahun) async {
 }
 
 @riverpod
-Future updateMemberSavings(
-  ref,
-  int tahun,
-  int workUnitId,
-  Map<String, Map<String, dynamic>> updateSavingsObject,
-) async {
-  final String? token = await storage.read(key: 'authToken');
-
-  if (token == null) {
-    throw Exception('No authentication token found');
-  }
-
-  final transformedUpdateSavings = transformSavingsData(updateSavingsObject);
-
-  try {
-    final response = await http.post(
-      Uri.parse('$baseUrl/api/v1/savings/update'),
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer $token',
-      },
-      body: jsonEncode({
-        'tahun': tahun,
-        'savings': transformedUpdateSavings,
-      }),
-    );
-    if (response.statusCode == 200) {
-      return SuccessResponse.fromJson(jsonDecode(response.body));
-    } else {
-      return ErrorResponse.fromJson(jsonDecode(response.body));
-    }
-  } catch (e) {
-    throw Exception(e);
-  }
-}
-
-@riverpod
 Future addMemberSavings(
   ref,
   String memberId,
@@ -187,6 +150,7 @@ Future transferMemberSavings(
   if (token == null) {
     throw Exception('No authentication token found');
   }
+
   try {
     final response = await http.patch(
       Uri.parse('$baseUrl/api/v1/savings/$tahun/transfer-work-unit/$id'),
@@ -270,6 +234,43 @@ Future updateTahunSavings(
   }
 }
 
+@riverpod
+Future updateMemberSavings(
+  ref,
+  int tahun,
+  int workUnitId,
+  Map<String, Map<String, dynamic>> updateSavingsObject,
+) async {
+  final String? token = await storage.read(key: 'authToken');
+
+  if (token == null) {
+    throw Exception('No authentication token found');
+  }
+
+  final transformedUpdateSavings = transformSavingsData(updateSavingsObject);
+
+  try {
+    final response = await http.post(
+      Uri.parse('$baseUrl/api/v1/savings/update'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({
+        'tahun': tahun,
+        'savings': transformedUpdateSavings,
+      }),
+    );
+    if (response.statusCode == 200) {
+      return SuccessResponse.fromJson(jsonDecode(response.body));
+    } else {
+      return ErrorResponse.fromJson(jsonDecode(response.body));
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
+}
+
 List<Map<String, dynamic>> transformSavingsData(
   Map<String, Map<String, dynamic>> updateSavingsObject,
 ) {
@@ -282,20 +283,6 @@ List<Map<String, dynamic>> transformSavingsData(
       ...months.map((month, savings) => MapEntry(month, savings)),
     };
   }).toList();
-}
-
-@riverpod
-class TotalPageSavings extends _$TotalPageSavings {
-  @override
-  int build() => 0;
-
-  void setTotalMember(int total) {
-    state = total;
-  }
-
-  int getTotalMember() {
-    return state;
-  }
 }
 
 @riverpod
@@ -365,6 +352,92 @@ class SearchSavings extends _$SearchSavings {
   }
 
   Map<String, dynamic> getSearchSavings() {
+    return state;
+  }
+}
+
+@riverpod
+class TotalPageSavings extends _$TotalPageSavings {
+  @override
+  int build() => 0;
+
+  void setTotalMember(int total) {
+    state = total;
+  }
+
+  int getTotalMember() {
+    return state;
+  }
+}
+
+@riverpod
+class DataTransferMemberSavingsNotifier
+    extends _$DataTransferMemberSavingsNotifier {
+  @override
+  Map<String, dynamic> build() => {};
+
+  void setData(
+    int memberProfileId,
+    String namaMember,
+    int unitKeraId,
+    String unitKerja,
+    int tahun,
+  ) {
+    state = {
+      "member_profile_id": memberProfileId,
+      "nama_member": namaMember,
+      "unit_kerja_id": unitKeraId,
+      "namaWorkUnit": unitKerja,
+      "tahun": tahun,
+    };
+  }
+
+  void clearDataTransferMemberSavings() {
+    state = {};
+  }
+
+  Map<String, dynamic> getData() {
+    return state;
+  }
+}
+
+//ROUTE
+enum SavingMode { view, transferMember, editSimpanan }
+
+@riverpod
+class SavingModeNotifier extends _$SavingModeNotifier {
+  @override
+  SavingMode build() => SavingMode.view;
+
+  void switchToView() => state = SavingMode.view;
+  void switchToTransferMember() => state = SavingMode.transferMember;
+  void switchToEditSimpanan() => state = SavingMode.editSimpanan;
+}
+
+@riverpod
+class IdMemberSavingsNotifier extends _$IdMemberSavingsNotifier {
+  @override
+  int build() => 0;
+
+  void setId(int id) {
+    state = id;
+  }
+
+  int getId() {
+    return state;
+  }
+}
+
+@riverpod
+class TahunMemberSavingsNotifier extends _$TahunMemberSavingsNotifier {
+  @override
+  int build() => 0;
+
+  void setTahunSimpanan(int tahun) {
+    state = tahun;
+  }
+
+  int getTahunSimpanan() {
     return state;
   }
 }
