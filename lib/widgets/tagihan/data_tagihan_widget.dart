@@ -25,15 +25,16 @@ class DataTagihanWidget extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 30),
-          TableTagihanWidget(
-            tahun: searchCriteriaBills['tahun'],
-            bulan: searchCriteriaBills['bulan'],
-            workUnitId: searchCriteriaBills['workUnitId'],
-            searchQuery: searchCriteriaBills['searchQuery'],
-            perPage: searchCriteriaBills['perPage'],
-            currentPage: searchCriteriaBills['currentPage'],
+          Flexible(
+            child: TableTagihanWidget(
+              tahun: searchCriteriaBills['tahun'],
+              bulan: searchCriteriaBills['bulan'],
+              workUnitId: searchCriteriaBills['workUnitId'],
+              searchQuery: searchCriteriaBills['searchQuery'],
+              perPage: searchCriteriaBills['perPage'],
+              currentPage: searchCriteriaBills['currentPage'],
+            ),
           ),
-          const SizedBox(height: 10),
         ],
       ),
     );

@@ -1282,7 +1282,7 @@ final updateSavingObjectProvider = AutoDisposeNotifierProvider<
 
 typedef _$UpdateSavingObject
     = AutoDisposeNotifier<Map<String, Map<String, dynamic>>>;
-String _$searchSavingsHash() => r'bb3163c2bfb94fe33c0835fb116690c8d26956f4';
+String _$searchSavingsHash() => r'46ecb2bd0d39777526d368c9f90c9b38782653df';
 
 /// See also [SearchSavings].
 @ProviderFor(SearchSavings)
@@ -1298,7 +1298,7 @@ final searchSavingsProvider =
 );
 
 typedef _$SearchSavings = AutoDisposeNotifier<Map<String, dynamic>>;
-String _$totalPageSavingsHash() => r'0d8e2405ad73c587febbba1d8a8c3b8a5bc64414';
+String _$totalPageSavingsHash() => r'b0aee3c6df697004b7eb0fb09bd27c40a7c0df55';
 
 /// See also [TotalPageSavings].
 @ProviderFor(TotalPageSavings)
@@ -1366,22 +1366,22 @@ final idMemberSavingsNotifierProvider =
 );
 
 typedef _$IdMemberSavingsNotifier = AutoDisposeNotifier<int>;
-String _$tahunMemberSavingsNotifierHash() =>
-    r'acb122933053aa0ad319b0c941daad75fe57a2c1';
+String _$editSavingsNotifierHash() =>
+    r'0b36b341c11311e9824eecbd7496e1ea844974e2';
 
-/// See also [TahunMemberSavingsNotifier].
-@ProviderFor(TahunMemberSavingsNotifier)
-final tahunMemberSavingsNotifierProvider =
-    AutoDisposeNotifierProvider<TahunMemberSavingsNotifier, int>.internal(
-  TahunMemberSavingsNotifier.new,
-  name: r'tahunMemberSavingsNotifierProvider',
+/// See also [EditSavingsNotifier].
+@ProviderFor(EditSavingsNotifier)
+final editSavingsNotifierProvider =
+    AutoDisposeNotifierProvider<EditSavingsNotifier, int>.internal(
+  EditSavingsNotifier.new,
+  name: r'editSavingsNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$tahunMemberSavingsNotifierHash,
+      : _$editSavingsNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$TahunMemberSavingsNotifier = AutoDisposeNotifier<int>;
+typedef _$EditSavingsNotifier = AutoDisposeNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

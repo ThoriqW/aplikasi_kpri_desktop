@@ -269,10 +269,6 @@ class TotalPageMember extends _$TotalPageMember {
   void setTotalMember(int total) {
     state = total;
   }
-
-  int getTotalMember() {
-    return state;
-  }
 }
 
 String formatDateOnly(DateTime date) {

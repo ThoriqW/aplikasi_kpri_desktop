@@ -149,10 +149,6 @@ class TotalPageBills extends _$TotalPageBills {
   void setTotalMember(int total) {
     state = total;
   }
-
-  int getTotalMember() {
-    return state;
-  }
 }
 
 @riverpod
@@ -163,7 +159,7 @@ class SearchBills extends _$SearchBills {
       'tahun': DateTime.now().year,
       'workUnitId': 0,
       'searchQuery': '',
-      'perPage': 10,
+      'perPage': 25,
       'currentPage': 1,
       'bulan': DateTime.now().month,
     };
@@ -301,8 +297,78 @@ class DataTransferMemberTagihanNotifier
   }
 }
 
+@riverpod
+Future updateTahunBulanTagihan(
+  ref,
+  String tahun,
+  String newTahun,
+  String bulan,
+  String newBulan,
+) async {
+  final String? token = await storage.read(key: 'authToken');
+
+  if (token == null) {
+    throw Exception('No authentication token found');
+  }
+  try {
+    final response = await http.put(
+      Uri.parse('$baseUrl/api/v1/bills/$tahun/$bulan'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({
+        'tahun': newTahun,
+        'bulan': newBulan,
+      }),
+    );
+    if (response.statusCode == 200) {
+      return SuccessResponse.fromJson(jsonDecode(response.body));
+    } else {
+      return ErrorResponse.fromJson(jsonDecode(response.body));
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
+}
+
+@riverpod
+Future deleteBulanTagihan(
+  ref,
+  String tahun,
+  String bulan,
+) async {
+  final String? token = await storage.read(key: 'authToken');
+
+  if (token == null) {
+    throw Exception('No authentication token found');
+  }
+
+  try {
+    final response = await http.delete(
+      Uri.parse('$baseUrl/api/v1/bills/$tahun/$bulan'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
+      return SuccessResponse.fromJson(jsonDecode(response.body));
+    } else {
+      return ErrorResponse.fromJson(jsonDecode(response.body));
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
+}
+
 //ROUTE
-enum TagihanMode { view, editTagihanMember, transferMemberTagihan }
+enum TagihanMode {
+  view,
+  editTagihan,
+  transferMemberTagihan,
+  updateTagihanMember
+}
 
 @riverpod
 class TagihanModeNotifier extends _$TagihanModeNotifier {
@@ -310,7 +376,29 @@ class TagihanModeNotifier extends _$TagihanModeNotifier {
   TagihanMode build() => TagihanMode.view;
 
   void switchToView() => state = TagihanMode.view;
-  void switchToeditTagihanMember() => state = TagihanMode.editTagihanMember;
+  void switchToeditTagihan() => state = TagihanMode.editTagihan;
+  void switchToUpdateTagihanMember() => state = TagihanMode.updateTagihanMember;
   void switchToTransferTagihanMember() =>
       state = TagihanMode.transferMemberTagihan;
+}
+
+@riverpod
+class EditTagihanNotifier extends _$EditTagihanNotifier {
+  @override
+  Map<String, dynamic> build() => {};
+
+  void setEditDataTagihan(String tahun, int bulan) {
+    state = {
+      "tahun": tahun,
+      "bulan": bulan,
+    };
+  }
+
+  Map<String, dynamic> getEditDataTagihan() {
+    return state;
+  }
+
+  void clearDataEditTagihan() {
+    state = {};
+  }
 }

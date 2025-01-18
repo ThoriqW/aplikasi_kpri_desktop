@@ -14,13 +14,9 @@ class EditDataSimpanan extends ConsumerStatefulWidget {
 }
 
 class _EditDataSimpananState extends ConsumerState<EditDataSimpanan> {
-  String tahun = '';
   @override
   Widget build(BuildContext context) {
-    tahun = ref
-        .watch(tahunMemberSavingsNotifierProvider.notifier)
-        .getTahunSimpanan()
-        .toString();
+    final tahun = ref.watch(editSavingsNotifierProvider).toString();
     return CustomCardWidget(
       color: GlobalColors.white,
       child: Column(
@@ -47,7 +43,7 @@ class _EditDataSimpananState extends ConsumerState<EditDataSimpanan> {
           ),
           const SizedBox(height: 20),
           UpdateYearSimpanan(tahun: tahun),
-          const SizedBox(height: 20),
+          const SizedBox(height: 25),
           DeleteSimpananWidget(tahun: tahun),
         ],
       ),

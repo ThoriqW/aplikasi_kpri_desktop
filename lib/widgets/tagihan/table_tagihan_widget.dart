@@ -1,6 +1,7 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/bills_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
+import 'package:aplikasi_kpri_desktop/widgets/cutom_table_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/tagihan/create_tagihan_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/tagihan/delete_member_tagihan_widget.dart';
 import 'package:flutter/material.dart';
@@ -72,11 +73,223 @@ class TableTagihanWidget extends ConsumerWidget {
 
         List<dynamic> bills = billResponse;
 
+        List<List<dynamic>> rowsCells = bills.map((entry) {
+          var bills = entry['bills'].first;
+          return [
+            entry['work_unit'],
+            entry['nomor_anggota'],
+            entry['nama_lengkap'],
+            entry['tahun'],
+            entry['bulan'],
+            bills['simpanan_wajib'] != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      bills['simpanan_wajib'],
+                    ),
+                  )
+                : '',
+            bills['dana_sosial'] != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      bills['dana_sosial'],
+                    ),
+                  )
+                : '',
+            bills['pokok'] != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      bills['pokok'],
+                    ),
+                  )
+                : '',
+            bills['bunga'] != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      bills['bunga'],
+                    ),
+                  )
+                : '',
+            bills['bunga'] != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      bills['barang'],
+                    ),
+                  )
+                : '',
+            bills['jangka_waktu'] != 0 ? bills['jangka_waktu'] : '',
+            bills['jangka_waktu_ke'] != 0 ? bills['jangka_waktu_ke'] : '',
+            bills['jumlah_tagihan'] != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      bills['jumlah_tagihan'],
+                    ),
+                  )
+                : '',
+            bills['jumlah_tagihan'] != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      bills['jumlah_setoran'],
+                    ),
+                  )
+                : '',
+            bills['sisa_tunggakan'] != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      bills['sisa_tunggakan'],
+                    ),
+                  )
+                : '',
+            bills['keterangan'],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    ref
+                        .watch(dataMemberTagihanNotifierProvider.notifier)
+                        .setData(
+                          entry['member_profile_id'],
+                          entry['nama_lengkap'].toString(),
+                          bills['simpanan_wajib'].toString(),
+                          bills['dana_sosial'].toString(),
+                          bills['pokok'].toString(),
+                          bills['bunga'].toString(),
+                          bills['barang'].toString(),
+                          bills['jangka_waktu'].toString(),
+                          bills['jangka_waktu_ke'].toString(),
+                          bills['sisa_tunggakan'].toString(),
+                          bills['keterangan'].toString(),
+                          tahun,
+                          bulan,
+                        );
+                    ref
+                        .watch(tagihanModeNotifierProvider.notifier)
+                        .switchToUpdateTagihanMember();
+                  },
+                  icon: const Icon(
+                    Icons.edit,
+                    size: 18,
+                    color: GlobalColors.primary,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    ref
+                        .watch(
+                            dataTransferMemberTagihanNotifierProvider.notifier)
+                        .setData(
+                          entry['member_profile_id'].toString(),
+                          entry['nama_lengkap'].toString(),
+                          entry['work_unit_id'].toString(),
+                          entry['work_unit'].toString(),
+                          entry['tahun'].toString(),
+                          entry['bulan'].toString(),
+                        );
+                    ref
+                        .watch(
+                          tagihanModeNotifierProvider.notifier,
+                        )
+                        .switchToTransferTagihanMember();
+                  },
+                  icon: const Icon(
+                    Icons.move_up,
+                    size: 18,
+                    color: GlobalColors.primary,
+                  ),
+                ),
+                DeleteMemberTagihanWidget(
+                  tahun: tahun,
+                  workUnitId: workUnitId,
+                  searchQuery: searchQuery,
+                  perPage: perPage,
+                  currentPage: currentPage,
+                  bulan: bulan,
+                  memberId: entry['member_profile_id'],
+                )
+              ],
+            ),
+          ];
+        }).toList();
+
+        final fixedColCells =
+            bills.map((entry) => entry["nama_lengkap"].toString()).toList();
+
+        final fixedRowCells = [
+          "UNIT KERJA",
+          "NOMOR ANGGOTA",
+          "NAMA LENGKAP",
+          "TAHUN",
+          "BULAN",
+          "SIMPANAN WAJIB",
+          "DANA SOSIAL",
+          "POKOK",
+          "BUNGA",
+          "BARANG",
+          "JANGKA WAKTU",
+          "JANGKA WAKTU KE",
+          "JUMLAH TAGIHAN",
+          "JUMLAH SETORAN",
+          "SISA TUNGGAKAN",
+          "KETERANGAN",
+          'AKSI',
+        ];
+
         return Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.edit_document,
+                    color: GlobalColors.primary,
+                  ),
+                  onPressed: () {
+                    ref
+                        .watch(
+                          tagihanModeNotifierProvider.notifier,
+                        )
+                        .switchToeditTagihan();
+                    ref
+                        .watch(editTagihanNotifierProvider.notifier)
+                        .setEditDataTagihan(
+                          ref.watch(searchBillsProvider)['tahun'].toString(),
+                          ref.watch(searchBillsProvider)['bulan'],
+                        );
+                  },
+                ),
                 Text(
                   'Halaman $currentPage dari $totalPage',
                 ),
@@ -88,518 +301,69 @@ class TableTagihanWidget extends ConsumerWidget {
             const SizedBox(
               height: 8,
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Table(
-                columnWidths: const <int, TableColumnWidth>{
-                  0: IntrinsicColumnWidth(),
-                  1: IntrinsicColumnWidth(),
-                  2: IntrinsicColumnWidth(),
-                  3: IntrinsicColumnWidth(),
-                  4: IntrinsicColumnWidth(),
-                  5: IntrinsicColumnWidth(),
-                  6: IntrinsicColumnWidth(),
-                  7: IntrinsicColumnWidth(),
-                  8: IntrinsicColumnWidth(),
-                  9: IntrinsicColumnWidth(),
-                  10: IntrinsicColumnWidth(),
-                  11: IntrinsicColumnWidth(),
-                  12: IntrinsicColumnWidth(),
-                  13: IntrinsicColumnWidth(),
-                  14: IntrinsicColumnWidth(),
-                  15: IntrinsicColumnWidth(),
-                  16: IntrinsicColumnWidth(),
-                  17: IntrinsicColumnWidth(),
-                  18: IntrinsicColumnWidth(),
+            Flexible(
+              child: CustomDataTable(
+                rowsCells: rowsCells,
+                fixedColCells: fixedColCells,
+                fixedRowCells: fixedRowCells,
+                cellBuilder: (data) {
+                  if (data is Widget) {
+                    return data;
+                  }
+                  return Text('$data');
                 },
-                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                children: [
-                  TableRow(
-                    decoration: const BoxDecoration(
-                      color: GlobalColors.headerTable,
+                headerBuilder: (data) {
+                  if (data is Widget) {
+                    return data;
+                  }
+                  if (data == 'STATUS' || data == 'AKSI') {
+                    return Center(
+                      child: Text(
+                        data,
+                        style: const TextStyle(
+                          color: GlobalColors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    );
+                  }
+                  return Text(
+                    '$data',
+                    style: const TextStyle(
+                      color: GlobalColors.white,
+                      fontWeight: FontWeight.bold,
                     ),
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "NO",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "UNIT KERJA",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "NOMOR ANGGOTA",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "NAMA LENGKAP",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "TAHUN",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "BULAN",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "SIMPANAN WAJIB",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "DANA SOSIAL",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "POKOK",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "BUNGA",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "BARANG",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "JANGKA WAKTU",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "JANGKA WAKTU KE",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "JUMLAH TAGIHAN",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "JUMLAH SETORAN",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "SISA TUNGGAKAN",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "KETERANGAN",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Center(
-                        child: Container(
-                          padding: const EdgeInsets.all(9),
-                          child: const Text(
-                            "AKSI",
-                            style: TextStyle(
-                              color: GlobalColors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  for (int i = 0; i < bills.length; i++)
-                    TableRow(
-                      decoration: BoxDecoration(
-                        color: i.isEven ? Colors.grey.shade200 : Colors.white,
-                      ),
-                      children: <Widget>[
-                        Center(
-                          child: Container(
-                            padding: const EdgeInsets.all(9),
-                            child: Text(
-                              (0 + i + 1).toString(),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            bills[i]['work_unit'].toString(),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            bills[i]['nomor_anggota'].toString(),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            bills[i]['nama_lengkap'].toString(),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            bills[i]['tahun'].toString(),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            bills[i]['bulan'].toString(),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            bills[i]['bills'][0]['simpanan_wajib'].toString() !=
-                                    '0.00'
-                                ? NumberFormat.currency(
-                                    locale: 'id',
-                                    symbol: '',
-                                    decimalDigits: 0,
-                                  ).format(
-                                    double.parse(
-                                      bills[i]['bills'][0]['simpanan_wajib']
-                                          .toString(),
-                                    ),
-                                  )
-                                : '',
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            bills[i]['bills'][0]['dana_sosial'].toString() !=
-                                    '0.00'
-                                ? NumberFormat.currency(
-                                    locale: 'id',
-                                    symbol: '',
-                                    decimalDigits: 0,
-                                  ).format(
-                                    double.parse(
-                                      bills[i]['bills'][0]['dana_sosial']
-                                          .toString(),
-                                    ),
-                                  )
-                                : '',
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            bills[i]['bills'][0]['pokok'].toString() != '0.00'
-                                ? NumberFormat.currency(
-                                    locale: 'id',
-                                    symbol: '',
-                                    decimalDigits: 0,
-                                  ).format(
-                                    double.parse(
-                                      bills[i]['bills'][0]['pokok'].toString(),
-                                    ),
-                                  )
-                                : '',
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            bills[i]['bills'][0]['bunga'].toString() != '0.00'
-                                ? NumberFormat.currency(
-                                    locale: 'id',
-                                    symbol: '',
-                                    decimalDigits: 0,
-                                  ).format(
-                                    double.parse(
-                                      bills[i]['bills'][0]['bunga'].toString(),
-                                    ),
-                                  )
-                                : '',
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            bills[i]['bills'][0]['barang'].toString() != '0.00'
-                                ? NumberFormat.currency(
-                                    locale: 'id',
-                                    symbol: '',
-                                    decimalDigits: 0,
-                                  ).format(
-                                    double.parse(
-                                      bills[i]['bills'][0]['barang'].toString(),
-                                    ),
-                                  )
-                                : '',
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            bills[i]['bills'][0]['jangka_waktu'].toString() !=
-                                    '0'
-                                ? bills[i]['bills'][0]['jangka_waktu']
-                                    .toString()
-                                : '',
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(bills[i]['bills'][0]['jangka_waktu_ke']
-                                      .toString() !=
-                                  '0'
-                              ? bills[i]['bills'][0]['jangka_waktu_ke']
-                                  .toString()
-                              : ''),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            bills[i]['bills'][0]['jumlah_tagihan'].toString() !=
-                                    '0.00'
-                                ? NumberFormat.currency(
-                                    locale: 'id',
-                                    symbol: '',
-                                    decimalDigits: 0,
-                                  ).format(
-                                    double.parse(
-                                      bills[i]['bills'][0]['jumlah_tagihan']
-                                          .toString(),
-                                    ),
-                                  )
-                                : '',
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            bills[i]['bills'][0]['jumlah_setoran'].toString() !=
-                                    '0.00'
-                                ? NumberFormat.currency(
-                                    locale: 'id',
-                                    symbol: '',
-                                    decimalDigits: 0,
-                                  ).format(
-                                    double.parse(
-                                      bills[i]['bills'][0]['jumlah_setoran']
-                                          .toString(),
-                                    ),
-                                  )
-                                : '',
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            bills[i]['bills'][0]['sisa_tunggakan'].toString() !=
-                                    '0.00'
-                                ? NumberFormat.currency(
-                                    locale: 'id',
-                                    symbol: '',
-                                    decimalDigits: 0,
-                                  ).format(
-                                    double.parse(
-                                      bills[i]['bills'][0]['sisa_tunggakan']
-                                          .toString(),
-                                    ),
-                                  )
-                                : '',
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                              bills[i]['bills'][0]['keterangan'].toString()),
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              child: IconButton(
-                                onPressed: () {
-                                  ref
-                                      .watch(dataMemberTagihanNotifierProvider
-                                          .notifier)
-                                      .setData(
-                                        bills[i]['member_profile_id'],
-                                        bills[i]['nama_lengkap'].toString(),
-                                        bills[i]['bills'][0]['simpanan_wajib']
-                                            .toString(),
-                                        bills[i]['bills'][0]['dana_sosial']
-                                            .toString(),
-                                        bills[i]['bills'][0]['pokok']
-                                            .toString(),
-                                        bills[i]['bills'][0]['bunga']
-                                            .toString(),
-                                        bills[i]['bills'][0]['barang']
-                                            .toString(),
-                                        bills[i]['bills'][0]['jangka_waktu']
-                                            .toString(),
-                                        bills[i]['bills'][0]['jangka_waktu_ke']
-                                            .toString(),
-                                        bills[i]['bills'][0]['sisa_tunggakan']
-                                            .toString(),
-                                        bills[i]['bills'][0]['keterangan']
-                                            .toString(),
-                                        tahun,
-                                        bulan,
-                                      );
-                                  ref
-                                      .watch(
-                                          tagihanModeNotifierProvider.notifier)
-                                      .switchToeditTagihanMember();
-                                },
-                                icon: const Icon(
-                                  Icons.edit,
-                                  size: 18,
-                                  color: GlobalColors.primary,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(2),
-                              child: IconButton(
-                                onPressed: () {
-                                  ref
-                                      .watch(
-                                          dataTransferMemberTagihanNotifierProvider
-                                              .notifier)
-                                      .setData(
-                                        bills[i]['member_profile_id']
-                                            .toString(),
-                                        bills[i]['nama_lengkap'].toString(),
-                                        bills[i]['work_unit_id'].toString(),
-                                        bills[i]['work_unit'].toString(),
-                                        bills[i]['tahun'].toString(),
-                                        bills[i]['bulan'].toString(),
-                                      );
-                                  ref
-                                      .watch(
-                                        tagihanModeNotifierProvider.notifier,
-                                      )
-                                      .switchToTransferTagihanMember();
-                                },
-                                icon: const Icon(
-                                  Icons.move_up,
-                                  size: 18,
-                                  color: GlobalColors.primary,
-                                ),
-                              ),
-                            ),
-                            DeleteMemberTagihanWidget(
-                              tahun: tahun,
-                              workUnitId: workUnitId,
-                              searchQuery: searchQuery,
-                              perPage: perPage,
-                              currentPage: currentPage,
-                              bulan: bulan,
-                              memberId: bills[i]['member_profile_id'],
-                            )
-                          ],
-                        ),
-                      ],
-                    )
-                ],
+                  );
+                },
+                fixedCornerCell: "NAMA LENGKAP",
               ),
-            )
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: currentPage > 1
+                      ? () {
+                          ref
+                              .watch(searchBillsProvider.notifier)
+                              .setSearchBills(currentPage: currentPage - 1);
+                        }
+                      : null,
+                ),
+                const SizedBox(width: 6),
+                IconButton(
+                  icon: const Icon(Icons.arrow_forward),
+                  onPressed: currentPage < ref.watch(totalPageBillsProvider)
+                      ? () {
+                          ref
+                              .watch(searchBillsProvider.notifier)
+                              .setSearchBills(currentPage: currentPage + 1);
+                        }
+                      : null,
+                ),
+              ],
+            ),
           ],
         );
       },

@@ -104,9 +104,10 @@ class _BottomNavigationTagihanWidgetState
                     bulan[ref.watch(searchBillsProvider)['bulan'] - 1],
                 items: bulan,
                 onSelected: (value) {
-                  ref
-                      .watch(searchBillsProvider.notifier)
-                      .setSearchBills(bulan: bulan.indexOf(value) + 1);
+                  ref.watch(searchBillsProvider.notifier).setSearchBills(
+                        bulan: bulan.indexOf(value) + 1,
+                        currentPage: 1,
+                      );
                 }),
           ],
         ),

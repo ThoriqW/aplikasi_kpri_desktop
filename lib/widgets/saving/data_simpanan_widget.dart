@@ -25,16 +25,14 @@ class DataSimpananWidget extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 20),
-          Column(
-            children: [
-              TableSimpananWidget(
-                tahun: searchCriteriaBills['tahun'],
-                workUnitId: searchCriteriaBills['workUnitId'],
-                searchQuery: searchCriteriaBills['searchQuery'],
-                perPage: searchCriteriaBills['perPage'],
-                currentPage: searchCriteriaBills['currentPage'],
-              ),
-            ],
+          Flexible(
+            child: TableSimpananWidget(
+              tahun: searchCriteriaBills['tahun'],
+              workUnitId: searchCriteriaBills['workUnitId'],
+              searchQuery: searchCriteriaBills['searchQuery'],
+              perPage: searchCriteriaBills['perPage'],
+              currentPage: searchCriteriaBills['currentPage'],
+            ),
           )
         ],
       ),

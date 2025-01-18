@@ -1197,5 +1197,20 @@ final totalPageUsersProvider =
 );
 
 typedef _$TotalPageUsers = AutoDisposeNotifier<int>;
+String _$searchUsersHash() => r'2c3d72e1cf29dbdd2ff3fa3b24f48a83e5c81e05';
+
+/// See also [SearchUsers].
+@ProviderFor(SearchUsers)
+final searchUsersProvider =
+    AutoDisposeNotifierProvider<SearchUsers, Map<String, dynamic>>.internal(
+  SearchUsers.new,
+  name: r'searchUsersProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$searchUsersHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$SearchUsers = AutoDisposeNotifier<Map<String, dynamic>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

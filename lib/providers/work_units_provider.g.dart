@@ -777,5 +777,21 @@ final totalPageWorkUnitsProvider =
 );
 
 typedef _$TotalPageWorkUnits = AutoDisposeNotifier<int>;
+String _$searchWorkUnitHash() => r'59a7a181e952badeed6ce2101bbfa2442be1970d';
+
+/// See also [SearchWorkUnit].
+@ProviderFor(SearchWorkUnit)
+final searchWorkUnitProvider =
+    AutoDisposeNotifierProvider<SearchWorkUnit, Map<String, dynamic>>.internal(
+  SearchWorkUnit.new,
+  name: r'searchWorkUnitProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$searchWorkUnitHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$SearchWorkUnit = AutoDisposeNotifier<Map<String, dynamic>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

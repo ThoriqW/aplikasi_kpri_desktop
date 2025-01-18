@@ -28,47 +28,40 @@ class _UpdateYearSimpananState extends ConsumerState<UpdateYearSimpanan> {
         const Text(
           "Ganti Tahun Simpanan",
         ),
-        const SizedBox(height: 8),
-        Row(
-          children: [
-            Expanded(
-              child: TextFormWidget(
-                  controller: tahunControllerController, text: ""),
-            ),
-            const SizedBox(width: 8),
-            ButtonWidget(
-              text: "Update",
-              onTap: () async {
-                await showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text("Info"),
-                      content: Text(
-                        "Yakin ganti simpanan tahun ${widget.tahun}?",
+        const SizedBox(height: 12),
+        TextFormWidget(controller: tahunControllerController, text: ""),
+        const SizedBox(height: 12),
+        ButtonWidget(
+          text: "Update",
+          onTap: () async {
+            await showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text("Info"),
+                  content: Text(
+                    "Yakin ganti simpanan tahun ${widget.tahun}?",
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(
+                        context,
+                        'Cancel',
                       ),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () => Navigator.pop(
-                            context,
-                            'Cancel',
-                          ),
-                          child: const Text('Cancel'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            _updateTahunSavings(
-                                widget.tahun, tahunControllerController.text);
-                          },
-                          child: const Text('OK'),
-                        ),
-                      ],
-                    );
-                  },
+                      child: const Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        _updateTahunSavings(
+                            widget.tahun, tahunControllerController.text);
+                      },
+                      child: const Text('OK'),
+                    ),
+                  ],
                 );
               },
-            ),
-          ],
+            );
+          },
         ),
       ],
     );
@@ -90,11 +83,13 @@ class _UpdateYearSimpananState extends ConsumerState<UpdateYearSimpanan> {
               alertTitle: "Sukses",
             );
           },
-        ).then((_) => ref
-            .watch(
-              savingModeNotifierProvider.notifier,
-            )
-            .switchToView());
+        ).then(
+          (_) => ref
+              .watch(
+                savingModeNotifierProvider.notifier,
+              )
+              .switchToView(),
+        );
       } else if (updateTahunSavings is ErrorResponse) {
         await showDialog(
           context: context,

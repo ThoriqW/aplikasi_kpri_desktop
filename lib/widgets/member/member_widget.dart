@@ -29,52 +29,43 @@ class MemberWidget extends ConsumerWidget {
         break;
     }
 
-    return Stack(
+    return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 75.0, bottom: 70.0),
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              children: [
-                memberContent,
-              ],
-            ),
+        Expanded(
+          child: Column(
+            children: [
+              const HeaderWidget(),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: memberContent,
+                ),
+              ),
+            ],
           ),
         ),
-        const Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: HeaderWidget(),
-        ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: currentMemberMode == MemberMode.view
-              ? const CustomCardWidget(
-                  color: GlobalColors.white,
-                  padding:
-                      EdgeInsets.only(bottom: 20, left: 10, right: 10, top: 20),
-                  child: BottomNavigationMemberWidget(),
-                )
-              : const CustomCardWidget(
-                  color: GlobalColors.white,
-                  padding: EdgeInsets.all(6),
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "Aplikasi Koperasi By Bacreative",
-                      style: TextStyle(
-                        color: GlobalColors.primary,
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                      ),
+        currentMemberMode == MemberMode.view
+            ? const CustomCardWidget(
+                color: GlobalColors.white,
+                padding:
+                    EdgeInsets.only(bottom: 20, left: 10, right: 10, top: 20),
+                child: BottomNavigationMemberWidget(),
+              )
+            : const CustomCardWidget(
+                color: GlobalColors.white,
+                padding: EdgeInsets.all(6),
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    "Aplikasi Koperasi By Bacreative",
+                    style: TextStyle(
+                      color: GlobalColors.primary,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-        ),
+              ),
       ],
     );
   }

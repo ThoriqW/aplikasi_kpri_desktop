@@ -25,14 +25,15 @@ class DataMemberWidget extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 20),
-          TableMemberWidget(
-            status: searchCriteriaMember['status'],
-            selectedUnit: searchCriteriaMember['workUnitId'],
-            searchQuery: searchCriteriaMember['searchQuery'],
-            perPage: searchCriteriaMember['perPage'],
-            currentPage: searchCriteriaMember['currentPage'],
+          Flexible(
+            child: TableMemberWidget(
+              status: searchCriteriaMember['status'],
+              selectedUnit: searchCriteriaMember['workUnitId'],
+              searchQuery: searchCriteriaMember['searchQuery'],
+              perPage: searchCriteriaMember['perPage'],
+              currentPage: searchCriteriaMember['currentPage'],
+            ),
           ),
-          const SizedBox(height: 10),
         ],
       ),
     );

@@ -394,7 +394,10 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
           );
         },
         error: (error, stackTrace) => const Text("Gagal terhubung ke server!!"),
-        loading: () => const LinearProgressIndicator(),
+        loading: () => const Align(
+          alignment: Alignment.topCenter, // Atur posisi sesuai kebutuhan
+          child: LinearProgressIndicator(),
+        ),
       ),
     );
   }

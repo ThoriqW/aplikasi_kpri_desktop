@@ -167,3 +167,31 @@ class TotalPageWorkUnits extends _$TotalPageWorkUnits {
     return state;
   }
 }
+
+@riverpod
+class SearchWorkUnit extends _$SearchWorkUnit {
+  @override
+  Map<String, dynamic> build() {
+    return {
+      'searchQuery': '',
+      'perPage': 10,
+      'currentPage': 1,
+    };
+  }
+
+  void setSearchWorkUnit({
+    String? searchQuery,
+    int? perPage,
+    int? currentPage,
+  }) {
+    state = {
+      'searchQuery': searchQuery ?? state['searchQuery'],
+      'perPage': perPage ?? state['perPage'],
+      'currentPage': currentPage ?? state['currentPage'],
+    };
+  }
+
+  Map<String, dynamic> getSearchWorkUnit() {
+    return state;
+  }
+}

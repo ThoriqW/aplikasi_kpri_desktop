@@ -2,6 +2,7 @@ import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/excel/excel_savings.dart';
 import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
+import 'package:aplikasi_kpri_desktop/widgets/cutom_table_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/saving/add_member_simpanan_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/saving/create_simpanan_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/saving/delete_member_saving_widget.dart';
@@ -29,18 +30,18 @@ class TableSimpananWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<String> bulan = [
-      'Januari',
-      'Februari',
-      'Maret',
-      'April',
-      'Mei',
-      'Juni',
-      'Juli',
-      'Agustus',
-      'September',
-      'Oktober',
-      'November',
-      'Desember',
+      'JANUARI',
+      'FEBRUARI',
+      'MARET',
+      'APRIL',
+      'MEI',
+      'JUNI',
+      'JULI',
+      'AGUSTUS',
+      'SEPTEMBER',
+      'OKTOBER',
+      'NOVEMBER',
+      'DESEMBER',
     ];
 
     final getAllSavingMembers = ref.watch(
@@ -86,6 +87,268 @@ class TableSimpananWidget extends ConsumerWidget {
         int totalMember = saving['pagination']['total'];
 
         List<dynamic> savings = savingResponse;
+
+        List<List<dynamic>> rowsCells = savings.map((entry) {
+          var savings = entry['savings'].map<Widget>((saving) {
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    child: EditableText(
+                      controller: TextEditingController(
+                        text: saving['pokok'].toString() != '0.00'
+                            ? NumberFormat.currency(
+                                locale: 'id',
+                                symbol: '',
+                                decimalDigits: 0,
+                              ).format(
+                                double.parse(
+                                  saving['pokok'].toString(),
+                                ),
+                              )
+                            : '',
+                      ),
+                      focusNode: FocusNode(),
+                      cursorColor: GlobalColors.primary,
+                      backgroundCursorColor: GlobalColors.secondary,
+                      style: const TextStyle(
+                        color: Color(0xDE000000),
+                      ),
+                      onSubmitted: (newPokok) {
+                        ref
+                            .watch(updateSavingObjectProvider.notifier)
+                            .updateValueSaving(
+                              entry['member_profile_id'].toString(),
+                              saving['bulan'].toString(),
+                              'pokok',
+                              newPokok,
+                            );
+                      },
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    child: EditableText(
+                      controller: TextEditingController(
+                        text: saving['wajib'].toString() != '0.00'
+                            ? NumberFormat.currency(
+                                locale: 'id',
+                                symbol: '',
+                                decimalDigits: 0,
+                              ).format(
+                                double.parse(
+                                  saving['wajib'].toString(),
+                                ),
+                              )
+                            : '',
+                      ),
+                      focusNode: FocusNode(),
+                      cursorColor: GlobalColors.primary,
+                      backgroundCursorColor: GlobalColors.secondary,
+                      style: const TextStyle(
+                        color: Color(0xDE000000),
+                      ),
+                      onSubmitted: (newPokok) {
+                        ref
+                            .watch(updateSavingObjectProvider.notifier)
+                            .updateValueSaving(
+                              entry['member_profile_id'].toString(),
+                              saving['bulan'].toString(),
+                              'wajib',
+                              newPokok,
+                            );
+                      },
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    child: EditableText(
+                      controller: TextEditingController(
+                        text: saving['sukarela'].toString() != '0.00'
+                            ? NumberFormat.currency(
+                                locale: 'id',
+                                symbol: '',
+                                decimalDigits: 0,
+                              ).format(
+                                double.parse(
+                                  saving['sukarela'].toString(),
+                                ),
+                              )
+                            : '',
+                      ),
+                      focusNode: FocusNode(),
+                      cursorColor: GlobalColors.primary,
+                      backgroundCursorColor: GlobalColors.secondary,
+                      style: const TextStyle(
+                        color: Color(0xDE000000),
+                      ),
+                      onSubmitted: (newPokok) {
+                        ref
+                            .watch(updateSavingObjectProvider.notifier)
+                            .updateValueSaving(
+                              entry['member_profile_id'].toString(),
+                              saving['bulan'].toString(),
+                              'sukarela',
+                              newPokok,
+                            );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }).toList();
+          return [
+            entry['work_unit'],
+            entry['nomor_anggota'],
+            entry['tahun'],
+            ...savings,
+            entry['total_savings'].toString() != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      entry['total_savings'].toString(),
+                    ),
+                  )
+                : '',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(2),
+                  child: IconButton(
+                    onPressed: () {
+                      ref
+                          .watch(dataTransferMemberSavingsNotifierProvider
+                              .notifier)
+                          .setData(
+                            entry['member_profile_id'],
+                            entry['nama_lengkap'].toString(),
+                            entry['work_unit_id'],
+                            entry['work_unit'].toString(),
+                            entry['tahun'],
+                          );
+                      ref
+                          .watch(
+                            savingModeNotifierProvider.notifier,
+                          )
+                          .switchToTransferMember();
+                    },
+                    icon: const Icon(
+                      Icons.move_up,
+                      size: 18,
+                      color: GlobalColors.primary,
+                    ),
+                  ),
+                ),
+                DeleteMemberSavingWidget(
+                  tahun: tahun,
+                  workUnitId: workUnitId,
+                  currentPage: currentPage,
+                  perPage: perPage,
+                  searchQuery: searchQuery,
+                  memberId: entry['member_profile_id'].toString(),
+                  tahunSaving: entry['tahun'].toString(),
+                )
+              ],
+            ),
+          ];
+        }).toList();
+
+        final fixedColCells =
+            savings.map((entry) => entry["nama_lengkap"].toString()).toList();
+
+        final bulanSavings = bulan.map<Widget>((b) {
+          return Column(
+            children: [
+              Flexible(
+                child: Container(
+                  color: GlobalColors.primary,
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(5),
+                  child: Center(
+                    child: Text(
+                      b.toUpperCase(),
+                      style: const TextStyle(
+                        color: GlobalColors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Flexible(
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: Container(
+                        color: const Color(0xFF000B58),
+                        padding: const EdgeInsets.all(5),
+                        child: const Center(
+                          child: Text(
+                            "POKOK",
+                            style: TextStyle(
+                              color: GlobalColors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: Container(
+                        color: const Color(0xFF003161),
+                        padding: const EdgeInsets.all(5),
+                        child: const Center(
+                          child: Text(
+                            "WAJIB",
+                            style: TextStyle(
+                              color: GlobalColors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: Container(
+                        color: const Color(0xFF006A67),
+                        padding: const EdgeInsets.all(5),
+                        child: const Center(
+                          child: Text(
+                            "SUKA RELA",
+                            style: TextStyle(
+                              color: GlobalColors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          );
+        }).toList();
+
+        final fixedRowCells = [
+          "UNIT KERJA",
+          "NOMOR ANGGOTA",
+          "TAHUN",
+          ...bulanSavings,
+          'TOTAL SIMPANAN',
+          "AKSI",
+        ];
 
         Future.microtask(() {
           ref
@@ -137,7 +400,7 @@ class TableSimpananWidget extends ConsumerWidget {
                             )
                             .switchToEditSimpanan();
                         ref
-                            .watch(tahunMemberSavingsNotifierProvider.notifier)
+                            .watch(editSavingsNotifierProvider.notifier)
                             .setTahunSimpanan(
                               tahun,
                             );
@@ -161,418 +424,71 @@ class TableSimpananWidget extends ConsumerWidget {
             const SizedBox(
               height: 8,
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Table(
-                columnWidths: const <int, TableColumnWidth>{
-                  0: IntrinsicColumnWidth(),
-                  1: IntrinsicColumnWidth(),
-                  2: IntrinsicColumnWidth(),
-                  3: IntrinsicColumnWidth(),
-                  4: IntrinsicColumnWidth(),
-                  5: IntrinsicColumnWidth(),
-                  6: IntrinsicColumnWidth(),
-                  7: IntrinsicColumnWidth(),
-                  8: IntrinsicColumnWidth(),
-                  9: IntrinsicColumnWidth(),
-                  10: IntrinsicColumnWidth(),
-                  11: IntrinsicColumnWidth(),
-                  12: IntrinsicColumnWidth(),
-                  13: IntrinsicColumnWidth(),
-                  14: IntrinsicColumnWidth(),
-                  15: IntrinsicColumnWidth(),
-                  16: IntrinsicColumnWidth(),
-                  17: IntrinsicColumnWidth(),
-                  18: IntrinsicColumnWidth(),
-                  19: IntrinsicColumnWidth(),
+            Flexible(
+              child: CustomDataTable(
+                rowsCells: rowsCells,
+                fixedColCells: fixedColCells,
+                fixedRowCells: fixedRowCells,
+                cellHeightWidget: 65,
+                cellWidthWidget: 260,
+                cellBuilder: (data) {
+                  if (data is Widget) {
+                    return data;
+                  }
+                  return Text('$data');
                 },
-                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                children: [
-                  TableRow(
-                    decoration: const BoxDecoration(
-                      color: GlobalColors.headerTable,
+                headerBuilder: (data) {
+                  if (data is Widget) {
+                    return data;
+                  }
+                  if (data == 'STATUS' || data == 'AKSI') {
+                    return Center(
+                      child: Text(
+                        data,
+                        style: const TextStyle(
+                          color: GlobalColors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    );
+                  }
+                  return Text(
+                    '$data',
+                    style: const TextStyle(
+                      color: GlobalColors.white,
+                      fontWeight: FontWeight.bold,
                     ),
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "NO",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "UNIT KERJA",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "NOMOR ANGGOTA",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "NAMA LENGKAP",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "TAHUN",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      for (int b = 0; b < bulan.length; b++)
-                        Column(
-                          children: [
-                            Container(
-                              color: GlobalColors.primary,
-                              width: double.infinity,
-                              padding: const EdgeInsets.all(9),
-                              child: Center(
-                                child: Text(
-                                  bulan[b].toUpperCase(),
-                                  style: const TextStyle(
-                                    color: GlobalColors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    color: const Color(0xFF000B58),
-                                    padding: const EdgeInsets.all(5),
-                                    child: const Center(
-                                      child: Text(
-                                        "POKOK",
-                                        style: TextStyle(
-                                          color: GlobalColors.white,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    color: const Color(0xFF003161),
-                                    padding: const EdgeInsets.all(5),
-                                    child: const Center(
-                                      child: Text(
-                                        "WAJIB",
-                                        style: TextStyle(
-                                          color: GlobalColors.white,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Container(
-                                    color: const Color(0xFF006A67),
-                                    padding: const EdgeInsets.all(5),
-                                    child: const Center(
-                                      child: Text(
-                                        "SUKA RELA",
-                                        style: TextStyle(
-                                          color: GlobalColors.white,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "TOTAL SIMPANAN",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Center(
-                        child: Container(
-                          padding: const EdgeInsets.all(9),
-                          child: const Text(
-                            "AKSI",
-                            style: TextStyle(
-                              color: GlobalColors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  for (int i = 0; i < savings.length; i++)
-                    TableRow(
-                      decoration: BoxDecoration(
-                        color: i.isEven ? Colors.grey.shade200 : Colors.white,
-                      ),
-                      children: <Widget>[
-                        Center(
-                          child: Container(
-                            padding: const EdgeInsets.all(9),
-                            child: Text(
-                              (0 + i + 1).toString(),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            savings[i]['work_unit'].toString(),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            savings[i]['nomor_anggota'].toString(),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            savings[i]['nama_lengkap'].toString(),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            savings[i]['tahun'].toString(),
-                          ),
-                        ),
-                        for (int j = 0; j < savings[i]['savings'].length; j++)
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  padding: const EdgeInsets.all(5),
-                                  child: EditableText(
-                                    controller: TextEditingController(
-                                      text: savings[i]['savings'][j]['pokok']
-                                                  .toString() !=
-                                              '0.00'
-                                          ? NumberFormat.currency(
-                                              locale: 'id',
-                                              symbol: '',
-                                              decimalDigits: 0,
-                                            ).format(
-                                              double.parse(
-                                                savings[i]['savings'][j]
-                                                        ['pokok']
-                                                    .toString(),
-                                              ),
-                                            )
-                                          : '',
-                                    ),
-                                    focusNode: FocusNode(),
-                                    cursorColor: GlobalColors.primary,
-                                    backgroundCursorColor:
-                                        GlobalColors.secondary,
-                                    style: const TextStyle(
-                                      color: Color(0xDE000000),
-                                    ),
-                                    onSubmitted: (newPokok) {
-                                      ref
-                                          .watch(updateSavingObjectProvider
-                                              .notifier)
-                                          .updateValueSaving(
-                                            savings[i]['member_profile_id']
-                                                .toString(),
-                                            savings[i]['savings'][j]['bulan']
-                                                .toString(),
-                                            'pokok',
-                                            newPokok,
-                                          );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  padding: const EdgeInsets.all(5),
-                                  child: EditableText(
-                                    controller: TextEditingController(
-                                      text: savings[i]['savings'][j]['wajib']
-                                                  .toString() !=
-                                              '0.00'
-                                          ? NumberFormat.currency(
-                                              locale: 'id',
-                                              symbol: '',
-                                              decimalDigits: 0,
-                                            ).format(
-                                              double.parse(
-                                                savings[i]['savings'][j]
-                                                        ['wajib']
-                                                    .toString(),
-                                              ),
-                                            )
-                                          : '',
-                                    ),
-                                    focusNode: FocusNode(),
-                                    cursorColor: GlobalColors.primary,
-                                    backgroundCursorColor:
-                                        GlobalColors.secondary,
-                                    style: const TextStyle(
-                                      color: Color(0xDE000000),
-                                    ),
-                                    onSubmitted: (newPokok) {
-                                      ref
-                                          .watch(updateSavingObjectProvider
-                                              .notifier)
-                                          .updateValueSaving(
-                                            savings[i]['member_profile_id']
-                                                .toString(),
-                                            savings[i]['savings'][j]['bulan']
-                                                .toString(),
-                                            'wajib',
-                                            newPokok,
-                                          );
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  padding: const EdgeInsets.all(5),
-                                  child: EditableText(
-                                    controller: TextEditingController(
-                                      text: savings[i]['savings'][j]['sukarela']
-                                                  .toString() !=
-                                              '0.00'
-                                          ? NumberFormat.currency(
-                                              locale: 'id',
-                                              symbol: '',
-                                              decimalDigits: 0,
-                                            ).format(
-                                              double.parse(
-                                                savings[i]['savings'][j]
-                                                        ['sukarela']
-                                                    .toString(),
-                                              ),
-                                            )
-                                          : '',
-                                    ),
-                                    focusNode: FocusNode(),
-                                    cursorColor: GlobalColors.primary,
-                                    backgroundCursorColor:
-                                        GlobalColors.secondary,
-                                    style: const TextStyle(
-                                      color: Color(0xDE000000),
-                                    ),
-                                    onSubmitted: (newPokok) {
-                                      ref
-                                          .watch(updateSavingObjectProvider
-                                              .notifier)
-                                          .updateValueSaving(
-                                            savings[i]['member_profile_id']
-                                                .toString(),
-                                            savings[i]['savings'][j]['bulan']
-                                                .toString(),
-                                            'sukarela',
-                                            newPokok,
-                                          );
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            savings[i]['total_savings'].toString() != '0.00'
-                                ? NumberFormat.currency(
-                                    locale: 'id',
-                                    symbol: '',
-                                    decimalDigits: 0,
-                                  ).format(
-                                    double.parse(
-                                      savings[i]['total_savings'].toString(),
-                                    ),
-                                  )
-                                : '',
-                          ),
-                        ),
-                        Center(
-                          child: Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(2),
-                                child: IconButton(
-                                  onPressed: () {
-                                    ref
-                                        .watch(dataTransferMemberSavingsNotifierProvider
-                                            .notifier)
-                                        .setData(
-                                          savings[i]['member_profile_id'],
-                                          savings[i]['nama_lengkap'].toString(),
-                                          savings[i]['work_unit_id'],
-                                          savings[i]['work_unit'].toString(),
-                                          savings[i]['tahun'],
-                                        );
-                                    ref
-                                        .watch(
-                                          savingModeNotifierProvider.notifier,
-                                        )
-                                        .switchToTransferMember();
-                                  },
-                                  icon: const Icon(
-                                    Icons.move_up,
-                                    size: 18,
-                                    color: GlobalColors.primary,
-                                  ),
-                                ),
-                              ),
-                              DeleteMemberSavingWidget(
-                                tahun: tahun,
-                                workUnitId: workUnitId,
-                                currentPage: currentPage,
-                                perPage: perPage,
-                                searchQuery: searchQuery,
-                                memberId:
-                                    savings[i]['member_profile_id'].toString(),
-                                tahunSaving: savings[i]['tahun'].toString(),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                ],
+                  );
+                },
+                fixedCornerCell: "NAMA LENGKAP",
               ),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: currentPage > 1
+                      ? () {
+                          ref
+                              .watch(searchSavingsProvider.notifier)
+                              .setSearchSavings(currentPage: currentPage - 1);
+                        }
+                      : null,
+                ),
+                const SizedBox(width: 6),
+                IconButton(
+                  icon: const Icon(Icons.arrow_forward),
+                  onPressed: currentPage < ref.watch(totalPageSavingsProvider)
+                      ? () {
+                          ref
+                              .watch(searchSavingsProvider.notifier)
+                              .setSearchSavings(currentPage: currentPage + 1);
+                        }
+                      : null,
+                ),
+              ],
             ),
           ],
         );

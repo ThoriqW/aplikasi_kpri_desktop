@@ -1,6 +1,7 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/member_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
+import 'package:aplikasi_kpri_desktop/widgets/cutom_table_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/member/delete_member_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,6 +48,79 @@ class TableMemberWidget extends ConsumerWidget {
 
         List<dynamic> members = memberResponse;
 
+        final rowsCells = members
+            .map((entry) => [
+                  entry["work_unit"],
+                  entry["username"],
+                  entry["nomor_anggota"],
+                  entry["phone"],
+                  entry["alamat"],
+                  entry["tanggal_lahir"],
+                  entry["jenis_kelamin"],
+                  entry["nik"],
+                  ...[
+                    CircleAvatar(
+                      radius: 16,
+                      backgroundColor: entry['status'].toString() == '1'
+                          ? GlobalColors.secondary
+                          : const Color.fromARGB(255, 250, 201, 201),
+                      child: Icon(
+                        entry['status'].toString() == '1'
+                            ? Icons.check_circle
+                            : Icons.cancel,
+                        color: entry['status'].toString() == '1'
+                            ? GlobalColors.primary
+                            : Colors.redAccent,
+                      ),
+                    ),
+                  ],
+                  ...[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(2),
+                          child: IconButton(
+                            onPressed: () {
+                              ref
+                                  .watch(idMemberNotifierProvider.notifier)
+                                  .setId(entry['id']);
+                              ref
+                                  .watch(
+                                    memberModeNotifierProvider.notifier,
+                                  )
+                                  .switchToUpdateUser();
+                            },
+                            icon: const Icon(
+                              Icons.edit,
+                              size: 18,
+                              color: GlobalColors.primary,
+                            ),
+                          ),
+                        ),
+                        DeleteMemberWidget(id: entry['id'].toString())
+                      ],
+                    ),
+                  ],
+                ])
+            .toList();
+
+        final fixedColCells =
+            members.map((entry) => entry["nama_lengkap"].toString()).toList();
+
+        final fixedRowCells = [
+          "UNIT KERJA",
+          "USERNAME",
+          "NOMOR ANGGOTA",
+          "NOMOR TELEPON",
+          "ALAMAT",
+          "TANGGAL LAHIR",
+          'JENIS KELAMIN',
+          'NIK',
+          'STATUS',
+          'AKSI',
+        ];
+
         Future.microtask(() {
           ref
               .watch(totalPageMemberProvider.notifier)
@@ -54,7 +128,7 @@ class TableMemberWidget extends ConsumerWidget {
         });
 
         return Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,305 +141,43 @@ class TableMemberWidget extends ConsumerWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Table(
-                columnWidths: const <int, TableColumnWidth>{
-                  0: IntrinsicColumnWidth(),
-                  1: IntrinsicColumnWidth(),
-                  2: IntrinsicColumnWidth(),
-                  3: IntrinsicColumnWidth(),
-                  4: IntrinsicColumnWidth(),
-                  5: IntrinsicColumnWidth(),
-                  6: IntrinsicColumnWidth(),
-                  7: IntrinsicColumnWidth(),
-                  8: IntrinsicColumnWidth(),
-                  9: IntrinsicColumnWidth(),
-                  10: IntrinsicColumnWidth(),
-                  11: IntrinsicColumnWidth(),
-                  12: IntrinsicColumnWidth(),
-                  13: IntrinsicColumnWidth(),
+            const SizedBox(height: 10),
+            Flexible(
+              child: CustomDataTable(
+                rowsCells: rowsCells,
+                fixedColCells: fixedColCells,
+                fixedRowCells: fixedRowCells,
+                cellWidthWidget: 90,
+                cellBuilder: (data) {
+                  if (data is Widget) {
+                    return data;
+                  }
+                  return Text('$data');
                 },
-                defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                children: <TableRow>[
-                  TableRow(
-                    decoration:
-                        const BoxDecoration(color: GlobalColors.headerTable),
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "NO",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
+                headerBuilder: (data) {
+                  if (data is Widget) {
+                    return data;
+                  }
+                  if (data == 'STATUS' || data == 'AKSI') {
+                    return Center(
+                      child: Text(
+                        data,
+                        style: const TextStyle(
+                          color: GlobalColors.white,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "ID",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "NAMA ANGGOTA",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "JENIS KELAMIN",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "USERNAME",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "NOMOR ANGGOTA",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "NIP",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "NIK",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "NOMOR HP",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "ALAMAT",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "TANGGAL LAHIR",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "UNIT KERJA",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(9),
-                        child: const Text(
-                          "STATUS",
-                          style: TextStyle(
-                            color: GlobalColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Center(
-                        child: Container(
-                          padding: const EdgeInsets.all(9),
-                          child: const Text(
-                            "AKSI",
-                            style: TextStyle(
-                              color: GlobalColors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  for (int i = 0; i < members.length; i++)
-                    TableRow(
-                      decoration: BoxDecoration(
-                        color: i.isEven ? Colors.grey.shade200 : Colors.white,
-                      ),
-                      children: <Widget>[
-                        Center(
-                          child: Container(
-                            padding: const EdgeInsets.all(9),
-                            child: Text(
-                              (0 + i + 1).toString(),
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: Container(
-                            padding: const EdgeInsets.all(9),
-                            child: Text(
-                              members[i]['id'].toString(),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            members[i]['nama_lengkap'].toString(),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            members[i]['jenis_kelamin'].toString(),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            members[i]['username'].toString(),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            members[i]['nomor_anggota'].toString(),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            members[i]['nip'].toString(),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            members[i]['nik'].toString(),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            members[i]['phone'].toString(),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            members[i]['alamat'].toString(),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            members[i]['tanggal_lahir'].toString(),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: Text(
-                            members[i]['work_unit'].toString(),
-                          ),
-                        ),
-                        CircleAvatar(
-                          radius: 16,
-                          backgroundColor:
-                              members[i]['status'].toString() == '1'
-                                  ? GlobalColors.secondary
-                                  : const Color.fromARGB(255, 250, 201, 201),
-                          child: Icon(
-                            members[i]['status'].toString() == '1'
-                                ? Icons.check_circle
-                                : Icons.cancel,
-                            color: members[i]['status'].toString() == '1'
-                                ? GlobalColors.primary
-                                : Colors.redAccent,
-                          ),
-                        ),
-                        Center(
-                          child: Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(2),
-                                child: IconButton(
-                                  onPressed: () {
-                                    ref
-                                        .watch(
-                                            idMemberNotifierProvider.notifier)
-                                        .setId(members[i]['id']);
-                                    ref
-                                        .watch(
-                                          memberModeNotifierProvider.notifier,
-                                        )
-                                        .switchToUpdateUser();
-                                  },
-                                  icon: const Icon(
-                                    Icons.edit,
-                                    size: 18,
-                                    color: GlobalColors.primary,
-                                  ),
-                                ),
-                              ),
-                              DeleteMemberWidget(
-                                  id: members[i]['id'].toString())
-                            ],
-                          ),
-                        ),
-                      ],
+                    );
+                  }
+                  return Text(
+                    '$data',
+                    style: const TextStyle(
+                      color: GlobalColors.white,
+                      fontWeight: FontWeight.bold,
                     ),
-                ],
+                  );
+                },
+                fixedCornerCell: "NAMA LENGKAP",
               ),
             ),
             const SizedBox(height: 10),
@@ -374,19 +186,24 @@ class TableMemberWidget extends ConsumerWidget {
               children: [
                 IconButton(
                   icon: const Icon(Icons.arrow_back),
-                  onPressed: () {
-                    if (currentPage > 1) {}
-                  },
+                  onPressed: currentPage > 1
+                      ? () {
+                          ref
+                              .watch(searchMemberProvider.notifier)
+                              .setSearchMember(currentPage: currentPage - 1);
+                        }
+                      : null,
                 ),
                 const SizedBox(width: 6),
                 IconButton(
                   icon: const Icon(Icons.arrow_forward),
-                  onPressed: () {
-                    if (currentPage <
-                        ref
-                            .watch(totalPageMemberProvider.notifier)
-                            .getTotalMember()) {}
-                  },
+                  onPressed: currentPage < ref.watch(totalPageMemberProvider)
+                      ? () {
+                          ref
+                              .watch(searchMemberProvider.notifier)
+                              .setSearchMember(currentPage: currentPage + 1);
+                        }
+                      : null,
                 ),
               ],
             ),

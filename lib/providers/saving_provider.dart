@@ -330,7 +330,7 @@ class SearchSavings extends _$SearchSavings {
       'tahun': DateTime.now().year,
       'workUnitId': 0,
       'searchQuery': '',
-      'perPage': 10,
+      'perPage': 20,
       'currentPage': 1,
     };
   }
@@ -363,10 +363,6 @@ class TotalPageSavings extends _$TotalPageSavings {
 
   void setTotalMember(int total) {
     state = total;
-  }
-
-  int getTotalMember() {
-    return state;
   }
 }
 
@@ -429,15 +425,11 @@ class IdMemberSavingsNotifier extends _$IdMemberSavingsNotifier {
 }
 
 @riverpod
-class TahunMemberSavingsNotifier extends _$TahunMemberSavingsNotifier {
+class EditSavingsNotifier extends _$EditSavingsNotifier {
   @override
   int build() => 0;
 
   void setTahunSimpanan(int tahun) {
     state = tahun;
-  }
-
-  int getTahunSimpanan() {
-    return state;
   }
 }

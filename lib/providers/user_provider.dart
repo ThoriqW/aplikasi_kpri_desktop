@@ -266,3 +266,34 @@ class TotalPageUsers extends _$TotalPageUsers {
     return state;
   }
 }
+
+@riverpod
+class SearchUsers extends _$SearchUsers {
+  @override
+  Map<String, dynamic> build() {
+    return {
+      'searchQuery': '',
+      'gender': '',
+      'perPage': 10,
+      'currentPage': 1,
+    };
+  }
+
+  void setSearchUsers({
+    String? gender,
+    String? searchQuery,
+    int? perPage,
+    int? currentPage,
+  }) {
+    state = {
+      'gender': gender ?? state['gender'],
+      'searchQuery': searchQuery ?? state['searchQuery'],
+      'perPage': perPage ?? state['perPage'],
+      'currentPage': currentPage ?? state['currentPage'],
+    };
+  }
+
+  Map<String, dynamic> getSearchUsers() {
+    return state;
+  }
+}

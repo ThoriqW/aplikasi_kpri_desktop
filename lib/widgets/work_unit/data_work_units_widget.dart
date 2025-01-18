@@ -1,34 +1,20 @@
-import 'dart:async';
-
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/work_units_provider.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/work_unit/search_work_units_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/work_unit/table_work_unit_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DataWorkUnitsWidget extends ConsumerStatefulWidget {
-  const DataWorkUnitsWidget({super.key, required this.onEdit});
-
-  final Function onEdit;
-
+class DataWorkUnitsWidget extends ConsumerWidget {
+  const DataWorkUnitsWidget({super.key});
   @override
-  ConsumerState<DataWorkUnitsWidget> createState() =>
-      _DataWorkUnitsWidgetState();
-}
-
-class _DataWorkUnitsWidgetState extends ConsumerState<DataWorkUnitsWidget> {
-  TextEditingController searchController = TextEditingController();
-  String searchQuery = '';
-  int currentPage = 1;
-  int perPage = 5;
-  Timer? _debounce;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final searchCriteriaWorkUnit = ref.watch(searchWorkUnitProvider);
     return CustomCardWidget(
       color: GlobalColors.white,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
             "Unit Kerja",
@@ -39,62 +25,16 @@ class _DataWorkUnitsWidgetState extends ConsumerState<DataWorkUnitsWidget> {
             ),
           ),
           const SizedBox(height: 20),
-          TextField(
-            controller: searchController,
-            onChanged: (value) {
-              if (_debounce?.isActive ?? false) {
-                _debounce?.cancel();
-              }
-              _debounce = Timer(const Duration(milliseconds: 500), () {
-                setState(() {
-                  searchQuery = value;
-                });
-              });
-            },
-            decoration: const InputDecoration(
-              prefixIcon: Icon(Icons.search),
-              hintText: 'Cari Unit Kerja',
-              border: InputBorder.none,
-              filled: true,
+          const SearchWorkUnitsWidget(),
+          const SizedBox(height: 20),
+          Flexible(
+            child: TableWorkUnitWidget(
+              searchQuery: searchCriteriaWorkUnit['searchQuery'],
+              perPage: searchCriteriaWorkUnit['perPage'],
+              currentPage: searchCriteriaWorkUnit['currentPage'],
             ),
           ),
           const SizedBox(height: 10),
-          TableWorkUnitWidget(
-            onEdit: widget.onEdit,
-            searchQuery: searchQuery,
-            perPage: perPage,
-            currentPage: currentPage,
-          ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  if (currentPage > 1) {
-                    setState(() {
-                      currentPage--;
-                    });
-                  }
-                },
-              ),
-              const SizedBox(width: 6),
-              IconButton(
-                icon: const Icon(Icons.arrow_forward),
-                onPressed: () {
-                  if (currentPage <
-                      ref
-                          .watch(totalPageWorkUnitsProvider.notifier)
-                          .getTotalMember()) {
-                    setState(() {
-                      currentPage++;
-                    });
-                  }
-                },
-              ),
-            ],
-          ),
         ],
       ),
     );

@@ -22,6 +22,12 @@ class _BottomNavigationMemberWidgetState
   Key dropdownStatusKey = UniqueKey();
   Key dropdownWorkUnitKey = UniqueKey();
   List<String> status = ["Tidak Aktif", "Aktif"];
+  List<int> limitData = [
+    10,
+    25,
+    50,
+    100,
+  ];
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -98,9 +104,10 @@ class _BottomNavigationMemberWidgetState
             WorkUnitsDropdown(
                 key: dropdownWorkUnitKey,
                 onSelected: (String value) {
-                  ref
-                      .watch(searchMemberProvider.notifier)
-                      .setSearchMember(workUnitId: int.parse(value));
+                  ref.watch(searchMemberProvider.notifier).setSearchMember(
+                        workUnitId: int.parse(value),
+                        currentPage: 1,
+                      );
                 }),
           ],
         ),
@@ -110,9 +117,12 @@ class _BottomNavigationMemberWidgetState
         ButtonWidget(
           text: "Clear",
           onTap: () async {
-            ref
-                .watch(searchMemberProvider.notifier)
-                .setSearchMember(searchQuery: '', workUnitId: 0, status: '');
+            ref.watch(searchMemberProvider.notifier).setSearchMember(
+                  searchQuery: '',
+                  workUnitId: 0,
+                  status: '',
+                  currentPage: 1,
+                );
             setState(() {
               searchController.clear();
               dropdownStatusKey = UniqueKey();

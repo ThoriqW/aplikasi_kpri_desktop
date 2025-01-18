@@ -115,6 +115,11 @@ class _SideMenuWidgetState extends ConsumerState<SideMenuWidget> {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFF093637), Color(0xFF44A08D)],
+          begin: Alignment.centerLeft,
+          end: Alignment.topRight,
+        ),
         color: isSelected ? GlobalColors.primary : Colors.transparent,
       ),
       child: InkWell(
@@ -133,7 +138,7 @@ class _SideMenuWidgetState extends ConsumerState<SideMenuWidget> {
               ),
               child: Icon(
                 data.menu[index].icon,
-                color: isSelected ? GlobalColors.white : Colors.black38,
+                color: isSelected ? GlobalColors.white : Colors.black54,
               ),
             ),
             Expanded(

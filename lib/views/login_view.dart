@@ -57,29 +57,38 @@ class _LoginViewState extends ConsumerState<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: GlobalColors.white,
-        padding: const EdgeInsets.all(60),
-        child: Center(
-          child: Row(
-            children: [
-              const Expanded(
-                child: Text(
-                  "Aplikasi Koperasi Simpan Pinjam",
-                  style: TextStyle(
-                    fontSize: 50,
-                    fontWeight: FontWeight.bold,
+      body: SizedBox(
+        height: double.infinity,
+        child: Row(
+          children: [
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [Color(0xFF093637), Color(0xFF44A08D)],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.topRight),
+                ),
+                child: const Center(
+                  child: Text(
+                    "Aplikasi Koperasi Simpan Pinjam",
+                    style: TextStyle(
+                        fontSize: 50,
+                        fontWeight: FontWeight.bold,
+                        color: GlobalColors.white),
                   ),
                 ),
               ),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(50),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.grey.shade300,
-                    ),
+            ),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(50),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey.shade300,
                   ),
+                ),
+                child: Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
@@ -150,8 +159,8 @@ class _LoginViewState extends ConsumerState<LoginView> {
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

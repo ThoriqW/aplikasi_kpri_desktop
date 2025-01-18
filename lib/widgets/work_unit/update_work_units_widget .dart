@@ -24,7 +24,7 @@ class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
   final TextEditingController namaWorkUnitController = TextEditingController();
   final TextEditingController kodeWorkUnitController = TextEditingController();
   bool _isLoading = false;
-
+  bool isInitialized = false;
   @override
   Widget build(BuildContext context) {
     final getWorkUnit = ref.watch(getWorkUnitProvider(
@@ -42,8 +42,11 @@ class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
 
           final workUnitData = workUnit as Map<String, dynamic>;
 
-          namaWorkUnitController.text = workUnitData['nama'];
-          kodeWorkUnitController.text = workUnitData['kode'] ?? '';
+          if (!isInitialized) {
+            namaWorkUnitController.text = workUnitData['nama'];
+            kodeWorkUnitController.text = workUnitData['kode'] ?? '';
+            isInitialized = true;
+          }
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,

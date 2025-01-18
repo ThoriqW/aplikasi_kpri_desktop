@@ -19,50 +19,47 @@ class AdminWidget extends ConsumerWidget {
     final currentMode = ref.watch(adminModeNotifierProvider);
     Widget bodyContent;
 
-    Widget homeAdmin = Column(
-      children: [
-        CustomCardWidget(
-          color: GlobalColors.white,
-          padding: const EdgeInsets.all(0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: DataUserWidget(
-                  onEdit: () {
-                    ref
-                        .read(adminModeNotifierProvider.notifier)
-                        .switchToEditUser();
-                  },
+    Widget homeAdmin = const Expanded(
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Flexible(
+              child: CustomCardWidget(
+                color: GlobalColors.white,
+                padding: EdgeInsets.all(0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: DataUserWidget(),
+                    ),
+                    SizedBox(width: 15),
+                    Expanded(child: AddUserWidget()),
+                  ],
                 ),
               ),
-              const SizedBox(width: 15),
-              const Expanded(child: AddUserWidget()),
-            ],
-          ),
-        ),
-        const SizedBox(height: 15),
-        CustomCardWidget(
-          color: GlobalColors.white,
-          padding: const EdgeInsets.all(0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: DataWorkUnitsWidget(
-                  onEdit: () {
-                    ref
-                        .watch(adminModeNotifierProvider.notifier)
-                        .switchToEditWorkUnit();
-                  },
+            ),
+            SizedBox(height: 10),
+            Flexible(
+              child: CustomCardWidget(
+                color: GlobalColors.white,
+                padding: EdgeInsets.all(0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: DataWorkUnitsWidget(),
+                    ),
+                    SizedBox(width: 15),
+                    Expanded(child: AddWorkUnitWidget()),
+                  ],
                 ),
               ),
-              const SizedBox(width: 15),
-              const Expanded(child: AddWorkUnitWidget()),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
 
     switch (currentMode) {
@@ -84,36 +81,27 @@ class AdminWidget extends ConsumerWidget {
         );
         break;
     }
-    return Stack(
+    return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 75.0, bottom: 30.0),
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: bodyContent,
+        Expanded(
+          child: Column(
+            children: [
+              const HeaderWidget(),
+              bodyContent,
+            ],
           ),
         ),
-        const Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: HeaderWidget(),
-        ),
-        const Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: CustomCardWidget(
-            padding: EdgeInsets.all(6),
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                "Aplikasi Koperasi By Bacreative",
-                style: TextStyle(
-                  color: GlobalColors.primary,
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                ),
+        const CustomCardWidget(
+          color: GlobalColors.white,
+          padding: EdgeInsets.all(6),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              "Aplikasi Koperasi By Bacreative",
+              style: TextStyle(
+                color: GlobalColors.primary,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
