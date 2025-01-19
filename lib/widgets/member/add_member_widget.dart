@@ -72,7 +72,6 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                 children: [
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Expanded(
                         child: Column(
