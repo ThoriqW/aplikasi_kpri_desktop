@@ -64,235 +64,250 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
             ),
           ),
           const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Nama Lengkap",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(controller: namaLengkapController, text: ""),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "NIK",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(controller: nikController, text: ""),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Nomor Anggota",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(
-                        controller: nomorAnggotaController, text: ""),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Nomor HP",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(controller: nomorHpController, text: ""),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Alamat",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(controller: alamatController, text: ""),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Email",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(controller: emailController, text: ""),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Jenis Kelamin",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(
-                        controller: jenisKelaminController, text: ""),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Agama",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(controller: agamaController, text: ""),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Jabatan",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(controller: jabatanController, text: ""),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Pangkat",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(controller: pangkatController, text: ""),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "NIP",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(controller: nipController, text: ""),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Tanggal Lahir",
-                    ),
-                    const SizedBox(height: 8),
-                    DatePickerWidget(date: tanggalLahirController),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Tanggal Masuk",
-                    ),
-                    const SizedBox(height: 8),
-                    DatePickerWidget(date: tanggalMasukController),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Pekerjaan",
-                    ),
-                    const SizedBox(height: 8),
-                    WorkUnitsDropdown(
-                      onSelected: (String value) => setState(
-                        () {
-                          selectedUnit = value;
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Nama Lengkap",
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormWidget(
+                                controller: namaLengkapController, text: ""),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "NIK",
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormWidget(controller: nikController, text: ""),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Nomor Anggota",
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormWidget(
+                                controller: nomorAnggotaController, text: ""),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Nomor HP",
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormWidget(
+                                controller: nomorHpController, text: ""),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Alamat",
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormWidget(
+                                controller: alamatController, text: ""),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Email",
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormWidget(
+                                controller: emailController, text: ""),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Jenis Kelamin",
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormWidget(
+                                controller: jenisKelaminController, text: ""),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Agama",
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormWidget(
+                                controller: agamaController, text: ""),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Jabatan",
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormWidget(
+                                controller: jabatanController, text: ""),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Pangkat",
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormWidget(
+                                controller: pangkatController, text: ""),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "NIP",
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormWidget(controller: nipController, text: ""),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Tanggal Lahir",
+                            ),
+                            const SizedBox(height: 8),
+                            DatePickerWidget(date: tanggalLahirController),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  const Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          "Tanggal Masuk",
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "Pekerjaan",
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: DatePickerWidget(date: tanggalMasukController),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: WorkUnitsDropdown(
+                          onSelected: (String value) => setState(
+                            () {
+                              selectedUnit = value;
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ButtonWidget(
+                        text: _isLoading ? "Loading..." : "Simpan",
+                        onTap: () async {
+                          await _saveMember();
                         },
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+                ],
               ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ButtonWidget(
-                text: _isLoading ? "Loading..." : "Simpan",
-                onTap: () async {
-                  await _saveMember();
-                },
-              ),
-            ],
+            ),
           ),
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
+import 'package:aplikasi_kpri_desktop/providers/admin_provider.dart';
 import 'package:aplikasi_kpri_desktop/providers/user_provider.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/user/search_user_widget.dart';
@@ -11,30 +12,46 @@ class DataUserWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final searchCriteriaUsers = ref.watch(searchUsersProvider);
-    return CustomCardWidget(
-      color: GlobalColors.white,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "User",
-            style: TextStyle(
-              color: GlobalColors.primary,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
+    return SizedBox(
+      height: 500,
+      child: CustomCardWidget(
+        color: GlobalColors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "User",
+              style: TextStyle(
+                color: GlobalColors.primary,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
-          const SearchUserWidget(),
-          const SizedBox(height: 20),
-          Flexible(
-            child: TableUserWidget(
-              searchQuery: searchCriteriaUsers['searchQuery'],
-              perPage: searchCriteriaUsers['perPage'],
-              currentPage: searchCriteriaUsers['currentPage'],
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    ref
+                        .watch(adminModeNotifierProvider.notifier)
+                        .switchToAddUser();
+                  },
+                  icon: const Icon(Icons.add),
+                ),
+                const SizedBox(width: 10),
+                const Expanded(child: SearchUserWidget()),
+              ],
             ),
-          ),
-        ],
+            const SizedBox(height: 20),
+            Flexible(
+              child: TableUserWidget(
+                searchQuery: searchCriteriaUsers['searchQuery'],
+                perPage: searchCriteriaUsers['perPage'],
+                currentPage: searchCriteriaUsers['currentPage'],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

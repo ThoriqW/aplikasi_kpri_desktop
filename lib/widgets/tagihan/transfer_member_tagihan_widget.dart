@@ -23,6 +23,7 @@ class _TransferMemberTagihanWidgetState
   final TextEditingController namaMemberController = TextEditingController();
   final TextEditingController namaWorkUnitController = TextEditingController();
   String selectedUnit = '';
+  String currentDropDownName = '';
   bool isInitialized = false;
   bool _isLoading = false;
   @override
@@ -32,7 +33,7 @@ class _TransferMemberTagihanWidgetState
     if (!isInitialized) {
       namaMemberController.text = dataTransferTagihanMember['nama_member'];
       namaWorkUnitController.text = dataTransferTagihanMember['namaWorkUnit'];
-
+      currentDropDownName = dataTransferTagihanMember['namaWorkUnit'];
       selectedUnit = dataTransferTagihanMember['unit_kerja_id'];
 
       isInitialized = true;
@@ -103,7 +104,7 @@ class _TransferMemberTagihanWidgetState
           Row(
             children: [
               WorkUnitsDropdown(
-                currentDropDownName: selectedUnit,
+                currentDropDownName: currentDropDownName,
                 onSelected: (String value) => setState(
                   () {
                     selectedUnit = value;

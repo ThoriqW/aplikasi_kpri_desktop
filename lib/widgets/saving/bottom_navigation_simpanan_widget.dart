@@ -60,19 +60,22 @@ class _BottomNavigationSimpananWidgetState
           ),
         ),
         const SizedBox(width: 20),
-        Row(
-          children: [
-            const Text(
-              "Unit Kerja",
-            ),
-            const SizedBox(width: 12),
-            WorkUnitsDropdown(
+        Expanded(
+          child: Row(
+            children: [
+              const Text(
+                "Unit Kerja",
+              ),
+              const SizedBox(width: 12),
+              WorkUnitsDropdown(
                 key: dropdownWorkUnitKey,
                 onSelected: (String value) {
                   ref.watch(searchSavingsProvider.notifier).setSearchSavings(
                       currentPage: 1, workUnitId: int.parse(value));
-                }),
-          ],
+                },
+              ),
+            ],
+          ),
         ),
         const SizedBox(width: 20),
         Row(

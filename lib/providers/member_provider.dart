@@ -312,6 +312,35 @@ class SearchMember extends _$SearchMember {
   }
 }
 
+@riverpod
+Future getDropDownMember(
+  ref,
+) async {
+  final String? token = await storage.read(key: 'authToken');
+
+  if (token == null) {
+    throw Exception('No authentication token found');
+  }
+
+  try {
+    final response = await http.get(
+      Uri.parse('$baseUrl/api/v1/get-dropdown-members'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      return jsonResponse;
+    } else {
+      return ErrorResponse.fromJson(jsonDecode(response.body)).errors;
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
+}
+
 //ROUTE
 
 enum MemberMode { view, update, add }
@@ -335,7 +364,7 @@ class IdMemberNotifier extends _$IdMemberNotifier {
     state = id;
   }
 
-  int getId() {
-    return state;
+  void clearId() {
+    state = 0;
   }
 }

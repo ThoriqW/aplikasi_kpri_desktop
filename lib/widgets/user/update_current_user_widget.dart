@@ -68,6 +68,7 @@ class _UpdateCurrentUserWidgetState
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 "User ${userData['nama_lengkap']}",
@@ -236,7 +237,7 @@ class _UpdateCurrentUserWidgetState
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ButtonWidget(
-                    text: _isLoading ? "Loading..." : "Update",
+                    text: _isLoading ? "Loading..." : "Simpan",
                     onTap: () async {
                       await _updateCurrentUser();
                     },

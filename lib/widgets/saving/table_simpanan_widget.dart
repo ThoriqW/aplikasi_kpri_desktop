@@ -372,12 +372,13 @@ class TableSimpananWidget extends ConsumerWidget {
                   width: 12,
                 ),
                 Flexible(
-                    child: AddMemberSimpananWidget(
-                  year: tahun,
-                  workUnitID: workUnitId,
-                  currentPage: currentPage,
-                  perPage: perPage,
-                ))
+                  child: AddMemberSimpananWidget(
+                    year: tahun,
+                    workUnitID: workUnitId,
+                    currentPage: currentPage,
+                    perPage: perPage,
+                  ),
+                )
               ],
             ),
             const SizedBox(

@@ -1,8 +1,10 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
-import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
+import 'package:aplikasi_kpri_desktop/providers/setting_provider.dart';
+import 'package:aplikasi_kpri_desktop/widgets/setting/fixed_setting.dart';
 import 'package:aplikasi_kpri_desktop/widgets/user/update_current_user_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/header_widget.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SettingWidget extends ConsumerWidget {
@@ -10,40 +12,79 @@ class SettingWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Stack(
-      children: [
-        SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: Padding(
-            padding: EdgeInsets.only(top: 75.0, bottom: 30.0),
-            child: Column(
-              children: [
-                UpdateCurrentUserWidget(),
-              ],
-            ),
-          ),
-        ),
-        Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: HeaderWidget(),
-        ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: CustomCardWidget(
-            padding: EdgeInsets.all(6),
-            child: Align(
-              alignment: Alignment.centerRight,
+    final currentMode = ref.watch(settingModeNotifierProvider);
+    Widget bodyContent;
+
+    Widget home = const SizedBox(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            width: double.infinity,
+            child: CustomCardWidget(
+              color: GlobalColors.white,
               child: Text(
-                "Aplikasi Koperasi By Bacreative",
+                "Pengaturan User & Aplikasi",
                 style: TextStyle(
                   color: GlobalColors.primary,
-                  fontSize: 10,
                   fontWeight: FontWeight.bold,
+                  fontSize: 16,
                 ),
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
+          Expanded(
+            child: SingleChildScrollView(
+              child: SizedBox(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    UpdateCurrentUserWidget(),
+                    SizedBox(height: 10),
+                    FixedSettingWidget()
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    switch (currentMode) {
+      case SettingMode.view:
+        bodyContent = home;
+        break;
+    }
+    return Column(
+      children: [
+        Expanded(
+          child: Column(
+            children: [
+              const HeaderWidget(),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: bodyContent,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const CustomCardWidget(
+          color: GlobalColors.white,
+          padding: EdgeInsets.all(6),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              "Aplikasi Koperasi By Bacreative",
+              style: TextStyle(
+                color: GlobalColors.primary,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
+import 'package:aplikasi_kpri_desktop/providers/admin_provider.dart';
 import 'package:aplikasi_kpri_desktop/providers/work_units_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
@@ -27,6 +28,17 @@ class _AddWorkUnitWidgetState extends ConsumerState<AddWorkUnitWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () async {
+              ref
+                  .watch(
+                    adminModeNotifierProvider.notifier,
+                  )
+                  .switchToView();
+            },
+          ),
+          const SizedBox(height: 20),
           const Text(
             "Tambah Unit Kerja",
             style: TextStyle(
@@ -89,7 +101,11 @@ class _AddWorkUnitWidgetState extends ConsumerState<AddWorkUnitWidget> {
               alertTitle: "Sukses",
             );
           },
-        ).then((value) => ref.invalidate(getAllWorkUnitsProvider));
+        ).then((value) => ref
+            .watch(
+              adminModeNotifierProvider.notifier,
+            )
+            .switchToView());
       } else if (addWorkUnit is ErrorResponse) {
         await showDialog(
           context: context,

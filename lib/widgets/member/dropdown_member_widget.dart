@@ -1,25 +1,28 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
-import 'package:aplikasi_kpri_desktop/providers/work_units_provider.dart';
+import 'package:aplikasi_kpri_desktop/providers/member_provider.dart';
+import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class WorkUnitsDropdown extends ConsumerStatefulWidget {
-  const WorkUnitsDropdown({
+class DropdownMemberWidget extends ConsumerStatefulWidget {
+  const DropdownMemberWidget({
     super.key,
-    required this.onSelected,
     this.currentDropDownName,
+    required this.onSelected,
     this.resetKey,
   });
-  final Function(String) onSelected;
+
   final String? currentDropDownName;
+  final Function(String) onSelected;
   final Key? resetKey;
 
   @override
-  ConsumerState<WorkUnitsDropdown> createState() => _WorkUnitsDropdownState();
+  ConsumerState<DropdownMemberWidget> createState() =>
+      _DropdownMemberWidgetState();
 }
 
-class _WorkUnitsDropdownState extends ConsumerState<WorkUnitsDropdown> {
+class _DropdownMemberWidgetState extends ConsumerState<DropdownMemberWidget> {
   String? dropdownValue;
 
   @override
@@ -29,34 +32,34 @@ class _WorkUnitsDropdownState extends ConsumerState<WorkUnitsDropdown> {
   }
 
   @override
-  void didUpdateWidget(covariant WorkUnitsDropdown oldWidget) {
+  void didUpdateWidget(covariant DropdownMemberWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.resetKey != oldWidget.resetKey) {
       setState(() {
-        dropdownValue = null;
+        dropdownValue = '';
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final getAllWorkUnits = ref.watch(getDropDownWorkUnitProvider);
-
-    return getAllWorkUnits.when(
-      data: (workUnit) {
-        if (workUnit == null ||
-            workUnit is! Map<String, dynamic> ||
-            !workUnit.containsKey('data')) {
+    final getMemberDropdown = ref.watch(getDropDownMemberProvider);
+    return getMemberDropdown.when(
+      data: (data) {
+        if (data == null) {
           return const Text("Data tidak valid");
         }
-
-        final List<dynamic> workUnitsDropdown = workUnit['data'];
+        if (data is ErrorResponse || data is! Map<String, dynamic>) {
+          return SizedBox(width: double.infinity, child: Text(data.toString()));
+        }
+        final List<dynamic> memberDropDown = data['data'];
 
         return Expanded(
           child: DropdownSearch<String>(
             selectedItem: dropdownValue,
-            items: (filter, infiniteScrollProps) => workUnitsDropdown
-                .map<String>((entry) => '${entry['id']}   ${entry['nama']}')
+            items: (filter, infiniteScrollProps) => memberDropDown
+                .map<String>(
+                    (entry) => '${entry['id']}   ${entry['nama_lengkap']}')
                 .toList(),
             decoratorProps: DropDownDecoratorProps(
               decoration: InputDecoration(
@@ -95,7 +98,7 @@ class _WorkUnitsDropdownState extends ConsumerState<WorkUnitsDropdown> {
           color: GlobalColors.primary,
         ),
       ),
-      error: (error, _) => const Text('Gagal terhubung ke server!!'),
+      error: (error, stackTrace) => Text('Error: $error'),
     );
   }
 }

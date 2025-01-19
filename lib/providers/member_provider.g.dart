@@ -1354,6 +1354,23 @@ class _ResetPasswordMemberProviderElement
   String get id => (origin as ResetPasswordMemberProvider).id;
 }
 
+String _$getDropDownMemberHash() => r'638122e430a0b4072e0b137d38624879fbbfcd1d';
+
+/// See also [getDropDownMember].
+@ProviderFor(getDropDownMember)
+final getDropDownMemberProvider = AutoDisposeFutureProvider<Object?>.internal(
+  getDropDownMember,
+  name: r'getDropDownMemberProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$getDropDownMemberHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef GetDropDownMemberRef = AutoDisposeFutureProviderRef<Object?>;
 String _$totalPageMemberHash() => r'bf35a5bcd8749654d6722976e731606d629ca14e';
 
 /// See also [TotalPageMember].
@@ -1402,7 +1419,7 @@ final memberModeNotifierProvider =
 );
 
 typedef _$MemberModeNotifier = AutoDisposeNotifier<MemberMode>;
-String _$idMemberNotifierHash() => r'7d84aa9ec0b8d9beda2ff288ece0891447d49f21';
+String _$idMemberNotifierHash() => r'9b9d28a98cf4b112742db76cfa81ed62a7e796e4';
 
 /// See also [IdMemberNotifier].
 @ProviderFor(IdMemberNotifier)

@@ -2,6 +2,7 @@ import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/admin_provider.dart';
 import 'package:aplikasi_kpri_desktop/providers/work_units_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
+import 'package:aplikasi_kpri_desktop/widgets/cutom_table_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/work_unit/delete_work_unit_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,7 +40,53 @@ class TableWorkUnitWidget extends ConsumerWidget {
         int totalPage = workUnit['pagination']['last_page'];
         int currentPage = workUnit['pagination']['current_page'];
         int totalMember = workUnit['pagination']['total'];
+
         List<dynamic> workUnits = workUnitResponse;
+
+        final rowsCells = workUnits
+            .map((entry) => [
+                  entry["id"],
+                  entry["kode"],
+                  ...[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(2),
+                          child: IconButton(
+                            onPressed: () {
+                              ref
+                                  .watch(idWorkUnitNotifierProvider.notifier)
+                                  .setId(entry['id']);
+                              ref
+                                  .watch(
+                                    adminModeNotifierProvider.notifier,
+                                  )
+                                  .switchToEditWorkUnit();
+                            },
+                            icon: const Icon(
+                              Icons.edit,
+                              size: 18,
+                              color: GlobalColors.primary,
+                            ),
+                          ),
+                        ),
+                        DeleteWorkUnitWidget(id: entry['id'].toString())
+                      ],
+                    ),
+                  ],
+                ])
+            .toList();
+
+        final fixedColCells =
+            workUnits.map((entry) => entry["nama"].toString()).toList();
+
+        final fixedRowCells = [
+          "ID",
+          "KODE",
+          'AKSI',
+        ];
+
         Future.microtask(() {
           ref
               .watch(totalPageWorkUnitsProvider.notifier)
@@ -60,144 +107,42 @@ class TableWorkUnitWidget extends ConsumerWidget {
               ],
             ),
             Flexible(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Table(
-                  columnWidths: const <int, TableColumnWidth>{
-                    0: IntrinsicColumnWidth(),
-                    1: IntrinsicColumnWidth(),
-                    2: FlexColumnWidth(),
-                    3: IntrinsicColumnWidth(),
-                    4: IntrinsicColumnWidth(),
-                  },
-                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                  children: <TableRow>[
-                    TableRow(
-                      decoration:
-                          const BoxDecoration(color: GlobalColors.headerTable),
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: const Text(
-                            "NO",
-                            style: TextStyle(
-                              color: GlobalColors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+              child: CustomDataTable(
+                rowsCells: rowsCells,
+                cellHeight: 40,
+                fixedColCells: fixedColCells,
+                fixedRowCells: fixedRowCells,
+                cellWidth: 320,
+                cellBuilder: (data) {
+                  if (data is Widget) {
+                    return data;
+                  }
+                  return Text('$data');
+                },
+                headerBuilder: (data) {
+                  if (data is Widget) {
+                    return data;
+                  }
+                  if (data == 'STATUS' || data == 'AKSI') {
+                    return Center(
+                      child: Text(
+                        data,
+                        style: const TextStyle(
+                          color: GlobalColors.white,
+                          fontWeight: FontWeight.bold,
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: const Text(
-                            "ID",
-                            style: TextStyle(
-                              color: GlobalColors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: const Text(
-                            "NAMA UNIT KERJA",
-                            style: TextStyle(
-                              color: GlobalColors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: const Text(
-                            "KODE",
-                            style: TextStyle(
-                              color: GlobalColors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: Container(
-                            padding: const EdgeInsets.all(9),
-                            child: const Text(
-                              "AKSI",
-                              style: TextStyle(
-                                color: GlobalColors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    for (int i = 0; i < workUnits.length; i++)
-                      TableRow(
-                        decoration: BoxDecoration(
-                          color: i.isEven ? Colors.grey.shade200 : Colors.white,
-                        ),
-                        children: <Widget>[
-                          Center(
-                            child: Container(
-                              padding: const EdgeInsets.all(9),
-                              child: Text(
-                                "${i + 1}",
-                              ),
-                            ),
-                          ),
-                          Center(
-                            child: Container(
-                              padding: const EdgeInsets.all(9),
-                              child: Text(
-                                workUnits[i]['id'].toString(),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(9),
-                            child: Text(
-                              workUnits[i]['nama'].toString(),
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(9),
-                            child: Text(
-                              workUnits[i]['kode'].toString(),
-                            ),
-                          ),
-                          Center(
-                            child: Row(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(2),
-                                  child: IconButton(
-                                    onPressed: () {
-                                      ref
-                                          .watch(idWorkUnitNotifierProvider
-                                              .notifier)
-                                          .setId(
-                                            workUnits[i]['id'],
-                                          );
-                                      ref
-                                          .watch(adminModeNotifierProvider
-                                              .notifier)
-                                          .switchToEditWorkUnit();
-                                    },
-                                    icon: const Icon(
-                                      Icons.edit,
-                                      size: 18,
-                                      color: GlobalColors.primary,
-                                    ),
-                                  ),
-                                ),
-                                DeleteWorkUnitWidget(
-                                    id: workUnits[i]['id'].toString()),
-                              ],
-                            ),
-                          ),
-                        ],
                       ),
-                  ],
-                ),
+                    );
+                  }
+                  return Text(
+                    '$data',
+                    style: const TextStyle(
+                      color: GlobalColors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                },
+                fixedCornerCell: "NAMA UNIT KERJA",
               ),
             ),
             Row(

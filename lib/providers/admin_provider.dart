@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'admin_provider.g.dart';
 
 //ROUTE
-enum AdminMode { view, editUser, editWorkUnit }
+enum AdminMode { view, editUser, editWorkUnit, addUser, addWorkUnit }
 
 @riverpod
 class AdminModeNotifier extends _$AdminModeNotifier {
@@ -12,6 +12,8 @@ class AdminModeNotifier extends _$AdminModeNotifier {
 
   void switchToView() => state = AdminMode.view;
   void switchToEditUser() => state = AdminMode.editUser;
+  void switchToAddUser() => state = AdminMode.addUser;
+  void switchToAddWorkUnit() => state = AdminMode.addWorkUnit;
   void switchToEditWorkUnit() => state = AdminMode.editWorkUnit;
 }
 

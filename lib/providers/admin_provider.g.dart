@@ -6,7 +6,7 @@ part of 'admin_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$adminModeNotifierHash() => r'e36647d3c2e3ed5c8acef2713f26cad6a79ad535';
+String _$adminModeNotifierHash() => r'b318ca7f49e2f08cb32d940d94358e7d5df6b961';
 
 /// See also [AdminModeNotifier].
 @ProviderFor(AdminModeNotifier)

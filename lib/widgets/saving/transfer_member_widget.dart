@@ -22,6 +22,7 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
   final TextEditingController namaMemberController = TextEditingController();
   final TextEditingController namaWorkUnitController = TextEditingController();
   String selectedUnit = '';
+  String currentDropDownName = '';
   bool isInitialized = false;
   bool _isLoading = false;
   @override
@@ -35,6 +36,8 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
           dataTransferSavingsMember['namaWorkUnit'].toString();
 
       selectedUnit = dataTransferSavingsMember['unit_kerja_id'].toString();
+      currentDropDownName =
+          dataTransferSavingsMember['namaWorkUnit'].toString();
 
       isInitialized = true;
     }
@@ -104,7 +107,7 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
           Row(
             children: [
               WorkUnitsDropdown(
-                currentDropDownName: selectedUnit,
+                currentDropDownName: currentDropDownName,
                 onSelected: (String value) => setState(
                   () {
                     selectedUnit = value;

@@ -760,6 +760,24 @@ class _DeleteWorkUnitProviderElement
   String get id => (origin as DeleteWorkUnitProvider).id;
 }
 
+String _$getDropDownWorkUnitHash() =>
+    r'40093737d489baceac8048e2d162597bc57ae3ed';
+
+/// See also [getDropDownWorkUnit].
+@ProviderFor(getDropDownWorkUnit)
+final getDropDownWorkUnitProvider = AutoDisposeFutureProvider<Object?>.internal(
+  getDropDownWorkUnit,
+  name: r'getDropDownWorkUnitProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$getDropDownWorkUnitHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef GetDropDownWorkUnitRef = AutoDisposeFutureProviderRef<Object?>;
 String _$totalPageWorkUnitsHash() =>
     r'fdde12d5cfb1e2b564bdd4e6b84b0aa86ad79972';
 
@@ -793,5 +811,22 @@ final searchWorkUnitProvider =
 );
 
 typedef _$SearchWorkUnit = AutoDisposeNotifier<Map<String, dynamic>>;
+String _$idDropDownWorkUnitNotifierHash() =>
+    r'ceeadbfc19cc5a38dfa422884889d63245a129e3';
+
+/// See also [IdDropDownWorkUnitNotifier].
+@ProviderFor(IdDropDownWorkUnitNotifier)
+final idDropDownWorkUnitNotifierProvider =
+    AutoDisposeNotifierProvider<IdDropDownWorkUnitNotifier, int>.internal(
+  IdDropDownWorkUnitNotifier.new,
+  name: r'idDropDownWorkUnitNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$idDropDownWorkUnitNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$IdDropDownWorkUnitNotifier = AutoDisposeNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

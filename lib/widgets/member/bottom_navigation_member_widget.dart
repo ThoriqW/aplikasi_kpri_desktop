@@ -95,21 +95,23 @@ class _BottomNavigationMemberWidgetState
         const SizedBox(
           width: 24,
         ),
-        Row(
-          children: [
-            const Text(
-              "Unit Kerja",
-            ),
-            const SizedBox(width: 16),
-            WorkUnitsDropdown(
-                key: dropdownWorkUnitKey,
-                onSelected: (String value) {
-                  ref.watch(searchMemberProvider.notifier).setSearchMember(
-                        workUnitId: int.parse(value),
-                        currentPage: 1,
-                      );
-                }),
-          ],
+        Expanded(
+          child: Row(
+            children: [
+              const Text(
+                "Unit Kerja",
+              ),
+              const SizedBox(width: 16),
+              WorkUnitsDropdown(
+                  key: dropdownWorkUnitKey,
+                  onSelected: (String value) {
+                    ref.watch(searchMemberProvider.notifier).setSearchMember(
+                          workUnitId: int.parse(value),
+                          currentPage: 1,
+                        );
+                  }),
+            ],
+          ),
         ),
         const SizedBox(
           width: 24,

@@ -10,14 +10,14 @@ import 'package:aplikasi_kpri_desktop/widgets/text_form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AddUserWidget extends ConsumerStatefulWidget {
-  const AddUserWidget({super.key});
+class FixedSettingWidget extends ConsumerStatefulWidget {
+  const FixedSettingWidget({super.key});
 
   @override
-  ConsumerState<AddUserWidget> createState() => _AddUserWidgetState();
+  ConsumerState<FixedSettingWidget> createState() => _FixedSettingWidgetState();
 }
 
-class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
+class _FixedSettingWidgetState extends ConsumerState<FixedSettingWidget> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool _isLoading = false;
@@ -28,19 +28,9 @@ class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () async {
-              ref
-                  .watch(
-                    adminModeNotifierProvider.notifier,
-                  )
-                  .switchToView();
-            },
-          ),
           const SizedBox(height: 20),
           const Text(
-            "Tambah User",
+            "Fixed Setting",
             style: TextStyle(
               color: GlobalColors.primary,
               fontWeight: FontWeight.bold,
@@ -52,7 +42,7 @@ class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Username",
+                "Nama",
               ),
               const SizedBox(height: 8),
               TextFormWidget(controller: usernameController, text: ""),
@@ -63,7 +53,7 @@ class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Password",
+                "Nilai",
               ),
               const SizedBox(height: 8),
               TextFormWidget(controller: passwordController, text: ""),
@@ -72,67 +62,10 @@ class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
           const SizedBox(height: 15),
           ButtonWidget(
             text: _isLoading ? "Loading..." : "Simpan",
-            onTap: () async {
-              await registerUser();
-            },
+            onTap: () async {},
           ),
         ],
       ),
     );
-  }
-
-  Future<void> registerUser() async {
-    setState(() {
-      _isLoading = true;
-    });
-    try {
-      final registerUser = await ref.watch(registerUserProvider(
-        usernameController.text,
-        passwordController.text,
-      ).future);
-      if (!mounted) return;
-      if (registerUser is SuccessResponse) {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return CustomAlertDialog(
-              alertDesc: registerUser.message,
-              alertTitle: "Sukses",
-            );
-          },
-        ).then((value) => ref
-            .watch(
-              adminModeNotifierProvider.notifier,
-            )
-            .switchToView());
-      } else if (registerUser is ErrorResponse) {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return CustomAlertDialog(
-              alertDesc: registerUser.errors,
-              alertTitle: "Gagal",
-            );
-          },
-        );
-      }
-    } catch (e) {
-      if (!mounted) return;
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return const CustomAlertDialog(
-            alertDesc: "Gagal terhubung ke server!!",
-            alertTitle: "Error",
-          );
-        },
-      );
-    } finally {
-      usernameController.clear();
-      passwordController.clear();
-      setState(() {
-        _isLoading = false;
-      });
-    }
   }
 }

@@ -26,11 +26,11 @@ class CustomDataTable<T> extends StatefulWidget {
     required this.headerBuilder,
     this.fixedColWidth = 150.0,
     this.cellHeight = 56.0,
-    this.cellHeightWidget = 56.0,
     this.cellWidth = 150.0,
-    this.cellWidthWidget = 150.0,
     this.cellMargin = 10.0,
     this.cellSpacing = 10.0,
+    this.cellWidthWidget = 150.0,
+    this.cellHeightWidget = 56.0,
   });
 
   @override

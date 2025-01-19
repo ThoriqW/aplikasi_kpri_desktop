@@ -67,54 +67,70 @@ class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
                 ),
               ),
               const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "Nama Work Unit",
-                        ),
-                        const SizedBox(height: 8),
-                        TextFormWidget(
-                            controller: namaWorkUnitController, text: ""),
-                      ],
-                    ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Nama Work Unit",
+                                ),
+                                const SizedBox(height: 8),
+                                TextFormWidget(
+                                    controller: namaWorkUnitController,
+                                    text: ""),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Kode Work Unit",
+                                ),
+                                const SizedBox(height: 8),
+                                TextFormWidget(
+                                    controller: kodeWorkUnitController,
+                                    text: ""),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ButtonWidget(
+                            text: _isLoading ? "Loading..." : "Update",
+                            onTap: () async {
+                              await _updateWorkUnit(
+                                  workUnitData['id'].toString());
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "Kode Work Unit",
-                        ),
-                        const SizedBox(height: 8),
-                        TextFormWidget(
-                            controller: kodeWorkUnitController, text: ""),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ButtonWidget(
-                    text: _isLoading ? "Loading..." : "Update",
-                    onTap: () async {
-                      await _updateWorkUnit(workUnitData['id'].toString());
-                    },
-                  ),
-                ],
+                ),
               ),
             ],
           );
         },
         error: (error, stackTrace) => const Text('Gagal terhubung ke server!!'),
-        loading: () => const LinearProgressIndicator(),
+        loading: () => const Align(
+          alignment: Alignment.topCenter,
+          child: LinearProgressIndicator(),
+        ),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/admin_provider.dart';
 import 'package:aplikasi_kpri_desktop/providers/user_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
+import 'package:aplikasi_kpri_desktop/widgets/cutom_table_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/user/delete_user_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,6 +42,52 @@ class TableUserWidget extends ConsumerWidget {
 
         List<dynamic> users = userResponse;
 
+        final rowsCells = users
+            .map((entry) => [
+                  entry["id"],
+                  entry["username"],
+                  entry["role"],
+                  ...[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(2),
+                          child: IconButton(
+                            onPressed: () {
+                              ref
+                                  .watch(idUserNotifierProvider.notifier)
+                                  .setId(entry['id']);
+                              ref
+                                  .watch(
+                                    adminModeNotifierProvider.notifier,
+                                  )
+                                  .switchToEditUser();
+                            },
+                            icon: const Icon(
+                              Icons.edit,
+                              size: 18,
+                              color: GlobalColors.primary,
+                            ),
+                          ),
+                        ),
+                        DeleteUserWidget(id: entry['id'].toString())
+                      ],
+                    ),
+                  ],
+                ])
+            .toList();
+
+        final fixedColCells =
+            users.map((entry) => entry["nama_lengkap"].toString()).toList();
+
+        final fixedRowCells = [
+          "ID",
+          "USERNAME",
+          "ROLE",
+          'AKSI',
+        ];
+
         Future.microtask(() {
           ref
               .watch(totalPageUsersProvider.notifier)
@@ -61,160 +108,44 @@ class TableUserWidget extends ConsumerWidget {
                 ),
               ],
             ),
+            const SizedBox(height: 8),
             Flexible(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Table(
-                  columnWidths: const <int, TableColumnWidth>{
-                    0: IntrinsicColumnWidth(),
-                    1: IntrinsicColumnWidth(),
-                    2: FlexColumnWidth(),
-                    3: IntrinsicColumnWidth(),
-                    4: IntrinsicColumnWidth(),
-                    5: IntrinsicColumnWidth(),
-                  },
-                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                  children: <TableRow>[
-                    TableRow(
-                      decoration:
-                          const BoxDecoration(color: GlobalColors.headerTable),
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: const Text(
-                            "NO",
-                            style: TextStyle(
-                              color: GlobalColors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+              child: CustomDataTable(
+                rowsCells: rowsCells,
+                fixedColCells: fixedColCells,
+                fixedRowCells: fixedRowCells,
+                cellHeight: 40,
+                cellWidth: 250,
+                cellBuilder: (data) {
+                  if (data is Widget) {
+                    return data;
+                  }
+                  return Text('$data');
+                },
+                headerBuilder: (data) {
+                  if (data is Widget) {
+                    return data;
+                  }
+                  if (data == 'STATUS' || data == 'AKSI') {
+                    return Center(
+                      child: Text(
+                        data,
+                        style: const TextStyle(
+                          color: GlobalColors.white,
+                          fontWeight: FontWeight.bold,
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: const Text(
-                            "ID",
-                            style: TextStyle(
-                              color: GlobalColors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: const Text(
-                            "USERNAME",
-                            style: TextStyle(
-                              color: GlobalColors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: const Text(
-                            "NAMA LENGKAP",
-                            style: TextStyle(
-                              color: GlobalColors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(9),
-                          child: const Text(
-                            "ROLE",
-                            style: TextStyle(
-                              color: GlobalColors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: Container(
-                            padding: const EdgeInsets.all(9),
-                            child: const Text(
-                              "AKSI",
-                              style: TextStyle(
-                                color: GlobalColors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    for (int i = 0; i < users.length; i++)
-                      TableRow(
-                        decoration: BoxDecoration(
-                          color: i.isEven ? Colors.grey.shade200 : Colors.white,
-                        ),
-                        children: <Widget>[
-                          Center(
-                            child: Container(
-                              padding: const EdgeInsets.all(9),
-                              child: Text(
-                                (0 + i + 1).toString(),
-                              ),
-                            ),
-                          ),
-                          Center(
-                            child: Container(
-                              padding: const EdgeInsets.all(9),
-                              child: Text(
-                                users[i]['id'].toString(),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(9),
-                            child: Text(
-                              users[i]['username'].toString(),
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(9),
-                            child: Text(
-                              users[i]['nama_lengkap'].toString(),
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(9),
-                            child: Text(
-                              users[i]['role'].toString(),
-                            ),
-                          ),
-                          Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(2),
-                                  child: IconButton(
-                                    onPressed: () async {
-                                      ref
-                                          .watch(
-                                              idUserNotifierProvider.notifier)
-                                          .setId(users[i]['id']);
-                                      ref
-                                          .watch(adminModeNotifierProvider
-                                              .notifier)
-                                          .switchToEditUser();
-                                    },
-                                    icon: const Icon(
-                                      Icons.edit,
-                                      size: 18,
-                                      color: GlobalColors.primary,
-                                    ),
-                                  ),
-                                ),
-                                DeleteUserWidget(id: users[i]['id'].toString())
-                              ],
-                            ),
-                          ),
-                        ],
                       ),
-                  ],
-                ),
+                    );
+                  }
+                  return Text(
+                    '$data',
+                    style: const TextStyle(
+                      color: GlobalColors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                },
+                fixedCornerCell: "NAMA LENGKAP",
               ),
             ),
             Row(

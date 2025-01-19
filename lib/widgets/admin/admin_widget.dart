@@ -19,46 +19,42 @@ class AdminWidget extends ConsumerWidget {
     final currentMode = ref.watch(adminModeNotifierProvider);
     Widget bodyContent;
 
-    Widget homeAdmin = const Expanded(
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Flexible(
-              child: CustomCardWidget(
-                color: GlobalColors.white,
-                padding: EdgeInsets.all(0),
-                child: Row(
+    Widget homeAdmin = const SizedBox(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            width: double.infinity,
+            child: CustomCardWidget(
+              color: GlobalColors.white,
+              child: Text(
+                "Data User & Unit Kerja",
+                style: TextStyle(
+                  color: GlobalColors.primary,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
+          Expanded(
+            child: SingleChildScrollView(
+              child: SizedBox(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Expanded(
-                      child: DataUserWidget(),
-                    ),
-                    SizedBox(width: 15),
-                    Expanded(child: AddUserWidget()),
+                    DataUserWidget(),
+                    SizedBox(height: 10),
+                    DataWorkUnitsWidget(),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 10),
-            Flexible(
-              child: CustomCardWidget(
-                color: GlobalColors.white,
-                padding: EdgeInsets.all(0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: DataWorkUnitsWidget(),
-                    ),
-                    SizedBox(width: 15),
-                    Expanded(child: AddWorkUnitWidget()),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
 
@@ -80,6 +76,12 @@ class AdminWidget extends ConsumerWidget {
           },
         );
         break;
+      case AdminMode.addUser:
+        bodyContent = const AddUserWidget();
+        break;
+      case AdminMode.addWorkUnit:
+        bodyContent = const AddWorkUnitWidget();
+        break;
     }
     return Column(
       children: [
@@ -87,7 +89,12 @@ class AdminWidget extends ConsumerWidget {
           child: Column(
             children: [
               const HeaderWidget(),
-              bodyContent,
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: bodyContent,
+                ),
+              ),
             ],
           ),
         ),

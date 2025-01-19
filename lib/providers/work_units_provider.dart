@@ -195,3 +195,46 @@ class SearchWorkUnit extends _$SearchWorkUnit {
     return state;
   }
 }
+
+@riverpod
+Future getDropDownWorkUnit(
+  ref,
+) async {
+  final String? token = await storage.read(key: 'authToken');
+
+  if (token == null) {
+    throw Exception('No authentication token found');
+  }
+
+  try {
+    final response = await http.get(
+      Uri.parse('$baseUrl/api/v1/get-dropdown-workunits'),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      return jsonResponse;
+    } else {
+      return ErrorResponse.fromJson(jsonDecode(response.body)).errors;
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
+}
+
+@riverpod
+class IdDropDownWorkUnitNotifier extends _$IdDropDownWorkUnitNotifier {
+  @override
+  int build() => 0;
+
+  void setId(int id) {
+    state = id;
+  }
+
+  void clearId() {
+    state = 0;
+  }
+}
