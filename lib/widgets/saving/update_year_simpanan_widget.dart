@@ -32,7 +32,7 @@ class _UpdateYearSimpananState extends ConsumerState<UpdateYearSimpanan> {
         TextFormWidget(controller: tahunControllerController, text: ""),
         const SizedBox(height: 12),
         ButtonWidget(
-          text: "Update",
+          text: "Simpan",
           onTap: () async {
             await showDialog(
               context: context,

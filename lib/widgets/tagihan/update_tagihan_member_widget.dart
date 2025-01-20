@@ -31,6 +31,8 @@ class _UpdateTagihanMemberWidgetState
   final TextEditingController jangkaWaktuController = TextEditingController();
   final TextEditingController jangkaWaktuKeController = TextEditingController();
   final TextEditingController sisaTunggakanController = TextEditingController();
+  final TextEditingController jumlahSetoranController = TextEditingController();
+  final TextEditingController keteranganController = TextEditingController();
   bool _isLoading = false;
   bool isInitialized = false;
   @override
@@ -41,33 +43,42 @@ class _UpdateTagihanMemberWidgetState
     if (!isInitialized) {
       memberProfileIdController.text =
           dataTagihanMember['member_profile_id'].toString();
-      simpananWajibController.text = dataTagihanMember['simpanan_wajib'] != '0'
-          ? double.parse(
-              dataTagihanMember['simpanan_wajib'].toString(),
-            ).round().toString()
-          : '';
-      danaSosialController.text = dataTagihanMember['dana_sosial'] != '0'
+      simpananWajibController.text =
+          dataTagihanMember['simpanan_wajib'] != '0.00'
+              ? double.parse(
+                  dataTagihanMember['simpanan_wajib'].toString(),
+                ).round().toString()
+              : '';
+      danaSosialController.text = dataTagihanMember['dana_sosial'] != '0.00'
           ? double.parse(
               dataTagihanMember['dana_sosial'].toString(),
             ).round().toString()
           : '';
-      pokokController.text = dataTagihanMember['pokok'] != '0'
+      pokokController.text = dataTagihanMember['pokok'] != '0.00'
           ? double.parse(
               dataTagihanMember['pokok'].toString(),
             ).round().toString()
           : '';
-      bungaController.text = dataTagihanMember['bunga'] != '0'
+      bungaController.text = dataTagihanMember['bunga'] != '0.00'
           ? double.parse(
               dataTagihanMember['bunga'].toString(),
             ).round().toString()
           : '';
-      barangController.text = dataTagihanMember['barang'] != '0'
+      barangController.text = dataTagihanMember['barang'] != '0.00'
           ? double.parse(
               dataTagihanMember['barang'].toString(),
             ).round().toString()
           : '';
-      jangkaWaktuController.text = dataTagihanMember['jangka_waktu'];
-      jangkaWaktuKeController.text = dataTagihanMember['jangka_waktu_ke'];
+      jangkaWaktuController.text = dataTagihanMember['jangka_waktu'] != '0'
+          ? double.parse(
+              dataTagihanMember['jangka_waktu'].toString(),
+            ).round().toString()
+          : '';
+      jangkaWaktuKeController.text = dataTagihanMember['jangka_waktu_ke'] != '0'
+          ? double.parse(
+              dataTagihanMember['jangka_waktu_ke'].toString(),
+            ).round().toString()
+          : '';
       sisaTunggakanController.text =
           dataTagihanMember['sisa_tunggakan'] != '0.00'
               ? double.parse(
@@ -75,12 +86,22 @@ class _UpdateTagihanMemberWidgetState
                 ).round().toString()
               : '';
 
+      jumlahSetoranController.text =
+          dataTagihanMember['jumlah_setoran'] != '0.00'
+              ? double.parse(
+                  dataTagihanMember['jumlah_setoran'].toString(),
+                ).round().toString()
+              : '';
+
+      keteranganController.text = dataTagihanMember['keterangan'];
+
       isInitialized = true;
     }
     return CustomCardWidget(
       color: GlobalColors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
             onPressed: () {
@@ -98,178 +119,205 @@ class _UpdateTagihanMemberWidgetState
             ),
           ),
           const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "ID Member",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(
-                      controller: memberProfileIdController,
-                      text: "",
-                      isEnabled: false,
-                    ),
-                  ],
-                ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "ID Member",
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormWidget(
+                              controller: memberProfileIdController,
+                              text: "",
+                              isEnabled: false,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Simpanan Wajib",
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormWidget(
+                                controller: simpananWajibController, text: ""),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Dana Sosial",
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormWidget(
+                                controller: danaSosialController, text: ""),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Pokok",
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormWidget(
+                                controller: pokokController, text: ""),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Bunga",
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormWidget(
+                                controller: bungaController, text: ""),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Barang",
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormWidget(
+                                controller: barangController, text: ""),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Jangka Waktu",
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormWidget(
+                                controller: jangkaWaktuController, text: ""),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Jangka Waktu Ke",
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormWidget(
+                                controller: jangkaWaktuKeController, text: ""),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Sisa Tunggakan",
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormWidget(
+                              controller: sisaTunggakanController,
+                              text: "",
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Jumlah Setoran",
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormWidget(
+                              controller: jumlahSetoranController,
+                              text: '',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Keterangan",
+                      ),
+                      const SizedBox(height: 10),
+                      TextFormWidget(
+                        controller: keteranganController,
+                        text: "",
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  ButtonWidget(
+                    text: _isLoading ? "Loading..." : "Simpan",
+                    onTap: () async {
+                      updateDataTagihan(
+                        dataTagihanMember['tahun'],
+                        dataTagihanMember['bulan'],
+                      );
+                    },
+                  ),
+                ],
               ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Simpanan Wajib",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(
-                        controller: simpananWajibController, text: ""),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Dana Sosial",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(controller: danaSosialController, text: ""),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Pokok",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(controller: pokokController, text: ""),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Bunga",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(controller: bungaController, text: ""),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 20),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Barang",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(controller: barangController, text: ""),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Jangka Waktu",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(controller: jangkaWaktuController, text: ""),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Jangka Waktu Ke",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(
-                        controller: jangkaWaktuKeController, text: ""),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Sisa Tunggakan",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(
-                      controller: sisaTunggakanController,
-                      text: "",
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Keterangan",
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormWidget(
-                      controller: sisaTunggakanController,
-                      text: dataTagihanMember['keterangan'],
-                      isEnabled: false,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(width: 8),
-          const SizedBox(height: 20),
-          ButtonWidget(
-            text: _isLoading ? "Loading..." : "Update",
-            onTap: () async {
-              updateDataTagihan(
-                dataTagihanMember['tahun'],
-                dataTagihanMember['bulan'],
-              );
-            },
+            ),
           ),
         ],
       ),
@@ -297,6 +345,8 @@ class _UpdateTagihanMemberWidgetState
           "jangka_waktu": jangkaWaktuController.text,
           "jangka_waktu_ke": jangkaWaktuKeController.text,
           "sisa_tunggakan": sisaTunggakanController.text,
+          "jumlah_setoran": jumlahSetoranController.text,
+          "keterangan": keteranganController.text,
         },
       ).future);
       if (!mounted) return;

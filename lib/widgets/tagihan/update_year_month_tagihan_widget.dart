@@ -82,7 +82,7 @@ class _UpdateYearMonthTagihanWidgetState
         ),
         const SizedBox(height: 15),
         ButtonWidget(
-          text: "Update",
+          text: "Simpan",
           onTap: () async {
             await showDialog(
               context: context,

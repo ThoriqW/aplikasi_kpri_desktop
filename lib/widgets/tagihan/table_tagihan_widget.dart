@@ -191,6 +191,7 @@ class TableTagihanWidget extends ConsumerWidget {
                           bills['jangka_waktu_ke'].toString(),
                           bills['sisa_tunggakan'].toString(),
                           bills['keterangan'].toString(),
+                          bills['jumlah_setoran'].toString(),
                           tahun,
                           bulan,
                         );

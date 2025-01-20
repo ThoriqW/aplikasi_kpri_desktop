@@ -464,7 +464,7 @@ class TableSimpananWidget extends ConsumerWidget {
                 fixedCornerCell: "NAMA LENGKAP",
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

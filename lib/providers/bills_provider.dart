@@ -205,6 +205,7 @@ class DataMemberTagihanNotifier extends _$DataMemberTagihanNotifier {
     String jangkaWaktuKe,
     String sisaTunggakan,
     String keterangan,
+    String jumlahSetoran,
     int tahun,
     int bulan,
   ) {
@@ -220,6 +221,7 @@ class DataMemberTagihanNotifier extends _$DataMemberTagihanNotifier {
       "jangka_waktu_ke": jangkaWaktuKe,
       "sisa_tunggakan": sisaTunggakan,
       "keterangan": keterangan,
+      'jumlah_setoran': jumlahSetoran,
       "tahun": tahun,
       "bulan": bulan,
     };

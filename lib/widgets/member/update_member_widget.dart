@@ -132,14 +132,14 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                                 const Text(
                                   "Nama Lengkap",
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 10),
                                 TextFormWidget(
                                     controller: namaLengkapController,
                                     text: ""),
                               ],
                             ),
                           ),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 10),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -147,7 +147,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                                 const Text(
                                   "NIK",
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 10),
                                 TextFormWidget(
                                     controller: nikController, text: ""),
                               ],
@@ -155,7 +155,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
                           Expanded(
@@ -165,14 +165,14 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                                 const Text(
                                   "Nomor Anggota",
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 10),
                                 TextFormWidget(
                                     controller: nomorAnggotaController,
                                     text: ""),
                               ],
                             ),
                           ),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 10),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -180,7 +180,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                                 const Text(
                                   "Nomor HP",
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 10),
                                 TextFormWidget(
                                     controller: nomorHpController, text: ""),
                               ],
@@ -188,7 +188,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
                           Expanded(
@@ -198,13 +198,13 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                                 const Text(
                                   "Alamat",
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 10),
                                 TextFormWidget(
                                     controller: alamatController, text: ""),
                               ],
                             ),
                           ),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 10),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -212,7 +212,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                                 const Text(
                                   "Email",
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 10),
                                 TextFormWidget(
                                     controller: emailController, text: ""),
                               ],
@@ -220,7 +220,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
                           Expanded(
@@ -230,14 +230,14 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                                 const Text(
                                   "Jenis Kelamin",
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 10),
                                 TextFormWidget(
                                     controller: jenisKelaminController,
                                     text: ""),
                               ],
                             ),
                           ),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 10),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -245,7 +245,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                                 const Text(
                                   "Agama",
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 10),
                                 TextFormWidget(
                                     controller: agamaController, text: ""),
                               ],
@@ -253,7 +253,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
                           Expanded(
@@ -263,13 +263,13 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                                 const Text(
                                   "Jabatan",
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 10),
                                 TextFormWidget(
                                     controller: jabatanController, text: ""),
                               ],
                             ),
                           ),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 10),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -277,7 +277,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                                 const Text(
                                   "Pangkat",
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 10),
                                 TextFormWidget(
                                     controller: pangkatController, text: ""),
                               ],
@@ -285,7 +285,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
                           Expanded(
@@ -295,13 +295,13 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                                 const Text(
                                   "NIP",
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 10),
                                 TextFormWidget(
                                     controller: nipController, text: ""),
                               ],
                             ),
                           ),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 10),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -309,14 +309,14 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                                 const Text(
                                   "Tanggal Lahir",
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 10),
                                 DatePickerWidget(date: tanggalLahirController),
                               ],
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
                           Expanded(
@@ -326,12 +326,12 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                                 const Text(
                                   "Tanggal Masuk",
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 10),
                                 DatePickerWidget(date: tanggalMasukController),
                               ],
                             ),
                           ),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 10),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -339,14 +339,14 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                                 const Text(
                                   "Tanggal Keluar",
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 10),
                                 DatePickerWidget(date: tanggalKeluarController),
                               ],
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 10),
                       const Row(
                         children: [
                           Expanded(
@@ -361,7 +361,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
                           WorkUnitsDropdown(
@@ -372,12 +372,12 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                               },
                             ),
                           ),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 10),
                           Expanded(
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 10),
                                 DropdownWidget(
                                   items: status,
                                   currentDropDownName: selectedStatus,
@@ -387,7 +387,7 @@ class _UpdateMemberWidgetState extends ConsumerState<UpdateMemberWidget> {
                                     },
                                   ),
                                 ),
-                                const SizedBox(width: 8),
+                                const SizedBox(width: 10),
                                 ResetPasswordWidget(
                                     id: memberData['id'].toString())
                               ],

@@ -69,13 +69,17 @@ class _LoginViewState extends ConsumerState<LoginView> {
                       begin: Alignment.centerLeft,
                       end: Alignment.topRight),
                 ),
-                child: const Center(
-                  child: Text(
-                    "Aplikasi Koperasi Simpan Pinjam",
-                    style: TextStyle(
+                child: const Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Center(
+                    child: Text(
+                      "Aplikasi Koperasi Simpan Pinjam",
+                      style: TextStyle(
                         fontSize: 50,
                         fontWeight: FontWeight.bold,
-                        color: GlobalColors.white),
+                        color: GlobalColors.white,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -88,74 +92,77 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     color: Colors.grey.shade300,
                   ),
                 ),
-                child: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text(
-                        "Login",
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text(
+                          "Login",
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormWidget(
-                        controller: _usernameController,
-                        text: "Username",
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormWidget(
-                        controller: _passwordController,
-                        text: "Password",
-                      ),
-                      const SizedBox(height: 20),
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Material(
-                          elevation: 4.0,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                  colors: [
-                                    Color(0xFF093637),
-                                    Color(0xFF44A08D)
-                                  ],
-                                  begin: Alignment.centerLeft,
-                                  end: Alignment.topRight),
-                            ),
-                            child: InkWell(
-                              onTap: () {
-                                _login();
-                              },
-                              child: SizedBox(
-                                width: 150,
-                                height: 45,
-                                child: Center(
-                                  child: _isLoading
-                                      ? const SizedBox(
-                                          width: 20,
-                                          height: 20,
-                                          child: CircularProgressIndicator(
-                                            color: GlobalColors.white,
+                        const SizedBox(height: 20),
+                        TextFormWidget(
+                          controller: _usernameController,
+                          text: "Username",
+                        ),
+                        const SizedBox(height: 20),
+                        TextFormWidget(
+                          controller: _passwordController,
+                          text: "Password",
+                        ),
+                        const SizedBox(height: 20),
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Material(
+                            elevation: 4.0,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xFF093637),
+                                      Color(0xFF44A08D)
+                                    ],
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.topRight),
+                              ),
+                              child: InkWell(
+                                onTap: () {
+                                  _login();
+                                },
+                                child: SizedBox(
+                                  width: 150,
+                                  height: 45,
+                                  child: Center(
+                                    child: _isLoading
+                                        ? const SizedBox(
+                                            width: 20,
+                                            height: 20,
+                                            child: CircularProgressIndicator(
+                                              color: GlobalColors.white,
+                                            ),
+                                          )
+                                        : const Text(
+                                            "Masuk",
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                           ),
-                                        )
-                                      : const Text(
-                                          "Masuk",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

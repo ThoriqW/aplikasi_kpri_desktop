@@ -198,13 +198,19 @@ class CustomDataTableState<T> extends State<CustomDataTable<T>> {
               child: _buildFixedCol(),
             ),
             Flexible(
-              child: SingleChildScrollView(
+              child: Scrollbar(
                 controller: _subTableXController,
-                scrollDirection: Axis.horizontal,
                 child: SingleChildScrollView(
-                  controller: _subTableYController,
-                  scrollDirection: Axis.vertical,
-                  child: _buildSubTable(),
+                  controller: _subTableXController,
+                  scrollDirection: Axis.horizontal,
+                  child: Scrollbar(
+                    controller: _subTableYController,
+                    child: SingleChildScrollView(
+                      controller: _subTableYController,
+                      scrollDirection: Axis.vertical,
+                      child: _buildSubTable(),
+                    ),
+                  ),
                 ),
               ),
             ),

@@ -121,7 +121,7 @@ class _BottomNavigationTagihanWidgetState
             ),
             const SizedBox(width: 8),
             SizedBox(
-              width: 300,
+              width: 110,
               child: Row(
                 children: [
                   Flexible(
