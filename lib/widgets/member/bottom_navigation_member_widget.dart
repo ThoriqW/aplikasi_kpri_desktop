@@ -37,7 +37,10 @@ class _BottomNavigationMemberWidgetState
           onPressed: () {
             ref.watch(memberModeNotifierProvider.notifier).switchToAddUser();
           },
-          icon: const Icon(Icons.add),
+          icon: Icon(
+            Icons.add,
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
+          ),
         ),
         const SizedBox(
           width: 20,
@@ -47,12 +50,17 @@ class _BottomNavigationMemberWidgetState
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 "Cari Anggota",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: TextField(
+                child: TextFormField(
                   controller: searchController,
                   onChanged: (value) {
                     if (_debounce?.isActive ?? false) {
@@ -64,10 +72,25 @@ class _BottomNavigationMemberWidgetState
                           .setSearchMember(currentPage: 1, searchQuery: value);
                     });
                   },
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.search),
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.search),
                     border: InputBorder.none,
                     filled: true,
+                    fillColor: Theme.of(context).colorScheme.surface,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.surface,
+                        width: 1.0,
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 2.0,
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    ),
                   ),
                 ),
               ),
@@ -79,8 +102,13 @@ class _BottomNavigationMemberWidgetState
         ),
         Row(
           children: [
-            const Text(
+            Text(
               "Status",
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(width: 16),
             DropdownWidget(
@@ -98,8 +126,13 @@ class _BottomNavigationMemberWidgetState
         Expanded(
           child: Row(
             children: [
-              const Text(
+              Text(
                 "Unit Kerja",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(width: 16),
               WorkUnitsDropdown(

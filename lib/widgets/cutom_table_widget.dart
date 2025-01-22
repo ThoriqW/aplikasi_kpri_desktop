@@ -1,4 +1,3 @@
-import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomDataTable<T> extends StatefulWidget {
@@ -50,7 +49,7 @@ class CustomDataTableState<T> extends State<CustomDataTable<T>> {
       SizedBox(width: width, child: widget.headerBuilder.call(data));
 
   Widget _buildFixedCol() => Material(
-        color: GlobalColors.white,
+        color: Theme.of(context).colorScheme.surfaceContainerLowest,
         child: DataTable(
             horizontalMargin: widget.cellMargin,
             columnSpacing: widget.cellSpacing,
@@ -78,7 +77,7 @@ class CustomDataTableState<T> extends State<CustomDataTable<T>> {
       );
 
   Widget _buildFixedRow() => Material(
-        color: GlobalColors.headerTable,
+        color: Theme.of(context).colorScheme.surface,
         child: DataTable(
           horizontalMargin: widget.cellMargin,
           columnSpacing: widget.cellSpacing,
@@ -108,8 +107,8 @@ class CustomDataTableState<T> extends State<CustomDataTable<T>> {
       );
 
   Widget _buildSubTable() => Material(
-      color: GlobalColors.white,
-      child: DataTable(
+        color: Theme.of(context).colorScheme.surfaceContainerLowest,
+        child: DataTable(
           horizontalMargin: widget.cellMargin,
           columnSpacing: widget.cellSpacing,
           headingRowHeight: widget.cellHeightWidget == 56.0
@@ -149,13 +148,15 @@ class CustomDataTableState<T> extends State<CustomDataTable<T>> {
                   }).toList(),
                 ),
               )
-              .toList()));
+              .toList(),
+        ),
+      );
 
   Widget _buildCornerCell() =>
       widget.fixedColCells.isEmpty || widget.fixedRowCells.isEmpty
           ? const SizedBox.shrink()
           : Material(
-              color: GlobalColors.headerTable,
+              color: Theme.of(context).colorScheme.surface,
               child: DataTable(
                 horizontalMargin: widget.cellMargin,
                 columnSpacing: widget.cellSpacing,
@@ -168,7 +169,7 @@ class CustomDataTableState<T> extends State<CustomDataTable<T>> {
                       widget.fixedColWidth,
                       widget.fixedCornerCell,
                     ),
-                  )
+                  ),
                 ],
                 rows: const [],
               ),

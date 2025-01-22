@@ -4,6 +4,7 @@ import 'package:aplikasi_kpri_desktop/providers/auth_provider.dart';
 import 'package:aplikasi_kpri_desktop/views/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SideMenuWidget extends ConsumerStatefulWidget {
   const SideMenuWidget({super.key, required this.onMenuItemSelected});
@@ -28,36 +29,40 @@ class _SideMenuWidgetState extends ConsumerState<SideMenuWidget> {
       builder: (context, snapshot) {
         final roleId = snapshot.data;
         return Container(
-          decoration: const BoxDecoration(
-            color: GlobalColors.white,
-            border: Border(
-              right: BorderSide(color: GlobalColors.secondary, width: 4),
-            ),
-          ),
+          color: Theme.of(context).colorScheme.surfaceContainer,
           child: Column(
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(
                   vertical: 30,
                 ),
-                child: Row(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
                       "assets/images/koperasi_indonesia.png",
-                      width: 50,
+                      width: 70,
                     ),
+                    const SizedBox(height: 20),
                     Text(
-                      "APLIKASI KOPERASI",
+                      "SIMPANA",
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
+                        fontFamily: GoogleFonts.libreBaskerville().fontFamily,
+                        color: GlobalColors.primary,
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontSize: 20,
                       ),
                     ),
                   ],
                 ),
               ),
+              Divider(
+                color: Theme.of(context).colorScheme.surfaceContainerLowest,
+                thickness: 2,
+                indent: 30,
+                endIndent: 30,
+              ),
+              const SizedBox(height: 20),
               if (roleId == 'admin')
                 Expanded(
                   child: ListView.builder(
@@ -74,17 +79,40 @@ class _SideMenuWidgetState extends ConsumerState<SideMenuWidget> {
                         buildMenuStaffEntry(context, dataStaff, index),
                   ),
                 ),
+              Divider(
+                color: Theme.of(context).colorScheme.surfaceContainerLowest,
+                thickness: 2,
+                indent: 30,
+                endIndent: 30,
+              ),
               Container(
+                width: double.infinity,
+                margin:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 13,
-                  vertical: 30,
+                  vertical: 10,
                 ),
-                child: IconButton(
-                  icon: const Icon(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surfaceContainerLowest,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: TextButton.icon(
+                  style: TextButton.styleFrom(
+                    overlayColor: Colors.transparent,
+                  ),
+                  icon: Icon(
+                    color: Theme.of(context).colorScheme.onErrorContainer,
                     Icons.logout,
                     size: 25.0,
                   ),
-                  color: Colors.redAccent,
+                  label: Text(
+                    "Log Out",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onErrorContainer,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   onPressed: () async {
                     final authNotifier =
                         ref.watch(authNotifierProvider.notifier);
@@ -113,14 +141,12 @@ class _SideMenuWidgetState extends ConsumerState<SideMenuWidget> {
     final isSelected = selectedIndex == index;
 
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5),
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 50),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF093637), Color(0xFF44A08D)],
-          begin: Alignment.centerLeft,
-          end: Alignment.topRight,
-        ),
-        color: isSelected ? GlobalColors.primary : Colors.transparent,
+        borderRadius: BorderRadius.circular(10),
+        color: isSelected
+            ? Theme.of(context).colorScheme.primary
+            : Colors.transparent,
       ),
       child: InkWell(
         onTap: () {
@@ -138,16 +164,20 @@ class _SideMenuWidgetState extends ConsumerState<SideMenuWidget> {
               ),
               child: Icon(
                 data.menu[index].icon,
-                color: isSelected ? GlobalColors.white : Colors.black54,
+                color: isSelected
+                    ? Theme.of(context).colorScheme.onPrimary
+                    : Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),
             Expanded(
               child: Text(
                 data.menu[index].title,
                 style: TextStyle(
-                  color: isSelected ? GlobalColors.white : Colors.black,
+                  color: isSelected
+                      ? GlobalColors.white
+                      : Theme.of(context).colorScheme.onSurface,
                   fontSize: 16,
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.w700,
                 ),
               ),
             )
@@ -164,7 +194,7 @@ class _SideMenuWidgetState extends ConsumerState<SideMenuWidget> {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
-        color: isSelected ? GlobalColors.secondary : Colors.transparent,
+        color: isSelected ? Colors.red : Colors.transparent,
       ),
       child: InkWell(
         onTap: () {
@@ -184,7 +214,7 @@ class _SideMenuWidgetState extends ConsumerState<SideMenuWidget> {
                 data.menu[index].icon,
                 color: isSelected
                     ? GlobalColors.primary
-                    : GlobalColors.onBackground,
+                    : Theme.of(context).colorScheme.primary,
               ),
             ),
             Expanded(
@@ -193,7 +223,7 @@ class _SideMenuWidgetState extends ConsumerState<SideMenuWidget> {
                 style: TextStyle(
                   color: isSelected
                       ? GlobalColors.primary
-                      : GlobalColors.onBackground,
+                      : GlobalColors.secondary,
                   fontSize: 16,
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                 ),

@@ -12,7 +12,6 @@ class DataMemberWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searchCriteriaMember = ref.watch(searchMemberProvider);
     return CustomCardWidget(
-      color: GlobalColors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

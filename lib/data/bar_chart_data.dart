@@ -1,6 +1,4 @@
-import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
 
 class BarData {
   final barGroups = [
@@ -9,9 +7,7 @@ class BarData {
       barRods: [
         BarChartRodData(
           toY: 13.00,
-          color: const Color.fromARGB(255, 22, 66, 60),
           width: 50,
-          borderRadius: BorderRadius.zero,
         )
       ],
     ),
@@ -20,9 +16,7 @@ class BarData {
       barRods: [
         BarChartRodData(
           toY: 23.00,
-          color: GlobalColors.primary,
           width: 50,
-          borderRadius: BorderRadius.zero,
         )
       ],
     ),
@@ -31,9 +25,7 @@ class BarData {
       barRods: [
         BarChartRodData(
           toY: 33.00,
-          color: const Color.fromARGB(255, 22, 66, 60),
           width: 50,
-          borderRadius: BorderRadius.zero,
         )
       ],
     ),
@@ -42,9 +34,7 @@ class BarData {
       barRods: [
         BarChartRodData(
           toY: 43.00,
-          color: GlobalColors.primary,
           width: 50,
-          borderRadius: BorderRadius.zero,
         )
       ],
     ),
@@ -53,9 +43,7 @@ class BarData {
       barRods: [
         BarChartRodData(
           toY: 63.00,
-          color: const Color.fromARGB(255, 22, 66, 60),
           width: 50,
-          borderRadius: BorderRadius.zero,
         )
       ],
     ),
@@ -64,9 +52,7 @@ class BarData {
       barRods: [
         BarChartRodData(
           toY: 33.00,
-          color: GlobalColors.primary,
           width: 50,
-          borderRadius: BorderRadius.zero,
         )
       ],
     ),
@@ -75,9 +61,7 @@ class BarData {
       barRods: [
         BarChartRodData(
           toY: 73.00,
-          color: const Color.fromARGB(255, 22, 66, 60),
           width: 50,
-          borderRadius: BorderRadius.zero,
         )
       ],
     ),
@@ -86,9 +70,7 @@ class BarData {
       barRods: [
         BarChartRodData(
           toY: 83.00,
-          color: GlobalColors.primary,
           width: 50,
-          borderRadius: BorderRadius.zero,
         )
       ],
     ),
@@ -97,9 +79,7 @@ class BarData {
       barRods: [
         BarChartRodData(
           toY: 93.00,
-          color: const Color.fromARGB(255, 22, 66, 60),
           width: 50,
-          borderRadius: BorderRadius.zero,
         )
       ],
     ),
@@ -108,9 +88,7 @@ class BarData {
       barRods: [
         BarChartRodData(
           toY: 63.00,
-          color: GlobalColors.primary,
           width: 50,
-          borderRadius: BorderRadius.zero,
         )
       ],
     ),
@@ -119,9 +97,7 @@ class BarData {
       barRods: [
         BarChartRodData(
           toY: 83.00,
-          color: const Color.fromARGB(255, 22, 66, 60),
           width: 50,
-          borderRadius: BorderRadius.zero,
         )
       ],
     ),

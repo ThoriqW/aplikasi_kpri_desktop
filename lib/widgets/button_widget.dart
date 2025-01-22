@@ -1,4 +1,3 @@
-import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
@@ -21,26 +20,21 @@ class ButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.bottomLeft,
-      child: Material(
-        elevation: 4.0,
-        child: InkWell(
-          onTap: () => {onTap()},
-          child: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [Color(0xFF093637), Color(0xFF44A08D)],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.topRight),
-            ),
-            width: width ?? 140,
-            height: height ?? 40,
-            child: Center(
-              child: Text(
-                text,
-                style: const TextStyle(
-                  color: GlobalColors.white,
-                  fontWeight: FontWeight.w600,
-                ),
+      child: InkWell(
+        onTap: () => {onTap()},
+        child: Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary,
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+          ),
+          width: width ?? 140,
+          height: height ?? 40,
+          child: Center(
+            child: Text(
+              text,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimary,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),

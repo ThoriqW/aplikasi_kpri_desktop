@@ -3,6 +3,7 @@ import 'package:aplikasi_kpri_desktop/views/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
             seedColor: GlobalColors.primary,
           ),
           useMaterial3: true,
-          fontFamily: 'Lato',
+          fontFamily: GoogleFonts.lato().fontFamily,
         ),
         home: const LoginView());
   }

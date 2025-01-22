@@ -130,6 +130,54 @@ class TableMemberWidget extends ConsumerWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Flexible(
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.surfaceDim,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                ),
+                child: CustomDataTable(
+                  rowsCells: rowsCells,
+                  fixedColCells: fixedColCells,
+                  fixedRowCells: fixedRowCells,
+                  cellWidthWidget: 90,
+                  cellBuilder: (data) {
+                    if (data is Widget) {
+                      return data;
+                    }
+                    return Text('$data');
+                  },
+                  headerBuilder: (data) {
+                    if (data is Widget) {
+                      return data;
+                    }
+                    if (data == 'STATUS' || data == 'AKSI') {
+                      return Center(
+                        child: Text(
+                          data,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      );
+                    }
+                    return Text(
+                      '$data',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  },
+                  fixedCornerCell: "NAMA LENGKAP",
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -140,45 +188,6 @@ class TableMemberWidget extends ConsumerWidget {
                   'Total data $totalMember',
                 ),
               ],
-            ),
-            const SizedBox(height: 10),
-            Flexible(
-              child: CustomDataTable(
-                rowsCells: rowsCells,
-                fixedColCells: fixedColCells,
-                fixedRowCells: fixedRowCells,
-                cellWidthWidget: 90,
-                cellBuilder: (data) {
-                  if (data is Widget) {
-                    return data;
-                  }
-                  return Text('$data');
-                },
-                headerBuilder: (data) {
-                  if (data is Widget) {
-                    return data;
-                  }
-                  if (data == 'STATUS' || data == 'AKSI') {
-                    return Center(
-                      child: Text(
-                        data,
-                        style: const TextStyle(
-                          color: GlobalColors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    );
-                  }
-                  return Text(
-                    '$data',
-                    style: const TextStyle(
-                      color: GlobalColors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  );
-                },
-                fixedCornerCell: "NAMA LENGKAP",
-              ),
             ),
             const SizedBox(height: 10),
             Row(

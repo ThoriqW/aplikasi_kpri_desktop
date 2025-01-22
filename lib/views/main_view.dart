@@ -1,4 +1,3 @@
-import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/auth_provider.dart';
 import 'package:aplikasi_kpri_desktop/widgets/admin/admin_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/dashboard/dashboard_widget.dart';
@@ -94,7 +93,8 @@ class _MainViewState extends State<MainView> {
                   flex: 10,
                   child: SizedBox.expand(
                     child: Container(
-                      color: GlobalColors.background,
+                      color:
+                          Theme.of(context).colorScheme.surfaceContainerLowest,
                       child: _currentView,
                     ),
                   ),

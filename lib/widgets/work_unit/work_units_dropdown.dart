@@ -60,10 +60,12 @@ class _WorkUnitsDropdownState extends ConsumerState<WorkUnitsDropdown> {
                 .toList(),
             decoratorProps: DropDownDecoratorProps(
               decoration: InputDecoration(
+                filled: true,
+                fillColor: Theme.of(context).colorScheme.surface,
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(Radius.circular(0)),
-                  borderSide:
-                      BorderSide(color: Colors.grey.shade300, width: 1.0),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.surface, width: 1.0),
                 ),
               ),
             ),

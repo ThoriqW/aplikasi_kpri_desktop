@@ -12,7 +12,10 @@ class BarChartCard extends StatelessWidget {
     final data = BarData();
 
     return CustomCardWidget(
-      color: GlobalColors.white,
+      borderSide: BorderSide(
+        color: Theme.of(context).colorScheme.surfaceDim,
+        width: 1,
+      ),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
@@ -20,7 +23,7 @@ class BarChartCard extends StatelessWidget {
           children: [
             const Text(
               "SIMPANAN KOPERASI",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
             AspectRatio(
@@ -41,7 +44,7 @@ class BarChartCard extends StatelessWidget {
                     ),
                     handleBuiltInTouches: true,
                   ),
-                  gridData: const FlGridData(show: false),
+                  gridData: const FlGridData(show: true),
                   titlesData: FlTitlesData(
                     rightTitles: const AxisTitles(
                       sideTitles: SideTitles(showTitles: false),

@@ -291,12 +291,6 @@ class TableTagihanWidget extends ConsumerWidget {
                         );
                   },
                 ),
-                Text(
-                  'Halaman $currentPage dari $totalPage',
-                ),
-                Text(
-                  'Total data $totalMember',
-                ),
               ],
             ),
             const SizedBox(
@@ -339,6 +333,19 @@ class TableTagihanWidget extends ConsumerWidget {
                 fixedCornerCell: "NAMA LENGKAP",
               ),
             ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Halaman $currentPage dari $totalPage',
+                ),
+                Text(
+                  'Total data $totalMember',
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

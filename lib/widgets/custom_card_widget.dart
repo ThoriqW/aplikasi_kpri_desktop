@@ -1,38 +1,31 @@
-import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomCardWidget extends StatelessWidget {
-  const CustomCardWidget(
-      {super.key,
-      this.padding,
-      this.color,
-      required this.child,
-      this.border,
-      this.gradient = false});
+  const CustomCardWidget({
+    super.key,
+    this.padding,
+    this.color,
+    this.borderSide,
+    required this.child,
+  });
 
   final Widget child;
   final EdgeInsetsGeometry? padding;
   final Color? color;
-  final double? border;
-  final bool gradient;
+  final BorderSide? borderSide;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: color ?? GlobalColors.background,
-        gradient: gradient
-            ? const LinearGradient(
-                colors: [Color(0xFF093637), Color(0xFF44A08D)],
-                begin: Alignment.centerLeft,
-                end: Alignment.topRight)
+        color: color,
+        border: borderSide != null
+            ? Border.all(
+                color: borderSide!.color,
+                width: borderSide!.width,
+              )
             : null,
-        border: Border(
-          bottom: BorderSide(
-            color: GlobalColors.background,
-            width: border ?? 0,
-          ),
-        ),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
       child: Padding(
         padding: padding ?? const EdgeInsets.all(12.0),

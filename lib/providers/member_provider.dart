@@ -156,8 +156,6 @@ Future updateMember(
   String email,
   String jenisKelamin,
   String agama,
-  String jabatan,
-  String pangkat,
   String nip,
   DateTime? tanggalMasuk,
   DateTime? tanggalKeluar,
@@ -188,8 +186,6 @@ Future updateMember(
         'email': email,
         'jenis_kelamin': jenisKelamin,
         'agama': agama,
-        'jabatan': jabatan,
-        'pangkat': pangkat,
         'nip': nip,
         'tanggal_masuk':
             tanggalMasuk != null ? formatDateOnly(tanggalMasuk) : null,

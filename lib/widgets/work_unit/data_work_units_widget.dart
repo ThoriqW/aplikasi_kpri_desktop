@@ -39,7 +39,9 @@ class DataWorkUnitsWidget extends ConsumerWidget {
                   icon: const Icon(Icons.add),
                 ),
                 const SizedBox(width: 10),
-                const Expanded(child: SearchWorkUnitsWidget()),
+                const Flexible(
+                    child:
+                        SizedBox(width: 500, child: SearchWorkUnitsWidget())),
               ],
             ),
             const SizedBox(height: 20),

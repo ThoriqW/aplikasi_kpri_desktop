@@ -39,7 +39,8 @@ class DataUserWidget extends ConsumerWidget {
                   icon: const Icon(Icons.add),
                 ),
                 const SizedBox(width: 10),
-                const Expanded(child: SearchUserWidget()),
+                const Flexible(
+                    child: SizedBox(width: 500, child: SearchUserWidget())),
               ],
             ),
             const SizedBox(height: 20),

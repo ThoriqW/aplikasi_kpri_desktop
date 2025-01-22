@@ -25,9 +25,18 @@ class _DeleteMemberWidgetState extends ConsumerState<DeleteMemberWidget> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: const Text("Info"),
-                content: const Text(
+                backgroundColor: Theme.of(context).colorScheme.errorContainer,
+                title: Text(
+                  "Info",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onErrorContainer,
+                  ),
+                ),
+                content: Text(
                   "Yakin hapus member?",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onErrorContainer,
+                  ),
                 ),
                 actions: <Widget>[
                   TextButton(
@@ -35,13 +44,23 @@ class _DeleteMemberWidgetState extends ConsumerState<DeleteMemberWidget> {
                       context,
                       'Cancel',
                     ),
-                    child: const Text('Cancel'),
+                    child: Text(
+                      'Cancel',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onErrorContainer,
+                      ),
+                    ),
                   ),
                   TextButton(
                     onPressed: () async {
                       _deleteMember(widget.id);
                     },
-                    child: const Text('OK'),
+                    child: Text(
+                      'OK',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onErrorContainer,
+                      ),
+                    ),
                   ),
                 ],
               );

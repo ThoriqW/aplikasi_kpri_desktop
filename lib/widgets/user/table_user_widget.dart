@@ -97,18 +97,6 @@ class TableUserWidget extends ConsumerWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Halaman $currentPage dari $totalPage',
-                ),
-                Text(
-                  'Total data $totalMember',
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
             Flexible(
               child: CustomDataTable(
                 rowsCells: rowsCells,
@@ -148,6 +136,18 @@ class TableUserWidget extends ConsumerWidget {
                 fixedCornerCell: "NAMA LENGKAP",
               ),
             ),
+            Row(
+              children: [
+                Text(
+                  'Halaman $currentPage dari $totalPage',
+                ),
+                const SizedBox(width: 20),
+                Text(
+                  'Total data $totalMember',
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

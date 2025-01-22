@@ -1,4 +1,3 @@
-import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:flutter/material.dart';
 
 class DatePickerWidget extends StatefulWidget {
@@ -30,25 +29,27 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
   Widget build(BuildContext context) {
     return TextField(
       controller: widget.date,
-      decoration: const InputDecoration(
-        icon: Icon(Icons.calendar_today),
-        contentPadding: EdgeInsets.symmetric(
+      decoration: InputDecoration(
+        filled: true,
+        icon: const Icon(Icons.calendar_today),
+        fillColor: Theme.of(context).colorScheme.surface,
+        contentPadding: const EdgeInsets.symmetric(
           horizontal: 15,
           vertical: 12,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(0)),
           borderSide: BorderSide(
-            color: Colors.black12,
+            color: Theme.of(context).colorScheme.surface,
             width: 1.0,
           ),
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(0)),
           borderSide: BorderSide(
-            color: GlobalColors.primary,
+            color: Theme.of(context).colorScheme.primary,
             width: 2.0,
           ),
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
       ),
       readOnly: true,

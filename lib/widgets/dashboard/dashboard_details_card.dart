@@ -12,31 +12,36 @@ class DashboardDetailsCard extends StatelessWidget {
     return GridView.builder(
       itemCount: 2,
       shrinkWrap: true,
-      physics: const ScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, crossAxisSpacing: 15, childAspectRatio: 18),
+          crossAxisCount: 2, crossAxisSpacing: 15, childAspectRatio: 10),
       itemBuilder: (context, index) => Container(
         height: 80,
         padding: EdgeInsets.zero,
         child: Container(
           width: double.infinity,
-          color: index == 0
-              ? GlobalColors.secondary
-              : const Color.fromARGB(255, 250, 195, 195),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.secondaryContainer,
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              vertical: 8.0,
-              horizontal: 8.0,
+              horizontal: 20.0,
             ),
             child: Row(
               children: [
                 Text(
                   dashboardCardData.dashboardData[index].title,
+                  style: const TextStyle(
+                    color: GlobalColors.primary,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 const Text(
                   "0",
                   style: TextStyle(
+                    fontSize: 16,
                     color: GlobalColors.primary,
                     fontWeight: FontWeight.bold,
                   ),

@@ -1,4 +1,3 @@
-import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/user_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
@@ -12,8 +11,8 @@ class HeaderWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final getCurrentUser = ref.watch(getCurrentUserProvider);
     return CustomCardWidget(
-      color: const Color.fromARGB(255, 88, 163, 153),
-      gradient: true,
+      color: Theme.of(context).colorScheme.primary,
+      padding: const EdgeInsets.all(20),
       child: getCurrentUser.when(
         data: (user) {
           if (user == null) {
@@ -29,25 +28,26 @@ class HeaderWidget extends ConsumerWidget {
             children: [
               Row(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 20,
-                    backgroundColor: GlobalColors.secondary,
+                    backgroundColor: Theme.of(context).colorScheme.onPrimary,
                     child: CircleAvatar(
-                      backgroundColor: Color.fromARGB(255, 88, 163, 153),
-                      radius: 18,
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      radius: 16,
                       child: Icon(
                         Icons.person,
                         size: 22,
-                        color: GlobalColors.primary,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 10),
                   Text(
                     'Hello, ${userData['nama_lengkap']}',
-                    style: const TextStyle(
-                      color: GlobalColors.white,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
                       fontWeight: FontWeight.bold,
+                      fontSize: 16,
                     ),
                   ),
                 ],

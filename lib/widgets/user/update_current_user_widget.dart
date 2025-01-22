@@ -71,7 +71,7 @@ class _UpdateCurrentUserWidgetState
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "User ${userData['nama_lengkap']}",
+                "Profil ${userData['nama_lengkap']}",
                 style: const TextStyle(
                   color: GlobalColors.primary,
                   fontWeight: FontWeight.bold,

@@ -44,15 +44,18 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
   @override
   Widget build(BuildContext context) {
     return CustomCardWidget(
-      color: GlobalColors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
             onPressed: () {
               ref.watch(memberModeNotifierProvider.notifier).switchToView();
             },
-            icon: const Icon(Icons.arrow_back),
+            icon: Icon(
+              Icons.arrow_back,
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
+            ),
           ),
           const SizedBox(height: 20),
           const Text(
@@ -77,55 +80,79 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Nama Lengkap",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 5),
                             TextFormWidget(
                                 controller: namaLengkapController, text: ""),
                           ],
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "NIK",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 5),
                             TextFormWidget(controller: nikController, text: ""),
                           ],
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Nomor Anggota",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 5),
                             TextFormWidget(
                                 controller: nomorAnggotaController, text: ""),
                           ],
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Nomor HP",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 5),
                             TextFormWidget(
                                 controller: nomorHpController, text: ""),
                           ],
@@ -133,31 +160,43 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Alamat",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 5),
                             TextFormWidget(
                                 controller: alamatController, text: ""),
                           ],
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Email",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 5),
                             TextFormWidget(
                                 controller: emailController, text: ""),
                           ],
@@ -165,31 +204,43 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Jenis Kelamin",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 5),
                             TextFormWidget(
                                 controller: jenisKelaminController, text: ""),
                           ],
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Agama",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 5),
                             TextFormWidget(
                                 controller: agamaController, text: ""),
                           ],
@@ -197,97 +248,87 @@ class _AddMemberWidgetState extends ConsumerState<AddMemberWidget> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              "Jabatan",
-                            ),
-                            const SizedBox(height: 8),
-                            TextFormWidget(
-                                controller: jabatanController, text: ""),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Pangkat",
-                            ),
-                            const SizedBox(height: 8),
-                            TextFormWidget(
-                                controller: pangkatController, text: ""),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
+                            Text(
                               "NIP",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 5),
                             TextFormWidget(controller: nipController, text: ""),
                           ],
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Tanggal Lahir",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 5),
                             DatePickerWidget(date: tanggalLahirController),
                           ],
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
-                  const Row(
+                  const SizedBox(height: 10),
+                  Row(
                     children: [
                       Expanded(
                         child: Text(
                           "Tanggal Masuk",
+                          style: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       Expanded(
                         child: Text(
                           "Pekerjaan",
+                          style: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
                       Expanded(
                         child: DatePickerWidget(date: tanggalMasukController),
                       ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: WorkUnitsDropdown(
-                          onSelected: (String value) => setState(
-                            () {
-                              selectedUnit = value;
-                            },
-                          ),
+                      const SizedBox(width: 10),
+                      WorkUnitsDropdown(
+                        onSelected: (String value) => setState(
+                          () {
+                            selectedUnit = value;
+                          },
                         ),
                       ),
                     ],

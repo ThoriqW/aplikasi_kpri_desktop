@@ -34,7 +34,10 @@ class MemberWidget extends ConsumerWidget {
         Expanded(
           child: Column(
             children: [
-              const HeaderWidget(),
+              const Padding(
+                padding: EdgeInsets.all(10),
+                child: HeaderWidget(),
+              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(10),
@@ -45,14 +48,16 @@ class MemberWidget extends ConsumerWidget {
           ),
         ),
         currentMemberMode == MemberMode.view
-            ? const CustomCardWidget(
-                color: GlobalColors.white,
-                padding:
-                    EdgeInsets.only(bottom: 20, left: 10, right: 10, top: 20),
-                child: BottomNavigationMemberWidget(),
+            ? Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: CustomCardWidget(
+                  color: Theme.of(context).colorScheme.secondaryContainer,
+                  padding: const EdgeInsets.only(
+                      bottom: 20, left: 10, right: 10, top: 20),
+                  child: const BottomNavigationMemberWidget(),
+                ),
               )
             : const CustomCardWidget(
-                color: GlobalColors.white,
                 padding: EdgeInsets.all(6),
                 child: Align(
                   alignment: Alignment.centerRight,

@@ -5,6 +5,7 @@ import 'package:aplikasi_kpri_desktop/widgets/custom_alert_dialog.dart';
 import 'package:aplikasi_kpri_desktop/widgets/text_form_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginView extends ConsumerStatefulWidget {
   const LoginView({super.key});
@@ -63,21 +64,17 @@ class _LoginViewState extends ConsumerState<LoginView> {
           children: [
             Expanded(
               child: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                      colors: [Color(0xFF093637), Color(0xFF44A08D)],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.topRight),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(20),
+                decoration: const BoxDecoration(color: GlobalColors.secondary),
+                child: Padding(
+                  padding: const EdgeInsets.all(50),
                   child: Center(
                     child: Text(
                       "Aplikasi Koperasi Simpan Pinjam",
                       style: TextStyle(
-                        fontSize: 50,
+                        fontSize: 70,
                         fontWeight: FontWeight.bold,
-                        color: GlobalColors.white,
+                        color: GlobalColors.primary,
+                        fontFamily: GoogleFonts.libreBaskerville().fontFamily,
                       ),
                     ),
                   ),
@@ -93,69 +90,94 @@ class _LoginViewState extends ConsumerState<LoginView> {
                   ),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(50),
                   child: Center(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         const Text(
-                          "Login",
+                          "Silahkan Masuk",
                           style: TextStyle(
-                            fontSize: 24,
+                            fontSize: 32,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 20),
-                        TextFormWidget(
-                          controller: _usernameController,
-                          text: "Username",
+                        const Divider(
+                          color: GlobalColors.primary,
+                          thickness: 2,
+                          endIndent: 500,
                         ),
                         const SizedBox(height: 20),
-                        TextFormWidget(
-                          controller: _passwordController,
-                          text: "Password",
+                        const Text(
+                          "Username",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        SizedBox(
+                          width: 500,
+                          child: TextFormWidget(
+                            controller: _usernameController,
+                            text: "",
+                            icons: Icons.person,
+                            isIconActive: true,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        const Text(
+                          "Password",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        SizedBox(
+                          width: 500,
+                          child: TextFormWidget(
+                            controller: _passwordController,
+                            text: "",
+                            isPassword: true,
+                            icons: Icons.lock,
+                            isIconActive: true,
+                          ),
                         ),
                         const SizedBox(height: 20),
                         Align(
                           alignment: Alignment.bottomLeft,
-                          child: Material(
-                            elevation: 4.0,
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                gradient: LinearGradient(
-                                    colors: [
-                                      Color(0xFF093637),
-                                      Color(0xFF44A08D)
-                                    ],
-                                    begin: Alignment.centerLeft,
-                                    end: Alignment.topRight),
-                              ),
-                              child: InkWell(
-                                onTap: () {
-                                  _login();
-                                },
-                                child: SizedBox(
-                                  width: 150,
-                                  height: 45,
-                                  child: Center(
-                                    child: _isLoading
-                                        ? const SizedBox(
-                                            width: 20,
-                                            height: 20,
-                                            child: CircularProgressIndicator(
-                                              color: GlobalColors.white,
-                                            ),
-                                          )
-                                        : const Text(
-                                            "Masuk",
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w600,
-                                            ),
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: GlobalColors.primary,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                _login();
+                              },
+                              child: SizedBox(
+                                width: 150,
+                                height: 45,
+                                child: Center(
+                                  child: _isLoading
+                                      ? const SizedBox(
+                                          width: 20,
+                                          height: 20,
+                                          child: CircularProgressIndicator(
+                                            color: GlobalColors.white,
                                           ),
-                                  ),
+                                        )
+                                      : const Text(
+                                          "Masuk",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: GlobalColors.white,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
                                 ),
                               ),
                             ),

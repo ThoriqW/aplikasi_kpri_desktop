@@ -95,24 +95,13 @@ class TableWorkUnitWidget extends ConsumerWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Halaman $currentPage dari $totalPage',
-                ),
-                Text(
-                  'Total data $totalMember',
-                ),
-              ],
-            ),
             Flexible(
               child: CustomDataTable(
                 rowsCells: rowsCells,
                 cellHeight: 40,
                 fixedColCells: fixedColCells,
                 fixedRowCells: fixedRowCells,
-                cellWidth: 320,
+                cellWidth: 250,
                 cellBuilder: (data) {
                   if (data is Widget) {
                     return data;
@@ -145,6 +134,19 @@ class TableWorkUnitWidget extends ConsumerWidget {
                 fixedCornerCell: "NAMA UNIT KERJA",
               ),
             ),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                Text(
+                  'Halaman $currentPage dari $totalPage',
+                ),
+                const SizedBox(width: 20),
+                Text(
+                  'Total data $totalMember',
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

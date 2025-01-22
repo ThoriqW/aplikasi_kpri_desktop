@@ -705,7 +705,7 @@ class _GetMemberProviderElement
   String get id => (origin as GetMemberProvider).id;
 }
 
-String _$updateMemberHash() => r'a08f5243bda677e4178821dc1ffd2b505f6cf284';
+String _$updateMemberHash() => r'8329ceafc00dd777fbafefe1bde9e5f7a835793d';
 
 /// See also [updateMember].
 @ProviderFor(updateMember)
@@ -728,8 +728,6 @@ class UpdateMemberFamily extends Family<AsyncValue> {
     String email,
     String jenisKelamin,
     String agama,
-    String jabatan,
-    String pangkat,
     String nip,
     DateTime? tanggalMasuk,
     DateTime? tanggalKeluar,
@@ -747,8 +745,6 @@ class UpdateMemberFamily extends Family<AsyncValue> {
       email,
       jenisKelamin,
       agama,
-      jabatan,
-      pangkat,
       nip,
       tanggalMasuk,
       tanggalKeluar,
@@ -772,8 +768,6 @@ class UpdateMemberFamily extends Family<AsyncValue> {
       provider.email,
       provider.jenisKelamin,
       provider.agama,
-      provider.jabatan,
-      provider.pangkat,
       provider.nip,
       provider.tanggalMasuk,
       provider.tanggalKeluar,
@@ -811,8 +805,6 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
     String email,
     String jenisKelamin,
     String agama,
-    String jabatan,
-    String pangkat,
     String nip,
     DateTime? tanggalMasuk,
     DateTime? tanggalKeluar,
@@ -831,8 +823,6 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
             email,
             jenisKelamin,
             agama,
-            jabatan,
-            pangkat,
             nip,
             tanggalMasuk,
             tanggalKeluar,
@@ -858,8 +848,6 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
           email: email,
           jenisKelamin: jenisKelamin,
           agama: agama,
-          jabatan: jabatan,
-          pangkat: pangkat,
           nip: nip,
           tanggalMasuk: tanggalMasuk,
           tanggalKeluar: tanggalKeluar,
@@ -884,8 +872,6 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
     required this.email,
     required this.jenisKelamin,
     required this.agama,
-    required this.jabatan,
-    required this.pangkat,
     required this.nip,
     required this.tanggalMasuk,
     required this.tanggalKeluar,
@@ -903,8 +889,6 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
   final String email;
   final String jenisKelamin;
   final String agama;
-  final String jabatan;
-  final String pangkat;
   final String nip;
   final DateTime? tanggalMasuk;
   final DateTime? tanggalKeluar;
@@ -934,8 +918,6 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
         email: email,
         jenisKelamin: jenisKelamin,
         agama: agama,
-        jabatan: jabatan,
-        pangkat: pangkat,
         nip: nip,
         tanggalMasuk: tanggalMasuk,
         tanggalKeluar: tanggalKeluar,
@@ -963,8 +945,6 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
         other.email == email &&
         other.jenisKelamin == jenisKelamin &&
         other.agama == agama &&
-        other.jabatan == jabatan &&
-        other.pangkat == pangkat &&
         other.nip == nip &&
         other.tanggalMasuk == tanggalMasuk &&
         other.tanggalKeluar == tanggalKeluar &&
@@ -985,8 +965,6 @@ class UpdateMemberProvider extends AutoDisposeFutureProvider<Object?> {
     hash = _SystemHash.combine(hash, email.hashCode);
     hash = _SystemHash.combine(hash, jenisKelamin.hashCode);
     hash = _SystemHash.combine(hash, agama.hashCode);
-    hash = _SystemHash.combine(hash, jabatan.hashCode);
-    hash = _SystemHash.combine(hash, pangkat.hashCode);
     hash = _SystemHash.combine(hash, nip.hashCode);
     hash = _SystemHash.combine(hash, tanggalMasuk.hashCode);
     hash = _SystemHash.combine(hash, tanggalKeluar.hashCode);
@@ -1030,12 +1008,6 @@ mixin UpdateMemberRef on AutoDisposeFutureProviderRef<Object?> {
   /// The parameter `agama` of this provider.
   String get agama;
 
-  /// The parameter `jabatan` of this provider.
-  String get jabatan;
-
-  /// The parameter `pangkat` of this provider.
-  String get pangkat;
-
   /// The parameter `nip` of this provider.
   String get nip;
 
@@ -1076,10 +1048,6 @@ class _UpdateMemberProviderElement
   String get jenisKelamin => (origin as UpdateMemberProvider).jenisKelamin;
   @override
   String get agama => (origin as UpdateMemberProvider).agama;
-  @override
-  String get jabatan => (origin as UpdateMemberProvider).jabatan;
-  @override
-  String get pangkat => (origin as UpdateMemberProvider).pangkat;
   @override
   String get nip => (origin as UpdateMemberProvider).nip;
   @override

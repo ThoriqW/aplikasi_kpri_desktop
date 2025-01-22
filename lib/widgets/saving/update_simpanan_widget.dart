@@ -1,4 +1,3 @@
-import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/saving_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/utils/success_response.dart';
@@ -40,16 +39,6 @@ class _UpdateSimpananWidgetState extends ConsumerState<UpdateSimpananWidget> {
           onTap: () {
             updateDataSavings(widget.tahun, widget.workUnitId);
           },
-        ),
-        const SizedBox(
-          height: 4,
-        ),
-        const Text(
-          "*tekan enter setelah edit simpanan",
-          style: TextStyle(
-            fontStyle: FontStyle.italic,
-            color: GlobalColors.onBackground,
-          ),
         ),
       ],
     );

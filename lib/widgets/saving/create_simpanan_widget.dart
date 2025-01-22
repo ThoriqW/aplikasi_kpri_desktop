@@ -24,7 +24,7 @@ class _CreateSimpananWidgetState extends ConsumerState<CreateSimpananWidget> {
     return TextButton.icon(
       icon: _isLoading ? const Icon(Icons.autorenew) : const Icon(Icons.add),
       label: Text(
-        _isLoading ? "Loading..." : 'Tambah',
+        _isLoading ? "Loading..." : 'Tambah Simpanan ${widget.tahun}',
       ),
       onPressed: () {
         createSimpanan(widget.tahun);

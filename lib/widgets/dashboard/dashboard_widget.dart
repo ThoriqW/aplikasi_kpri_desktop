@@ -10,43 +10,43 @@ class DashBoardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Stack(
+    return const Column(
       children: [
-        Padding(
-          padding: EdgeInsets.only(top: 75.0, bottom: 30.0),
-          child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              children: [
-                DashboardDetailsCard(),
-                SizedBox(height: 15),
-                BarChartCard(),
-                SizedBox(height: 20),
-              ],
-            ),
+        Expanded(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: HeaderWidget(),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        DashboardDetailsCard(),
+                        SizedBox(height: 20),
+                        BarChartCard(),
+                        SizedBox(height: 20),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-        Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          child: HeaderWidget(),
-        ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: CustomCardWidget(
-            padding: EdgeInsets.all(6),
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                "Aplikasi Koperasi By Bacreative",
-                style: TextStyle(
-                  color: GlobalColors.primary,
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                ),
+        CustomCardWidget(
+          padding: EdgeInsets.all(6),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              "Aplikasi Koperasi By Bacreative",
+              style: TextStyle(
+                color: GlobalColors.primary,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),

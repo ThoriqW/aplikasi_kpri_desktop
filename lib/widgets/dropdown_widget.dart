@@ -41,11 +41,8 @@ class _DropdownWidgetState extends State<DropdownWidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.grey.shade300,
-          width: 1.0,
-        ),
-        borderRadius: const BorderRadius.all(Radius.circular(0)),
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),

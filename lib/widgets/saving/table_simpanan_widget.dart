@@ -63,19 +63,18 @@ class TableSimpananWidget extends ConsumerWidget {
             children: [
               Text(saving.toString()),
               const SizedBox(width: 8),
-              if (saving.toString() == "Simpanan tidak ditemukan")
-                CreateSimpananWidget(
-                  tahun: tahun,
-                  onComplete: () {
-                    ref.invalidate(getAllSavingMembersProvider(
-                      tahun,
-                      workUnitId,
-                      searchQuery,
-                      perPage,
-                      1,
-                    ));
-                  },
-                ),
+              CreateSimpananWidget(
+                tahun: tahun,
+                onComplete: () {
+                  ref.invalidate(getAllSavingMembersProvider(
+                    tahun,
+                    workUnitId,
+                    searchQuery,
+                    perPage,
+                    1,
+                  ));
+                },
+              ),
             ],
           );
         }
@@ -414,12 +413,6 @@ class TableSimpananWidget extends ConsumerWidget {
                     )
                   ],
                 ),
-                Text(
-                  'Halaman $currentPage dari $totalPage',
-                ),
-                Text(
-                  'Total data $totalMember',
-                ),
               ],
             ),
             const SizedBox(
@@ -465,6 +458,17 @@ class TableSimpananWidget extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Halaman $currentPage dari $totalPage',
+                ),
+                Text(
+                  'Total data $totalMember',
+                ),
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
