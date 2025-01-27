@@ -200,6 +200,42 @@ class TableSimpananWidget extends ConsumerWidget {
                     ),
                   ),
                 ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    child: EditableText(
+                      controller: TextEditingController(
+                        text: saving['dana_sosial'].toString() != '0.00'
+                            ? NumberFormat.currency(
+                                locale: 'id',
+                                symbol: '',
+                                decimalDigits: 0,
+                              ).format(
+                                double.parse(
+                                  saving['dana_sosial'].toString(),
+                                ),
+                              )
+                            : '',
+                      ),
+                      focusNode: FocusNode(),
+                      cursorColor: GlobalColors.primary,
+                      backgroundCursorColor: GlobalColors.secondary,
+                      style: const TextStyle(
+                        color: Color(0xDE000000),
+                      ),
+                      onSubmitted: (newPokok) {
+                        ref
+                            .watch(updateSavingObjectProvider.notifier)
+                            .updateValueSaving(
+                              entry['member_profile_id'].toString(),
+                              saving['bulan'].toString(),
+                              'dana_sosial',
+                              newPokok,
+                            );
+                      },
+                    ),
+                  ),
+                ),
               ],
             );
           }).toList();
@@ -207,7 +243,149 @@ class TableSimpananWidget extends ConsumerWidget {
             entry['work_unit'],
             entry['nomor_anggota'],
             entry['tahun'],
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    child: Text(
+                      entry['previous_years'][0]['total_pokok'].toString() !=
+                              '0.00'
+                          ? NumberFormat.currency(
+                              locale: 'id',
+                              symbol: '',
+                              decimalDigits: 0,
+                            ).format(
+                              double.parse(
+                                entry['previous_years'][0]['total_pokok']
+                                    .toString(),
+                              ),
+                            )
+                          : '',
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    child: Text(
+                      entry['previous_years'][0]['total_wajib'].toString() !=
+                              '0.00'
+                          ? NumberFormat.currency(
+                              locale: 'id',
+                              symbol: '',
+                              decimalDigits: 0,
+                            ).format(
+                              double.parse(
+                                entry['previous_years'][0]['total_wajib']
+                                    .toString(),
+                              ),
+                            )
+                          : '',
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    child: Text(
+                      entry['previous_years'][0]['total_sukarela'].toString() !=
+                              '0.00'
+                          ? NumberFormat.currency(
+                              locale: 'id',
+                              symbol: '',
+                              decimalDigits: 0,
+                            ).format(
+                              double.parse(
+                                entry['previous_years'][0]['total_sukarela']
+                                    .toString(),
+                              ),
+                            )
+                          : '',
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(5),
+                    child: Text(
+                      entry['previous_years'][0]['total_dana_sosial']
+                                  .toString() !=
+                              '0.00'
+                          ? NumberFormat.currency(
+                              locale: 'id',
+                              symbol: '',
+                              decimalDigits: 0,
+                            ).format(
+                              double.parse(
+                                entry['previous_years'][0]['total_dana_sosial']
+                                    .toString(),
+                              ),
+                            )
+                          : '',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            entry['previous_years'][0]['accumulated_savings'] != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      entry['previous_years'][0]['accumulated_savings']
+                          .toString(),
+                    ),
+                  )
+                : '',
             ...savings,
+            entry['total_pokok'].toString() != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      entry['total_pokok'].toString(),
+                    ),
+                  )
+                : '',
+            entry['total_wajib'].toString() != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      entry['total_wajib'].toString(),
+                    ),
+                  )
+                : '',
+            entry['total_sukarela'].toString() != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      entry['total_sukarela'].toString(),
+                    ),
+                  )
+                : '',
+            entry['total_dana_sosial'].toString() != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      entry['total_dana_sosial'].toString(),
+                    ),
+                  )
+                : '',
             entry['total_savings'].toString() != '0.00'
                 ? NumberFormat.currency(
                     locale: 'id',
@@ -271,14 +449,14 @@ class TableSimpananWidget extends ConsumerWidget {
             children: [
               Flexible(
                 child: Container(
-                  color: GlobalColors.primary,
+                  color: GlobalColors.secondary,
                   width: double.infinity,
                   padding: const EdgeInsets.all(5),
                   child: Center(
                     child: Text(
                       b.toUpperCase(),
                       style: const TextStyle(
-                        color: GlobalColors.white,
+                        color: GlobalColors.primary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -290,13 +468,15 @@ class TableSimpananWidget extends ConsumerWidget {
                   children: [
                     Flexible(
                       child: Container(
-                        color: const Color(0xFF000B58),
+                        color: Theme.of(context).colorScheme.tertiaryContainer,
                         padding: const EdgeInsets.all(5),
-                        child: const Center(
+                        child: Center(
                           child: Text(
                             "POKOK",
                             style: TextStyle(
-                              color: GlobalColors.white,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onTertiaryContainer,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -305,13 +485,15 @@ class TableSimpananWidget extends ConsumerWidget {
                     ),
                     Flexible(
                       child: Container(
-                        color: const Color(0xFF003161),
+                        color: Theme.of(context).colorScheme.primaryContainer,
                         padding: const EdgeInsets.all(5),
-                        child: const Center(
+                        child: Center(
                           child: Text(
                             "WAJIB",
                             style: TextStyle(
-                              color: GlobalColors.white,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -320,13 +502,30 @@ class TableSimpananWidget extends ConsumerWidget {
                     ),
                     Flexible(
                       child: Container(
-                        color: const Color(0xFF006A67),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .surfaceContainerHighest,
                         padding: const EdgeInsets.all(5),
-                        child: const Center(
+                        child: Center(
                           child: Text(
                             "SUKA RELA",
                             style: TextStyle(
-                              color: GlobalColors.white,
+                              color: Theme.of(context).colorScheme.onSurface,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: Container(
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                        padding: const EdgeInsets.all(5),
+                        child: Center(
+                          child: Text(
+                            "DANA SOSIAL",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -344,7 +543,104 @@ class TableSimpananWidget extends ConsumerWidget {
           "UNIT KERJA",
           "NOMOR ANGGOTA",
           "TAHUN",
+          Column(
+            children: [
+              Flexible(
+                child: Container(
+                  color: GlobalColors.secondary,
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(5),
+                  child: const Center(
+                    child: Text(
+                      "TOTAL SIMPANAN SEBELUMNYA",
+                      style: TextStyle(
+                        color: GlobalColors.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Flexible(
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: Container(
+                        color: Theme.of(context).colorScheme.tertiaryContainer,
+                        padding: const EdgeInsets.all(5),
+                        child: Center(
+                          child: Text(
+                            "POKOK",
+                            style: TextStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onTertiaryContainer,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: Container(
+                        color: Theme.of(context).colorScheme.primaryContainer,
+                        padding: const EdgeInsets.all(5),
+                        child: Center(
+                          child: Text(
+                            "WAJIB",
+                            style: TextStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: Container(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .surfaceContainerHighest,
+                        padding: const EdgeInsets.all(5),
+                        child: Center(
+                          child: Text(
+                            "SUKA RELA",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: Container(
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                        padding: const EdgeInsets.all(5),
+                        child: Center(
+                          child: Text(
+                            "DANA SOSIAL",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+          'TOTAL',
           ...bulanSavings,
+          'TOTAL POKOK',
+          'TOTAL WAJIB',
+          'TOTAL SUKA RELA',
+          'TOTAL DANA SOSIAL',
           'TOTAL SIMPANAN',
           "AKSI",
         ];
@@ -419,42 +715,51 @@ class TableSimpananWidget extends ConsumerWidget {
               height: 8,
             ),
             Flexible(
-              child: CustomDataTable(
-                rowsCells: rowsCells,
-                fixedColCells: fixedColCells,
-                fixedRowCells: fixedRowCells,
-                cellHeightWidget: 65,
-                cellWidthWidget: 260,
-                cellBuilder: (data) {
-                  if (data is Widget) {
-                    return data;
-                  }
-                  return Text('$data');
-                },
-                headerBuilder: (data) {
-                  if (data is Widget) {
-                    return data;
-                  }
-                  if (data == 'STATUS' || data == 'AKSI') {
-                    return Center(
-                      child: Text(
-                        data,
-                        style: const TextStyle(
-                          color: GlobalColors.white,
-                          fontWeight: FontWeight.bold,
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.surfaceDim,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                ),
+                child: CustomDataTable(
+                  rowsCells: rowsCells,
+                  fixedColCells: fixedColCells,
+                  fixedRowCells: fixedRowCells,
+                  cellHeightWidget: 65,
+                  cellWidthWidget: 410,
+                  cellBuilder: (data) {
+                    if (data is Widget) {
+                      return data;
+                    }
+                    return Text('$data');
+                  },
+                  headerBuilder: (data) {
+                    if (data is Widget) {
+                      return data;
+                    }
+                    if (data == 'STATUS' || data == 'AKSI') {
+                      return Center(
+                        child: Text(
+                          data,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
+                      );
+                    }
+                    return Text(
+                      '$data',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        fontWeight: FontWeight.bold,
                       ),
                     );
-                  }
-                  return Text(
-                    '$data',
-                    style: const TextStyle(
-                      color: GlobalColors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  );
-                },
-                fixedCornerCell: "NAMA LENGKAP",
+                  },
+                  fixedCornerCell: "NAMA LENGKAP",
+                ),
               ),
             ),
             const SizedBox(height: 20),

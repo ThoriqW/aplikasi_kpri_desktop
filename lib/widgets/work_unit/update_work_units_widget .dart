@@ -11,9 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class UpdateWorkUnitWidget extends ConsumerStatefulWidget {
-  const UpdateWorkUnitWidget({super.key, required this.homeAdmin});
-
-  final Function homeAdmin;
+  const UpdateWorkUnitWidget({super.key});
 
   @override
   ConsumerState<UpdateWorkUnitWidget> createState() =>
@@ -30,7 +28,6 @@ class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
     final getWorkUnit = ref.watch(getWorkUnitProvider(
         ref.watch(idWorkUnitNotifierProvider.notifier).getId().toString()));
     return CustomCardWidget(
-      color: GlobalColors.white,
       child: getWorkUnit.when(
         data: (workUnit) {
           if (workUnit == null) {
@@ -54,7 +51,7 @@ class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
               IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () async {
-                  widget.homeAdmin();
+                  ref.watch(adminModeNotifierProvider.notifier).switchToView();
                 },
               ),
               const SizedBox(height: 20),
@@ -79,25 +76,37 @@ class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
+                                Text(
                                   "Nama Work Unit",
+                                  style: TextStyle(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimaryContainer,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 5),
                                 TextFormWidget(
                                     controller: namaWorkUnitController,
                                     text: ""),
                               ],
                             ),
                           ),
-                          const SizedBox(width: 8),
+                          const SizedBox(width: 10),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
+                                Text(
                                   "Kode Work Unit",
+                                  style: TextStyle(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimaryContainer,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                                const SizedBox(height: 8),
+                                const SizedBox(height: 5),
                                 TextFormWidget(
                                     controller: kodeWorkUnitController,
                                     text: ""),
@@ -106,7 +115,7 @@ class _UpdateWorkUnitWidgetState extends ConsumerState<UpdateWorkUnitWidget> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

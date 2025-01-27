@@ -6,6 +6,39 @@ part of 'admin_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$getRoleUserHash() => r'0182a2e57db3c80a5e06cc08b7a7e71526fcf3e1';
+
+/// See also [getRoleUser].
+@ProviderFor(getRoleUser)
+final getRoleUserProvider = AutoDisposeFutureProvider<Object?>.internal(
+  getRoleUser,
+  name: r'getRoleUserProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$getRoleUserHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef GetRoleUserRef = AutoDisposeFutureProviderRef<Object?>;
+String _$getApiDashboardHash() => r'a6bf6d78156dddfa3c17028e5dec7d0bd439228c';
+
+/// See also [getApiDashboard].
+@ProviderFor(getApiDashboard)
+final getApiDashboardProvider = AutoDisposeFutureProvider<Object?>.internal(
+  getApiDashboard,
+  name: r'getApiDashboardProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$getApiDashboardHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef GetApiDashboardRef = AutoDisposeFutureProviderRef<Object?>;
 String _$adminModeNotifierHash() => r'b318ca7f49e2f08cb32d940d94358e7d5df6b961';
 
 /// See also [AdminModeNotifier].

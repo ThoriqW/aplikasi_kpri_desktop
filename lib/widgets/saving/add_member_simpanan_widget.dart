@@ -35,8 +35,12 @@ class _AddMemberSimpananWidgetState
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Text(
+        Text(
           "Tambah Anggota Simpanan",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(width: 12),
         DropdownMemberWidget(

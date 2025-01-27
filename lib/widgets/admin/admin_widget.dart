@@ -19,16 +19,15 @@ class AdminWidget extends ConsumerWidget {
     final currentMode = ref.watch(adminModeNotifierProvider);
     Widget bodyContent;
 
-    Widget homeAdmin = const SizedBox(
+    Widget homeAdmin = SizedBox(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-            width: double.infinity,
             child: CustomCardWidget(
-              color: GlobalColors.white,
-              child: Text(
+              color: Theme.of(context).colorScheme.secondaryContainer,
+              child: const Text(
                 "Data User & Unit Kerja",
                 style: TextStyle(
                   color: GlobalColors.primary,
@@ -38,8 +37,8 @@ class AdminWidget extends ConsumerWidget {
               ),
             ),
           ),
-          SizedBox(height: 10),
-          Expanded(
+          const SizedBox(height: 20),
+          const Expanded(
             child: SingleChildScrollView(
               child: SizedBox(
                 child: Column(
@@ -70,11 +69,7 @@ class AdminWidget extends ConsumerWidget {
         );
         break;
       case AdminMode.editWorkUnit:
-        bodyContent = UpdateWorkUnitWidget(
-          homeAdmin: () {
-            ref.read(adminModeNotifierProvider.notifier).switchToView();
-          },
-        );
+        bodyContent = const UpdateWorkUnitWidget();
         break;
       case AdminMode.addUser:
         bodyContent = const AddUserWidget();
@@ -88,7 +83,10 @@ class AdminWidget extends ConsumerWidget {
         Expanded(
           child: Column(
             children: [
-              const HeaderWidget(),
+              const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: HeaderWidget(),
+              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -100,7 +98,7 @@ class AdminWidget extends ConsumerWidget {
         ),
         const CustomCardWidget(
           color: GlobalColors.white,
-          padding: EdgeInsets.all(6),
+          padding: EdgeInsets.all(10),
           child: Align(
             alignment: Alignment.centerRight,
             child: Text(

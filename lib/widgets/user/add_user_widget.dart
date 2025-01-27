@@ -24,7 +24,6 @@ class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
   @override
   Widget build(BuildContext context) {
     return CustomCardWidget(
-      color: GlobalColors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -51,25 +50,33 @@ class _AddUserWidgetState extends ConsumerState<AddUserWidget> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 "Username",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 5),
               TextFormWidget(controller: usernameController, text: ""),
             ],
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 20),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 "Password",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 5),
               TextFormWidget(controller: passwordController, text: ""),
             ],
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 20),
           ButtonWidget(
             text: _isLoading ? "Loading..." : "Simpan",
             onTap: () async {

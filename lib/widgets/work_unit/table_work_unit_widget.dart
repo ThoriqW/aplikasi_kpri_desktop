@@ -93,45 +93,55 @@ class TableWorkUnitWidget extends ConsumerWidget {
               .setTotalMember(workUnit['pagination']['last_page']);
         });
         return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Flexible(
-              child: CustomDataTable(
-                rowsCells: rowsCells,
-                cellHeight: 40,
-                fixedColCells: fixedColCells,
-                fixedRowCells: fixedRowCells,
-                cellWidth: 250,
-                cellBuilder: (data) {
-                  if (data is Widget) {
-                    return data;
-                  }
-                  return Text('$data');
-                },
-                headerBuilder: (data) {
-                  if (data is Widget) {
-                    return data;
-                  }
-                  if (data == 'STATUS' || data == 'AKSI') {
-                    return Center(
-                      child: Text(
-                        data,
-                        style: const TextStyle(
-                          color: GlobalColors.white,
-                          fontWeight: FontWeight.bold,
+              child: Container(
+                width: 1000,
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.surfaceDim,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                ),
+                child: CustomDataTable(
+                  rowsCells: rowsCells,
+                  cellHeight: 40,
+                  fixedColCells: fixedColCells,
+                  fixedRowCells: fixedRowCells,
+                  cellWidth: 250,
+                  cellBuilder: (data) {
+                    if (data is Widget) {
+                      return data;
+                    }
+                    return Text('$data');
+                  },
+                  headerBuilder: (data) {
+                    if (data is Widget) {
+                      return data;
+                    }
+                    if (data == 'STATUS' || data == 'AKSI') {
+                      return Center(
+                        child: Text(
+                          data,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
+                      );
+                    }
+                    return Text(
+                      '$data',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        fontWeight: FontWeight.bold,
                       ),
                     );
-                  }
-                  return Text(
-                    '$data',
-                    style: const TextStyle(
-                      color: GlobalColors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  );
-                },
-                fixedCornerCell: "NAMA UNIT KERJA",
+                  },
+                  fixedCornerCell: "NAMA UNIT KERJA",
+                ),
               ),
             ),
             const SizedBox(height: 10),

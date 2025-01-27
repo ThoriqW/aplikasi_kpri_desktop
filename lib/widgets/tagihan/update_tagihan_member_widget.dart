@@ -21,8 +21,7 @@ class UpdateTagihanMemberWidget extends ConsumerStatefulWidget {
 
 class _UpdateTagihanMemberWidgetState
     extends ConsumerState<UpdateTagihanMemberWidget> {
-  final TextEditingController memberProfileIdController =
-      TextEditingController();
+  final TextEditingController namaMemberController = TextEditingController();
   final TextEditingController simpananWajibController = TextEditingController();
   final TextEditingController danaSosialController = TextEditingController();
   final TextEditingController pokokController = TextEditingController();
@@ -41,8 +40,7 @@ class _UpdateTagihanMemberWidgetState
         ref.watch(dataMemberTagihanNotifierProvider.notifier).getData();
 
     if (!isInitialized) {
-      memberProfileIdController.text =
-          dataTagihanMember['member_profile_id'].toString();
+      namaMemberController.text = dataTagihanMember['nama_member'].toString();
       simpananWajibController.text =
           dataTagihanMember['simpanan_wajib'] != '0.00'
               ? double.parse(
@@ -98,7 +96,6 @@ class _UpdateTagihanMemberWidgetState
       isInitialized = true;
     }
     return CustomCardWidget(
-      color: GlobalColors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -118,7 +115,7 @@ class _UpdateTagihanMemberWidgetState
               fontSize: 16,
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -131,12 +128,18 @@ class _UpdateTagihanMemberWidgetState
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              "ID Member",
+                            Text(
+                              "Nama Anggota",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 5),
                             TextFormWidget(
-                              controller: memberProfileIdController,
+                              controller: namaMemberController,
                               text: "",
                               isEnabled: false,
                             ),
@@ -148,10 +151,16 @@ class _UpdateTagihanMemberWidgetState
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Simpanan Wajib",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 5),
                             TextFormWidget(
                                 controller: simpananWajibController, text: ""),
                           ],
@@ -159,17 +168,23 @@ class _UpdateTagihanMemberWidgetState
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Dana Sosial",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 5),
                             TextFormWidget(
                                 controller: danaSosialController, text: ""),
                           ],
@@ -180,10 +195,16 @@ class _UpdateTagihanMemberWidgetState
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Pokok",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 5),
                             TextFormWidget(
                                 controller: pokokController, text: ""),
                           ],
@@ -191,17 +212,23 @@ class _UpdateTagihanMemberWidgetState
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Bunga",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 5),
                             TextFormWidget(
                                 controller: bungaController, text: ""),
                           ],
@@ -212,10 +239,16 @@ class _UpdateTagihanMemberWidgetState
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Barang",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 5),
                             TextFormWidget(
                                 controller: barangController, text: ""),
                           ],
@@ -223,17 +256,23 @@ class _UpdateTagihanMemberWidgetState
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Jangka Waktu",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 5),
                             TextFormWidget(
                                 controller: jangkaWaktuController, text: ""),
                           ],
@@ -244,10 +283,16 @@ class _UpdateTagihanMemberWidgetState
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Jangka Waktu Ke",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 5),
                             TextFormWidget(
                                 controller: jangkaWaktuKeController, text: ""),
                           ],
@@ -255,17 +300,23 @@ class _UpdateTagihanMemberWidgetState
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Sisa Tunggakan",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 5),
                             TextFormWidget(
                               controller: sisaTunggakanController,
                               text: "",
@@ -278,10 +329,16 @@ class _UpdateTagihanMemberWidgetState
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               "Jumlah Setoran",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 5),
                             TextFormWidget(
                               controller: jumlahSetoranController,
                               text: '',
@@ -291,14 +348,19 @@ class _UpdateTagihanMemberWidgetState
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         "Keterangan",
+                        style: TextStyle(
+                          color:
+                              Theme.of(context).colorScheme.onPrimaryContainer,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 5),
                       TextFormWidget(
                         controller: keteranganController,
                         text: "",
@@ -336,7 +398,7 @@ class _UpdateTagihanMemberWidgetState
         tahun,
         bulan,
         {
-          "member_profile_id": memberProfileIdController.text,
+          "member_profile_id": namaMemberController.text,
           "simpanan_wajib": simpananWajibController.text,
           "dana_sosial": danaSosialController.text,
           "pokok": pokokController.text,

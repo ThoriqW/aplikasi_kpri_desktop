@@ -33,7 +33,10 @@ class SimpananWidget extends ConsumerWidget {
         Expanded(
           child: Column(
             children: [
-              const HeaderWidget(),
+              const Padding(
+                padding: EdgeInsets.all(10),
+                child: HeaderWidget(),
+              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(10),
@@ -44,15 +47,17 @@ class SimpananWidget extends ConsumerWidget {
           ),
         ),
         currentSavingMode == SavingMode.view
-            ? const CustomCardWidget(
-                color: GlobalColors.white,
-                padding:
-                    EdgeInsets.only(bottom: 20, left: 10, right: 10, top: 20),
-                child: BottomNavigationSimpananWidget(),
+            ? Padding(
+                padding: const EdgeInsets.all(10),
+                child: CustomCardWidget(
+                  color: Theme.of(context).colorScheme.secondaryContainer,
+                  padding: const EdgeInsets.only(
+                      bottom: 20, left: 10, right: 10, top: 20),
+                  child: const BottomNavigationSimpananWidget(),
+                ),
               )
             : const CustomCardWidget(
-                color: GlobalColors.white,
-                padding: EdgeInsets.all(6),
+                padding: EdgeInsets.all(10),
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(

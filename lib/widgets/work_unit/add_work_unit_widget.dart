@@ -24,7 +24,6 @@ class _AddWorkUnitWidgetState extends ConsumerState<AddWorkUnitWidget> {
   @override
   Widget build(BuildContext context) {
     return CustomCardWidget(
-      color: GlobalColors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -51,25 +50,33 @@ class _AddWorkUnitWidgetState extends ConsumerState<AddWorkUnitWidget> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 "Nama Work Unit",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 5),
               TextFormWidget(controller: namaWorkUnitController, text: ""),
             ],
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 20),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 "Kode Work Unit",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 5),
               TextFormWidget(controller: kodeWorkUnitController, text: ""),
             ],
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 20),
           ButtonWidget(
             text: _isLoading ? "Loading..." : "Simpan",
             onTap: () async {

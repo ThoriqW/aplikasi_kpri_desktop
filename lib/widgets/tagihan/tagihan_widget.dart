@@ -37,7 +37,10 @@ class TagihanWidget extends ConsumerWidget {
         Expanded(
           child: Column(
             children: [
-              const HeaderWidget(),
+              const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: HeaderWidget(),
+              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -48,15 +51,17 @@ class TagihanWidget extends ConsumerWidget {
           ),
         ),
         currentTagiahnMode == TagihanMode.view
-            ? const CustomCardWidget(
-                color: GlobalColors.white,
-                padding:
-                    EdgeInsets.only(bottom: 20, left: 10, right: 10, top: 20),
-                child: BottomNavigationTagihanWidget(),
+            ? Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: CustomCardWidget(
+                  color: Theme.of(context).colorScheme.secondaryContainer,
+                  padding: const EdgeInsets.only(
+                      bottom: 20, left: 10, right: 10, top: 20),
+                  child: const BottomNavigationTagihanWidget(),
+                ),
               )
             : const CustomCardWidget(
-                color: GlobalColors.white,
-                padding: EdgeInsets.all(6),
+                padding: EdgeInsets.all(10),
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(

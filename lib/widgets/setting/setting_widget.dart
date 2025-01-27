@@ -1,6 +1,8 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
+import 'package:aplikasi_kpri_desktop/providers/admin_provider.dart';
 import 'package:aplikasi_kpri_desktop/providers/setting_provider.dart';
 import 'package:aplikasi_kpri_desktop/widgets/setting/fixed_setting.dart';
+import 'package:aplikasi_kpri_desktop/widgets/setting/updateFixedSetting.dart';
 import 'package:aplikasi_kpri_desktop/widgets/user/update_current_user_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/header_widget.dart';
@@ -13,18 +15,19 @@ class SettingWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentMode = ref.watch(settingModeNotifierProvider);
+    final roleId = ref.watch(getRoleUserProvider).value;
+
     Widget bodyContent;
 
-    Widget home = const SizedBox(
+    Widget home = SizedBox(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-            width: double.infinity,
             child: CustomCardWidget(
-              color: GlobalColors.white,
-              child: Text(
+              color: Theme.of(context).colorScheme.secondaryContainer,
+              child: const Text(
                 "Pengaturan User & Aplikasi",
                 style: TextStyle(
                   color: GlobalColors.primary,
@@ -34,7 +37,7 @@ class SettingWidget extends ConsumerWidget {
               ),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 20),
           Expanded(
             child: SingleChildScrollView(
               child: SizedBox(
@@ -42,9 +45,9 @@ class SettingWidget extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    UpdateCurrentUserWidget(),
-                    SizedBox(height: 10),
-                    FixedSettingWidget()
+                    const UpdateCurrentUserWidget(),
+                    const SizedBox(height: 10),
+                    if (roleId == 'admin') const FixedSettingWidget()
                   ],
                 ),
               ),
@@ -58,13 +61,19 @@ class SettingWidget extends ConsumerWidget {
       case SettingMode.view:
         bodyContent = home;
         break;
+      case SettingMode.editFixedSetting:
+        bodyContent = UpdateFixedSettingWidget();
+        break;
     }
     return Column(
       children: [
         Expanded(
           child: Column(
             children: [
-              const HeaderWidget(),
+              const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: HeaderWidget(),
+              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -75,8 +84,7 @@ class SettingWidget extends ConsumerWidget {
           ),
         ),
         const CustomCardWidget(
-          color: GlobalColors.white,
-          padding: EdgeInsets.all(6),
+          padding: EdgeInsets.all(10),
           child: Align(
             alignment: Alignment.centerRight,
             child: Text(

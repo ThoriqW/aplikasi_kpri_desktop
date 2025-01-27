@@ -42,7 +42,6 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
       isInitialized = true;
     }
     return CustomCardWidget(
-      color: GlobalColors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -72,8 +71,12 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "Nama Anggota",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     TextFormWidget(
@@ -89,8 +92,12 @@ class _TransferMemberWidgetState extends ConsumerState<TransferMemberWidget> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "Unit Kerja",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     TextFormWidget(

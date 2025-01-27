@@ -297,40 +297,49 @@ class TableTagihanWidget extends ConsumerWidget {
               height: 8,
             ),
             Flexible(
-              child: CustomDataTable(
-                rowsCells: rowsCells,
-                fixedColCells: fixedColCells,
-                fixedRowCells: fixedRowCells,
-                cellBuilder: (data) {
-                  if (data is Widget) {
-                    return data;
-                  }
-                  return Text('$data');
-                },
-                headerBuilder: (data) {
-                  if (data is Widget) {
-                    return data;
-                  }
-                  if (data == 'STATUS' || data == 'AKSI') {
-                    return Center(
-                      child: Text(
-                        data,
-                        style: const TextStyle(
-                          color: GlobalColors.white,
-                          fontWeight: FontWeight.bold,
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.surfaceDim,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                ),
+                child: CustomDataTable(
+                  rowsCells: rowsCells,
+                  fixedColCells: fixedColCells,
+                  fixedRowCells: fixedRowCells,
+                  cellBuilder: (data) {
+                    if (data is Widget) {
+                      return data;
+                    }
+                    return Text('$data');
+                  },
+                  headerBuilder: (data) {
+                    if (data is Widget) {
+                      return data;
+                    }
+                    if (data == 'STATUS' || data == 'AKSI') {
+                      return Center(
+                        child: Text(
+                          data,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
+                      );
+                    }
+                    return Text(
+                      '$data',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        fontWeight: FontWeight.bold,
                       ),
                     );
-                  }
-                  return Text(
-                    '$data',
-                    style: const TextStyle(
-                      color: GlobalColors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  );
-                },
-                fixedCornerCell: "NAMA LENGKAP",
+                  },
+                  fixedCornerCell: "NAMA LENGKAP",
+                ),
               ),
             ),
             const SizedBox(height: 10),

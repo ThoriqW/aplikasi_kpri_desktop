@@ -15,7 +15,6 @@ class DataUserWidget extends ConsumerWidget {
     return SizedBox(
       height: 500,
       child: CustomCardWidget(
-        color: GlobalColors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

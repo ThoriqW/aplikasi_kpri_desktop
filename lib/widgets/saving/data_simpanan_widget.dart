@@ -12,7 +12,6 @@ class DataSimpananWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searchCriteriaBills = ref.watch(searchSavingsProvider);
     return CustomCardWidget(
-      color: GlobalColors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

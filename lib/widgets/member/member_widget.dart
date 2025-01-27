@@ -58,7 +58,7 @@ class MemberWidget extends ConsumerWidget {
                 ),
               )
             : const CustomCardWidget(
-                padding: EdgeInsets.all(6),
+                padding: EdgeInsets.all(10),
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(

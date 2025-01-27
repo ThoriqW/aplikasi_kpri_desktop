@@ -18,7 +18,6 @@ class _EditDataSimpananState extends ConsumerState<EditDataSimpanan> {
   Widget build(BuildContext context) {
     final tahun = ref.watch(editSavingsNotifierProvider).toString();
     return CustomCardWidget(
-      color: GlobalColors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

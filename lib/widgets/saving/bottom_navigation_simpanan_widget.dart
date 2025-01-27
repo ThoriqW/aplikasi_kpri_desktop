@@ -30,8 +30,13 @@ class _BottomNavigationSimpananWidgetState
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 "Cari Anggota",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(width: 12),
               Flexible(
@@ -47,12 +52,25 @@ class _BottomNavigationSimpananWidgetState
                           .setSearchSavings(currentPage: 1, searchQuery: value);
                     });
                   },
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.search,
-                    ),
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.search),
                     border: InputBorder.none,
                     filled: true,
+                    fillColor: Theme.of(context).colorScheme.surface,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.surface,
+                        width: 1.0,
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 2.0,
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    ),
                   ),
                 ),
               ),
@@ -63,8 +81,13 @@ class _BottomNavigationSimpananWidgetState
         Expanded(
           child: Row(
             children: [
-              const Text(
+              Text(
                 "Unit Kerja",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(width: 12),
               WorkUnitsDropdown(
@@ -80,8 +103,13 @@ class _BottomNavigationSimpananWidgetState
         const SizedBox(width: 20),
         Row(
           children: [
-            const Text(
+            Text(
               "Tahun",
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(width: 8),
             SizedBox(
@@ -97,7 +125,9 @@ class _BottomNavigationSimpananWidgetState
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.search),
+              icon: const Icon(
+                Icons.search,
+              ),
               onPressed: () async {
                 ref.watch(searchSavingsProvider.notifier).setSearchSavings(
                       searchQuery: '',

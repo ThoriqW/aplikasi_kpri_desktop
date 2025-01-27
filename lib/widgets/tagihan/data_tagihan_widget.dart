@@ -12,7 +12,6 @@ class DataTagihanWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searchCriteriaBills = ref.watch(searchBillsProvider);
     return CustomCardWidget(
-      color: GlobalColors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

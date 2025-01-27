@@ -64,12 +64,25 @@ class _BottomNavigationTagihanWidgetState
                           .setSearchBills(currentPage: 1, searchQuery: value);
                     });
                   },
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.search,
-                    ),
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.search),
                     border: InputBorder.none,
                     filled: true,
+                    fillColor: Theme.of(context).colorScheme.surface,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.surface,
+                        width: 1.0,
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 2.0,
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    ),
                   ),
                 ),
               ),

@@ -25,8 +25,12 @@ class _UpdateYearSimpananState extends ConsumerState<UpdateYearSimpanan> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           "Ganti Tahun Simpanan",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 12),
         TextFormWidget(controller: tahunControllerController, text: ""),

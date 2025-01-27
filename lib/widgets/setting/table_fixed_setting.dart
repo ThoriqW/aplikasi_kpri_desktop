@@ -1,14 +1,13 @@
 import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
-import 'package:aplikasi_kpri_desktop/providers/admin_provider.dart';
-import 'package:aplikasi_kpri_desktop/providers/user_provider.dart';
+import 'package:aplikasi_kpri_desktop/providers/setting_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/cutom_table_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/user/delete_user_widget.dart';
+import 'package:aplikasi_kpri_desktop/widgets/setting/deleteFixedSetting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TableUserWidget extends ConsumerWidget {
-  const TableUserWidget({
+class TableFixedSettingWidget extends ConsumerWidget {
+  const TableFixedSettingWidget({
     super.key,
     required this.searchQuery,
     required this.perPage,
@@ -21,32 +20,33 @@ class TableUserWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dataUsers = ref.watch(getAllUserProvider(
+    final dataFixedSetting = ref.watch(getAllFixedSettingProvider(
       searchQuery,
       perPage,
       currentPage,
     ));
-    return dataUsers.when(
-      data: (user) {
-        if (user == null) {
+    return dataFixedSetting.when(
+      data: (fixedSetting) {
+        if (fixedSetting == null) {
           return const Text("Data tidak valid");
         }
-        if (user is ErrorResponse || user is! Map<String, dynamic>) {
-          return Text(user.toString());
+        if (fixedSetting is ErrorResponse ||
+            fixedSetting is! Map<String, dynamic>) {
+          return Text(fixedSetting.toString());
         }
-        final List<dynamic> userResponse = user['data'];
+        final List<dynamic> fixedSettingResponse = fixedSetting['data'];
 
-        int totalPage = user['pagination']['last_page'];
-        int currentPage = user['pagination']['current_page'];
-        int totalMember = user['pagination']['total'];
+        int totalPage = fixedSetting['pagination']['last_page'];
+        int currentPage = fixedSetting['pagination']['current_page'];
+        int totalMember = fixedSetting['pagination']['total'];
 
-        List<dynamic> users = userResponse;
+        List<dynamic> fixedSettings = fixedSettingResponse;
 
-        final rowsCells = users
+        final rowsCells = fixedSettings
             .map((entry) => [
-                  entry["id"],
-                  entry["username"],
-                  entry["role"],
+                  entry["statusenabled"],
+                  entry["nilai"],
+                  entry["deskripsi"],
                   ...[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -56,13 +56,13 @@ class TableUserWidget extends ConsumerWidget {
                           child: IconButton(
                             onPressed: () {
                               ref
-                                  .watch(idUserNotifierProvider.notifier)
+                                  .watch(idFixedSettingProvider.notifier)
                                   .setId(entry['id']);
                               ref
                                   .watch(
-                                    adminModeNotifierProvider.notifier,
+                                    settingModeNotifierProvider.notifier,
                                   )
-                                  .switchToEditUser();
+                                  .switchToEditFixedSetting();
                             },
                             icon: const Icon(
                               Icons.edit,
@@ -71,7 +71,7 @@ class TableUserWidget extends ConsumerWidget {
                             ),
                           ),
                         ),
-                        DeleteUserWidget(id: entry['id'].toString())
+                        DeleteFixedSettingWidget(id: entry['id'].toString())
                       ],
                     ),
                   ],
@@ -79,19 +79,19 @@ class TableUserWidget extends ConsumerWidget {
             .toList();
 
         final fixedColCells =
-            users.map((entry) => entry["nama_lengkap"].toString()).toList();
+            fixedSettings.map((entry) => entry["nama"].toString()).toList();
 
         final fixedRowCells = [
-          "ID",
-          "USERNAME",
-          "ROLE",
+          "STATUS SETTING",
+          "NILAI",
+          'DESKRIPSI',
           'AKSI',
         ];
 
         Future.microtask(() {
           ref
-              .watch(totalPageUsersProvider.notifier)
-              .setTotalMember(user['pagination']['last_page']);
+              .watch(totalFixedSettingProvider.notifier)
+              .setTotalMember(fixedSetting['pagination']['last_page']);
         });
 
         return Column(
@@ -142,7 +142,7 @@ class TableUserWidget extends ConsumerWidget {
                       ),
                     );
                   },
-                  fixedCornerCell: "NAMA LENGKAP",
+                  fixedCornerCell: "NAMA",
                 ),
               ),
             ),
@@ -167,7 +167,7 @@ class TableUserWidget extends ConsumerWidget {
                   onPressed: currentPage > 1
                       ? () {
                           ref
-                              .watch(searchUsersProvider.notifier)
+                              .watch(searchFixedSettingProvider.notifier)
                               .setSearchUsers(currentPage: currentPage - 1);
                         }
                       : null,
@@ -175,10 +175,10 @@ class TableUserWidget extends ConsumerWidget {
                 const SizedBox(width: 6),
                 IconButton(
                   icon: const Icon(Icons.arrow_forward),
-                  onPressed: currentPage < ref.watch(totalPageUsersProvider)
+                  onPressed: currentPage < ref.watch(totalFixedSettingProvider)
                       ? () {
                           ref
-                              .watch(searchUsersProvider.notifier)
+                              .watch(searchFixedSettingProvider.notifier)
                               .setSearchUsers(currentPage: currentPage + 1);
                         }
                       : null,
@@ -189,7 +189,10 @@ class TableUserWidget extends ConsumerWidget {
         );
       },
       error: (error, stackTrace) => const Text('Gagal terhubung ke server!!'),
-      loading: () => const LinearProgressIndicator(),
+      loading: () => const Align(
+        alignment: Alignment.topCenter,
+        child: LinearProgressIndicator(),
+      ),
     );
   }
 }
