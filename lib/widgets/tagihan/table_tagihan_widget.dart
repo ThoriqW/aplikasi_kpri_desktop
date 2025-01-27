@@ -81,6 +81,17 @@ class TableTagihanWidget extends ConsumerWidget {
             entry['nama_lengkap'],
             entry['tahun'],
             entry['bulan'],
+            bills['simpanan_pokok'] != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      bills['simpanan_pokok'],
+                    ),
+                  )
+                : '',
             bills['simpanan_wajib'] != '0.00'
                 ? NumberFormat.currency(
                     locale: 'id',
@@ -100,6 +111,17 @@ class TableTagihanWidget extends ConsumerWidget {
                   ).format(
                     double.parse(
                       bills['dana_sosial'],
+                    ),
+                  )
+                : '',
+            bills['sukarela'] != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      bills['sukarela'],
                     ),
                   )
                 : '',
@@ -125,7 +147,7 @@ class TableTagihanWidget extends ConsumerWidget {
                     ),
                   )
                 : '',
-            bills['bunga'] != '0.00'
+            bills['barang'] != '0.00'
                 ? NumberFormat.currency(
                     locale: 'id',
                     symbol: '',
@@ -138,6 +160,17 @@ class TableTagihanWidget extends ConsumerWidget {
                 : '',
             bills['jangka_waktu'] != 0 ? bills['jangka_waktu'] : '',
             bills['jangka_waktu_ke'] != 0 ? bills['jangka_waktu_ke'] : '',
+            bills['jumlah_pinjaman'] != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      bills['jumlah_pinjaman'],
+                    ),
+                  )
+                : '',
             bills['jumlah_tagihan'] != '0.00'
                 ? NumberFormat.currency(
                     locale: 'id',
@@ -149,14 +182,80 @@ class TableTagihanWidget extends ConsumerWidget {
                     ),
                   )
                 : '',
-            bills['jumlah_tagihan'] != '0.00'
+            bills['jumlah_setoran_simpanan_pokok'] != '0.00'
                 ? NumberFormat.currency(
                     locale: 'id',
                     symbol: '',
                     decimalDigits: 0,
                   ).format(
                     double.parse(
-                      bills['jumlah_setoran'],
+                      bills['jumlah_setoran_simpanan_pokok'],
+                    ),
+                  )
+                : '',
+            bills['jumlah_setoran_simpanan_wajib'] != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      bills['jumlah_setoran_simpanan_wajib'],
+                    ),
+                  )
+                : '',
+            bills['jumlah_setoran_dana_sosial'] != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      bills['jumlah_setoran_dana_sosial'],
+                    ),
+                  )
+                : '',
+            bills['jumlah_setoran_sukarela'] != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      bills['jumlah_setoran_sukarela'],
+                    ),
+                  )
+                : '',
+            bills['jumlah_setoran_pokok'] != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      bills['jumlah_setoran_pokok'],
+                    ),
+                  )
+                : '',
+            bills['jumlah_setoran_bunga'] != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      bills['jumlah_setoran_bunga'],
+                    ),
+                  )
+                : '',
+            bills['jumlah_setoran_barang'] != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      bills['jumlah_setoran_barang'],
                     ),
                   )
                 : '',
@@ -182,16 +281,26 @@ class TableTagihanWidget extends ConsumerWidget {
                         .setData(
                           entry['member_profile_id'],
                           entry['nama_lengkap'].toString(),
+                          bills['simpanan_pokok'].toString(),
                           bills['simpanan_wajib'].toString(),
                           bills['dana_sosial'].toString(),
+                          bills['sukarela'].toString(),
                           bills['pokok'].toString(),
                           bills['bunga'].toString(),
                           bills['barang'].toString(),
                           bills['jangka_waktu'].toString(),
                           bills['jangka_waktu_ke'].toString(),
+                          bills['jumlah_pinjaman'].toString(),
+                          bills['jumlah_tagihan'].toString(),
+                          bills['jumlah_setoran_simpanan_pokok'].toString(),
+                          bills['jumlah_setoran_simpanan_wajib'].toString(),
+                          bills['jumlah_setoran_dana_sosial'].toString(),
+                          bills['jumlah_setoran_sukarela'].toString(),
+                          bills['jumlah_setoran_pokok'].toString(),
+                          bills['jumlah_setoran_bunga'].toString(),
+                          bills['jumlah_setoran_barang'].toString(),
                           bills['sisa_tunggakan'].toString(),
                           bills['keterangan'].toString(),
-                          bills['jumlah_setoran'].toString(),
                           tahun,
                           bulan,
                         );
@@ -253,15 +362,24 @@ class TableTagihanWidget extends ConsumerWidget {
           "NAMA LENGKAP",
           "TAHUN",
           "BULAN",
+          "SIMPANAN POKOK",
           "SIMPANAN WAJIB",
           "DANA SOSIAL",
+          "SUKA RELA",
           "POKOK",
           "BUNGA",
           "BARANG",
           "JANGKA WAKTU",
           "JANGKA WAKTU KE",
+          "JUMLAH PINJAMAN",
           "JUMLAH TAGIHAN",
-          "JUMLAH SETORAN",
+          "SETORAN SIMPANAN POKOK",
+          "SETORAN SIMPANAN WAJIB",
+          "SETORAN SIMPANAN DANA SOSIAL",
+          "SETORAN SIMPANAN SUKA RELA",
+          "SETORAN POKOK",
+          "SETORAN BUNGAN",
+          "SETORAN BARANG",
           "SISA TUNGGAKAN",
           "KETERANGAN",
           'AKSI',
@@ -309,6 +427,7 @@ class TableTagihanWidget extends ConsumerWidget {
                   rowsCells: rowsCells,
                   fixedColCells: fixedColCells,
                   fixedRowCells: fixedRowCells,
+                  cellWidth: 250,
                   cellBuilder: (data) {
                     if (data is Widget) {
                       return data;

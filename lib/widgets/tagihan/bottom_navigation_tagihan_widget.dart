@@ -47,8 +47,13 @@ class _BottomNavigationTagihanWidgetState
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 "Cari Anggota",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(width: 12),
               Flexible(
@@ -93,8 +98,13 @@ class _BottomNavigationTagihanWidgetState
         Expanded(
           child: Row(
             children: [
-              const Text(
+              Text(
                 "Unit Kerja",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(width: 12),
               WorkUnitsDropdown(
@@ -110,8 +120,13 @@ class _BottomNavigationTagihanWidgetState
         const SizedBox(width: 20),
         Row(
           children: [
-            const Text(
+            Text(
               "Bulan",
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(width: 12),
             DropdownWidget(
@@ -129,8 +144,13 @@ class _BottomNavigationTagihanWidgetState
         const SizedBox(width: 20),
         Row(
           children: [
-            const Text(
+            Text(
               "Tahun",
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(width: 8),
             SizedBox(

@@ -1264,7 +1264,7 @@ final searchBillsProvider =
 
 typedef _$SearchBills = AutoDisposeNotifier<Map<String, dynamic>>;
 String _$dataMemberTagihanNotifierHash() =>
-    r'4bc43d691a750a38afb2c65a337525898c6611c7';
+    r'6f41bac6a9034cda47648fba0e7997fb97fabbe6';
 
 /// See also [DataMemberTagihanNotifier].
 @ProviderFor(DataMemberTagihanNotifier)
