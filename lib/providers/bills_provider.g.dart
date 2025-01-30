@@ -1299,7 +1299,7 @@ final dataTransferMemberTagihanNotifierProvider = AutoDisposeNotifierProvider<
 typedef _$DataTransferMemberTagihanNotifier
     = AutoDisposeNotifier<Map<String, dynamic>>;
 String _$tagihanModeNotifierHash() =>
-    r'80d5631a4c718006b6fd40b2d1885a96a9a3273d';
+    r'e456864b989ee5d0d541bcfc0d2b3f2000e4d8a2';
 
 /// See also [TagihanModeNotifier].
 @ProviderFor(TagihanModeNotifier)

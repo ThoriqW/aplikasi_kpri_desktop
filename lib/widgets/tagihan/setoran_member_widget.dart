@@ -9,30 +9,34 @@ import 'package:aplikasi_kpri_desktop/widgets/text_form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class UpdateTagihanMemberWidget extends ConsumerStatefulWidget {
-  const UpdateTagihanMemberWidget({
+class SetoranMemberWidget extends ConsumerStatefulWidget {
+  const SetoranMemberWidget({
     super.key,
   });
 
   @override
-  ConsumerState<UpdateTagihanMemberWidget> createState() =>
-      _UpdateTagihanMemberWidgetState();
+  ConsumerState<SetoranMemberWidget> createState() =>
+      SetoranMemberWidgettState();
 }
 
-class _UpdateTagihanMemberWidgetState
-    extends ConsumerState<UpdateTagihanMemberWidget> {
+class SetoranMemberWidgettState extends ConsumerState<SetoranMemberWidget> {
   final TextEditingController idMemberController = TextEditingController();
-  final TextEditingController simpananPokokController = TextEditingController();
-  final TextEditingController simpananWajibController = TextEditingController();
-  final TextEditingController danaSosialController = TextEditingController();
-  final TextEditingController sukarelaController = TextEditingController();
-  final TextEditingController pokokController = TextEditingController();
-  final TextEditingController bungaController = TextEditingController();
-  final TextEditingController barangController = TextEditingController();
-  final TextEditingController jangkaWaktuController = TextEditingController();
-  final TextEditingController jangkaWaktuKeController = TextEditingController();
-  final TextEditingController jmlPinjamanController = TextEditingController();
-  final TextEditingController jmlTagihanController = TextEditingController();
+  final TextEditingController jmlSetoranSimpananPokokController =
+      TextEditingController();
+  final TextEditingController jmlSetoranSimpananWajibController =
+      TextEditingController();
+  final TextEditingController jmlSetoranSimpananDanaSosialController =
+      TextEditingController();
+  final TextEditingController jmlSetoranSimpananSukarelaController =
+      TextEditingController();
+  final TextEditingController jmlSetoranPokokController =
+      TextEditingController();
+  final TextEditingController jmlSetoranBungaController =
+      TextEditingController();
+  final TextEditingController jmlSetoranBarangController =
+      TextEditingController();
+  final TextEditingController sisaTunggakanController = TextEditingController();
+  final TextEditingController keteranganController = TextEditingController();
   bool _isLoading = false;
   bool isInitialized = false;
   @override
@@ -43,63 +47,57 @@ class _UpdateTagihanMemberWidgetState
     if (!isInitialized) {
       idMemberController.text =
           dataTagihanMember['member_profile_id'].toString();
-      simpananPokokController.text =
-          dataTagihanMember['simpanan_pokok'] != '0.00'
+      jmlSetoranSimpananPokokController.text =
+          dataTagihanMember['jml_setoran_simpanan_pokok'] != '0.00'
               ? double.parse(
-                  dataTagihanMember['simpanan_pokok'].toString(),
+                  dataTagihanMember['jml_setoran_simpanan_pokok'].toString(),
                 ).round().toString()
               : '';
-      simpananWajibController.text =
-          dataTagihanMember['simpanan_wajib'] != '0.00'
+      jmlSetoranSimpananWajibController.text =
+          dataTagihanMember['jml_setoran_simpanan_wajib'] != '0.00'
               ? double.parse(
-                  dataTagihanMember['simpanan_wajib'].toString(),
+                  dataTagihanMember['jml_setoran_simpanan_wajib'].toString(),
                 ).round().toString()
               : '';
-      danaSosialController.text = dataTagihanMember['dana_sosial'] != '0.00'
-          ? double.parse(
-              dataTagihanMember['dana_sosial'].toString(),
-            ).round().toString()
-          : '';
-      sukarelaController.text = dataTagihanMember['sukarela'] != '0.00'
-          ? double.parse(
-              dataTagihanMember['sukarela'].toString(),
-            ).round().toString()
-          : '';
-      pokokController.text = dataTagihanMember['pokok'] != '0.00'
-          ? double.parse(
-              dataTagihanMember['pokok'].toString(),
-            ).round().toString()
-          : '';
-      bungaController.text = dataTagihanMember['bunga'] != '0.00'
-          ? double.parse(
-              dataTagihanMember['bunga'].toString(),
-            ).round().toString()
-          : '';
-      barangController.text = dataTagihanMember['barang'] != '0.00'
-          ? double.parse(
-              dataTagihanMember['barang'].toString(),
-            ).round().toString()
-          : '';
-      jangkaWaktuController.text = dataTagihanMember['jangka_waktu'] != '0'
-          ? double.parse(
-              dataTagihanMember['jangka_waktu'].toString(),
-            ).round().toString()
-          : '';
-      jangkaWaktuKeController.text = dataTagihanMember['jangka_waktu_ke'] != '0'
-          ? double.parse(
-              dataTagihanMember['jangka_waktu_ke'].toString(),
-            ).round().toString()
-          : '';
-      jmlPinjamanController.text = dataTagihanMember['jml_pinjaman'] != '0.00'
-          ? double.parse(
-              dataTagihanMember['jml_pinjaman'].toString(),
-            ).round().toString()
-          : '';
-      jmlTagihanController.text = dataTagihanMember['jml_tagihan'] != '0.00'
-          ? double.parse(
-              dataTagihanMember['jml_tagihan'].toString(),
-            ).round().toString()
-          : '';
+      jmlSetoranSimpananDanaSosialController.text =
+          dataTagihanMember['jml_setoran_dana_sosial'] != '0.00'
+              ? double.parse(
+                  dataTagihanMember['jml_setoran_dana_sosial'].toString(),
+                ).round().toString()
+              : '';
+      jmlSetoranSimpananSukarelaController.text =
+          dataTagihanMember['jml_setoran_sukarela'] != '0.00'
+              ? double.parse(
+                  dataTagihanMember['jml_setoran_sukarela'].toString(),
+                ).round().toString()
+              : '';
+      jmlSetoranPokokController.text =
+          dataTagihanMember['jml_setoran_pokok'] != '0.00'
+              ? double.parse(
+                  dataTagihanMember['jml_setoran_pokok'].toString(),
+                ).round().toString()
+              : '';
+      jmlSetoranBungaController.text =
+          dataTagihanMember['jml_setoran_bunga'] != '0.00'
+              ? double.parse(
+                  dataTagihanMember['jml_setoran_bunga'].toString(),
+                ).round().toString()
+              : '';
+      jmlSetoranBarangController.text =
+          dataTagihanMember['jml_setoran_barang'] != '0.00'
+              ? double.parse(
+                  dataTagihanMember['jml_setoran_barang'].toString(),
+                ).round().toString()
+              : '';
+      sisaTunggakanController.text =
+          dataTagihanMember['sisa_tunggakan'] != '0.00'
+              ? double.parse(
+                  dataTagihanMember['sisa_tunggakan'].toString(),
+                ).round().toString()
+              : '';
+
+      keteranganController.text = dataTagihanMember['keterangan'];
+
       isInitialized = true;
     }
     return CustomCardWidget(
@@ -115,14 +113,14 @@ class _UpdateTagihanMemberWidgetState
           ),
           const SizedBox(height: 20),
           Text(
-            "Update Tagihan Anggota ${dataTagihanMember['nama_member']}",
+            "Setoran Anggota ${dataTagihanMember['nama_member']}",
             style: const TextStyle(
               color: GlobalColors.primary,
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -136,7 +134,7 @@ class _UpdateTagihanMemberWidgetState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Simpanan Pokok",
+                              "Setoran Simpanan Pokok",
                               style: TextStyle(
                                 color: Theme.of(context)
                                     .colorScheme
@@ -146,63 +144,19 @@ class _UpdateTagihanMemberWidgetState
                             ),
                             const SizedBox(height: 5),
                             TextFormWidget(
-                                controller: simpananPokokController, text: ""),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Simpanan Wajib",
-                              style: TextStyle(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryContainer,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            TextFormWidget(
-                              controller: simpananWajibController,
+                              controller: jmlSetoranSimpananPokokController,
                               text: "",
                             ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Dana Sosial",
-                              style: TextStyle(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryContainer,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            TextFormWidget(
-                                controller: danaSosialController, text: ""),
-                          ],
-                        ),
-                      ),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Sukarela",
+                              "Setoran Simpanan Wajib",
                               style: TextStyle(
                                 color: Theme.of(context)
                                     .colorScheme
@@ -212,7 +166,8 @@ class _UpdateTagihanMemberWidgetState
                             ),
                             const SizedBox(height: 5),
                             TextFormWidget(
-                                controller: sukarelaController, text: ""),
+                                controller: jmlSetoranSimpananWajibController,
+                                text: ""),
                           ],
                         ),
                       ),
@@ -226,7 +181,7 @@ class _UpdateTagihanMemberWidgetState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Pokok",
+                              "Setoran Dana Sosial",
                               style: TextStyle(
                                 color: Theme.of(context)
                                     .colorScheme
@@ -236,120 +191,35 @@ class _UpdateTagihanMemberWidgetState
                             ),
                             const SizedBox(height: 5),
                             TextFormWidget(
-                                controller: pokokController, text: ""),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Bunga",
-                              style: TextStyle(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryContainer,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            TextFormWidget(
-                                controller: bungaController, text: ""),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Barang",
-                              style: TextStyle(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryContainer,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            TextFormWidget(
-                                controller: barangController, text: ""),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Jangka Waktu",
-                              style: TextStyle(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryContainer,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            TextFormWidget(
-                                controller: jangkaWaktuController, text: ""),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Jangka Waktu Ke",
-                              style: TextStyle(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryContainer,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            TextFormWidget(
-                                controller: jangkaWaktuKeController, text: ""),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Jumlah Pinjaman",
-                              style: TextStyle(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryContainer,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            TextFormWidget(
-                              controller: jmlPinjamanController,
+                              controller:
+                                  jmlSetoranSimpananDanaSosialController,
                               text: "",
                             ),
                           ],
                         ),
                       ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Setoran Sukarela",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            TextFormWidget(
+                                controller:
+                                    jmlSetoranSimpananSukarelaController,
+                                text: ""),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -360,7 +230,7 @@ class _UpdateTagihanMemberWidgetState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Jumlah Tagihan",
+                              "Setoran Pokok",
                               style: TextStyle(
                                 color: Theme.of(context)
                                     .colorScheme
@@ -370,9 +240,99 @@ class _UpdateTagihanMemberWidgetState
                             ),
                             const SizedBox(height: 5),
                             TextFormWidget(
-                                controller: jmlTagihanController, text: ""),
+                              controller: jmlSetoranPokokController,
+                              text: "",
+                            ),
                           ],
                         ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Setoran Bunga",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            TextFormWidget(
+                                controller: jmlSetoranBungaController,
+                                text: ""),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Setoran Barang",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            TextFormWidget(
+                              controller: jmlSetoranBarangController,
+                              text: "",
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Sisa Tunggakan",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            TextFormWidget(
+                              controller: sisaTunggakanController,
+                              text: '',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Keterangan",
+                        style: TextStyle(
+                          color:
+                              Theme.of(context).colorScheme.onPrimaryContainer,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      TextFormWidget(
+                        controller: keteranganController,
+                        text: "",
                       ),
                     ],
                   ),
@@ -408,17 +368,18 @@ class _UpdateTagihanMemberWidgetState
         bulan,
         {
           "member_profile_id": idMemberController.text,
-          "simpanan_pokok": simpananPokokController.text,
-          "simpanan_wajib": simpananWajibController.text,
-          "dana_sosial": danaSosialController.text,
-          "sukarela": sukarelaController.text,
-          "pokok": pokokController.text,
-          "bunga": bungaController.text,
-          "barang": barangController.text,
-          "jangka_waktu": jangkaWaktuController.text,
-          "jangka_waktu_ke": jangkaWaktuKeController.text,
-          "jumlah_pinjaman": jmlPinjamanController.text,
-          "jumlah_tagihan": jmlTagihanController.text,
+          "jumlah_setoran_simpanan_pokok":
+              jmlSetoranSimpananPokokController.text,
+          "jumlah_setoran_simpanan_wajib":
+              jmlSetoranSimpananWajibController.text,
+          "jumlah_setoran_dana_sosial":
+              jmlSetoranSimpananDanaSosialController.text,
+          "jumlah_setoran_sukarela": jmlSetoranSimpananSukarelaController.text,
+          "jumlah_setoran_pokok": jmlSetoranPokokController.text,
+          "jumlah_setoran_bunga": jmlSetoranBungaController.text,
+          "jumlah_setoran_barang": jmlSetoranBarangController.text,
+          "sisa_tunggakan": sisaTunggakanController.text,
+          "keterangan": keteranganController.text,
         },
       ).future);
       if (!mounted) return;

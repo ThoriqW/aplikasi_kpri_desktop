@@ -389,7 +389,8 @@ enum TagihanMode {
   view,
   editTagihan,
   transferMemberTagihan,
-  updateTagihanMember
+  updateTagihanMember,
+  setoranMember,
 }
 
 @riverpod
@@ -400,6 +401,7 @@ class TagihanModeNotifier extends _$TagihanModeNotifier {
   void switchToView() => state = TagihanMode.view;
   void switchToeditTagihan() => state = TagihanMode.editTagihan;
   void switchToUpdateTagihanMember() => state = TagihanMode.updateTagihanMember;
+  void switchToSetoranMember() => state = TagihanMode.setoranMember;
   void switchToTransferTagihanMember() =>
       state = TagihanMode.transferMemberTagihan;
 }

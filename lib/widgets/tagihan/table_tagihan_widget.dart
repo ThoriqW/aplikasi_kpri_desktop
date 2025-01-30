@@ -317,6 +317,46 @@ class TableTagihanWidget extends ConsumerWidget {
                 IconButton(
                   onPressed: () {
                     ref
+                        .watch(dataMemberTagihanNotifierProvider.notifier)
+                        .setData(
+                          entry['member_profile_id'],
+                          entry['nama_lengkap'].toString(),
+                          bills['simpanan_pokok'].toString(),
+                          bills['simpanan_wajib'].toString(),
+                          bills['dana_sosial'].toString(),
+                          bills['sukarela'].toString(),
+                          bills['pokok'].toString(),
+                          bills['bunga'].toString(),
+                          bills['barang'].toString(),
+                          bills['jangka_waktu'].toString(),
+                          bills['jangka_waktu_ke'].toString(),
+                          bills['jumlah_pinjaman'].toString(),
+                          bills['jumlah_tagihan'].toString(),
+                          bills['jumlah_setoran_simpanan_pokok'].toString(),
+                          bills['jumlah_setoran_simpanan_wajib'].toString(),
+                          bills['jumlah_setoran_dana_sosial'].toString(),
+                          bills['jumlah_setoran_sukarela'].toString(),
+                          bills['jumlah_setoran_pokok'].toString(),
+                          bills['jumlah_setoran_bunga'].toString(),
+                          bills['jumlah_setoran_barang'].toString(),
+                          bills['sisa_tunggakan'].toString(),
+                          bills['keterangan'].toString(),
+                          tahun,
+                          bulan,
+                        );
+                    ref
+                        .watch(tagihanModeNotifierProvider.notifier)
+                        .switchToSetoranMember();
+                  },
+                  icon: const Icon(
+                    Icons.money,
+                    size: 18,
+                    color: GlobalColors.primary,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    ref
                         .watch(
                             dataTransferMemberTagihanNotifierProvider.notifier)
                         .setData(
