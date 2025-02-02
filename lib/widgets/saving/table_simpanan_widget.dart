@@ -243,92 +243,95 @@ class TableSimpananWidget extends ConsumerWidget {
             entry['work_unit'],
             entry['nomor_anggota'],
             entry['tahun'],
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    child: Text(
-                      entry['previous_years'][0]['total_pokok'].toString() !=
-                              '0.00'
-                          ? NumberFormat.currency(
-                              locale: 'id',
-                              symbol: '',
-                              decimalDigits: 0,
-                            ).format(
-                              double.parse(
-                                entry['previous_years'][0]['total_pokok']
-                                    .toString(),
-                              ),
-                            )
-                          : '',
+            for (int j = 0; j < entry['previous_years'].length; j++)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
+                      child: Text(
+                        entry['previous_years'][j]['total_pokok'].toString() !=
+                                '0.00'
+                            ? NumberFormat.currency(
+                                locale: 'id',
+                                symbol: '',
+                                decimalDigits: 0,
+                              ).format(
+                                double.parse(
+                                  entry['previous_years'][j]['total_pokok']
+                                      .toString(),
+                                ),
+                              )
+                            : '',
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    child: Text(
-                      entry['previous_years'][0]['total_wajib'].toString() !=
-                              '0.00'
-                          ? NumberFormat.currency(
-                              locale: 'id',
-                              symbol: '',
-                              decimalDigits: 0,
-                            ).format(
-                              double.parse(
-                                entry['previous_years'][0]['total_wajib']
-                                    .toString(),
-                              ),
-                            )
-                          : '',
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
+                      child: Text(
+                        entry['previous_years'][j]['total_wajib'].toString() !=
+                                '0.00'
+                            ? NumberFormat.currency(
+                                locale: 'id',
+                                symbol: '',
+                                decimalDigits: 0,
+                              ).format(
+                                double.parse(
+                                  entry['previous_years'][j]['total_wajib']
+                                      .toString(),
+                                ),
+                              )
+                            : '',
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    child: Text(
-                      entry['previous_years'][0]['total_sukarela'].toString() !=
-                              '0.00'
-                          ? NumberFormat.currency(
-                              locale: 'id',
-                              symbol: '',
-                              decimalDigits: 0,
-                            ).format(
-                              double.parse(
-                                entry['previous_years'][0]['total_sukarela']
-                                    .toString(),
-                              ),
-                            )
-                          : '',
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
+                      child: Text(
+                        entry['previous_years'][j]['total_sukarela']
+                                    .toString() !=
+                                '0.00'
+                            ? NumberFormat.currency(
+                                locale: 'id',
+                                symbol: '',
+                                decimalDigits: 0,
+                              ).format(
+                                double.parse(
+                                  entry['previous_years'][j]['total_sukarela']
+                                      .toString(),
+                                ),
+                              )
+                            : '',
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    child: Text(
-                      entry['previous_years'][0]['total_dana_sosial']
-                                  .toString() !=
-                              '0.00'
-                          ? NumberFormat.currency(
-                              locale: 'id',
-                              symbol: '',
-                              decimalDigits: 0,
-                            ).format(
-                              double.parse(
-                                entry['previous_years'][0]['total_dana_sosial']
-                                    .toString(),
-                              ),
-                            )
-                          : '',
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
+                      child: Text(
+                        entry['previous_years'][j]['total_dana_sosial']
+                                    .toString() !=
+                                '0.00'
+                            ? NumberFormat.currency(
+                                locale: 'id',
+                                symbol: '',
+                                decimalDigits: 0,
+                              ).format(
+                                double.parse(
+                                  entry['previous_years'][j]
+                                          ['total_dana_sosial']
+                                      .toString(),
+                                ),
+                              )
+                            : '',
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
             entry['previous_years'][0]['accumulated_savings'] != '0.00'
                 ? NumberFormat.currency(
                     locale: 'id',
@@ -543,98 +546,101 @@ class TableSimpananWidget extends ConsumerWidget {
           "UNIT KERJA",
           "NOMOR ANGGOTA",
           "TAHUN",
-          Column(
-            children: [
-              Flexible(
-                child: Container(
-                  color: GlobalColors.secondary,
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(5),
-                  child: const Center(
-                    child: Text(
-                      "TOTAL SIMPANAN SEBELUMNYA",
-                      style: TextStyle(
-                        color: GlobalColors.primary,
-                        fontWeight: FontWeight.bold,
+          for (int j = 0; j < savingResponse[0]['previous_years'].length; j++)
+            Column(
+              children: [
+                Flexible(
+                  child: Container(
+                    color: GlobalColors.secondary,
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(5),
+                    child: Center(
+                      child: Text(
+                        savingResponse[j]['previous_years'][j]['tahun']
+                            .toString(),
+                        style: const TextStyle(
+                          color: GlobalColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Flexible(
-                child: Row(
-                  children: [
-                    Flexible(
-                      child: Container(
-                        color: Theme.of(context).colorScheme.tertiaryContainer,
-                        padding: const EdgeInsets.all(5),
-                        child: Center(
-                          child: Text(
-                            "POKOK",
-                            style: TextStyle(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onTertiaryContainer,
-                              fontWeight: FontWeight.bold,
+                Flexible(
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: Container(
+                          color:
+                              Theme.of(context).colorScheme.tertiaryContainer,
+                          padding: const EdgeInsets.all(5),
+                          child: Center(
+                            child: Text(
+                              "POKOK",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onTertiaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    Flexible(
-                      child: Container(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                        padding: const EdgeInsets.all(5),
-                        child: Center(
-                          child: Text(
-                            "WAJIB",
-                            style: TextStyle(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onPrimaryContainer,
-                              fontWeight: FontWeight.bold,
+                      Flexible(
+                        child: Container(
+                          color: Theme.of(context).colorScheme.primaryContainer,
+                          padding: const EdgeInsets.all(5),
+                          child: Center(
+                            child: Text(
+                              "WAJIB",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    Flexible(
-                      child: Container(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .surfaceContainerHighest,
-                        padding: const EdgeInsets.all(5),
-                        child: Center(
-                          child: Text(
-                            "SUKA RELA",
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              fontWeight: FontWeight.bold,
+                      Flexible(
+                        child: Container(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .surfaceContainerHighest,
+                          padding: const EdgeInsets.all(5),
+                          child: Center(
+                            child: Text(
+                              "SUKA RELA",
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    Flexible(
-                      child: Container(
-                        color: Theme.of(context).colorScheme.inversePrimary,
-                        padding: const EdgeInsets.all(5),
-                        child: Center(
-                          child: Text(
-                            "DANA SOSIAL",
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              fontWeight: FontWeight.bold,
+                      Flexible(
+                        child: Container(
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                          padding: const EdgeInsets.all(5),
+                          child: Center(
+                            child: Text(
+                              "DANA SOSIAL",
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           'TOTAL',
           ...bulanSavings,
           'TOTAL POKOK',
