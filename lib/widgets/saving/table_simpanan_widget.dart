@@ -330,20 +330,30 @@ class TableSimpananWidget extends ConsumerWidget {
                       ),
                     ),
                   ),
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
+                      child: Text(
+                        entry['previous_years'][j]['accumulated_savings']
+                                    .toString() !=
+                                '0.00'
+                            ? NumberFormat.currency(
+                                locale: 'id',
+                                symbol: '',
+                                decimalDigits: 0,
+                              ).format(
+                                double.parse(
+                                  entry['previous_years'][j]
+                                          ['accumulated_savings']
+                                      .toString(),
+                                ),
+                              )
+                            : '',
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            entry['previous_years'][0]['accumulated_savings'] != '0.00'
-                ? NumberFormat.currency(
-                    locale: 'id',
-                    symbol: '',
-                    decimalDigits: 0,
-                  ).format(
-                    double.parse(
-                      entry['previous_years'][0]['accumulated_savings']
-                          .toString(),
-                    ),
-                  )
-                : '',
             ...savings,
             entry['total_pokok'].toString() != '0.00'
                 ? NumberFormat.currency(
@@ -636,12 +646,26 @@ class TableSimpananWidget extends ConsumerWidget {
                           ),
                         ),
                       ),
+                      Flexible(
+                        child: Container(
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                          padding: const EdgeInsets.all(5),
+                          child: Center(
+                            child: Text(
+                              "TOTAL",
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 )
               ],
             ),
-          'TOTAL',
           ...bulanSavings,
           'TOTAL POKOK',
           'TOTAL WAJIB',
