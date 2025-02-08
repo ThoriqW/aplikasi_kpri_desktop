@@ -622,7 +622,7 @@ class TableSimpananWidget extends ConsumerWidget {
                           padding: const EdgeInsets.all(5),
                           child: Center(
                             child: Text(
-                              "SUKA RELA",
+                              "SUKARELA",
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.onSurface,
                                 fontWeight: FontWeight.bold,
@@ -637,7 +637,7 @@ class TableSimpananWidget extends ConsumerWidget {
                           padding: const EdgeInsets.all(5),
                           child: Center(
                             child: Text(
-                              "DANA SOSIAL",
+                              "SOSIAL",
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.onSurface,
                                 fontWeight: FontWeight.bold,
@@ -648,7 +648,7 @@ class TableSimpananWidget extends ConsumerWidget {
                       ),
                       Flexible(
                         child: Container(
-                          color: Theme.of(context).colorScheme.inversePrimary,
+                          color: Theme.of(context).colorScheme.primaryFixed,
                           padding: const EdgeInsets.all(5),
                           child: Center(
                             child: Text(
