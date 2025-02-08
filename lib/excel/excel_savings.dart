@@ -15,11 +15,13 @@ class ExcelSavings extends ConsumerStatefulWidget {
     required this.bulan,
     required this.tahun,
     required this.workUnitId,
+    required this.totalPage,
   });
 
   final List<String> bulan;
   final int tahun;
   final int workUnitId;
+  final int totalPage;
 
   @override
   ConsumerState<ExcelSavings> createState() => _ExcelSavingsState();
@@ -63,7 +65,7 @@ class _ExcelSavingsState extends ConsumerState<ExcelSavings> {
           widget.tahun,
           widget.workUnitId,
           '',
-          0,
+          widget.totalPage,
           0,
         ).future,
       ) as Map<String, dynamic>;
@@ -89,6 +91,7 @@ class _ExcelSavingsState extends ConsumerState<ExcelSavings> {
       }
 
       List<dynamic> savings = data['data'] ?? [];
+
       List<String> header = [
         "NO",
         "UNIT KERJA",
@@ -102,11 +105,13 @@ class _ExcelSavingsState extends ConsumerState<ExcelSavings> {
         "POKOK",
         "WAJIB",
         "SUKA RELA",
+        "DANA SOSIAL",
       ];
       List<String> colorSubHeader = [
         "#16423C",
         "#0D7C66",
         "#00712D",
+        "#003366",
       ];
       List<String> propertyHeaderSavings = [
         "work_unit",
@@ -116,14 +121,14 @@ class _ExcelSavingsState extends ConsumerState<ExcelSavings> {
       ];
 
       Excel excel = Excel.createExcel();
-      excel.rename('Sheet1', savings[0]['work_unit'].toString());
-      Sheet sheet = excel[savings[0]['work_unit'].toString()];
+      excel.rename('Sheet1', savings[0]['tahun'].toString());
+      Sheet sheet = excel[savings[0]['tahun'].toString()];
 
       //HEADER
       for (int i = 0; i < header.length; i++) {
         if (i > 4) {
-          int startColumn = 5 + (i - 5) * 3;
-          int endColumn = startColumn + 2;
+          int startColumn = 5 + (i - 5) * 4;
+          int endColumn = startColumn + 3;
           if (i == header.length - 1) {
             sheet.merge(
                 CellIndex.indexByColumnRow(
@@ -225,15 +230,17 @@ class _ExcelSavingsState extends ConsumerState<ExcelSavings> {
           var cellPokok = sheet.cell(CellIndex.indexByColumnRow(
               columnIndex: startColumn, rowIndex: 2 + n));
           cellPokok.value = TextCellValue(
-            NumberFormat.currency(
-              locale: 'id',
-              symbol: 'Rp',
-              decimalDigits: 0,
-            ).format(
-              double.parse(
-                savings[n]['savings'][t]['pokok'],
-              ),
-            ),
+            savings[n]['savings'][t]['sukarela'].toString() != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      savings[n]['savings'][t]['sukarela'].toString(),
+                    ),
+                  )
+                : '',
           );
           cellPokok.cellStyle = CellStyle(
             horizontalAlign: HorizontalAlign.Center,
@@ -242,15 +249,17 @@ class _ExcelSavingsState extends ConsumerState<ExcelSavings> {
           var cellWajib = sheet.cell(CellIndex.indexByColumnRow(
               columnIndex: startColumn + 1, rowIndex: 2 + n));
           cellWajib.value = TextCellValue(
-            NumberFormat.currency(
-              locale: 'id',
-              symbol: 'Rp',
-              decimalDigits: 0,
-            ).format(
-              double.parse(
-                savings[n]['savings'][t]['wajib'],
-              ),
-            ),
+            savings[n]['savings'][t]['wajib'].toString() != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      savings[n]['savings'][t]['wajib'].toString(),
+                    ),
+                  )
+                : '',
           );
           cellWajib.cellStyle = CellStyle(
             horizontalAlign: HorizontalAlign.Center,
@@ -259,17 +268,38 @@ class _ExcelSavingsState extends ConsumerState<ExcelSavings> {
           var cellSukaRela = sheet.cell(CellIndex.indexByColumnRow(
               columnIndex: startColumn + 2, rowIndex: 2 + n));
           cellSukaRela.value = TextCellValue(
-            NumberFormat.currency(
-              locale: 'id',
-              symbol: 'Rp',
-              decimalDigits: 0,
-            ).format(
-              double.parse(
-                savings[n]['savings'][t]['sukarela'],
-              ),
-            ),
+            savings[n]['savings'][t]['sukarela'].toString() != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      savings[n]['savings'][t]['sukarela'].toString(),
+                    ),
+                  )
+                : '',
           );
           cellSukaRela.cellStyle = CellStyle(
+            horizontalAlign: HorizontalAlign.Center,
+            verticalAlign: VerticalAlign.Center,
+          );
+          var cellDanaSosial = sheet.cell(CellIndex.indexByColumnRow(
+              columnIndex: startColumn + 2, rowIndex: 2 + n));
+          cellDanaSosial.value = TextCellValue(
+            savings[n]['savings'][t]['dana_sosial'].toString() != '0.00'
+                ? NumberFormat.currency(
+                    locale: 'id',
+                    symbol: '',
+                    decimalDigits: 0,
+                  ).format(
+                    double.parse(
+                      savings[n]['savings'][t]['dana_sosial'].toString(),
+                    ),
+                  )
+                : '',
+          );
+          cellDanaSosial.cellStyle = CellStyle(
             horizontalAlign: HorizontalAlign.Center,
             verticalAlign: VerticalAlign.Center,
           );
@@ -277,15 +307,17 @@ class _ExcelSavingsState extends ConsumerState<ExcelSavings> {
         var cellTotalSimpanan = sheet.cell(CellIndex.indexByColumnRow(
             columnIndex: sheet.maxColumns - 1, rowIndex: 2 + n));
         cellTotalSimpanan.value = TextCellValue(
-          NumberFormat.currency(
-            locale: 'id',
-            symbol: 'Rp',
-            decimalDigits: 0,
-          ).format(
-            double.parse(
-              savings[n]['total_savings'].toString(),
-            ),
-          ),
+          savings[n]['total_savings'].toString() != '0.00'
+              ? NumberFormat.currency(
+                  locale: 'id',
+                  symbol: '',
+                  decimalDigits: 0,
+                ).format(
+                  double.parse(
+                    savings[n]['total_savings'].toString(),
+                  ),
+                )
+              : '',
         );
         cellTotalSimpanan.cellStyle = CellStyle(
           horizontalAlign: HorizontalAlign.Center,
@@ -310,13 +342,22 @@ class _ExcelSavingsState extends ConsumerState<ExcelSavings> {
       }
 
       final directory = await getApplicationDocumentsDirectory();
-      String path =
-          '${directory.path}/Simpanan Anggota ${savings[0]['work_unit'].toString()}.xlsx';
-
       final bytes = excel.save();
-      File(path)
-        ..createSync(recursive: true)
-        ..writeAsBytesSync(bytes!);
+      if (widget.workUnitId > 0) {
+        String path =
+            '${directory.path}/Simpanan Anggota ${savings[0]['work_unit'].toString()} tahun ${widget.tahun}.xlsx';
+
+        File(path)
+          ..createSync(recursive: true)
+          ..writeAsBytesSync(bytes!);
+      } else {
+        String path =
+            '${directory.path}/Simpanan Anggota tahun ${widget.tahun}.xlsx';
+
+        File(path)
+          ..createSync(recursive: true)
+          ..writeAsBytesSync(bytes!);
+      }
       if (!mounted) return;
       showDialog(
         context: context,

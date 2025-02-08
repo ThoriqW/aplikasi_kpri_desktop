@@ -736,6 +736,7 @@ class TableSimpananWidget extends ConsumerWidget {
                       bulan: bulan,
                       tahun: tahun,
                       workUnitId: workUnitId,
+                      totalPage: totalMember,
                     )
                   ],
                 ),
