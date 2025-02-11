@@ -59,7 +59,10 @@ class CustomDataTableState<T> extends State<CustomDataTable<T>> {
             columns: [
               DataColumn(
                   label: _buildChild(
-                      widget.fixedColWidth, widget.fixedColCells.first))
+                      widget.cellWidthWidget == 150
+                          ? widget.cellWidth
+                          : widget.cellWidthWidget,
+                      widget.fixedColCells.first))
             ],
             rows: widget.fixedColCells
                 .sublist(widget.fixedRowCells.isEmpty ? 1 : 0)
@@ -68,7 +71,11 @@ class CustomDataTableState<T> extends State<CustomDataTable<T>> {
                 return DataRow(
                   cells: [
                     DataCell(
-                      _buildChild(widget.fixedColWidth, c),
+                      _buildChild(
+                          widget.cellWidthWidget == 150
+                              ? widget.cellWidth
+                              : widget.cellWidthWidget,
+                          c),
                     )
                   ],
                 );
@@ -85,7 +92,7 @@ class CustomDataTableState<T> extends State<CustomDataTable<T>> {
               ? widget.cellHeight
               : widget.cellHeightWidget,
           columns: widget.fixedRowCells.map((c) {
-            if (c == 'STATUS' || c == 'AKSI' || c is Widget) {
+            if (c == 'STATUS' || c is Widget) {
               return DataColumn(
                 label: _buildHeader(
                   widget.cellWidthWidget == 150
@@ -166,7 +173,9 @@ class CustomDataTableState<T> extends State<CustomDataTable<T>> {
                 columns: [
                   DataColumn(
                     label: _buildHeader(
-                      widget.fixedColWidth,
+                      widget.cellWidthWidget == 150
+                          ? widget.cellWidth
+                          : widget.cellWidthWidget,
                       widget.fixedCornerCell,
                     ),
                   ),

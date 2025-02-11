@@ -271,130 +271,88 @@ class TableTagihanWidget extends ConsumerWidget {
                   )
                 : '',
             bills['keterangan'],
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    ref
-                        .watch(dataMemberTagihanNotifierProvider.notifier)
-                        .setData(
-                          entry['member_profile_id'],
-                          entry['nama_lengkap'].toString(),
-                          bills['simpanan_pokok'].toString(),
-                          bills['simpanan_wajib'].toString(),
-                          bills['dana_sosial'].toString(),
-                          bills['sukarela'].toString(),
-                          bills['pokok'].toString(),
-                          bills['bunga'].toString(),
-                          bills['barang'].toString(),
-                          bills['jangka_waktu'].toString(),
-                          bills['jangka_waktu_ke'].toString(),
-                          bills['jumlah_pinjaman'].toString(),
-                          bills['jumlah_tagihan'].toString(),
-                          bills['jumlah_setoran_simpanan_pokok'].toString(),
-                          bills['jumlah_setoran_simpanan_wajib'].toString(),
-                          bills['jumlah_setoran_dana_sosial'].toString(),
-                          bills['jumlah_setoran_sukarela'].toString(),
-                          bills['jumlah_setoran_pokok'].toString(),
-                          bills['jumlah_setoran_bunga'].toString(),
-                          bills['jumlah_setoran_barang'].toString(),
-                          bills['sisa_tunggakan'].toString(),
-                          bills['keterangan'].toString(),
-                          tahun,
-                          bulan,
-                        );
-                    ref
-                        .watch(tagihanModeNotifierProvider.notifier)
-                        .switchToUpdateTagihanMember();
-                  },
-                  icon: const Icon(
-                    Icons.edit,
-                    size: 18,
-                    color: GlobalColors.primary,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    ref
-                        .watch(dataMemberTagihanNotifierProvider.notifier)
-                        .setData(
-                          entry['member_profile_id'],
-                          entry['nama_lengkap'].toString(),
-                          bills['simpanan_pokok'].toString(),
-                          bills['simpanan_wajib'].toString(),
-                          bills['dana_sosial'].toString(),
-                          bills['sukarela'].toString(),
-                          bills['pokok'].toString(),
-                          bills['bunga'].toString(),
-                          bills['barang'].toString(),
-                          bills['jangka_waktu'].toString(),
-                          bills['jangka_waktu_ke'].toString(),
-                          bills['jumlah_pinjaman'].toString(),
-                          bills['jumlah_tagihan'].toString(),
-                          bills['jumlah_setoran_simpanan_pokok'].toString(),
-                          bills['jumlah_setoran_simpanan_wajib'].toString(),
-                          bills['jumlah_setoran_dana_sosial'].toString(),
-                          bills['jumlah_setoran_sukarela'].toString(),
-                          bills['jumlah_setoran_pokok'].toString(),
-                          bills['jumlah_setoran_bunga'].toString(),
-                          bills['jumlah_setoran_barang'].toString(),
-                          bills['sisa_tunggakan'].toString(),
-                          bills['keterangan'].toString(),
-                          tahun,
-                          bulan,
-                        );
-                    ref
-                        .watch(tagihanModeNotifierProvider.notifier)
-                        .switchToSetoranMember();
-                  },
-                  icon: const Icon(
-                    Icons.money,
-                    size: 18,
-                    color: GlobalColors.primary,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    ref
-                        .watch(
-                            dataTransferMemberTagihanNotifierProvider.notifier)
-                        .setData(
-                          entry['member_profile_id'].toString(),
-                          entry['nama_lengkap'].toString(),
-                          entry['work_unit_id'].toString(),
-                          entry['work_unit'].toString(),
-                          entry['tahun'].toString(),
-                          entry['bulan'].toString(),
-                        );
-                    ref
-                        .watch(
-                          tagihanModeNotifierProvider.notifier,
-                        )
-                        .switchToTransferTagihanMember();
-                  },
-                  icon: const Icon(
-                    Icons.move_up,
-                    size: 18,
-                    color: GlobalColors.primary,
-                  ),
-                ),
-                DeleteMemberTagihanWidget(
-                  tahun: tahun,
-                  workUnitId: workUnitId,
-                  searchQuery: searchQuery,
-                  perPage: perPage,
-                  currentPage: currentPage,
-                  bulan: bulan,
-                  memberId: entry['member_profile_id'],
-                )
-              ],
-            ),
           ];
         }).toList();
 
-        final fixedColCells =
-            bills.map((entry) => entry["nama_lengkap"].toString()).toList();
+        final fixedColCells = bills.map((entry) {
+          var bills = entry['bills'].first;
+          return Row(
+            children: [
+              DeleteMemberTagihanWidget(
+                tahun: tahun,
+                workUnitId: workUnitId,
+                searchQuery: searchQuery,
+                perPage: perPage,
+                currentPage: currentPage,
+                bulan: bulan,
+                memberId: entry['member_profile_id'],
+              ),
+              IconButton(
+                onPressed: () {
+                  ref.watch(dataMemberTagihanNotifierProvider.notifier).setData(
+                        entry['member_profile_id'],
+                        entry['nama_lengkap'].toString(),
+                        bills['simpanan_pokok'].toString(),
+                        bills['simpanan_wajib'].toString(),
+                        bills['dana_sosial'].toString(),
+                        bills['sukarela'].toString(),
+                        bills['pokok'].toString(),
+                        bills['bunga'].toString(),
+                        bills['barang'].toString(),
+                        bills['jangka_waktu'].toString(),
+                        bills['jangka_waktu_ke'].toString(),
+                        bills['jumlah_pinjaman'].toString(),
+                        bills['jumlah_tagihan'].toString(),
+                        bills['jumlah_setoran_simpanan_pokok'].toString(),
+                        bills['jumlah_setoran_simpanan_wajib'].toString(),
+                        bills['jumlah_setoran_dana_sosial'].toString(),
+                        bills['jumlah_setoran_sukarela'].toString(),
+                        bills['jumlah_setoran_pokok'].toString(),
+                        bills['jumlah_setoran_bunga'].toString(),
+                        bills['jumlah_setoran_barang'].toString(),
+                        bills['sisa_tunggakan'].toString(),
+                        bills['keterangan'].toString(),
+                        tahun,
+                        bulan,
+                      );
+                  ref
+                      .watch(tagihanModeNotifierProvider.notifier)
+                      .switchToUpdateTagihanMember();
+                },
+                icon: const Icon(
+                  Icons.edit,
+                  size: 18,
+                  color: GlobalColors.primary,
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  ref
+                      .watch(dataTransferMemberTagihanNotifierProvider.notifier)
+                      .setData(
+                        entry['member_profile_id'].toString(),
+                        entry['nama_lengkap'].toString(),
+                        entry['work_unit_id'].toString(),
+                        entry['work_unit'].toString(),
+                        entry['tahun'].toString(),
+                        entry['bulan'].toString(),
+                      );
+                  ref
+                      .watch(
+                        tagihanModeNotifierProvider.notifier,
+                      )
+                      .switchToTransferTagihanMember();
+                },
+                icon: const Icon(
+                  Icons.move_up,
+                  size: 18,
+                  color: GlobalColors.primary,
+                ),
+              ),
+              Flexible(child: Text(entry["nama_lengkap"].toString())),
+            ],
+          );
+        }).toList();
 
         final fixedRowCells = [
           "UNIT KERJA",
@@ -422,7 +380,6 @@ class TableTagihanWidget extends ConsumerWidget {
           "SETORAN BARANG",
           "SISA TUNGGAKAN",
           "KETERANGAN",
-          'AKSI',
         ];
 
         return Column(
@@ -467,7 +424,7 @@ class TableTagihanWidget extends ConsumerWidget {
                   rowsCells: rowsCells,
                   fixedColCells: fixedColCells,
                   fixedRowCells: fixedRowCells,
-                  cellWidth: 250,
+                  cellWidth: 300,
                   cellBuilder: (data) {
                     if (data is Widget) {
                       return data;
@@ -477,17 +434,6 @@ class TableTagihanWidget extends ConsumerWidget {
                   headerBuilder: (data) {
                     if (data is Widget) {
                       return data;
-                    }
-                    if (data == 'STATUS' || data == 'AKSI') {
-                      return Center(
-                        child: Text(
-                          data,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.onSurface,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      );
                     }
                     return Text(
                       '$data',

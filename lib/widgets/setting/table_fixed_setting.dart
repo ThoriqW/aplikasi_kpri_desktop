@@ -47,45 +47,42 @@ class TableFixedSettingWidget extends ConsumerWidget {
                   entry["statusenabled"],
                   entry["nilai"],
                   entry["deskripsi"],
-                  ...[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(2),
-                          child: IconButton(
-                            onPressed: () {
-                              ref
-                                  .watch(idFixedSettingProvider.notifier)
-                                  .setId(entry['id']);
-                              ref
-                                  .watch(
-                                    settingModeNotifierProvider.notifier,
-                                  )
-                                  .switchToEditFixedSetting();
-                            },
-                            icon: const Icon(
-                              Icons.edit,
-                              size: 18,
-                              color: GlobalColors.primary,
-                            ),
-                          ),
-                        ),
-                        DeleteFixedSettingWidget(id: entry['id'].toString())
-                      ],
-                    ),
-                  ],
                 ])
             .toList();
 
-        final fixedColCells =
-            fixedSettings.map((entry) => entry["nama"].toString()).toList();
+        final fixedColCells = fixedSettings.map((entry) {
+          return Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(2),
+                child: IconButton(
+                  onPressed: () {
+                    ref
+                        .watch(idFixedSettingProvider.notifier)
+                        .setId(entry['id']);
+                    ref
+                        .watch(
+                          settingModeNotifierProvider.notifier,
+                        )
+                        .switchToEditFixedSetting();
+                  },
+                  icon: const Icon(
+                    Icons.edit,
+                    size: 18,
+                    color: GlobalColors.primary,
+                  ),
+                ),
+              ),
+              DeleteFixedSettingWidget(id: entry['id'].toString()),
+              Flexible(child: Text(entry["nama"].toString()))
+            ],
+          );
+        }).toList();
 
         final fixedRowCells = [
           "STATUS SETTING",
           "NILAI",
           'DESKRIPSI',
-          'AKSI',
         ];
 
         Future.microtask(() {
@@ -100,7 +97,7 @@ class TableFixedSettingWidget extends ConsumerWidget {
             Flexible(
               child: Container(
                 padding: const EdgeInsets.all(10),
-                width: 1000,
+                width: 800,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Theme.of(context).colorScheme.surfaceDim,
@@ -122,17 +119,6 @@ class TableFixedSettingWidget extends ConsumerWidget {
                   headerBuilder: (data) {
                     if (data is Widget) {
                       return data;
-                    }
-                    if (data == 'STATUS' || data == 'AKSI') {
-                      return Center(
-                        child: Text(
-                          data,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.onSurface,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      );
                     }
                     return Text(
                       '$data',

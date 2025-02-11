@@ -47,44 +47,41 @@ class TableWorkUnitWidget extends ConsumerWidget {
             .map((entry) => [
                   entry["id"],
                   entry["kode"],
-                  ...[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(2),
-                          child: IconButton(
-                            onPressed: () {
-                              ref
-                                  .watch(idWorkUnitNotifierProvider.notifier)
-                                  .setId(entry['id']);
-                              ref
-                                  .watch(
-                                    adminModeNotifierProvider.notifier,
-                                  )
-                                  .switchToEditWorkUnit();
-                            },
-                            icon: const Icon(
-                              Icons.edit,
-                              size: 18,
-                              color: GlobalColors.primary,
-                            ),
-                          ),
-                        ),
-                        DeleteWorkUnitWidget(id: entry['id'].toString())
-                      ],
-                    ),
-                  ],
                 ])
             .toList();
 
-        final fixedColCells =
-            workUnits.map((entry) => entry["nama"].toString()).toList();
+        final fixedColCells = workUnits.map((entry) {
+          return Row(
+            children: [
+              DeleteWorkUnitWidget(id: entry['id'].toString()),
+              Container(
+                padding: const EdgeInsets.all(2),
+                child: IconButton(
+                  onPressed: () {
+                    ref
+                        .watch(idWorkUnitNotifierProvider.notifier)
+                        .setId(entry['id']);
+                    ref
+                        .watch(
+                          adminModeNotifierProvider.notifier,
+                        )
+                        .switchToEditWorkUnit();
+                  },
+                  icon: const Icon(
+                    Icons.edit,
+                    size: 18,
+                    color: GlobalColors.primary,
+                  ),
+                ),
+              ),
+              Flexible(child: Text(entry["nama"].toString())),
+            ],
+          );
+        }).toList();
 
         final fixedRowCells = [
           "ID",
           "KODE",
-          'AKSI',
         ];
 
         Future.microtask(() {
@@ -97,7 +94,7 @@ class TableWorkUnitWidget extends ConsumerWidget {
           children: [
             Flexible(
               child: Container(
-                width: 1000,
+                width: 800,
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -120,17 +117,6 @@ class TableWorkUnitWidget extends ConsumerWidget {
                   headerBuilder: (data) {
                     if (data is Widget) {
                       return data;
-                    }
-                    if (data == 'STATUS' || data == 'AKSI') {
-                      return Center(
-                        child: Text(
-                          data,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.onSurface,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      );
                     }
                     return Text(
                       '$data',

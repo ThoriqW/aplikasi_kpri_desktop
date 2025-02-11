@@ -410,52 +410,52 @@ class TableSimpananWidget extends ConsumerWidget {
                     ),
                   )
                 : '',
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(2),
-                  child: IconButton(
-                    onPressed: () {
-                      ref
-                          .watch(dataTransferMemberSavingsNotifierProvider
-                              .notifier)
-                          .setData(
-                            entry['member_profile_id'],
-                            entry['nama_lengkap'].toString(),
-                            entry['work_unit_id'],
-                            entry['work_unit'].toString(),
-                            entry['tahun'],
-                          );
-                      ref
-                          .watch(
-                            savingModeNotifierProvider.notifier,
-                          )
-                          .switchToTransferMember();
-                    },
-                    icon: const Icon(
-                      Icons.move_up,
-                      size: 18,
-                      color: GlobalColors.primary,
-                    ),
-                  ),
-                ),
-                DeleteMemberSavingWidget(
-                  tahun: tahun,
-                  workUnitId: workUnitId,
-                  currentPage: currentPage,
-                  perPage: perPage,
-                  searchQuery: searchQuery,
-                  memberId: entry['member_profile_id'].toString(),
-                  tahunSaving: entry['tahun'].toString(),
-                )
-              ],
-            ),
           ];
         }).toList();
 
-        final fixedColCells =
-            savings.map((entry) => entry["nama_lengkap"].toString()).toList();
+        final fixedColCells = savings.map((entry) {
+          return Row(
+            children: [
+              DeleteMemberSavingWidget(
+                tahun: tahun,
+                workUnitId: workUnitId,
+                currentPage: currentPage,
+                perPage: perPage,
+                searchQuery: searchQuery,
+                memberId: entry['member_profile_id'].toString(),
+                tahunSaving: entry['tahun'].toString(),
+              ),
+              Container(
+                padding: const EdgeInsets.all(2),
+                child: IconButton(
+                  onPressed: () {
+                    ref
+                        .watch(
+                            dataTransferMemberSavingsNotifierProvider.notifier)
+                        .setData(
+                          entry['member_profile_id'],
+                          entry['nama_lengkap'].toString(),
+                          entry['work_unit_id'],
+                          entry['work_unit'].toString(),
+                          entry['tahun'],
+                        );
+                    ref
+                        .watch(
+                          savingModeNotifierProvider.notifier,
+                        )
+                        .switchToTransferMember();
+                  },
+                  icon: const Icon(
+                    Icons.move_up,
+                    size: 18,
+                    color: GlobalColors.primary,
+                  ),
+                ),
+              ),
+              Flexible(child: Text(entry["nama_lengkap"].toString())),
+            ],
+          );
+        }).toList();
 
         final bulanSavings = bulan.map<Widget>((b) {
           return Column(
@@ -672,7 +672,6 @@ class TableSimpananWidget extends ConsumerWidget {
           'TOTAL SUKA RELA',
           'TOTAL DANA SOSIAL',
           'TOTAL SIMPANAN',
-          "AKSI",
         ];
 
         Future.microtask(() {
@@ -759,7 +758,7 @@ class TableSimpananWidget extends ConsumerWidget {
                   fixedColCells: fixedColCells,
                   fixedRowCells: fixedRowCells,
                   cellHeightWidget: 65,
-                  cellWidthWidget: 410,
+                  cellWidthWidget: 250,
                   cellBuilder: (data) {
                     if (data is Widget) {
                       return data;
@@ -769,17 +768,6 @@ class TableSimpananWidget extends ConsumerWidget {
                   headerBuilder: (data) {
                     if (data is Widget) {
                       return data;
-                    }
-                    if (data == 'STATUS' || data == 'AKSI') {
-                      return Center(
-                        child: Text(
-                          data,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.onSurface,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      );
                     }
                     return Text(
                       '$data',

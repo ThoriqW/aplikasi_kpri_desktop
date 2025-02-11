@@ -142,6 +142,7 @@ class _FixedSettingWidgetState extends ConsumerState<FixedSettingWidget> {
           namaController.clear();
           nilaiController.clear();
           deskripsiController.clear();
+          ref.invalidate(getAllFixedSettingProvider);
         });
       } else if (createFixedSetting is ErrorResponse) {
         await showDialog(

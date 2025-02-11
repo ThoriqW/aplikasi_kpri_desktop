@@ -74,39 +74,34 @@ class TableMemberWidget extends ConsumerWidget {
                       ),
                     ),
                   ],
-                  ...[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(2),
-                          child: IconButton(
-                            onPressed: () {
-                              ref
-                                  .watch(idMemberNotifierProvider.notifier)
-                                  .setId(entry['id']);
-                              ref
-                                  .watch(
-                                    memberModeNotifierProvider.notifier,
-                                  )
-                                  .switchToUpdateUser();
-                            },
-                            icon: const Icon(
-                              Icons.edit,
-                              size: 18,
-                              color: GlobalColors.primary,
-                            ),
-                          ),
-                        ),
-                        DeleteMemberWidget(id: entry['id'].toString())
-                      ],
-                    ),
-                  ],
                 ])
             .toList();
 
-        final fixedColCells =
-            members.map((entry) => entry["nama_lengkap"].toString()).toList();
+        final fixedColCells = members.map((entry) {
+          return Row(
+            children: [
+              DeleteMemberWidget(id: entry['id'].toString()),
+              IconButton(
+                onPressed: () {
+                  ref
+                      .watch(idMemberNotifierProvider.notifier)
+                      .setId(entry['id']);
+                  ref
+                      .watch(
+                        memberModeNotifierProvider.notifier,
+                      )
+                      .switchToUpdateUser();
+                },
+                icon: const Icon(
+                  Icons.edit,
+                  size: 18,
+                  color: GlobalColors.primary,
+                ),
+              ),
+              Flexible(child: Text(entry["nama_lengkap"].toString()))
+            ],
+          );
+        }).toList();
 
         final fixedRowCells = [
           "UNIT KERJA",
@@ -118,7 +113,6 @@ class TableMemberWidget extends ConsumerWidget {
           'JENIS KELAMIN',
           'NIK',
           'STATUS',
-          'AKSI',
         ];
 
         Future.microtask(() {
@@ -143,7 +137,7 @@ class TableMemberWidget extends ConsumerWidget {
                   rowsCells: rowsCells,
                   fixedColCells: fixedColCells,
                   fixedRowCells: fixedRowCells,
-                  cellWidthWidget: 90,
+                  cellWidthWidget: 250,
                   cellBuilder: (data) {
                     if (data is Widget) {
                       return data;
@@ -154,7 +148,7 @@ class TableMemberWidget extends ConsumerWidget {
                     if (data is Widget) {
                       return data;
                     }
-                    if (data == 'STATUS' || data == 'AKSI') {
+                    if (data == 'STATUS') {
                       return Center(
                         child: Text(
                           data,

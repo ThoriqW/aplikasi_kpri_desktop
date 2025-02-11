@@ -6,7 +6,6 @@ import 'package:aplikasi_kpri_desktop/widgets/tagihan/bottom_navigation_tagihan_
 import 'package:aplikasi_kpri_desktop/widgets/tagihan/data_tagihan_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/tagihan/edit_data_tagihan_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/tagihan/transfer_member_tagihan_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/tagihan/setoran_member_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/tagihan/update_tagihan_member_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,9 +30,6 @@ class TagihanWidget extends ConsumerWidget {
         break;
       case TagihanMode.updateTagihanMember:
         tagiahnContent = const UpdateTagihanMemberWidget();
-        break;
-      case TagihanMode.setoranMember:
-        tagiahnContent = const SetoranMemberWidget();
         break;
     }
     return Column(

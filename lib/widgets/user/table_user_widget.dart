@@ -47,45 +47,42 @@ class TableUserWidget extends ConsumerWidget {
                   entry["id"],
                   entry["username"],
                   entry["role"],
-                  ...[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(2),
-                          child: IconButton(
-                            onPressed: () {
-                              ref
-                                  .watch(idUserNotifierProvider.notifier)
-                                  .setId(entry['id']);
-                              ref
-                                  .watch(
-                                    adminModeNotifierProvider.notifier,
-                                  )
-                                  .switchToEditUser();
-                            },
-                            icon: const Icon(
-                              Icons.edit,
-                              size: 18,
-                              color: GlobalColors.primary,
-                            ),
-                          ),
-                        ),
-                        DeleteUserWidget(id: entry['id'].toString())
-                      ],
-                    ),
-                  ],
                 ])
             .toList();
 
-        final fixedColCells =
-            users.map((entry) => entry["nama_lengkap"].toString()).toList();
+        final fixedColCells = users.map((entry) {
+          return Row(
+            children: [
+              DeleteUserWidget(id: entry['id'].toString()),
+              Container(
+                padding: const EdgeInsets.all(2),
+                child: IconButton(
+                  onPressed: () {
+                    ref
+                        .watch(idUserNotifierProvider.notifier)
+                        .setId(entry['id']);
+                    ref
+                        .watch(
+                          adminModeNotifierProvider.notifier,
+                        )
+                        .switchToEditUser();
+                  },
+                  icon: const Icon(
+                    Icons.edit,
+                    size: 18,
+                    color: GlobalColors.primary,
+                  ),
+                ),
+              ),
+              Flexible(child: Text(entry["nama_lengkap"].toString())),
+            ],
+          );
+        }).toList();
 
         final fixedRowCells = [
           "ID",
           "USERNAME",
           "ROLE",
-          'AKSI',
         ];
 
         Future.microtask(() {
@@ -100,7 +97,7 @@ class TableUserWidget extends ConsumerWidget {
             Flexible(
               child: Container(
                 padding: const EdgeInsets.all(10),
-                width: 1000,
+                width: 800,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Theme.of(context).colorScheme.surfaceDim,
@@ -112,7 +109,7 @@ class TableUserWidget extends ConsumerWidget {
                   fixedColCells: fixedColCells,
                   fixedRowCells: fixedRowCells,
                   cellHeight: 40,
-                  cellWidth: 250,
+                  cellWidth: 200,
                   cellBuilder: (data) {
                     if (data is Widget) {
                       return data;
@@ -122,17 +119,6 @@ class TableUserWidget extends ConsumerWidget {
                   headerBuilder: (data) {
                     if (data is Widget) {
                       return data;
-                    }
-                    if (data == 'STATUS' || data == 'AKSI') {
-                      return Center(
-                        child: Text(
-                          data,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.onSurface,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      );
                     }
                     return Text(
                       '$data',
