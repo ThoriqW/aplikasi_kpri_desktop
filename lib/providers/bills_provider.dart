@@ -424,3 +424,29 @@ class EditTagihanNotifier extends _$EditTagihanNotifier {
     state = {};
   }
 }
+
+@riverpod
+class CalculatePokokNotifier extends _$CalculatePokokNotifier {
+  @override
+  double build() => 0.0;
+
+  void calculatePokok([
+    double jumlahPinjaman = 0.0,
+    double jangkaWaktu = 0.0,
+  ]) {
+    state = jumlahPinjaman / jangkaWaktu;
+  }
+}
+
+@riverpod
+class CalculateBungaNotifier extends _$CalculateBungaNotifier {
+  @override
+  double build() => 0.0;
+
+  void calculateBunga(
+    double jumlahPinjaman,
+    double sukuBunga,
+  ) {
+    state = jumlahPinjaman / sukuBunga;
+  }
+}

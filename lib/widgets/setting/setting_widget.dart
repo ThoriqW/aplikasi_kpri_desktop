@@ -2,7 +2,7 @@ import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/admin_provider.dart';
 import 'package:aplikasi_kpri_desktop/providers/setting_provider.dart';
 import 'package:aplikasi_kpri_desktop/widgets/setting/fixed_setting.dart';
-import 'package:aplikasi_kpri_desktop/widgets/setting/updateFixedSetting.dart';
+import 'package:aplikasi_kpri_desktop/widgets/setting/update_fixed_setting.dart';
 import 'package:aplikasi_kpri_desktop/widgets/user/update_current_user_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/custom_card_widget.dart';
 import 'package:aplikasi_kpri_desktop/widgets/header_widget.dart';
@@ -62,7 +62,7 @@ class SettingWidget extends ConsumerWidget {
         bodyContent = home;
         break;
       case SettingMode.editFixedSetting:
-        bodyContent = UpdateFixedSettingWidget();
+        bodyContent = const UpdateFixedSettingWidget();
         break;
     }
     return Column(

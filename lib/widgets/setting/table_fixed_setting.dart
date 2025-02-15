@@ -2,7 +2,7 @@ import 'package:aplikasi_kpri_desktop/const/global_colors.dart';
 import 'package:aplikasi_kpri_desktop/providers/setting_provider.dart';
 import 'package:aplikasi_kpri_desktop/utils/error_response.dart';
 import 'package:aplikasi_kpri_desktop/widgets/cutom_table_widget.dart';
-import 'package:aplikasi_kpri_desktop/widgets/setting/deleteFixedSetting.dart';
+import 'package:aplikasi_kpri_desktop/widgets/setting/delete_fixed_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

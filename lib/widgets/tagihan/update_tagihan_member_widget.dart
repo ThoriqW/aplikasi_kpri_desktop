@@ -53,10 +53,18 @@ class _UpdateTagihanMemberWidgetState
   final TextEditingController keteranganController = TextEditingController();
   bool _isLoading = false;
   bool isInitialized = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final dataTagihanMember =
         ref.watch(dataMemberTagihanNotifierProvider.notifier).getData();
+    ref.watch(calculatePokokNotifierProvider);
+    ref.watch(calculateBungaNotifierProvider);
 
     if (!isInitialized) {
       idMemberController.text =
@@ -184,8 +192,9 @@ class _UpdateTagihanMemberWidgetState
                                   ),
                                   const SizedBox(height: 5),
                                   TextFormWidget(
-                                      controller: simpananPokokController,
-                                      text: ""),
+                                    controller: simpananPokokController,
+                                    text: "",
+                                  ),
                                 ],
                               ),
                             ),
@@ -340,8 +349,23 @@ class _UpdateTagihanMemberWidgetState
                                   ),
                                   const SizedBox(height: 5),
                                   TextFormWidget(
-                                      controller: jangkaWaktuController,
-                                      text: ""),
+                                    controller: jangkaWaktuController,
+                                    text: "",
+                                    onChanged: (value) {
+                                      ref
+                                          .watch(calculatePokokNotifierProvider
+                                              .notifier)
+                                          .calculatePokok(
+                                              double.tryParse(
+                                                      jmlPinjamanController
+                                                          .text) ??
+                                                  0,
+                                              double.tryParse(value) ?? 1);
+                                      pokokController.text = (ref
+                                          .watch(calculatePokokNotifierProvider)
+                                          .toString());
+                                    },
+                                  ),
                                 ],
                               ),
                             ),
@@ -365,8 +389,9 @@ class _UpdateTagihanMemberWidgetState
                                   ),
                                   const SizedBox(height: 5),
                                   TextFormWidget(
-                                      controller: jangkaWaktuKeController,
-                                      text: ""),
+                                    controller: jangkaWaktuKeController,
+                                    text: "",
+                                  ),
                                 ],
                               ),
                             ),
@@ -388,6 +413,21 @@ class _UpdateTagihanMemberWidgetState
                                   TextFormWidget(
                                     controller: jmlPinjamanController,
                                     text: "",
+                                    onChanged: (value) {
+                                      ref
+                                          .watch(calculatePokokNotifierProvider
+                                              .notifier)
+                                          .calculatePokok(
+                                            double.tryParse(value) ?? 0,
+                                            double.tryParse(
+                                                    jangkaWaktuController
+                                                        .text) ??
+                                                1,
+                                          );
+                                      pokokController.text = (ref
+                                          .watch(calculatePokokNotifierProvider)
+                                          .toString());
+                                    },
                                   ),
                                 ],
                               ),

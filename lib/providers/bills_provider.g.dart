@@ -1332,5 +1332,39 @@ final editTagihanNotifierProvider = AutoDisposeNotifierProvider<
 );
 
 typedef _$EditTagihanNotifier = AutoDisposeNotifier<Map<String, dynamic>>;
+String _$calculatePokokNotifierHash() =>
+    r'a96ec924452fbdc22616de04ef1232034a967ecc';
+
+/// See also [CalculatePokokNotifier].
+@ProviderFor(CalculatePokokNotifier)
+final calculatePokokNotifierProvider =
+    AutoDisposeNotifierProvider<CalculatePokokNotifier, double>.internal(
+  CalculatePokokNotifier.new,
+  name: r'calculatePokokNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$calculatePokokNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$CalculatePokokNotifier = AutoDisposeNotifier<double>;
+String _$calculateBungaNotifierHash() =>
+    r'5ea6448cd165dabb1e3e4568ea81685b806f3798';
+
+/// See also [CalculateBungaNotifier].
+@ProviderFor(CalculateBungaNotifier)
+final calculateBungaNotifierProvider =
+    AutoDisposeNotifierProvider<CalculateBungaNotifier, double>.internal(
+  CalculateBungaNotifier.new,
+  name: r'calculateBungaNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$calculateBungaNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$CalculateBungaNotifier = AutoDisposeNotifier<double>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

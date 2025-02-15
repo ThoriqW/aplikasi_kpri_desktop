@@ -9,6 +9,7 @@ class TextFormWidget extends StatelessWidget {
     this.icons,
     this.isPassword = false,
     this.isIconActive = false,
+    this.onChanged,
   });
 
   final TextEditingController controller;
@@ -17,6 +18,7 @@ class TextFormWidget extends StatelessWidget {
   final IconData? icons;
   final bool isPassword;
   final bool isIconActive;
+  final ValueChanged<String>? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class TextFormWidget extends StatelessWidget {
       controller: controller,
       keyboardType: TextInputType.text,
       obscureText: isPassword ? true : false,
+      onChanged: onChanged,
       enabled: isEnabled,
       decoration: InputDecoration(
         filled: true,
