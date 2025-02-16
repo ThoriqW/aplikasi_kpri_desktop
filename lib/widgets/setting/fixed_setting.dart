@@ -106,7 +106,7 @@ class _FixedSettingWidgetState extends ConsumerState<FixedSettingWidget> {
           ),
           const SizedBox(height: 20),
           SizedBox(
-            height: 500,
+            height: 400,
             child: TableFixedSettingWidget(
               searchQuery: searchFixedSetting['searchQuery'],
               perPage: searchFixedSetting['perPage'],

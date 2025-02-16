@@ -13,7 +13,7 @@ class DataWorkUnitsWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searchCriteriaWorkUnit = ref.watch(searchWorkUnitProvider);
     return SizedBox(
-      height: 500,
+      height: 450,
       child: CustomCardWidget(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

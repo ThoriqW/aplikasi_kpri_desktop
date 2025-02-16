@@ -13,7 +13,7 @@ class DataUserWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searchCriteriaUsers = ref.watch(searchUsersProvider);
     return SizedBox(
-      height: 500,
+      height: 450,
       child: CustomCardWidget(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

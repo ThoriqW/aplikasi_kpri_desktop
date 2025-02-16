@@ -137,7 +137,8 @@ class TableMemberWidget extends ConsumerWidget {
                   rowsCells: rowsCells,
                   fixedColCells: fixedColCells,
                   fixedRowCells: fixedRowCells,
-                  cellWidthWidget: 250,
+                  cellWidthWidget: 100,
+                  cellWidthFixCol: 250,
                   cellBuilder: (data) {
                     if (data is Widget) {
                       return data;

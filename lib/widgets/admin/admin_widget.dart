@@ -46,7 +46,6 @@ class AdminWidget extends ConsumerWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     DataUserWidget(),
-                    SizedBox(height: 10),
                     DataWorkUnitsWidget(),
                   ],
                 ),

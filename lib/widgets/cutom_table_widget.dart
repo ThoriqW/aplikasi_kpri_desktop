@@ -10,6 +10,7 @@ class CustomDataTable<T> extends StatefulWidget {
   final double fixedColWidth;
   final double cellWidth;
   final double cellWidthWidget;
+  final double cellWidthFixCol;
   final double cellHeightWidget;
   final double cellHeight;
   final double cellMargin;
@@ -29,6 +30,7 @@ class CustomDataTable<T> extends StatefulWidget {
     this.cellMargin = 10.0,
     this.cellSpacing = 10.0,
     this.cellWidthWidget = 150.0,
+    this.cellWidthFixCol = 150.0,
     this.cellHeightWidget = 56.0,
   });
 
@@ -59,9 +61,9 @@ class CustomDataTableState<T> extends State<CustomDataTable<T>> {
             columns: [
               DataColumn(
                   label: _buildChild(
-                      widget.cellWidthWidget == 150
+                      widget.cellWidthFixCol == 150
                           ? widget.cellWidth
-                          : widget.cellWidthWidget,
+                          : widget.cellWidthFixCol,
                       widget.fixedColCells.first))
             ],
             rows: widget.fixedColCells
@@ -72,9 +74,9 @@ class CustomDataTableState<T> extends State<CustomDataTable<T>> {
                   cells: [
                     DataCell(
                       _buildChild(
-                          widget.cellWidthWidget == 150
+                          widget.cellWidthFixCol == 150
                               ? widget.cellWidth
-                              : widget.cellWidthWidget,
+                              : widget.cellWidthFixCol,
                           c),
                     )
                   ],
@@ -173,9 +175,9 @@ class CustomDataTableState<T> extends State<CustomDataTable<T>> {
                 columns: [
                   DataColumn(
                     label: _buildHeader(
-                      widget.cellWidthWidget == 150
+                      widget.cellWidthFixCol == 150
                           ? widget.cellWidth
-                          : widget.cellWidthWidget,
+                          : widget.cellWidthFixCol,
                       widget.fixedCornerCell,
                     ),
                   ),

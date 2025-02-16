@@ -424,7 +424,8 @@ class TableTagihanWidget extends ConsumerWidget {
                   rowsCells: rowsCells,
                   fixedColCells: fixedColCells,
                   fixedRowCells: fixedRowCells,
-                  cellWidth: 300,
+                  cellWidthFixCol: 300,
+                  cellWidth: 250,
                   cellBuilder: (data) {
                     if (data is Widget) {
                       return data;

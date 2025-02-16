@@ -758,7 +758,8 @@ class TableSimpananWidget extends ConsumerWidget {
                   fixedColCells: fixedColCells,
                   fixedRowCells: fixedRowCells,
                   cellHeightWidget: 65,
-                  cellWidthWidget: 250,
+                  cellWidthWidget: 450,
+                  cellWidthFixCol: 250,
                   cellBuilder: (data) {
                     if (data is Widget) {
                       return data;
