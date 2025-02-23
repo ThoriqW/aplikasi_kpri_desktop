@@ -26,94 +26,100 @@ class _FixedSettingWidgetState extends ConsumerState<FixedSettingWidget> {
   Widget build(BuildContext context) {
     final searchFixedSetting = ref.watch(searchFixedSettingProvider);
     return CustomCardWidget(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 20),
-          const Text(
-            "Fixed Setting",
-            style: TextStyle(
-              color: GlobalColors.primary,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.4,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 20),
+            const Text(
+              "Fixed Setting",
+              style: TextStyle(
+                color: GlobalColors.primary,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Nama",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimaryContainer,
-                        fontWeight: FontWeight.bold,
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Nama",
+                        style: TextStyle(
+                          color:
+                              Theme.of(context).colorScheme.onPrimaryContainer,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 5),
-                    TextFormWidget(controller: namaController, text: ""),
-                  ],
+                      const SizedBox(height: 5),
+                      TextFormWidget(controller: namaController, text: ""),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Nilai",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimaryContainer,
-                        fontWeight: FontWeight.bold,
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Nilai",
+                        style: TextStyle(
+                          color:
+                              Theme.of(context).colorScheme.onPrimaryContainer,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 5),
-                    TextFormWidget(controller: nilaiController, text: ""),
-                  ],
+                      const SizedBox(height: 5),
+                      TextFormWidget(controller: nilaiController, text: ""),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Deskripsi",
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimaryContainer,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    TextFormWidget(controller: deskripsiController, text: ""),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          ButtonWidget(
-            text: _isLoading ? "Loading..." : "Simpan",
-            onTap: () async {
-              _createFixedSetting();
-            },
-          ),
-          const SizedBox(height: 20),
-          SizedBox(
-            height: 400,
-            child: TableFixedSettingWidget(
-              searchQuery: searchFixedSetting['searchQuery'],
-              perPage: searchFixedSetting['perPage'],
-              currentPage: searchFixedSetting['currentPage'],
+              ],
             ),
-          )
-        ],
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Deskripsi",
+                        style: TextStyle(
+                          color:
+                              Theme.of(context).colorScheme.onPrimaryContainer,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      TextFormWidget(controller: deskripsiController, text: ""),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            ButtonWidget(
+              text: _isLoading ? "Loading..." : "Simpan",
+              onTap: () async {
+                _createFixedSetting();
+              },
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              height: 400,
+              child: TableFixedSettingWidget(
+                searchQuery: searchFixedSetting['searchQuery'],
+                perPage: searchFixedSetting['perPage'],
+                currentPage: searchFixedSetting['currentPage'],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

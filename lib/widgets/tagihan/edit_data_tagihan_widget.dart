@@ -20,7 +20,6 @@ class _EditDataTagihanWidgetState extends ConsumerState<EditDataTagihanWidget> {
     final editDataTagihan =
         ref.watch(editTagihanNotifierProvider.notifier).getEditDataTagihan();
     return CustomCardWidget(
-      color: GlobalColors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
